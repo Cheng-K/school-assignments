@@ -95,6 +95,11 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\textFiles" />
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp" />
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.company" />
     </key>
@@ -110,6 +115,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
