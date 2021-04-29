@@ -1,8 +1,22 @@
 package com.company;
 
+import java.io.File;
+
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
+//        File subdir = new File("textFiles","test.txt");
+//        System.out.println(subdir.isDirectory());
+
+//        String[] arr = FileServer.readFile("","Admin.txt");
+//        System.out.println(arr.length);
+//        for (String string : arr){
+//            System.out.println(string);
+//        }
+//    }
+//        FileServer.appendFile("", "Admin.txt", "D*cK\n");
+//        for (String str : FileServer.readFile("","Admin.txt")){
+//            System.out.println(str);
+//        }
     }
 }

@@ -82,7 +82,27 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="false" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="359" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="425" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/company" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\textFiles" />
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp" />
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.company" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
@@ -95,6 +115,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -108,6 +133,7 @@
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
+
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
