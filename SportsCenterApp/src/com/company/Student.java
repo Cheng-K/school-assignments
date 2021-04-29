@@ -1,12 +1,12 @@
 package com.company;
 
 public class Student {
-    String name;
-    String studentID;
-    int age;
-    String address;
-    int contactNumber;
-    String email;
-    String registeredSports;
-    String sportsCenterID;
+    private String name;
+    private String studentID;
+    private int age;
+    private String address;
+    private int contactNumber;
+    private String email;
+    private String registeredSports;
+    private String sportsCenterID;
 }

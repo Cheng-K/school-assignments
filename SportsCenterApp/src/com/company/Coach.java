@@ -1,14 +1,14 @@
 package com.company;
 
 public class Coach {
-    String coachID;
-    String name;
-    String dateJoined;
-    String dateTerminated;
-    int hourlyRate;
-    int phone;
-    String address;
-    String sportsCenterID;
-    String sportsCode;
-    int rating;
+    private String coachID;
+    private String name;
+    private String dateJoined;
+    private String dateTerminated;
+    private int hourlyRate;
+    private int phone;
+    private String address;
+    private String sportsCenterID;
+    private String sportsCode;
+    private int rating;
 }
