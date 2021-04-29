@@ -3,6 +3,7 @@ package com.company;
 import javax.swing.*;
 
 public class StudentMenu {
+    private JFrame frame;
     private JLabel welcomeHeading;
     private JButton viewSportsDetailsButton;
     private JButton personalProfileButton;
@@ -13,7 +14,17 @@ public class StudentMenu {
     private JButton signOutButton;
     // private Student studentA ;
 
-    private void createUIComponents() {
-        // TODO: place custom component creation code here
+    /*  Description : Constructor that creates studentMenu frame
+        Parameter   : Student object (current user)
+        Output      : Menu Screen
+     */
+    public StudentMenu (/*Student studentA*/){
+        frame = new JFrame("Main Menu");
+        frame.setContentPane(studentMenuPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+
     }
+
 }
