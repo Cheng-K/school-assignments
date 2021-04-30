@@ -5,6 +5,7 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) {
+        // TEST FOR FILE SERVER
 //        File subdir = new File("textFiles","test.txt");
 //        System.out.println(subdir.isDirectory());
 
@@ -18,5 +19,19 @@ public class Main {
 //        for (String str : FileServer.readFile("","Admin.txt")){
 //            System.out.println(str);
 //        }
+
+        // TEST FOR ADMIN LOGIN
+        SportCenter admin1 = new SportCenter("Jack","bruh");
+
+
+
+
+
+
+
+
+
+
+
     }
 }
