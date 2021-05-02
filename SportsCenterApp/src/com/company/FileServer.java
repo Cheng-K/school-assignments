@@ -1,11 +1,15 @@
 package com.company;
 import java.io.*;
 
+/*
+    Description : FileServer class is responsible for fileIO operations. Class should be used without instantiation.
+ */
 public class FileServer {
+
     /*
-
+        Function Name : readFile
+        Return : Array of strings that represents each line in the file.
      */
-
     public static String[] readFile (String subDirectory, String fileName){
         String fileContent = "";
         File file = null;
@@ -27,9 +31,14 @@ public class FileServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return fileContent.split("\n");
+        return fileContent.split("\\r?\\n");
     }
 
+    /*
+        Function Name : writeFile
+        Return : 0 represents write to file is successful
+                 1 represents write to file is unsuccessful
+     */
     public static int writeFile (String subDirectory, String fileName, String fileContent){
         File file = null;
         if (subDirectory.isEmpty()) {
@@ -50,6 +59,11 @@ public class FileServer {
         return 1;
     }
 
+    /*
+        Function Name : appendFile
+        Return        : 0 represents append to file is successful
+                        1 represents append to file is unsuccessful
+     */
     public static int appendFile (String subDirectory, String fileName, String fileContent){
         File file = null;
         if (subDirectory.isEmpty()) {
