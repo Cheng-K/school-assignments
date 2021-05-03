@@ -1,0 +1,106 @@
+Index: src/com/company/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company;\r\n\r\nimport java.io.File;\r\n\r\npublic class Main {\r\n\r\n    public static void main(String[] args) {\r\n        // TEST FOR FILE SERVER\r\n//        File subdir = new File(\"textFiles\",\"test.txt\");\r\n//        System.out.println(subdir.isDirectory());\r\n\r\n//        String[] arr = FileServer.readFile(\"\",\"Admin.txt\");\r\n//        System.out.println(arr.length);\r\n//        for (String string : arr){\r\n//            System.out.println(string);\r\n//        }\r\n//    }\r\n//        FileServer.appendFile(\"\", \"Admin.txt\", \"D*cK\\n\");\r\n//        for (String str : FileServer.readFile(\"\",\"Admin.txt\")){\r\n//            System.out.println(str);\r\n//        }\r\n\r\n        // TEST FOR ADMIN LOGIN\r\n        SportCenter admin1 = new SportCenter(\"Jack\",\"bruh\");\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/Main.java b/src/com/company/Main.java
+--- a/src/com/company/Main.java	(revision 4ae12a7bc0d590952de01cc0a5093eb963f20a02)
++++ b/src/com/company/Main.java	(date 1619792391708)
+@@ -23,15 +23,5 @@
+         // TEST FOR ADMIN LOGIN
+         SportCenter admin1 = new SportCenter("Jack","bruh");
+ 
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+     }
+ }
+Index: src/com/company/LoginScreen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company;\r\n\r\nimport javax.swing.*;\r\nimport java.awt.*;\r\nimport java.awt.event.ActionEvent;\r\nimport java.awt.event.ActionListener;\r\nimport java.awt.event.ItemEvent;\r\nimport java.awt.event.ItemListener;\r\nimport java.io.Console;\r\nimport java.sql.Time;\r\nimport java.util.concurrent.TimeUnit;\r\n\r\npublic class LoginScreen extends JFrame {\r\n    private JPanel mainPanel;\r\n    private JLabel U_Label;\r\n    private JLabel P_Label;\r\n    private JPasswordField passwordField;\r\n    private JCheckBox studentBox;\r\n    private JCheckBox adminBox;\r\n    private JButton loginButton;\r\n    private JTextField usernameField;\r\n    private JCheckBox guestBox;\r\n    private JLabel errorMessage;\r\n\r\n    public LoginScreen(String title)\r\n    {\r\n        super(title);\r\n        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);\r\n        this.setContentPane(mainPanel);\r\n        this.pack();\r\n        errorMessage.setForeground(Color.RED);\r\n        studentBox.addItemListener(new ItemListener() {\r\n            @Override\r\n            public void itemStateChanged(ItemEvent e) {\r\n                if(e.getStateChange() == ItemEvent.SELECTED)\r\n                {\r\n                    adminBox.setSelected(false);\r\n                    guestBox.setSelected(false);\r\n\r\n                }            }});\r\n\r\n\r\n        adminBox.addItemListener(new ItemListener() {\r\n            @Override\r\n            public void itemStateChanged(ItemEvent e) {\r\n                if(e.getStateChange()==ItemEvent.SELECTED)\r\n                {\r\n                    studentBox.setSelected(false);\r\n                    guestBox.setSelected(false);\r\n                }\r\n            }\r\n        });\r\n        guestBox.addItemListener(new ItemListener() {\r\n            @Override\r\n            public void itemStateChanged(ItemEvent e) {\r\n                if(e.getStateChange()==ItemEvent.SELECTED)\r\n                {\r\n                    studentBox.setSelected(false);\r\n                    adminBox.setSelected(false);\r\n                }\r\n            }\r\n        });\r\n        loginButton.addActionListener(new ActionListener() {\r\n            @Override\r\n            public void actionPerformed(ActionEvent e) {\r\n                if (!(studentBox.isSelected() || adminBox.isSelected() || guestBox.isSelected())) {\r\n                    errorMessage.setText(\"Please select student, admin, or guest!\");\r\n                }\r\n                else if ((usernameField.getText().equals(\"\") || passwordField.getText().equals(\"\"))&& guestBox.isSelected()==false)\r\n                {\r\n                    errorMessage.setText(\"Please enter both username and password!\");\r\n                }\r\n\r\n\r\n                String username = usernameField.getText();\r\n                String password = passwordField.getText();\r\n                /*Enter file check code here*/\r\n\r\n            }\r\n        });\r\n    }\r\n\r\n\r\n    public static void main(String[] args) {\r\n        JFrame frame = new LoginScreen(\"Login\");\r\n        frame.setVisible(true);\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/LoginScreen.java b/src/com/company/LoginScreen.java
+--- a/src/com/company/LoginScreen.java	(revision 4ae12a7bc0d590952de01cc0a5093eb963f20a02)
++++ b/src/com/company/LoginScreen.java	(date 1619886251833)
+@@ -74,7 +74,11 @@
+ 
+                 String username = usernameField.getText();
+                 String password = passwordField.getText();
+-                /*Enter file check code here*/
++                if(adminBox.isSelected())
++                {
++                    Admin admin = Admin.adminLogin(username,password);
++                    System.out.println(admin.toString());
++                }
+ 
+             }
+         });
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"7cd31a72-447d-4382-8cfe-ce410de7b13c\" name=\"Default Changelist\" comment=\"\" />\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$/..\" />\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"1rFsCdZAkq3ItUASXbgE9emoUot\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\" />\r\n  <component name=\"ProjectView\">\r\n    <navigator currentView=\"ProjectPane\" proportions=\"\" version=\"1\" splitterProportion=\"0.5\">\r\n      <flattenPackages />\r\n      <showMembers />\r\n      <showModules />\r\n      <showLibraryContents />\r\n      <hideEmptyPackages />\r\n      <abbreviatePackageNames />\r\n      <autoscrollToSource />\r\n      <autoscrollFromSource />\r\n      <sortByType />\r\n    </navigator>\r\n    <panes>\r\n      <pane id=\"Scope\" />\r\n      <pane id=\"PackagesPane\" />\r\n      <pane id=\"ProjectPane\">\r\n        <subPane>\r\n          <PATH>\r\n            <PATH_ELEMENT>\r\n              <option name=\"myItemId\" value=\"untitled104\" />\r\n              <option name=\"myItemType\" value=\"com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode\" />\r\n            </PATH_ELEMENT>\r\n          </PATH>\r\n          <PATH>\r\n            <PATH_ELEMENT>\r\n              <option name=\"myItemId\" value=\"untitled104\" />\r\n              <option name=\"myItemType\" value=\"com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode\" />\r\n            </PATH_ELEMENT>\r\n            <PATH_ELEMENT>\r\n              <option name=\"myItemId\" value=\"untitled104\" />\r\n              <option name=\"myItemType\" value=\"com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode\" />\r\n            </PATH_ELEMENT>\r\n          </PATH>\r\n          <PATH>\r\n            <PATH_ELEMENT>\r\n              <option name=\"myItemId\" value=\"untitled104\" />\r\n              <option name=\"myItemType\" value=\"com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode\" />\r\n            </PATH_ELEMENT>\r\n            <PATH_ELEMENT>\r\n              <option name=\"myItemId\" value=\"untitled104\" />\r\n              <option name=\"myItemType\" value=\"com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode\" />\r\n            </PATH_ELEMENT>\r\n            <PATH_ELEMENT>\r\n              <option name=\"myItemId\" value=\"src\" />\r\n              <option name=\"myItemType\" value=\"com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode\" />\r\n            </PATH_ELEMENT>\r\n            <PATH_ELEMENT>\r\n              <option name=\"myItemId\" value=\"company\" />\r\n              <option name=\"myItemType\" value=\"com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode\" />\r\n            </PATH_ELEMENT>\r\n          </PATH>\r\n        </subPane>\r\n      </pane>\r\n    </panes>\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"autoscrollFromSource\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW\" value=\"false\" />\r\n    <property name=\"UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH\" value=\"359\" />\r\n    <property name=\"UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW\" value=\"true\" />\r\n    <property name=\"UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH\" value=\"425\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$\" />\r\n    <property name=\"project.structure.last.edited\" value=\"Project\" />\r\n    <property name=\"project.structure.proportion\" value=\"0.0\" />\r\n    <property name=\"project.structure.side.proportion\" value=\"0.0\" />\r\n  </component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CopyFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\School Materials\\Year 2\\Object Oriented Design Java\\Assignment\\OODJ-SportCenterApp\\SportsCenterApp\\src\\com\\company\" />\r\n    </key>\r\n    <key name=\"MoveFile.RECENT_KEYS\">\r\n      <recent name=\"D:\\School Materials\\Year 2\\Object Oriented Design Java\\Assignment\\OODJ-SportCenterApp\\SportsCenterApp\\textFiles\" />\r\n      <recent name=\"D:\\School Materials\\Year 2\\Object Oriented Design Java\\Assignment\\OODJ-SportCenterApp\\SportsCenterApp\" />\r\n      <recent name=\"D:\\School Materials\\Year 2\\Object Oriented Design Java\\Assignment\\OODJ-SportCenterApp\\SportsCenterApp\\src\\com\\company\" />\r\n    </key>\r\n    <key name=\"CopyClassDialog.RECENTS_KEY\">\r\n      <recent name=\"com.company\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"Main\" type=\"Application\" factoryName=\"Application\" temporary=\"true\">\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"com.company.Main\" />\r\n      <module name=\"SportsCenterApp\" />\r\n      <option name=\"WORKING_DIRECTORY\" value=\"file://$PROJECT_DIR$\" />\r\n      <RunnerSettings RunnerId=\"Run\" />\r\n      <ConfigurationWrapper RunnerId=\"Run\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"Application.Main\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"7cd31a72-447d-4382-8cfe-ce410de7b13c\" name=\"Default Changelist\" comment=\"\" />\r\n      <created>1618583050446</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1618583050446</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"oldMeFiltersMigrated\" value=\"true\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 4ae12a7bc0d590952de01cc0a5093eb963f20a02)
++++ b/.idea/workspace.xml	(date 1619966237608)
+@@ -1,7 +1,15 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+   <component name="ChangeListManager">
+-    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="" />
++    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
++      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen$4.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/intellij/uiDesigner/core/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/intellij/uiDesigner/core/Util.class" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/com/company/LoginScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/LoginScreen.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
++    </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+@@ -104,7 +112,20 @@
+       <recent name="com.company" />
+     </key>
+   </component>
+-  <component name="RunManager">
++  <component name="RunManager" selected="Application.LoginScreen">
++    <configuration name="LoginScreen" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="com.company.LoginScreen" />
++      <module name="SportsCenterApp" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="com.company.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+       <option name="MAIN_CLASS_NAME" value="com.company.Main" />
+       <module name="SportsCenterApp" />
+@@ -117,6 +138,7 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.LoginScreen" />
+         <item itemvalue="Application.Main" />
+       </list>
+     </recent_temporary>

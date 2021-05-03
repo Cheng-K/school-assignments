@@ -1,0 +1,24 @@
+<changelist name="Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM_[Default_Changelist]" date="1619966322455" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 2/5/2021 10:38 PM [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/LoginScreen$4.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/LoginScreen$4.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM_[Default_Changelist]/LoginScreen$4.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/Main.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/Main.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM_[Default_Changelist]/Main.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/intellij/uiDesigner/core/Util.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/intellij/uiDesigner/core/Util.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM_[Default_Changelist]/Util.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/LoginScreen.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/LoginScreen.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM_[Default_Changelist]/LoginScreen.class" />
+  </binary>
+</changelist>
