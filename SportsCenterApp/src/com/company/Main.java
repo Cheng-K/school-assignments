@@ -22,8 +22,6 @@ public class Main {
 //        }
 
         // TEST FOR ADMIN LOGIN
-//        SportCenter admin1 = new SportCenter("Jack","bruh");
-//        System.out.println(admin1.getMasterAdmin());
 //        String[] content = FileServer.readFile("","Admin.txt");
 //        System.out.println(Arrays.toString(content));
         LoginScreen login = new LoginScreen();

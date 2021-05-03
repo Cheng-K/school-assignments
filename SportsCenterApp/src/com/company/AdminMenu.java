@@ -13,17 +13,20 @@ public class AdminMenu {
     private JLabel secondHeading;
     private JLabel welcomeHeading;
     private JPanel adminMenuPanel;
-    // private Admin admin (admin object)
+    private Admin admin;
 
     /*  Description : Constructor that creates studentMenu frame
         Parameter   : Admin object (current user)
         Output      : Menu Screen
     */
-    public AdminMenu (/*Admin admin*/){
+    public AdminMenu (Admin admin){
         frame = new JFrame("Main Menu");
+        welcomeHeading.setText("Welcome, Admin "+ admin.getID());
+        this.admin = admin;
         frame.setContentPane(adminMenuPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
     }
+
 }

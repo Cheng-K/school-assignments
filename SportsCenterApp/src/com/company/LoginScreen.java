@@ -65,19 +65,29 @@ public class LoginScreen {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
                 if (adminBox.isSelected()) {
-                    SportCenter admin = new SportCenter(username, password);
-                    if (admin.getMasterAdmin() == null) {
+                    Admin admin = Admin.adminLogin(username, password);
+                    if (admin == null) {
                         errorMessage.setText("Password or username entered is incorrect!");
                     } else {
-                        AdminMenu screenSwitch = new AdminMenu();
+                        AdminMenu screenSwitch = new AdminMenu(admin);
                         frame.setVisible(false);
                     }
 
                 } else if (studentBox.isSelected()) {
                     //Enter Student login here
+                    Student student = Student.studentLogin(username,password);
+                    if (student == null)
+                        errorMessage.setText("Password or username entered is incorrect!");
+                    else{
+                        StudentMenu screenSwitch = new StudentMenu(student);
+                        frame.setVisible(false);
+                    }
 
                 } else if (guestBox.isSelected()) {
                     //Enter guest login here
+                    BaseStudent guest = new UnregStudent();
+                    StudentMenu screenSwitch = new StudentMenu(guest);
+                    frame.setVisible(false);
                 } else if (!(studentBox.isSelected() || adminBox.isSelected() || guestBox.isSelected())) {
                     errorMessage.setText("Please select student, admin, or guest!");
                 } else if ((usernameField.getText().equals("") || passwordField.getText().equals("")) && guestBox.isSelected() == false) {

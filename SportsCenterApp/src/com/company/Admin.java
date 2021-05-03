@@ -9,20 +9,18 @@ public class Admin {
     private String ID;
     private String SportsCenterCode;
 
+    public Admin(String ID, String sportsCenterCode) {
+        this.ID = ID;
+        SportsCenterCode = sportsCenterCode;
+    }
 
-    public Admin (){}
 
     public static Admin adminLogin (String username, String password){
         String[] adminFileContent = FileServer.readFile("","Admin.txt");
         for (String line:adminFileContent){
-//            System.out.println(line);
             String[] tokens = line.split("\\|");
-//            for (String a:tokens)
-//                System.out.println(a);
-//
-//            System.out.println(tokens[0]);
             if (tokens[0].equals(username) && tokens[1].equals(password)) {
-                return new Admin();
+                return new Admin(tokens[2],tokens[3]);
             }
         }
         return null;

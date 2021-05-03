@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Student.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen$4.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/LoginScreen.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Student.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/intellij/uiDesigner/core/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/intellij/uiDesigner/core/Util.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/LoginScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/LoginScreen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Student.java" afterDir="false" />
-    </list>
+    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +90,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="false" />
+    <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="359" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="425" />
@@ -114,6 +100,9 @@
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.company" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company" />
     </key>

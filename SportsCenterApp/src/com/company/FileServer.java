@@ -7,7 +7,7 @@ import java.io.*;
 public class FileServer {
 
     /*
-        Function Name : readFile
+        Method Name : readFile
         Return : Array of strings that represents each line in the file.
      */
     public static String[] readFile (String subDirectory, String fileName){
@@ -35,7 +35,7 @@ public class FileServer {
     }
 
     /*
-        Function Name : writeFile
+        Method Name : writeFile
         Return : 0 represents write to file is successful
                  1 represents write to file is unsuccessful
      */
@@ -60,7 +60,7 @@ public class FileServer {
     }
 
     /*
-        Function Name : appendFile
+        Method Name : appendFile
         Return        : 0 represents append to file is successful
                         1 represents append to file is unsuccessful
      */
