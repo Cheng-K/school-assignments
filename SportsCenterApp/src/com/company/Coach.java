@@ -11,4 +11,11 @@ public class Coach {
     private String sportsCenterID;
     private String sportsCode;
     private int rating;
+
+    public Coach (String[] coachDetails){
+        coachID = coachDetails[0];
+        //...
+    }
+
+
 }

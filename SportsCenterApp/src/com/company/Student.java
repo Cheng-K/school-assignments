@@ -10,7 +10,8 @@ public class Student extends BaseStudent {
     private String registeredSports;
     private String sportsCenterCode;
 
-    public Student(String[] studentDetails) {
+
+    public Student(String[] studentDetails) { // change
         name = studentDetails[0];
         studentID = studentDetails[2];
         age = Integer.parseInt(studentDetails[3]);

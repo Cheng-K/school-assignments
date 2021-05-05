@@ -7,7 +7,6 @@ public class Main {
 
     public static void main(String[] args) {
         // TEST FOR FILE SERVER
-//        File subdir = new File("textFiles","test.txt");
 //        System.out.println(subdir.isDirectory());
 
 //        String[] arr = FileServer.readFile("","Admin.txt");

@@ -34,6 +34,11 @@ public class FileServer {
         return fileContent.split("\\r?\\n");
     }
 
+
+    public static String[] readFile (String fileName){
+        return readFile("",fileName);
+    }
+
     /*
         Method Name : writeFile
         Return : 0 represents write to file is successful
@@ -57,6 +62,10 @@ public class FileServer {
             e.printStackTrace();
         }
         return 1;
+    }
+
+    public static int writeFile (String fileName, String fileContent){
+        return writeFile("",fileName,fileContent);
     }
 
     /*
@@ -84,10 +93,8 @@ public class FileServer {
         return 1;
     }
 
-
-
-
-
-
+    public static int appendFile(String fileName,String fileContent){
+        return appendFile("",fileName,fileContent);
+    }
 
 }
