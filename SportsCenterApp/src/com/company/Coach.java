@@ -6,15 +6,32 @@ public class Coach {
     private String dateJoined;
     private String dateTerminated;
     private int hourlyRate;
-    private int phone;
+    private String phone;
     private String address;
     private String sportsCenterID;
     private String sportsCode;
-    private int rating;
+    private float rating;
 
-    public Coach (String[] coachDetails){
-        coachID = coachDetails[0];
-        //...
+    public Coach (String[] coachDetails){    // Issue : we might have store extra information in the coach.txt?
+        name = coachDetails[0];
+        coachID = coachDetails[1];
+        dateJoined = coachDetails[2];
+        if (coachDetails[3].equals("null"))
+            dateTerminated = null;
+        else
+            dateTerminated = coachDetails[3];
+        hourlyRate = Integer.parseInt(coachDetails[4]);
+        phone = coachDetails[5];
+        address = coachDetails[6];
+        sportsCenterID = coachDetails[7];
+        sportsCode = coachDetails[9];
+        rating = Float.parseFloat(coachDetails[11]);
+
+    }
+
+    @Override
+    public String toString () {
+        return coachID + "|" + name;
     }
 
 

@@ -1,0 +1,3 @@
+Badminton|B001
+Swimming|B002
+Football|B003

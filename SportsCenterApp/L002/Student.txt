@@ -1,0 +1,4 @@
+Leela Garfield|S001|19|Sri Petaling|011123|garfield69@gmail.com|Badminton|L002
+Nathalie Henrietta|S002|22|Bukit Jalil|0111345|iloveyou520@gmail.com|Swimming|L002
+Darwin Liana|S003|19|Cheras|011123|coolmaster@gmail.com|Badminton|L002
+Merjem Octavia|S004|21|Cheras|0111345|octupus88@gmail.com|Football|L002

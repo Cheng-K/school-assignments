@@ -23,7 +23,11 @@ public class Main {
         // TEST FOR ADMIN LOGIN
 //        String[] content = FileServer.readFile("","Admin.txt");
 //        System.out.println(Arrays.toString(content));
-        LoginScreen login = new LoginScreen();
+//        LoginScreen login = new LoginScreen();
+
+        String[] coachContent = FileServer.readFile("L002","Coach.txt");
+        Coach mycoach = new Coach(coachContent[0].split("\\|"));
+        System.out.println(mycoach);
 
     }
 }
