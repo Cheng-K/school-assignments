@@ -29,7 +29,7 @@ public class Main {
 //        Coach mycoach = new Coach(coachContent[0].split("\\|"));
 //        System.out.println(mycoach);
 
-        Student A = new Student(new String[]{"Cheng Kei","","S001","19","KL","012-3345","adam@gmail.com","Badminton","L001"});
+        Student A = new Student(new String[]{"Cheng Kei","S001","19","KL","012-3345","adam@gmail.com","Badminton","L001"});
         new StudentProfile(A);
     }
 }

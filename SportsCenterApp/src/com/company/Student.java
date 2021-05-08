@@ -13,13 +13,13 @@ public class Student extends BaseStudent {
 
     public Student(String[] studentDetails) { // change
         name = studentDetails[0];
-        studentID = studentDetails[2];
-        age = Integer.parseInt(studentDetails[3]);
-        address = studentDetails[4];
-        contactNumber = studentDetails[5];
-        email = studentDetails[6];
-        registeredSports = studentDetails[7];
-        sportsCenterCode = studentDetails[8];
+        studentID = studentDetails[1];
+        age = Integer.parseInt(studentDetails[2]);
+        address = studentDetails[3];
+        contactNumber = studentDetails[4];
+        email = studentDetails[5];
+        registeredSports = studentDetails[6];
+        sportsCenterCode = studentDetails[7];
     }
 
     public static Student studentLogin (String username, String password){
