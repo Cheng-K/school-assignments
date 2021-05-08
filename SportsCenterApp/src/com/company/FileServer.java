@@ -97,4 +97,20 @@ public class FileServer {
         return appendFile("",fileName,fileContent);
     }
 
+
+    /*
+       Method name : findAndReplace
+       Parameter   : Array of strings (current file content), String to be replaced, New string value
+       Return      : Array of strings (new file content)
+     */
+    public static String[] findAndReplace (String[] fileContent, String oldString, String newString){
+        for (int index=0 ; index < fileContent.length;index++){
+            if (fileContent[index].trim().equals(oldString.trim())) {
+                fileContent[index] = newString;
+                break;
+            }
+        }
+        return fileContent;
+    }
+
 }

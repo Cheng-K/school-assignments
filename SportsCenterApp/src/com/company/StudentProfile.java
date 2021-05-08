@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/* Questions : Modifying password*/
+
 public class StudentProfile {
     private JFrame frame;
     private JPanel studentProfilePanel;
@@ -33,6 +35,10 @@ public class StudentProfile {
     private JPanel modifyDetailsPanel;
     private Student student;
 
+    /*
+        Class Description : Perform action when modify button is clicked such as hiding modify button, enabling edit, etc..
+
+     */
     private class modifyButtonListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -43,10 +49,34 @@ public class StudentProfile {
         }
     }
 
+    /* Class Description : Perform action when save details button is clicked such as :
+                            1. Updating the student information in the file
+                            2. Displaying success or failure message
+
+     */
+
     private class saveDetailsButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
-            //* code here*//
+            String[] fileContent = FileServer.readFile(student.getSportsCenterCode(),"Student.txt");
+            String oldDetails = student.toString();
+            updateStudentDetails();
+            String newDetails = student.toString();
+            String[] newFileContent = FileServer.findAndReplace(fileContent,oldDetails,newDetails);
+            int writeFailed = FileServer.writeFile(student.getSportsCenterCode(),"Student.txt",String.join("",newFileContent));
+
+            if (writeFailed == 1){
+                // display error message
+                JOptionPane.showMessageDialog(frame,"Cannot update your information. Contact your admin","Error",JOptionPane.ERROR_MESSAGE);
+            }else {
+                // display success message
+                JOptionPane.showMessageDialog(frame,"Update Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
+                // direct back to display profile menu
+                saveDetailsPanel.setVisible(false);
+                modifyDetailsPanel.setVisible(true);
+                setAllField();
+                setAllFieldDisabled();
+            }
         }
     }
 
@@ -55,14 +85,20 @@ public class StudentProfile {
         setAllField();
         setAllFieldDisabled();
         modifyDetailsButton.addActionListener(new modifyButtonListener());
+        saveDetailsButton.addActionListener (new saveDetailsButtonListener());
         frame = new JFrame("Personal Profile");
         frame.setContentPane(studentProfilePanel);
         saveDetailsPanel.setVisible(false);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
-
     }
+
+    /*
+        Method Name : setAllField
+        Parameter & Return  : Null
+        Description : Set all text field with student information
+     */
 
     private void setAllField (){
         nameField.setText(student.getName());
@@ -72,9 +108,15 @@ public class StudentProfile {
         addressField.setText(student.getAddress());
         phoneField.setText(student.getContactNumber());
         emailField.setText(student.getEmail());
-        //sportsEnrolledField.setText(student.getRegisteredSports());
+        sportsEnrolledField.setText(student.getRegisteredSports());
         sportsCenterField.setText(student.getSportsCenterCode());
     }
+
+    /*
+        Method Name : setAllFieldDisabled
+        Parameter & Return : Null
+        Description : Disable editing for all text fields
+     */
 
     private void setAllFieldDisabled() {
         nameField.setEditable(false);
@@ -88,6 +130,12 @@ public class StudentProfile {
         sportsCenterField.setEditable(false);
     }
 
+    /*
+       Method Name : enableEdit
+       Parameter & Return : Null
+       Description : Allow editing for some text fields
+     */
+
     private void enableEdit() {
         passwordField.setEditable(true);
         ageField.setEditable(true);
@@ -96,6 +144,25 @@ public class StudentProfile {
         emailField.setEditable(true);
         setTooltipText();
     }
+
+    /*
+        Method Name : updateStudentDetails
+        Parameter & Return : Null
+        Description : Update student attribute with edited information
+     */
+
+    private void updateStudentDetails () {
+        student.setAge(Integer.parseInt(ageField.getText()));
+        student.setAddress(addressField.getText());
+        student.setContactNumber(phoneField.getText());
+        student.setEmail(emailField.getText());
+    }
+
+    /*
+        Method Name : setTooltipText
+        Parameter & Return : Null
+        Description : Set tooltip text for uneditable text fields
+     */
 
     private void setTooltipText() {
         nameField.setToolTipText("Only admin has rights to change this field");
