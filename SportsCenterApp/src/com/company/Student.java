@@ -35,7 +35,7 @@ public class Student extends BaseStudent {
 
     @Override
     public String toString(){
-        return name +"|"+ studentID +"|" + age +"|"+ address + "|" + contactNumber + "|" + email + registeredSports + sportsCenterCode + "\n";
+        return name +"|"+ studentID +"|" + age +"|"+ address + "|" + contactNumber + "|" + email + "|"+ registeredSports +"|"+ sportsCenterCode;
     }
 
     public String getName() {
