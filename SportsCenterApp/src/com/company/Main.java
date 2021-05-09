@@ -6,6 +6,7 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
+        new LoginScreen();
         // TEST FOR FILE SERVER
 //        System.out.println(subdir.isDirectory());
 
@@ -32,14 +33,14 @@ public class Main {
 
 //        Student A = new Student(new String[]{"Cheng Kei","S001","19","KL","012-3345","adam@gmail.com","Badminton","L001"});
 //        new StudentProfile(A);
-        Admin admin = new Admin("bruh","L001");
-//        String[] mylist = {"Boo","null","19","KL","012-3345","adam@gmail.com","Badminton","L001"};
-//        admin.createAccount(mylist,"123");
-        admin.approveAccount("CK8");
-
-        String[] studentContent = FileServer.readFile("L001","Student.txt");
-        Student A = new Student(studentContent[0].split("\\|"));
-        new StudentProfile(A);
+//        Admin admin = new Admin("bruh","L001");
+////        String[] mylist = {"Boo","null","19","KL","012-3345","adam@gmail.com","Badminton","L001"};
+////        admin.createAccount(mylist,"123");
+//        admin.approveAccount("CK8");
+//
+//        String[] studentContent = FileServer.readFile("L001","Student.txt");
+//        Student A = new Student(studentContent[0].split("\\|"));
+//        new StudentProfile(A);
 
     }
 }

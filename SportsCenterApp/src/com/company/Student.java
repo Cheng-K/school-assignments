@@ -23,11 +23,19 @@ public class Student extends BaseStudent {
     }
 
     public static Student studentLogin (String username, String password){
-        String[] studentFileContent = FileServer.readFile("","Student.txt");
+        String[] studentFileContent = FileServer.readFile("Student.txt");
         for (String line:studentFileContent){
             String[] tokens = line.split("\\|");
             if (tokens[0].equals(username) && tokens[1].equals(password)) {
-                return new Student(tokens);
+                String[] studentDetails = FileServer.readFile(tokens[2],"Student.txt");
+                for(String lines:studentDetails)
+                {
+                    String[] studentInfo = lines.split("\\|");
+                    if (studentInfo[0].equals(username))
+                    {
+                        return new Student(studentInfo);
+                    }
+                }
             }
         }
         return null;
