@@ -47,6 +47,13 @@ public class Student extends BaseStudent {
                 registeredSports + "|" + sportsCenterCode;
     }
 
+    public void updateDetails (int age,String address,String contactNumber,String email){
+        setAge(age);
+        setAddress(address);
+        setContactNumber(contactNumber);
+        setEmail(email);
+    }
+
     public String getName() {
         return name;
     }

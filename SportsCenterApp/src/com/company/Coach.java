@@ -29,10 +29,15 @@ public class Coach {
 
     }
 
+    public static String[] getAllAttributes () {
+        return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Rating"};
+    }
+
     @Override
     public String toString () {
         return coachID + "|" + name;
     }
+
 
 
 }

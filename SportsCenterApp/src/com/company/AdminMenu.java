@@ -1,6 +1,8 @@
 package com.company;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AdminMenu {
     private JFrame frame;
@@ -20,9 +22,16 @@ public class AdminMenu {
         Output      : Menu Screen
     */
     public AdminMenu (Admin admin){
+        this.admin = admin;
+        showRecordsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                new DisplayAllRecord(admin);
+            }
+        });
         frame = new JFrame("Main Menu");
         welcomeHeading.setText("Welcome, Admin "+ admin.getID());
-        this.admin = admin;
         frame.setContentPane(adminMenuPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();

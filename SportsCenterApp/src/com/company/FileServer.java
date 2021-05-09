@@ -44,6 +44,8 @@ public class FileServer {
         Return : 0 represents write to file is successful
                  1 represents write to file is unsuccessful
      */
+
+    // Bugs discovered previously passing in string filecontent, the last string does not contain "\n"
     public static int writeFile (String subDirectory, String fileName, String fileContent){
         File file = null;
         if (subDirectory.isEmpty()) {

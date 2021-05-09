@@ -6,7 +6,6 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        new LoginScreen();
         // TEST FOR FILE SERVER
 //        System.out.println(subdir.isDirectory());
 
@@ -42,7 +41,7 @@ public class Main {
 //        Student A = new Student(studentContent[0].split("\\|"));
 //        new StudentProfile(A);
 
-          new LoginScreen();
+        new LoginScreen();
 
     }
 }
