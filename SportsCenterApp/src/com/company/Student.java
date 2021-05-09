@@ -7,7 +7,7 @@ public class Student extends BaseStudent {
     private String address;
     private String contactNumber;
     private String email;
-    private String registeredSports;
+    private String registeredSports; // ArrayList <sports> make it contains class object
     private String sportsCenterCode;
 
 

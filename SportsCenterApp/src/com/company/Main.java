@@ -42,5 +42,7 @@ public class Main {
 //        Student A = new Student(studentContent[0].split("\\|"));
 //        new StudentProfile(A);
 
+          new LoginScreen();
+
     }
 }
