@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="" />
+    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/UnregStudent.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2_5_2021_10_38_PM__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L001/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Student.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Student.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Admin.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/UnregStudent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/UnregStudent.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Admin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/Student.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Student.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/company/UnregStudent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/UnregStudent.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,7 +39,9 @@
     </file-type-list>
   </component>
   <component name="ProjectId" id="1rFsCdZAkq3ItUASXbgE9emoUot" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1" splitterProportion="0.5">
       <flattenPackages />
@@ -88,6 +103,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
@@ -168,5 +184,8 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

@@ -11,7 +11,7 @@ public class Student extends BaseStudent {
     private String sportsCenterCode;
 
 
-    public Student(String[] studentDetails) { // change
+    public Student(String[] studentDetails) {
         name = studentDetails[0];
         studentID = studentDetails[1];
         age = Integer.parseInt(studentDetails[2]);
@@ -35,7 +35,8 @@ public class Student extends BaseStudent {
 
     @Override
     public String toString(){
-        return name +"|"+ studentID +"|" + age +"|"+ address + "|" + contactNumber + "|" + email + registeredSports + sportsCenterCode + "\n";
+        return name +"|"+ studentID +"|" + age +"|"+ address + "|" + contactNumber + "|" + email + "|"+
+                registeredSports + "|" + sportsCenterCode;
     }
 
     public String getName() {
