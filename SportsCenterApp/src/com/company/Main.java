@@ -1,7 +1,9 @@
 package com.company;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class Main {
 
@@ -42,6 +44,15 @@ public class Main {
 //        new StudentProfile(A);
 
         new LoginScreen();
+//        ArrayList<Coach> coachList = new ArrayList<>();
+//        for (String coachDetails:FileServer.readFile("L002","Coach.txt")){
+//            coachList.add(new Coach(coachDetails.split("\\|")));
+//        }
+//
+//
+//        Collections.sort(coachList,new Coach.sortByRating());
+//        System.out.println(coachList);
+
 
     }
 }

@@ -10,7 +10,7 @@ public class FileServer {
         Method Name : readFile
         Return : Array of strings that represents each line in the file.
      */
-    public static String[] readFile (String subDirectory, String fileName){
+    public static String[] readFile (String subDirectory, String fileName){ // Bugs : should check whether the file content is empty ?
         String fileContent = "";
         File file = null;
 
