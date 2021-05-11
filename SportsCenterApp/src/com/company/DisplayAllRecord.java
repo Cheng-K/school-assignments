@@ -5,6 +5,7 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class DisplayAllRecord {
     private JFrame frame;
@@ -15,7 +16,7 @@ public class DisplayAllRecord {
     private JPanel sportsRecordPanel;
     private JPanel rootPanel;
     private JScrollPane coachTableContainer;
-    private JComboBox sortByDropMenu;
+    private JComboBox<String> sortByDropMenu;
     private ButtonGroup radioButtonGroup = new ButtonGroup();
     private JRadioButton ascendingRadioButton;
     private JRadioButton descendingRadioButton;
@@ -25,6 +26,7 @@ public class DisplayAllRecord {
     private JLabel orderLabel;
     private DefaultTableModel coachTableModel = (DefaultTableModel)coachRecordTable.getModel();
     private Admin admin;
+    private setCoachPanel coachPanelManager;
 
     private class setCoachPanel {
         private ArrayList<Coach> coachList = new ArrayList<Coach>();
@@ -32,6 +34,7 @@ public class DisplayAllRecord {
         public setCoachPanel (){
             getAllCoach();
             prepareCoachTable();
+            updateCoachTable();
             setSortDropMenu(new String[]{"Coach ID", "Hourly Rate", "Rating"});
         }
 
@@ -48,7 +51,10 @@ public class DisplayAllRecord {
             coachRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             for (String column : Coach.getAllAttributes())
                 coachTableModel.addColumn(column);
-            for (Coach coach: coachList) {
+        }
+
+        private void updateCoachTable() {
+            for (Coach coach : coachList){
                 coachTableModel.addRow(coach.toString().split("\\|"));
             }
         }
@@ -56,6 +62,8 @@ public class DisplayAllRecord {
             for (String value : options)
                 sortByDropMenu.addItem(value);
         }
+
+        private void clearCoachTable() {coachTableModel.setRowCount(0);}
 
     }
 
@@ -68,17 +76,27 @@ public class DisplayAllRecord {
         public void actionPerformed(ActionEvent e) {
             int selectedTab = tabbedPane1.getSelectedIndex();
             switch (selectedTab){
-//                case 0 :
-//                   determine the tab, and the determine sort by what in what order then pass into the respective class
+                case 0 :
+                   break;
+                case 1 :
+                    coachPanelManager.clearCoachTable();
+                    admin.sortCoaches(coachPanelManager.coachList,(String)sortByDropMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    coachPanelManager.updateCoachTable();
+                    break;
+                default:
+                    break;
             }
+            JOptionPane.showMessageDialog(frame,"Sorted Successfully");
         }
     }
 
     public DisplayAllRecord (Admin admin) {
         this.admin = admin;
-        setCoachPanel coachPanelManager = new setCoachPanel();
+        coachPanelManager = new setCoachPanel();
         radioButtonGroup.add(ascendingRadioButton);
         radioButtonGroup.add(descendingRadioButton);
+        ascendingRadioButton.setSelected(true);
+        sortTableButton.addActionListener(new sortTableButtonListener());
         frame = new JFrame("Showing All Records");
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

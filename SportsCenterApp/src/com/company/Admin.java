@@ -4,7 +4,10 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class Admin {
     private String ID;
@@ -105,6 +108,32 @@ public class Admin {
             }
         }
 
+    }
+
+    /*  Method name : sortCoaches
+        Parameter   : coachList (Array list containing coach object) , coachList (Name of column to sort by), ascending (True for ascending, False for descending)
+        Return      : void
+     */
+
+    public void sortCoaches (ArrayList<Coach> coachList, String sortBy, boolean ascending) {
+        Comparator<Coach> coachSorter;
+        switch (sortBy) {
+            case "Hourly Rate" :
+                coachSorter = new Coach.sortByPay();
+                break;
+            case "Rating":
+                coachSorter = new Coach.sortByRating();
+                break;
+            default:
+                coachSorter = new Coach.sortByID();
+        }
+        Collections.sort(coachList,coachSorter);
+        if (!ascending) // Reverse the sorted coachList to produce descending order
+            Collections.reverse(coachList);
+    }
+
+    public void sortCoaches (ArrayList<Coach> coachList, String sortBy){
+        sortCoaches(coachList,sortBy,true);
     }
 
     public String getID() {
