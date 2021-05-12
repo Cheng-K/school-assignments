@@ -19,6 +19,11 @@ public class Coach {
         public int compare(Coach coach1, Coach coach2) {
             return (int)((coach1.rating-coach2.rating)*10);
         }
+
+        @Override
+        public String toString() {
+            return "Sort by Rating";
+        }
     }
 
     public static class sortByPay implements Comparator<Coach>{
@@ -26,12 +31,22 @@ public class Coach {
         public int compare(Coach coach1, Coach coach2) {
             return (int) ((coach1.hourlyRate-coach2.hourlyRate)*10);
         }
+
+        @Override
+        public String toString() {
+            return "Sort by Hourly Rate";
+        }
     }
 
     public static class sortByID implements Comparator<Coach>{
         @Override
         public int compare(Coach coach1, Coach coach2) {
             return coach1.coachID.compareTo(coach2.coachID);
+        }
+
+        @Override
+        public String toString () {
+            return "Sort by Coach ID";
         }
     }
 

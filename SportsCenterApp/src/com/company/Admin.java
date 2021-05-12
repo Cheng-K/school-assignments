@@ -115,26 +115,12 @@ public class Admin {
         Return      : void
      */
 
-    public void sortCoaches (ArrayList<Coach> coachList, String sortBy, boolean ascending) {
-        Comparator<Coach> coachSorter;
-        switch (sortBy) {
-            case "Hourly Rate" :
-                coachSorter = new Coach.sortByPay();
-                break;
-            case "Rating":
-                coachSorter = new Coach.sortByRating();
-                break;
-            default:
-                coachSorter = new Coach.sortByID();
-        }
-        Collections.sort(coachList,coachSorter);
+    public void sortCoaches (ArrayList<Coach> coachList, Comparator<Coach> sorter, boolean ascending) {
+        Collections.sort(coachList,sorter);
         if (!ascending) // Reverse the sorted coachList to produce descending order
             Collections.reverse(coachList);
     }
 
-    public void sortCoaches (ArrayList<Coach> coachList, String sortBy){
-        sortCoaches(coachList,sortBy,true);
-    }
 
     public String getID() {
         return ID;

@@ -5,7 +5,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class DisplayAllRecord {
     private JFrame frame;
@@ -16,7 +17,7 @@ public class DisplayAllRecord {
     private JPanel sportsRecordPanel;
     private JPanel rootPanel;
     private JScrollPane coachTableContainer;
-    private JComboBox<String> sortByDropMenu;
+    private JComboBox<Comparator <Coach>> sortByDropMenu;
     private ButtonGroup radioButtonGroup = new ButtonGroup();
     private JRadioButton ascendingRadioButton;
     private JRadioButton descendingRadioButton;
@@ -35,7 +36,7 @@ public class DisplayAllRecord {
             getAllCoach();
             prepareCoachTable();
             updateCoachTable();
-            setSortDropMenu(new String[]{"Coach ID", "Hourly Rate", "Rating"});
+            setSortDropMenu();
         }
 
         private void getAllCoach () {
@@ -58,9 +59,10 @@ public class DisplayAllRecord {
                 coachTableModel.addRow(coach.toString().split("\\|"));
             }
         }
-        private void setSortDropMenu (String [] options){
-            for (String value : options)
-                sortByDropMenu.addItem(value);
+        private void setSortDropMenu (){
+            sortByDropMenu.addItem(new Coach.sortByID());
+            sortByDropMenu.addItem(new Coach.sortByRating());
+            sortByDropMenu.addItem(new Coach.sortByPay());
         }
 
         private void clearCoachTable() {coachTableModel.setRowCount(0);}
@@ -80,7 +82,7 @@ public class DisplayAllRecord {
                    break;
                 case 1 :
                     coachPanelManager.clearCoachTable();
-                    admin.sortCoaches(coachPanelManager.coachList,(String)sortByDropMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    admin.sortCoaches(coachPanelManager.coachList,(Comparator<Coach>) sortByDropMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     coachPanelManager.updateCoachTable();
                     break;
                 default:
