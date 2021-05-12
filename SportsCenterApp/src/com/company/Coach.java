@@ -64,8 +64,8 @@ public class Coach {
         phone = coachDetails[5];
         address = coachDetails[6];
         sportsCenterID = coachDetails[7];
-        sportsCode = coachDetails[9];
-        rating = Float.parseFloat(coachDetails[11]);
+        sportsCode = coachDetails[8];
+        rating = Float.parseFloat(coachDetails[9]);
 
     }
     public static String[] getAllAttributes () {
