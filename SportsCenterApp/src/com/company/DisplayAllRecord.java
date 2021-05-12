@@ -122,7 +122,6 @@ public class DisplayAllRecord {
                 default:
                     break;
             }
-            JOptionPane.showMessageDialog(frame,"Sorted Successfully");
         }
     }
 
