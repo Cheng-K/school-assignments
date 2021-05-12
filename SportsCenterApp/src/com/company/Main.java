@@ -6,7 +6,9 @@ import java.util.Arrays;
 public class Main {
 
     public static void main(String[] args) {
-        new LoginScreen();
+        Admin admin = new Admin("Jack","L001");
+        new CreateStudentProfile(admin);
+//        new LoginScreen();
         // TEST FOR FILE SERVER
 //        System.out.println(subdir.isDirectory());
 
@@ -41,6 +43,5 @@ public class Main {
 //        String[] studentContent = FileServer.readFile("L001","Student.txt");
 //        Student A = new Student(studentContent[0].split("\\|"));
 //        new StudentProfile(A);
-
     }
 }
