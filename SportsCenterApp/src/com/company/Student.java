@@ -54,6 +54,10 @@ public class Student extends BaseStudent {
         setEmail(email);
     }
 
+    public static String[] getAllAttributes () {
+        return new String[] {"Name","StudentID","Age","Address","Contact Number", "Email","Registered Sports", "Sports Center Code"};
+    }
+
     public String getName() {
         return name;
     }
