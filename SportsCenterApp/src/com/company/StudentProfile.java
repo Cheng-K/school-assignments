@@ -71,7 +71,7 @@ public class StudentProfile {
             updateStudentDetails();
             String newDetails = student.toString();
             String[] newFileContent = FileServer.findAndReplace(fileContent,oldDetails,newDetails);
-            int writeFailed = FileServer.writeFile(student.getSportsCenterCode(),"Student.txt",String.join("\n",newFileContent));
+            int writeFailed = FileServer.writeFile(student.getSportsCenterCode(),"Student.txt",String.join("\n",newFileContent)+"\n");
 
             if (writeFailed == 1){
                 // display error message
@@ -112,7 +112,7 @@ public class StudentProfile {
                         break;
                     }
                 }
-                int writeFail = FileServer.writeFile("Student.txt",String.join("\n",credentialsFile));
+                int writeFail = FileServer.writeFile("Student.txt",String.join("\n",credentialsFile)+"\n");
                 if (writeFail == 0)
                     JOptionPane.showMessageDialog(frame,"Password change is successful","Success",JOptionPane.INFORMATION_MESSAGE);
                 else
@@ -220,10 +220,7 @@ public class StudentProfile {
      */
 
     private void updateStudentDetails () {
-        student.setAge(Integer.parseInt(ageField.getText()));
-        student.setAddress(addressField.getText());
-        student.setContactNumber(phoneField.getText());
-        student.setEmail(emailField.getText());
+        student.updateDetails(Integer.parseInt(ageField.getText()),addressField.getText(),phoneField.getText(),emailField.getText());
     }
 
     /*

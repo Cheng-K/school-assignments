@@ -1,4 +1,4 @@
 Enya|S001|19|Sri Petaling|011123|enya@gmail.com|Badminton|L001
 HLgirl|S002|19|Sri Petaling|0111345|HLgirl@gmail.com|Volleyball|L001
 Boo|S003|19|KL|012-3345|adam@gmail.com|Badminton|L001
-CK8|S004|19|KL|012-3345|adam@gmail.com|Badminton|L001
+CK8|S004|19|Kuala Lumpur|012-33456|adamkei@gmail.com|Badminton|L001

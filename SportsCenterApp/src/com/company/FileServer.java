@@ -10,7 +10,7 @@ public class FileServer {
         Method Name : readFile
         Return : Array of strings that represents each line in the file.
      */
-    public static String[] readFile (String subDirectory, String fileName){
+    public static String[] readFile (String subDirectory, String fileName){ // Bugs : should check whether the file content is empty ?
         String fileContent = "";
         File file = null;
 
@@ -44,6 +44,8 @@ public class FileServer {
         Return : 0 represents write to file is successful
                  1 represents write to file is unsuccessful
      */
+
+    // Bugs discovered previously passing in string filecontent, the last string does not contain "\n"
     public static int writeFile (String subDirectory, String fileName, String fileContent){
         File file = null;
         if (subDirectory.isEmpty()) {

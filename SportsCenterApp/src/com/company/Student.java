@@ -7,7 +7,7 @@ public class Student extends BaseStudent {
     private String address;
     private String contactNumber;
     private String email;
-    private String registeredSports;
+    private String registeredSports; // ArrayList <sports> make it contains class object
     private String sportsCenterCode;
 
 
@@ -45,6 +45,17 @@ public class Student extends BaseStudent {
     public String toString(){
         return name +"|"+ studentID +"|" + age +"|"+ address + "|" + contactNumber + "|" + email + "|"+
                 registeredSports + "|" + sportsCenterCode;
+    }
+
+    public void updateDetails (int age,String address,String contactNumber,String email){
+        setAge(age);
+        setAddress(address);
+        setContactNumber(contactNumber);
+        setEmail(email);
+    }
+
+    public static String[] getAllAttributes () {
+        return new String[] {"Name","StudentID","Age","Address","Contact Number", "Email","Registered Sports", "Sports Center Code"};
     }
 
     public String getName() {
