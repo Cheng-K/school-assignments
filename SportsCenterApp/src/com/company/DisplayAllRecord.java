@@ -29,8 +29,9 @@ public class DisplayAllRecord {
     private JRadioButton descendingRadioButton;
     private JButton sortTableButton;
     private JButton backToMenuButton;
+    private JButton modifyDetailsButton;
     private DefaultTableModel coachTableModel = (DefaultTableModel)coachRecordTable.getModel();
-    private DefaultTableModel studentTableModel = (DefaultTableModel)studentRecordTable.getModel();
+    private DefaultTableModel studentTableModel = (DefaultTableModel) studentRecordTable.getModel();
     private Admin admin;
     private setCoachPanel coachPanelManager;
     private setStudentPanel studentPanelManager;
@@ -161,6 +162,27 @@ public class DisplayAllRecord {
             }
         }
     }
+
+//    private class modifyDetailsListener implements ActionListener{
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            // determine which tab is selected
+//            int tabNumber = tabbedPane1.getSelectedIndex();
+//            // check whether it is -1
+//            switch (tabNumber){
+//                case 0 :
+//                    studentRecordTable.getSelectedColumn()
+//                    break;
+//                case 1 :
+//                    break;
+//                case 2:
+//                    break;
+//                default:
+//                    JOptionPane.showMessageDialog(frame,"Individual is not specified","Error",JOptionPane.ERROR_MESSAGE);
+//            }
+//
+//        }
+//    }
 
     public DisplayAllRecord (Admin admin) {
         this.admin = admin;
