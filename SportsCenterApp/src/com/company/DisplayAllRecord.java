@@ -35,6 +35,10 @@ public class DisplayAllRecord {
     private setCoachPanel coachPanelManager;
     private setStudentPanel studentPanelManager;
 
+
+    /*  Class : setCoachPanel
+        Description : Responsible for setting up/ changing components in Coach Tab (Coach Tab Manager)
+     */
     private class setCoachPanel {
         private ArrayList<Coach> coachList = new ArrayList<>();
 
@@ -45,35 +49,56 @@ public class DisplayAllRecord {
             setSortDropMenu();
         }
 
+        /*  Method Name : getAllCoach
+            Description : Read coach file and instantiate all coach objects & store it in array list
+         */
+
         private void getAllCoach () {
             String[] coachFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Coach.txt");
-            // Instantiate all coaches & store in coach list
             for (String coachInfo: coachFileContent){
                 Coach coach = new Coach(coachInfo.split("\\|"));
                 coachList.add(coach);
             }
         }
 
+        /*  Method Name : prepareCoachTable
+            Description : Set the number of columns in JTable
+         */
         private void prepareCoachTable (){
             coachRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
             for (String column : Coach.getAllAttributes())
                 coachTableModel.addColumn(column);
         }
 
+        /*  Method Name : updateCoachTable
+            Description : Add rows in JTable based on the order of arrayList containing coaches
+                          (pair with clearCoachTable Method to clear & update table order)
+         */
         private void updateCoachTable() {
             for (Coach coach : coachList){
                 coachTableModel.addRow(coach.toString().split("\\|"));
             }
         }
+
+        /*  Method Name : prepareCoachTable
+            Description : Set the number of columns in JTable
+         */
         private void setSortDropMenu (){
             sortByCoachMenu.addItem(new Coach.sortByID());
             sortByCoachMenu.addItem(new Coach.sortByRating());
             sortByCoachMenu.addItem(new Coach.sortByPay());
         }
 
+        /*  Method Name : prepareCoachTable
+            Description : Clear all the rows in JTable
+         */
         private void clearCoachTable() {coachTableModel.setRowCount(0);}
 
     }
+
+    /*  Class : setStudentPanel
+        Description : Responsible for setting up/ changing components in Coach Tab (Student Tab Manager)
+     */
 
     private class setStudentPanel {
         private ArrayList<Student> studentList = new ArrayList<>();
@@ -82,6 +107,7 @@ public class DisplayAllRecord {
             getAllStudent();
             prepareStudentTable();
             updateStudentTable();
+            setDropMenu();
         }
 
         private void getAllStudent () {
@@ -103,9 +129,17 @@ public class DisplayAllRecord {
                 studentTableModel.addRow(student.toString().split("\\|"));
         }
 
+        private void clearStudentTable() {studentTableModel.setRowCount(0);}
+
+        private void setDropMenu () {sortByStudentMenu.addItem(new Student.sortByName());}
+
     }
 
     private class setSportsPanel {}
+
+    /*  Class : sortTableButtonListener
+        Description : Calls method to sort the list of objects (student,coach) in specified order
+     */
 
     private class sortTableButtonListener implements ActionListener {
         @Override
@@ -113,10 +147,13 @@ public class DisplayAllRecord {
             int selectedTab = tabbedPane1.getSelectedIndex();
             switch (selectedTab){
                 case 0 :
+                    studentPanelManager.clearStudentTable();
+                    admin.sort(studentPanelManager.studentList,(Comparator<Student>)sortByStudentMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    studentPanelManager.updateStudentTable(); // display the table in sorted order
                    break;
                 case 1 :
                     coachPanelManager.clearCoachTable();
-                    admin.sortCoaches(coachPanelManager.coachList,(Comparator<Coach>) sortByCoachMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    admin.sort(coachPanelManager.coachList,(Comparator<Coach>) sortByCoachMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     coachPanelManager.updateCoachTable();
                     break;
                 default:
