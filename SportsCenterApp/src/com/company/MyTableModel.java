@@ -12,7 +12,7 @@ public class MyTableModel extends DefaultTableModel {
     boolean rowEditable[];
 
     public MyTableModel(Object[] columnNames, int rowCount) {
-        super(columnNames,rowCount);
+        super(columnNames,0);
         rowEditable = new boolean[rowCount];
     }
 
@@ -23,6 +23,9 @@ public class MyTableModel extends DefaultTableModel {
     public void disableRowEditable (int rowIndex){
         rowEditable[rowIndex] = false;
     }
+
+
+
 
     @Override
     public boolean isCellEditable (int row, int column){

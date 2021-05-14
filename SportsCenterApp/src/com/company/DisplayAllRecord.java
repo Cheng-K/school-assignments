@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -30,7 +32,7 @@ public class DisplayAllRecord {
     private JButton sortTableButton;
     private JButton backToMenuButton;
     private JButton modifyDetailsButton;
-    private DefaultTableModel coachTableModel = (DefaultTableModel)coachRecordTable.getModel();
+    private MyTableModel coachTableModel;
     private DefaultTableModel studentTableModel = (DefaultTableModel) studentRecordTable.getModel();
     private Admin admin;
     private setCoachPanel coachPanelManager;
@@ -67,8 +69,8 @@ public class DisplayAllRecord {
          */
         private void prepareCoachTable (){
             coachRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            for (String column : Coach.getAllAttributes())
-                coachTableModel.addColumn(column);
+            coachTableModel = new MyTableModel(Coach.getAllAttributes(),coachList.size());
+            coachRecordTable.setModel(coachTableModel);
         }
 
         /*  Method Name : updateCoachTable
@@ -163,26 +165,35 @@ public class DisplayAllRecord {
         }
     }
 
-//    private class modifyDetailsListener implements ActionListener{
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            // determine which tab is selected
-//            int tabNumber = tabbedPane1.getSelectedIndex();
-//            // check whether it is -1
-//            switch (tabNumber){
-//                case 0 :
-//                    studentRecordTable.getSelectedColumn()
-//                    break;
-//                case 1 :
-//                    break;
-//                case 2:
-//                    break;
-//                default:
-//                    JOptionPane.showMessageDialog(frame,"Individual is not specified","Error",JOptionPane.ERROR_MESSAGE);
-//            }
-//
-//        }
-//    }
+    private class modifyDetailsListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // determine which tab is selected
+            int tabNumber = tabbedPane1.getSelectedIndex();
+            // check whether it is -1
+            switch (tabNumber){
+                case 0 :
+                    break;
+                case 1 :
+                    coachTableModel.setRowEditable(coachRecordTable.getSelectedRow());
+                    coachTableModel.isCellEditable(coachRecordTable.getSelectedRow(),0);
+                    break;
+                case 2:
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(frame,"Individual is not specified","Error",JOptionPane.ERROR_MESSAGE);
+            }
+
+        }
+    }
+
+    private class mouseClickListener extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e){
+            coachRecordTable.rowAtPoint(e.getPoint());
+            modifyDetailsButton.setEnabled(true);
+        }
+    }
 
     public DisplayAllRecord (Admin admin) {
         this.admin = admin;
@@ -192,11 +203,14 @@ public class DisplayAllRecord {
         radioButtonGroup.add(descendingRadioButton);
         ascendingRadioButton.setSelected(true);
         sortTableButton.addActionListener(new sortTableButtonListener());
+        modifyDetailsButton.addActionListener(new modifyDetailsListener());
+        coachRecordTable.addMouseListener(new mouseClickListener());
         frame = new JFrame("Showing All Records");
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setVisible(true);
+
     }
 
 
