@@ -1,7 +1,9 @@
 package com.company;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -37,6 +39,7 @@ public class DisplayAllRecord {
     private Admin admin;
     private setCoachPanel coachPanelManager;
     private setStudentPanel studentPanelManager;
+
 
 
     /*  Class : setCoachPanel
@@ -171,18 +174,37 @@ public class DisplayAllRecord {
             // determine which tab is selected
             int tabNumber = tabbedPane1.getSelectedIndex();
             // check whether it is -1
-            switch (tabNumber){
-                case 0 :
-                    break;
-                case 1 :
-                    coachTableModel.setRowEditable(coachRecordTable.getSelectedRow());
-                    coachTableModel.isCellEditable(coachRecordTable.getSelectedRow(),0);
-                    break;
-                case 2:
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(frame,"Individual is not specified","Error",JOptionPane.ERROR_MESSAGE);
+            if (modifyDetailsButton.getText().equals("Modify Details")) {
+                switch (tabNumber) {
+                    case 0:
+                        break;
+                    case 1:
+                        coachTableModel.setRowEditable(coachRecordTable.getSelectedRow());
+                        coachTableModel.isCellEditable(coachRecordTable.getSelectedRow(), 0);
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(frame, "Individual is not specified", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                modifyDetailsButton.setText("Save Details");
             }
+            else {
+                switch (tabNumber) {
+                    case 0:
+                        break;
+                    case 1:
+                        coachTableModel.disableRowEditable();
+                        break;
+                    case 2:
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(frame, "Individual is not specified", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+                modifyDetailsButton.setText("Modify Details");
+            }
+
+
 
         }
     }
@@ -192,6 +214,7 @@ public class DisplayAllRecord {
         public void mouseClicked(MouseEvent e){
             coachRecordTable.rowAtPoint(e.getPoint());
             modifyDetailsButton.setEnabled(true);
+            ((DefaultTableCellRenderer)coachRecordTable.getCellRenderer(1,1)).setBackground(Color.cyan);
         }
     }
 

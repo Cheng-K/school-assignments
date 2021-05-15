@@ -11,6 +11,7 @@ public class Student extends BaseStudent {
     private String email;
     private String registeredSports; // ArrayList <sports> make it contains class object
     private String sportsCenterCode;
+    // private List<Coach> coachList ; // put coach ID at the end of the string
 
     public static class sortByName implements Comparator<Student>{
         @Override

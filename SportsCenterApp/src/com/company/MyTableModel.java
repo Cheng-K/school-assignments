@@ -1,6 +1,7 @@
 package com.company;
 
 import javax.swing.table.DefaultTableModel;
+import java.util.Arrays;
 
 /*
     Class :       MyTableModel
@@ -20,11 +21,9 @@ public class MyTableModel extends DefaultTableModel {
         rowEditable[rowIndex] = true;
     }
 
-    public void disableRowEditable (int rowIndex){
-        rowEditable[rowIndex] = false;
+    public void disableRowEditable () {
+        Arrays.fill(rowEditable, false);
     }
-
-
 
 
     @Override
