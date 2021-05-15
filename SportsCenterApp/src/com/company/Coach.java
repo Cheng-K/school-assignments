@@ -52,7 +52,7 @@ public class Coach {
 
 
 
-    public Coach (String[] coachDetails){    // Issue : we might have store extra information in the coach.txt?
+    public Coach (String[] coachDetails){
         name = coachDetails[0];
         coachID = coachDetails[1];
         dateJoined = coachDetails[2];

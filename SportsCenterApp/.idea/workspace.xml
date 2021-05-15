@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/L001/Coach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Coach.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/L001/Sports.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Sports.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/L001/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Student.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Student.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/UnregStudent.txt" beforeDir="false" afterPath="$PROJECT_DIR$/UnregStudent.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Admin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/AdminMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/AdminMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Coach.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Coach.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile$2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/StudentMenu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/StudentMenu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Admin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/AdminMenu.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/AdminMenu.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/AdminMenu.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Coach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Coach.java" afterDir="false" />
@@ -120,6 +116,9 @@
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="160" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="430" />
+    =======
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="417" />
+    &gt;&gt;&gt;&gt;&gt;&gt;&gt; displayAllRecord(Admin)
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />

@@ -1,5 +1,7 @@
 package com.company;
 
+import java.util.Comparator;
+
 public class Student extends BaseStudent {
     private String name;
     private String studentID;
@@ -9,7 +11,18 @@ public class Student extends BaseStudent {
     private String email;
     private String registeredSports; // ArrayList <sports> make it contains class object
     private String sportsCenterCode;
+    // private List<Coach> coachList ; // put coach ID at the end of the string
 
+    public static class sortByName implements Comparator<Student>{
+        @Override
+        public String toString() {
+            return "Sort By Name";
+        }
+        @Override
+        public int compare(Student o1, Student o2) {
+            return o1.name.compareTo(o2.name);
+        }
+    }
 
     public Student(String[] studentDetails) {
         name = studentDetails[0];

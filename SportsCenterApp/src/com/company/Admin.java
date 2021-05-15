@@ -7,7 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator; // Check for Jack bug
+import java.util.Comparator;
 
 public class Admin {
     private String ID;
@@ -110,6 +110,7 @@ public class Admin {
 
     }
 
+
     public void rejectAccount(String name)
     {
         String[] fileContent = FileServer.readFile("UnregStudent.txt");
@@ -194,17 +195,17 @@ public class Admin {
         return coachID;
     }
 
-    /*  Method name : sortCoaches
-        Parameter   : coachList (Array list containing coach object) , coachList (Name of column to sort by), ascending (True for ascending, False for descending)
-        Return      : void
+
+    /*  Method name : sort (Generic Method)
+        Parameter   : tArrayList (Array list containing T typed *preferably instances of Coach/Students*) ,
+                      sorter (Comparator instance tells how to sort tArrayList ),
+                      ascending (True for ascending, False for descending)
      */
-
-    public void sortCoaches (ArrayList<Coach> coachList, Comparator<Coach> sorter, boolean ascending) {
-        Collections.sort(coachList,sorter);
-        if (!ascending) // Reverse the sorted coachList to produce descending order
-            Collections.reverse(coachList);
+    public <T> void sort (ArrayList<T> tArrayList, Comparator<T> sorter, boolean ascending){
+        Collections.sort(tArrayList,sorter);
+        if (!ascending) // reverse the sorted list if its descending
+            Collections.reverse(tArrayList);
     }
-
 
 
     public String getID() {
