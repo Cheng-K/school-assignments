@@ -42,8 +42,6 @@ public class Main {
 //        String[] studentContent = FileServer.readFile("L001","Student.txt");
 //        Student A = new Student(studentContent[0].split("\\|"));
 //        new StudentProfile(A);
-
-        new LoginScreen();
 //        ArrayList<Coach> coachList = new ArrayList<>();
 //        for (String coachDetails:FileServer.readFile("L002","Coach.txt")){
 //            coachList.add(new Coach(coachDetails.split("\\|")));
@@ -52,7 +50,6 @@ public class Main {
 //
 //        Collections.sort(coachList,new Coach.sortByRating());
 //        System.out.println(coachList);
-
-
+        new LoginScreen();
     }
 }

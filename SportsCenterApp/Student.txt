@@ -1,7 +1,9 @@
 Enya|123|L001
 HLgirl|456|L001
 Boo|123|L001
-CK8|123|L001KOng|dsa|L001
-123|123|L001
-123|123|L001
-1|1|L001
+CK1|123|L001
+CK6|123|L001
+Kong Kei Zhong|123|L001
+Lim Enya|qwe|L001
+Ng Wei Jun|eweqwqewq|L001
+Loe Hui Lin|123|L001

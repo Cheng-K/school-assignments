@@ -110,6 +110,90 @@ public class Admin {
 
     }
 
+    public void rejectAccount(String name)
+    {
+        String[] fileContent = FileServer.readFile("UnregStudent.txt");
+        FileServer.writeFile("UnregStudent.txt","");
+        for (String line:fileContent)
+        {
+            if(!(line.contains(name))){
+                FileServer.appendFile("UnregStudent.txt",line+"\n");
+            }
+        }
+    }
+
+    public int createSports(String sportsName)
+    {
+        String[] fileContent = FileServer.readFile(getSportsCenterCode(),"Sports.txt");
+        String sportsID="";
+        int max = 0;
+        for (String lines:fileContent)
+        {
+            String[] token = lines.split("\\|");
+            if (token[0].equals(sportsName)) {
+                return 1; //Sports name already exists
+            }
+            if (Integer.parseInt(token[1].replace("B",""))>max) {
+                max = Integer.parseInt(token[1].replace("B",""));
+            }
+        }
+        max++;
+        if (max<10) {
+            sportsID = "B00"+max;
+        }
+        else if (max<100) {
+            sportsID = "B0"+max;
+        }
+        else {
+            sportsID = "B"+max;
+        }
+        FileServer.appendFile(getSportsCenterCode(),"Sports.txt",sportsName+"|"+sportsID+"\n");
+        return 0;
+    }
+
+    public int createCoach(String[] coachDetails) //coachID and date terminated passed will be null
+    {
+        Coach newCoach = new Coach(coachDetails);
+        String[] fileContent = FileServer.readFile(getSportsCenterCode(),"Coach.txt");
+        for (String line:fileContent)
+        {
+            String[] token = line.split("\\|");
+            if (token[1].equals(newCoach.getName()))
+            {
+                return 1; //name already exists
+            }
+        }
+        newCoach.setCoachID(newCoachID());
+        FileServer.appendFile(getSportsCenterCode(),"Coach.txt",newCoach.toString()+"\n");
+        return 0;
+    }
+
+    public String newCoachID()
+    {
+        int max = 0;
+        String coachID="";
+        String[] fileContent = FileServer.readFile(getSportsCenterCode(),"Coach.txt");
+        for (String line:fileContent)
+        {
+            String[] token = line.split("\\|");
+            if (Integer.parseInt(token[1].replace("C",""))>max)
+            {
+                max = Integer.parseInt(token[1].replace("C",""));
+            }
+        }
+        max++;
+        if (max<10) {
+            coachID = "C00"+max;
+        }
+        else if (max<100) {
+            coachID = "C0"+max;
+        }
+        else {
+            coachID = "C"+max;
+        }
+        return coachID;
+    }
+
     /*  Method name : sortCoaches
         Parameter   : coachList (Array list containing coach object) , coachList (Name of column to sort by), ascending (True for ascending, False for descending)
         Return      : void
@@ -120,6 +204,7 @@ public class Admin {
         if (!ascending) // Reverse the sorted coachList to produce descending order
             Collections.reverse(coachList);
     }
+
 
 
     public String getID() {

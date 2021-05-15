@@ -1,2 +1,0 @@
-CK3|null|19|KL|012-3345|adam@gmail.com|Badminton|L001|123
-CK7|null|19|KL|012-3345|adam@gmail.com|Badminton|L001|123

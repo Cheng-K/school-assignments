@@ -48,6 +48,20 @@ public class StudentMenu {
                 new StudentProfile(regStudent);
             }
         });
+        signOutButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                new LoginScreen();
+            }
+        });
+        registerButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                new CreateRecord(guestStudent);
+            }
+        });
     }
 
     /*

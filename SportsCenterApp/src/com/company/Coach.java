@@ -80,6 +80,14 @@ public class Coach {
         return rating;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setCoachID(String coachID) {
+        this.coachID = coachID;
+    }
+
     @Override
     public String toString () {
         return coachID + "|" + name + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|" + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating;
