@@ -12,7 +12,10 @@ public class Coach {
     private String address;
     private String sportsCenterID;
     private String sportsCode;
-    private float rating;
+    private float rating; // might need to change to integer
+    private int totalRating;
+    private Sports sports; // figure this out
+
 
     public static class sortByRating implements Comparator<Coach> {
         @Override
@@ -51,7 +54,6 @@ public class Coach {
     }
 
 
-
     public Coach (String[] coachDetails){
         name = coachDetails[0];
         coachID = coachDetails[1];
@@ -66,6 +68,26 @@ public class Coach {
         sportsCenterID = coachDetails[7];
         sportsCode = coachDetails[8];
         rating = Float.parseFloat(coachDetails[9]);
+
+        // initialize sports
+
+    }
+    public Coach (String[] coachDetails,Sports sports){
+        name = coachDetails[0];
+        coachID = coachDetails[1];
+        dateJoined = coachDetails[2];
+        if (coachDetails[3].equals("null"))
+            dateTerminated = null;
+        else
+            dateTerminated = coachDetails[3];
+        hourlyRate = Integer.parseInt(coachDetails[4]);
+        phone = coachDetails[5];
+        address = coachDetails[6];
+        sportsCenterID = coachDetails[7];
+        sportsCode = coachDetails[8];
+        rating = Float.parseFloat(coachDetails[9]);
+        this.sports = sports;
+        // initialize sports
 
     }
     public static String[] getAllAttributes () {

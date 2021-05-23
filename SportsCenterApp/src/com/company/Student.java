@@ -11,7 +11,9 @@ public class Student extends BaseStudent {
     private String email;
     private String registeredSports; // ArrayList <sports> make it contains class object
     private String sportsCenterCode;
-    // private List<Coach> coachList ; // put coach ID at the end of the string
+    private Sports sport;
+    private Coach coach;
+    private boolean givenRating;
 
     public static class sortByName implements Comparator<Student>{
         @Override
@@ -32,7 +34,24 @@ public class Student extends BaseStudent {
         contactNumber = studentDetails[4];
         email = studentDetails[5];
         registeredSports = studentDetails[6];
+
         sportsCenterCode = studentDetails[7];
+        // intialize the coach
+
+    }
+
+    // Use this please and refactor others
+    public Student(String[] studentDetails,Sports sport,Coach coach) {
+        name = studentDetails[0];
+        studentID = studentDetails[1];
+        age = Integer.parseInt(studentDetails[2]);
+        address = studentDetails[3];
+        contactNumber = studentDetails[4];
+        email = studentDetails[5];
+        registeredSports = studentDetails[6];
+        this.sport = sport;
+        sportsCenterCode = studentDetails[7];
+        this.coach = coach;
     }
 
     public static Student studentLogin (String username, String password){

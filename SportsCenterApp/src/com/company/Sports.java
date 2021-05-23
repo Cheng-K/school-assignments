@@ -5,9 +5,20 @@ import java.util.ArrayList;
 public class Sports {
     private String name;
     private String sportsID;
-    // Instantiate all coach into objects and store it in temporaray list then picked revelant ones and add it in here
-    private ArrayList<Coach> coachArrayList;
+    private int sportFees;
+    private Schedule schedule;
 
+
+    public Sports (String sportCenterCode, String[] details){
+        name = details[0];
+        sportsID = details[1];
+        sportFees = Integer.parseInt(details[2]);
+        schedule = new Schedule(sportCenterCode,details[3].split(","));
+    }
+
+    public String toString() {
+        return name + "|" + sportsID;
+    }
 
     // addCoach
     // deleteCoach

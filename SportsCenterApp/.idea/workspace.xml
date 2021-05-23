@@ -13,13 +13,6 @@
       <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile$2.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/AdminMenu.form" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/AdminMenu.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/AdminMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/AdminMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Coach.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Coach.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/CreateStudentProfile.form" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/CreateStudentProfile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/StudentMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/StudentMenu.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,6 +22,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -115,10 +109,7 @@
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="160" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
-    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="430" />
-    =======
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="417" />
-    &gt;&gt;&gt;&gt;&gt;&gt;&gt; displayAllRecord(Admin)
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
