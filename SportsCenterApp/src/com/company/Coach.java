@@ -67,7 +67,6 @@ public class Coach {
         sportsCenterID = coachDetails[7];
         sportsCode = coachDetails[8];
         rating = Float.parseFloat(coachDetails[9]);
-
         // initialize sports
 
     }

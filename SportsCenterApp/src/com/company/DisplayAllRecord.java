@@ -186,7 +186,9 @@ public class DisplayAllRecord {
             }
         }
 
-
+        public ArrayList<Sports> getSportsArrayList() {
+            return sportsArrayList;
+        }
     }
 
     public class setSchedulePanel {
@@ -230,6 +232,8 @@ public class DisplayAllRecord {
         private void prepareScheduleSelector() {
             for (Schedule schedule : weeklySchedule)
                 scheduleSelector.addItem(schedule);
+            for (Sports sports: sportsPanelManager.getSportsArrayList())
+                scheduleSelector.addItem(sports.getSchedule());
 
             scheduleSelector.addItemListener(new ItemListener() {
                 @Override

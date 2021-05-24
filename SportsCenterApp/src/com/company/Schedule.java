@@ -6,14 +6,15 @@ import java.util.List;
 
 public class Schedule {
     private List<Session> sessionList = new ArrayList<>();
-    private String day = "null";
+    private String day = "";
+    private String sports = "";
 
     public Schedule (String sportsCenterCode, String[] sessionID) {
         String[] sessionFile = FileServer.readFile(sportsCenterCode,"Session.txt");
         for (String ID : sessionID){
             for (String line : sessionFile){
                 String[] tokens = line.split("\\|");
-                if (tokens[0].equals(ID))
+                if (tokens[1].equals(ID))
                     sessionList.add(new Session(tokens));
             }
         }
