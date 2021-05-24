@@ -1,10 +1,9 @@
 package com.company;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import java.awt.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -35,24 +34,28 @@ public class DisplayAllRecord {
     private JScrollPane scheduleTableContainer;
     private JTable scheduleRecordTable;
     private JComboBox<Schedule> scheduleSelector;
+    private JComboBox<Comparator<Session>> sortByScheduleMenu;
+    private JButton refreshButton;
     private DefaultTableModel coachTableModel;
     private DefaultTableModel studentTableModel = (DefaultTableModel) studentRecordTable.getModel();
     private DefaultTableModel sportsTableModel;
     private DefaultTableModel scheduleTableModel;
     private Admin admin;
-    public setCoachPanel coachPanelManager;
-    private setStudentPanel studentPanelManager;
-    public setSportsPanel sportsPanelManager;
-    private final setSchedulePanel schedulePanelManger;
+    public SetCoachPanel coachPanelManager;
+    public SetStudentPanel studentPanelManager;
+    public SetSportsPanel sportsPanelManager;
+    private final SetSchedulePanel schedulePanelManger;
 
-    /*  Class : setCoachPanel
+
+
+    /*  Class : SetCoachPanel
         Description : Responsible for setting up/ changing components in Coach Tab (Coach Tab Manager)
      */
-    public class setCoachPanel {
+    public class SetCoachPanel {
 
         private ArrayList<Coach> coachList = new ArrayList<>();
 
-        public setCoachPanel (){
+        public SetCoachPanel(){
             getAllCoach();
             prepareCoachTable();
             updateCoachTable();
@@ -98,6 +101,13 @@ public class DisplayAllRecord {
             }
         }
 
+        public void showFoundCoaches(ArrayList<Coach>searchResults){
+            clearCoachTable();
+            coachList = searchResults;
+            updateCoachTable();
+            tabbedPane1.setSelectedIndex(1);
+        }
+
         /*  Method Name : prepareCoachTable
             Description : Set the number of columns in JTable
          */
@@ -111,17 +121,23 @@ public class DisplayAllRecord {
             Description : Clear all the rows in JTable
          */
         private void clearCoachTable() {coachTableModel.setRowCount(0);}
+        public ArrayList<Coach> getCoachList() {return coachList;}
 
+        public void refreshCoachList() {
+            coachList.clear();
+            getAllCoach();
+            clearUpdateTable();
+        }
     }
 
-    /*  Class : setStudentPanel
+    /*  Class : SetStudentPanel
         Description : Responsible for setting up/ changing components in Coach Tab (Student Tab Manager)
      */
 
-    private class setStudentPanel {
+    public class SetStudentPanel {
         private ArrayList<Student> studentList = new ArrayList<>();
 
-        public setStudentPanel() {
+        public SetStudentPanel() {
             getAllStudent();
             prepareStudentTable();
             updateStudentTable();
@@ -147,18 +163,34 @@ public class DisplayAllRecord {
                 studentTableModel.addRow(student.toString().split("\\|"));
         }
 
+        public void showFoundStudents(ArrayList<Student>searchResult){
+            clearStudentTable();
+            studentList = searchResult;
+            updateStudentTable();
+            tabbedPane1.setSelectedIndex(0);
+
+        }
+
         private void clearStudentTable() {studentTableModel.setRowCount(0);}
 
         private void setDropMenu () {sortByStudentMenu.addItem(new Student.sortByName());}
 
+        public void refreshStudentList() {
+            studentList.clear();
+            getAllStudent();
+            clearStudentTable();
+            updateStudentTable();
+        }
+        public ArrayList<Student> getStudentList() {return studentList;}
     }
 
-    private class setSportsPanel {
+    public class SetSportsPanel {
         private ArrayList<Sports> sportsArrayList = new ArrayList<>();
-        private setSportsPanel(){
+        private SetSportsPanel(){
             getAllSports();
             prepareSportsTable();
             updateSportsTable();
+            setSortDropMenu();
         }
         private void getAllSports() {
             String[] sportsFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Sports.txt");
@@ -185,20 +217,40 @@ public class DisplayAllRecord {
                 sportsTableModel.addRow(sport.toString().split("\\|"));
             }
         }
+        public void showFoundSports (ArrayList<Sports> results){
+            clearSportsTable();
+            for (Sports sports : results){
+                sportsTableModel.addRow(sports.toString().split("\\|"));
+            }
+            tabbedPane1.setSelectedIndex(2);
+        }
+        private void setSortDropMenu() {
+            sortBySportsMenu.addItem(new Sports.sortByName());
+            sortBySportsMenu.addItem(new Sports.sortByFees());
+        }
+        private void clearSportsTable() {sportsTableModel.setRowCount(0);}
 
         public ArrayList<Sports> getSportsArrayList() {
             return sportsArrayList;
         }
+
+        public void refreshSportsList() {
+            sportsArrayList.clear();
+            getAllSports();
+            clearSportsTable();
+            updateSportsTable();
+        }
     }
 
-    public class setSchedulePanel {
+    public class SetSchedulePanel {
         private ArrayList<Schedule> weeklySchedule = new ArrayList<>();
 
-        public setSchedulePanel () {
+        public SetSchedulePanel() {
             getWeeklySchedule();
             prepareScheduleTable();
             updateScheduleTable();
             prepareScheduleSelector();
+            setSortDropMenu();
         }
         private void getWeeklySchedule() {
             String[] scheduleFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Schedule.txt");
@@ -244,6 +296,11 @@ public class DisplayAllRecord {
             });
         }
 
+        private void setSortDropMenu (){
+            sortByScheduleMenu.addItem(new Session.sortByDay());
+            sortByScheduleMenu.addItem(new Session.sortByName());
+        }
+
     }
 
     /*  Class : sortTableButtonListener
@@ -265,7 +322,15 @@ public class DisplayAllRecord {
                     admin.sort(coachPanelManager.coachList,(Comparator<Coach>) sortByCoachMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     coachPanelManager.updateCoachTable();
                     break;
+                case 2:
+                    sportsPanelManager.clearSportsTable();
+                    admin.sort(sportsPanelManager.sportsArrayList,(Comparator<Sports>)sortBySportsMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    sportsPanelManager.updateSportsTable();
+                    break;
                 default:
+                    schedulePanelManger.clearScheduleTable();
+                    admin.sort(((Schedule)scheduleSelector.getSelectedItem()).getAllSession(),(Comparator<Session>)sortByScheduleMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    schedulePanelManger.updateScheduleTable((Schedule) scheduleSelector.getSelectedItem());
                     break;
             }
         }
@@ -280,17 +345,51 @@ public class DisplayAllRecord {
             switch (tabNumber){
                 case 0 :
                     break;
-                case 1:
+                case 1: {
                     int row = coachRecordTable.getSelectedRow();
                     Coach targetCoach;
                     if (row == -1)
-                        JOptionPane.showMessageDialog(frame,"Please select a row to modify");
+                        JOptionPane.showMessageDialog(frame, "Please select a row to modify");
                     else {
                         targetCoach = coachPanelManager.coachList.get(row);
                         frame.setVisible(false);
-                        new AdminModifyMenu(targetCoach,admin,DisplayAllRecord.this);
+                        new AdminModifyMenu(targetCoach, admin, DisplayAllRecord.this);
                     }
+                }
                 case 2:
+                    break;
+                case 3: {
+                    int row = scheduleRecordTable.getSelectedRow();
+                    Session targetSession;
+                    if (row == -1)
+                        JOptionPane.showMessageDialog(frame, "Please select a row to modify");
+                    else {
+                        targetSession = ((Schedule)scheduleSelector.getSelectedItem()).getSession(row);
+                        frame.setVisible(false);
+                        new AdminModifyMenu(targetSession,admin,DisplayAllRecord.this);
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
+    private class RefreshButtonListener implements ActionListener{
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch (tabbedPane1.getSelectedIndex()){
+                case 0 :
+                    studentPanelManager.refreshStudentList();
+                    break;
+                case 1:
+                    coachPanelManager.refreshCoachList();
+                    break;
+                case 2:
+                    sportsPanelManager.refreshSportsList();
+                    break;
+                case 3 :
+
                     break;
             }
         }
@@ -299,17 +398,18 @@ public class DisplayAllRecord {
 
 
 
-    public DisplayAllRecord (Admin admin) {
+    public DisplayAllRecord (Admin admin,boolean visible) {
         this.admin = admin;
-        coachPanelManager = new setCoachPanel();
-        studentPanelManager = new setStudentPanel();
-        sportsPanelManager = new setSportsPanel();
-        schedulePanelManger = new setSchedulePanel();
+        coachPanelManager = new SetCoachPanel();
+        studentPanelManager = new SetStudentPanel();
+        sportsPanelManager = new SetSportsPanel();
+        schedulePanelManger = new SetSchedulePanel();
         radioButtonGroup.add(ascendingRadioButton);
         radioButtonGroup.add(descendingRadioButton);
         ascendingRadioButton.setSelected(true);
         sortTableButton.addActionListener(new sortTableButtonListener());
         modifyDetailsButton.addActionListener(new modifyDetailsListener());
+        refreshButton.addActionListener(new RefreshButtonListener());
         backToMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -321,8 +421,12 @@ public class DisplayAllRecord {
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(visible);
 
+    }
+
+    public DisplayAllRecord (Admin admin){
+        this(admin,true);
     }
 
 

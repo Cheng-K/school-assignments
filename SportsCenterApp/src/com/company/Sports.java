@@ -1,6 +1,7 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class Sports {
     private String name;
@@ -8,7 +9,29 @@ public class Sports {
     private int sportFees;
     private Schedule schedule;
 
+    public static class sortByFees implements Comparator<Sports> {
 
+        @Override
+        public int compare(Sports o1, Sports o2) {
+            return o1.sportFees - o2.sportFees;
+        }
+        @Override
+        public String toString() {
+            return "Sort by Sport Fees";
+        }
+    }
+
+    public static class sortByName implements Comparator<Sports>{
+
+        @Override
+        public int compare(Sports o1, Sports o2) {
+            return o1.name.compareTo(o2.name);
+        }
+        @Override
+        public String toString(){
+            return "Sort by Sport Name";
+        }
+    }
     public Sports (String sportCenterCode, String[] details){
         name = details[0];
         sportsID = details[1];
@@ -26,8 +49,7 @@ public class Sports {
     public Schedule getSchedule() {
         return schedule;
     }
+    public String getSportsID (){return sportsID;}
 
-    // addCoach
-    // deleteCoach
     // getters & setters
 }

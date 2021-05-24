@@ -20,7 +20,7 @@ public class AdminModifyMenu {
     private JTextField addressField;
     private JTextField sportsCenterIDField;
     private JTextField ratingField;
-    private JButton saveCloseButton;
+    private JButton saveCloseButtonCoach;
     private JLabel coachIDLabel;
     private JLabel nameLabel;
     private JLabel dateJoinedLabel;
@@ -32,11 +32,40 @@ public class AdminModifyMenu {
     private JLabel sportCenterCodeLabel;
     private JLabel sportsLabel;
     private JPanel rootPanel;
+    private JPanel modifyCoachTab;
+    private JPanel modifySessionTab;
+    private JTextField sessionIDField;
+    private JTextField startTimeField;
+    private JTextField endTimeField;
+    private JTextField durationField;
+    private JTextField coachNameField;
+    private JTextField sportNameField;
+    private JTextField dayField;
+    private JLabel sessionIDLabel;
+    private JLabel startTimeLabel;
+    private JLabel endTimeLabel;
+    private JLabel durationLabel;
+    private JLabel coachNameLabel;
+    private JLabel sportNameLabel;
+    private JLabel dayLabel;
+    private JTabbedPane tabbedPane1;
+    private JButton saveCloseButtonSession;
+    private JPanel modifySportsTab;
+    private JTextField sportsNameField;
+    private JTextField sportIDField;
+    private JTextField sportFeesField;
+    private JButton saveCloseButtonSports;
+    private JLabel sportFeesLabel;
+    private JLabel sportIDLabel;
+    private JLabel sportsNameLabel;
+    private JPanel coachPanel;
     private Student student;
     private Coach coach;
+    private Session session;
     private DisplayAllRecord parentFrame;
     private Admin admin;
-    private setCoachPanel coachPanelManager;
+    private setCoachTab coachPanelManager;
+    private SetSessionTab sessionPanelManger;
 
 
     public AdminModifyMenu(Object received, Admin admin, DisplayAllRecord returnFrame) {
@@ -45,12 +74,16 @@ public class AdminModifyMenu {
         try {
             if (received instanceof Coach) {
                 coach = (Coach) received;
-                coachPanelManager = new setCoachPanel();
+                coachPanelManager = new setCoachTab();
+                frame.setContentPane(coachPanel);
             } else if (received instanceof Student) {
                 student = (Student) received;
+            } else if (received instanceof Session){
+                session = (Session) received;
+                sessionPanelManger = new SetSessionTab();
+                frame.setContentPane(modifySessionTab);
             }
             frame.setTitle("Modifying " + received.getClass().getName());
-            frame.setContentPane(rootPanel);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
@@ -60,8 +93,8 @@ public class AdminModifyMenu {
         }
     }
 
-    private class setCoachPanel {
-        public setCoachPanel() {
+    private class setCoachTab {
+        public setCoachTab() {
             coachIDField.setText(coach.getCoachID());
             nameField.setText(coach.getName());
             dateJoinedField.setText(coach.getDateJoined().toString());
@@ -75,7 +108,7 @@ public class AdminModifyMenu {
             addressField.setText(coach.getAddress());
             sportsCenterIDField.setText(coach.getSportsCenterID());
             ratingField.setText(Float.toString(coach.getRating()));
-            saveCloseButton.addActionListener(new saveCloseButtonListener());
+            saveCloseButtonCoach.addActionListener(new saveCloseButtonListener());
         }
 
         public List<String> getEnteredCoachDetails() {
@@ -89,6 +122,18 @@ public class AdminModifyMenu {
             returnList.add(addressField.getText());
             returnList.add(sportsCenterIDField.getText());
             return returnList;
+        }
+    }
+
+    private class SetSessionTab {
+        public SetSessionTab(){
+            dayField.setText(session.getDay());
+            sessionIDField.setText(session.getSessionID());
+            startTimeField.setText(session.getStartTime().toString());
+            endTimeField.setText(session.getEndTime().toString());
+            durationField.setText(Long.toString(session.getDuration().toHours()));
+            coachNameField.setText(session.getCoachName());
+            sportNameField.setText(session.getSportName());
         }
     }
 

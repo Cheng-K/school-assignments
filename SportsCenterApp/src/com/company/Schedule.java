@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Schedule {
-    private List<Session> sessionList = new ArrayList<>();
+    private ArrayList<Session> sessionList = new ArrayList<>();
     private String day = "";
     private String sports = "";
 
@@ -26,7 +26,6 @@ public class Schedule {
     }
 
 
-
     public void addSession(Session newSession) {
 
     }
@@ -37,8 +36,8 @@ public class Schedule {
     }
 
 
-    public Session getSession() {
-        return null;
+    public Session getSession(int index) {
+        return sessionList.get(index);
     }
 
     public static String[] getAllAttributes () {
@@ -49,7 +48,7 @@ public class Schedule {
         return "Show schedule for " + day;
     }
 
-    public List<Session> getAllSession() {
+    public ArrayList<Session> getAllSession() {
         return sessionList;
     }
 }
