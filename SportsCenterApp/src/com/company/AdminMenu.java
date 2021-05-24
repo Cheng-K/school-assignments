@@ -23,13 +23,6 @@ public class AdminMenu {
     */
     public AdminMenu (Admin admin){
         this.admin = admin;
-        showRecordsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
-                new DisplayAllRecord(admin);
-            }
-        });
         frame = new JFrame("Main Menu");
         welcomeHeading.setText("Welcome, Admin "+ admin.getID());
         frame.setContentPane(adminMenuPanel);
@@ -41,6 +34,20 @@ public class AdminMenu {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new CreateRecordMenu(admin);
+            }
+        });
+        showRecordsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                new DisplayAllRecord(admin);
+            }
+        });
+        searchRecordButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new AdminSearchForm(admin);
             }
         });
         signOutButton.addActionListener(new ActionListener() {

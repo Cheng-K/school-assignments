@@ -295,6 +295,26 @@ public class Admin {
         // Other continue below here
     }
 
+    public  ArrayList<Coach> searchCoach(List<Coach>coachList,String ID){
+        ArrayList<Coach>found = new ArrayList<>();
+        for (Coach coach:coachList){
+            if (ID.equalsIgnoreCase(coach.getCoachID()))
+                found.add(coach);
+        }
+        return found;
+    }
+    public ArrayList<Coach> searchCoach(List<Coach>coachList,int rating){
+        ArrayList<Coach>found = new ArrayList<>();
+        for (Coach coach:coachList){
+            if (rating == coach.getRating())
+                found.add(coach);
+        }
+        return found;
+    }
+    public ArrayList<Coach> searchCoach(List<Coach>coachList,String ID, int rating){
+        return searchCoach(searchCoach(coachList,ID),rating);
+    }
+
 
     // Not sure where to put it
     private boolean onlyDigits (String str){

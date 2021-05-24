@@ -32,11 +32,27 @@ public class AdminModifyMenu {
     private JLabel sportCenterCodeLabel;
     private JLabel sportsLabel;
     private JPanel rootPanel;
+    private JPanel modifyCoachTab;
+    private JPanel modifySessionTab;
+    private JTextField sessionIDField;
+    private JTextField startTimeField;
+    private JTextField endTimeField;
+    private JTextField durationField;
+    private JTextField coachNameField;
+    private JTextField sportNameField;
+    private JTextField DayField;
+    private JLabel sessionIDLabel;
+    private JLabel startTimeLabel;
+    private JLabel endTimeLabel;
+    private JLabel durationLabel;
+    private JLabel coachNameLabel;
+    private JLabel sportNameLabel;
+    private JLabel dayLabel;
     private Student student;
     private Coach coach;
     private DisplayAllRecord parentFrame;
     private Admin admin;
-    private setCoachPanel coachPanelManager;
+    private setCoachTab coachPanelManager;
 
 
     public AdminModifyMenu(Object received, Admin admin, DisplayAllRecord returnFrame) {
@@ -45,7 +61,7 @@ public class AdminModifyMenu {
         try {
             if (received instanceof Coach) {
                 coach = (Coach) received;
-                coachPanelManager = new setCoachPanel();
+                coachPanelManager = new setCoachTab();
             } else if (received instanceof Student) {
                 student = (Student) received;
             }
@@ -60,8 +76,8 @@ public class AdminModifyMenu {
         }
     }
 
-    private class setCoachPanel {
-        public setCoachPanel() {
+    private class setCoachTab {
+        public setCoachTab() {
             coachIDField.setText(coach.getCoachID());
             nameField.setText(coach.getName());
             dateJoinedField.setText(coach.getDateJoined().toString());

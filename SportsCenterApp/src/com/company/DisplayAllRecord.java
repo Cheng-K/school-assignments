@@ -99,6 +99,14 @@ public class DisplayAllRecord {
             }
         }
 
+        public void showFoundCoaches(ArrayList<Coach>searchResults){
+            clearCoachTable();
+            for (Coach coach: searchResults){
+                coachTableModel.addRow(coach.toString().split("\\|"));
+            }
+            tabbedPane1.setSelectedIndex(1);
+        }
+
         /*  Method Name : prepareCoachTable
             Description : Set the number of columns in JTable
          */
@@ -112,6 +120,7 @@ public class DisplayAllRecord {
             Description : Clear all the rows in JTable
          */
         private void clearCoachTable() {coachTableModel.setRowCount(0);}
+        public ArrayList<Coach> getCoachList() {return coachList;}
 
     }
 
@@ -319,7 +328,7 @@ public class DisplayAllRecord {
 
 
 
-    public DisplayAllRecord (Admin admin) {
+    public DisplayAllRecord (Admin admin,boolean visible) {
         this.admin = admin;
         coachPanelManager = new setCoachPanel();
         studentPanelManager = new setStudentPanel();
@@ -341,8 +350,12 @@ public class DisplayAllRecord {
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
-        frame.setVisible(true);
+        frame.setVisible(visible);
 
+    }
+
+    public DisplayAllRecord (Admin admin){
+        this(admin,true);
     }
 
 
