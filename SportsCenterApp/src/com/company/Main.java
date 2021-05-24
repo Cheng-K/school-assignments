@@ -58,11 +58,7 @@ public class Main {
 
 
 
-            String studentDetails[] = {"Enya","S001","19","Sri Petaling","011123","enya@gmail.com","Badminton","L001"};
-            String coachDetails[] = {"Kei Zhong","C001","2018-09-12","null","20","012-9994563","Bandar Utama","L001","B001","15","2"};
-            Student student = new Student(studentDetails);
-            Coach coach = new Coach(coachDetails);
-            student.giveRating(10,coach);
+
 
 
 
@@ -70,6 +66,8 @@ public class Main {
 
 //            Admin admin = new Admin("Jack","L001");
 //            new AdminMenu(admin);
-//        new LoginScreen();
+//      new LoginScreen();
+        Integer.parseInt("08");
+
     }
 }

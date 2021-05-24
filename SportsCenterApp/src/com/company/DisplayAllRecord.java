@@ -356,8 +356,18 @@ public class DisplayAllRecord {
                         new AdminModifyMenu(targetCoach, admin, DisplayAllRecord.this);
                     }
                 }
-                case 2:
+                case 2: {
+                    int row = sportsRecordTable.getSelectedRow();
+                    Sports targetSports;
+                    if (row == -1)
+                        JOptionPane.showMessageDialog(frame, "Please select a row to modify");
+                    else {
+                        targetSports = sportsPanelManager.sportsArrayList.get(row);
+                        frame.setVisible(false);
+                        new AdminModifyMenu(targetSports, admin, DisplayAllRecord.this);
+                    }
                     break;
+                }
                 case 3: {
                     int row = scheduleRecordTable.getSelectedRow();
                     Session targetSession;

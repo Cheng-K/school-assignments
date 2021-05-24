@@ -132,7 +132,6 @@ public class Coach {
 
     public String getSportsCode() {
         return sportsCode;
-
     }
 
     public int getRating() {

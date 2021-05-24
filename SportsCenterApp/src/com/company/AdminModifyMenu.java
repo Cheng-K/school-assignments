@@ -5,12 +5,14 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AdminModifyMenu {
     private JFrame frame = new JFrame();
-    private JComboBox sportsBox;
     private JTextField coachIDField;
     private JTextField nameField;
     private JTextField dateJoinedField;
@@ -58,14 +60,16 @@ public class AdminModifyMenu {
     private JLabel sportFeesLabel;
     private JLabel sportIDLabel;
     private JLabel sportsNameLabel;
+    private JTextField sportsCoachingField;
     private JPanel coachPanel;
-    private Student student;
     private Coach coach;
     private Session session;
+    private Sports sports;
     private DisplayAllRecord parentFrame;
     private Admin admin;
-    private setCoachTab coachPanelManager;
+    private SetCoachTab coachPanelManager;
     private SetSessionTab sessionPanelManger;
+    private SetSportsTab sportsPanelManger;
 
 
     public AdminModifyMenu(Object received, Admin admin, DisplayAllRecord returnFrame) {
@@ -74,16 +78,17 @@ public class AdminModifyMenu {
         try {
             if (received instanceof Coach) {
                 coach = (Coach) received;
-                coachPanelManager = new setCoachTab();
-                frame.setContentPane(coachPanel);
-            } else if (received instanceof Student) {
-                student = (Student) received;
+                coachPanelManager = new SetCoachTab();
+                frame.setContentPane(modifyCoachTab);
+            } else if (received instanceof Sports) {
+                sports = (Sports) received;
+                frame.setContentPane(modifySportsTab);
             } else if (received instanceof Session){
                 session = (Session) received;
                 sessionPanelManger = new SetSessionTab();
                 frame.setContentPane(modifySessionTab);
             }
-            frame.setTitle("Modifying " + received.getClass().getName());
+            frame.setTitle("Modifying " + received.getClass().getSimpleName());
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);
@@ -93,8 +98,8 @@ public class AdminModifyMenu {
         }
     }
 
-    private class setCoachTab {
-        public setCoachTab() {
+    private class SetCoachTab {
+        public SetCoachTab() {
             coachIDField.setText(coach.getCoachID());
             nameField.setText(coach.getName());
             dateJoinedField.setText(coach.getDateJoined().toString());
@@ -107,8 +112,9 @@ public class AdminModifyMenu {
             contactNumberField.setText(coach.getPhone());
             addressField.setText(coach.getAddress());
             sportsCenterIDField.setText(coach.getSportsCenterID());
+            sportsCoachingField.setText(coach.getSportsCode());
             ratingField.setText(Float.toString(coach.getRating()));
-            saveCloseButtonCoach.addActionListener(new saveCloseButtonListener());
+            saveCloseButtonCoach.addActionListener(new saveCloseButtonCoachListener());
         }
 
         public List<String> getEnteredCoachDetails() {
@@ -123,6 +129,97 @@ public class AdminModifyMenu {
             returnList.add(sportsCenterIDField.getText());
             return returnList;
         }
+
+        private int verifyCoachDetails (List<String> coachDetails, FormChecker validator){
+            int returnNum = 0;
+            // Check for each length
+            for (int index = 0; index<coachDetails.size(); index++){
+                if (coachDetails.get(index).length() >= 100){
+                    setCoachBorderRed(index,"Value is too unrealistic large/long");
+                    returnNum = 1;
+                }
+                else {
+                    switch (index){
+                        case 0 :
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            if (!validator.isDateObject(coachDetails.get(2))) {
+                                setCoachBorderRed(index, "Date format should be YYYY-MM-DD");
+                                returnNum = 1;
+                            }
+                            break;
+                        case 3:
+                            if (!validator.isDateObject(coachDetails.get(3)) && !coachDetails.get(3).equals("null")) {
+                                setCoachBorderRed(index, "Date format should be YYYY-MM-DD");
+                                returnNum = 1;
+                            }
+                            break;
+                        case 4:
+                            if (!validator.isIntegerObject(coachDetails.get(4))) {
+                                setCoachBorderRed(index, "Invalid integer provided");
+                                returnNum = 1;
+                            }
+                            break;
+                        case 5 :
+                            if (!validator.onlyDigits(coachDetails.get(5))) {
+                                setCoachBorderRed(index, "Invalid contact number, only digits are allowed");
+                                returnNum = 1;
+                            }
+                            break;
+                        case 6 :
+                            break;
+                        case 7:
+                            break;
+                        case 8 :
+                            break;
+                        case 9 :
+                            break;
+                    }
+                }
+            }
+            return returnNum;
+        }
+        private void setCoachBorderRed(int index, String message) {
+            switch (index) {
+                case 0:
+                    coachIDField.setBorder(new LineBorder(Color.RED, 2));
+                    coachIDField.setToolTipText(message);
+                    break;
+                case 1:
+                    break;
+                case 2:
+                    dateJoinedField.setBorder(new LineBorder(Color.RED, 2));
+                    dateJoinedField.setToolTipText(message);
+                    break;
+                case 3:
+                    dateTerminatedField.setBorder(new LineBorder(Color.RED, 2));
+                    dateTerminatedField.setToolTipText(message);
+                    break;
+                case 4:
+                    hourlyRateField.setBorder(new LineBorder(Color.RED, 2));
+                    hourlyRateField.setToolTipText(message);
+                    break;
+                case 5:
+                    contactNumberField.setBorder(new LineBorder(Color.RED, 2));
+                    contactNumberField.setToolTipText(message);
+                    break;
+                case 6:
+                    addressField.setBorder(new LineBorder(Color.RED, 2));
+                    addressField.setToolTipText(message);
+                    break;
+                case 7:
+                    break;
+                case 8:
+                    break;
+                case 9:
+                    ratingField.setBorder(new LineBorder(Color.RED, 2));
+                    ratingField.setToolTipText(message);
+                    break;
+            }
+
+        }
     }
 
     private class SetSessionTab {
@@ -135,12 +232,134 @@ public class AdminModifyMenu {
             coachNameField.setText(session.getCoachName());
             sportNameField.setText(session.getSportName());
         }
+        private List<String> getEnteredDetails () {
+            List<String> returnList = new ArrayList<>();
+            returnList.add(dayField.getText());
+            returnList.add(sessionIDField.getText());
+            returnList.add(startTimeField.getText());
+            returnList.add(endTimeField.getText());
+            returnList.add(durationField.getText());
+            returnList.add(coachNameField.getText());
+            returnList.add(sportNameField.getText());
+            return returnList;
+        }
+
+        private int verifySessionDetails (List<String> sessionDetails, FormChecker validator){
+            int returnNum = 0;
+            if (!validator.isDay(sessionDetails.get(0))){
+                setSessionBorderRed(0,"Invalid day provided.");
+                returnNum = 1;
+            }
+            if (!validator.isTime(sessionDetails.get(2))){
+                setSessionBorderRed(2,"Please provide time in HH:MM 24 hour format");
+                returnNum = 1;
+            }
+            if (!validator.isTime(sessionDetails.get(3))){
+                setSessionBorderRed(3,"Please provide time in HH:MM 24 hour format");
+                returnNum = 1;
+            }
+            return returnNum;
+        }
+
+        private void setSessionBorderRed(int index,String message){
+            switch(index){
+                case 0 :
+                    dayField.setBorder(new LineBorder(Color.RED,2));
+                    dayField.setToolTipText(message);
+                    break;
+                case 1 :
+                    sessionIDField.setBorder(new LineBorder(Color.RED,2));
+                    sessionIDField.setToolTipText(message);
+                    break;
+                case 2:
+                    startTimeField.setBorder(new LineBorder(Color.RED,2));
+                    startTimeField.setToolTipText(message);
+                    break;
+                case 3:
+                    endTimeField.setBorder(new LineBorder(Color.RED,2));
+                    endTimeField.setToolTipText(message);
+                    break;
+                case 4:
+                    durationField.setBorder(new LineBorder(Color.RED,2));
+                    endTimeField.setToolTipText(message);
+                    break;
+                case 5:
+                    coachNameField.setBorder(new LineBorder(Color.RED,2));
+                    coachNameField.setToolTipText(message);
+                    break;
+                case 6:
+                    sportNameField.setBorder(new LineBorder(Color.RED,2));
+                    sportNameField.setToolTipText(message);
+                    break;
+                default :
+                    break;
+            }
+        }
+
     }
 
-    private class saveCloseButtonListener implements ActionListener {
+    private class SetSportsTab {
+        public SetSportsTab (){
+            sportIDField.setText(sports.getSportsID());
+            sportNameField.setText(sports.getName());
+            sportFeesField.setText(Integer.toString(sports.getSportFees()));
+        }
+        private int verifySportsDetails (String newSportFees,FormChecker validator){
+            if (validator.isIntegerObject(newSportFees)) {
+                return 0;
+            }
+            else {
+                setSportsBorderRed(2,"Please provide a proper integer value");
+                return 1;
+            }
+        }
+        private void setSportsBorderRed (int index,String message){
+            switch (index) {
+                case 0:
+                    sportIDField.setBorder(new LineBorder(Color.RED, 2));
+                    sportIDField.setToolTipText(message);
+                case 1:
+                    sportNameField.setBorder(new LineBorder(Color.RED,2));
+                    sportNameField.setToolTipText(message);
+                case 2 :
+                    sportFeesField.setBorder(new LineBorder(Color.RED,2));
+                    sportFeesField.setToolTipText(message);
+            }
+        }
+
+    }
+
+    private class saveCloseButtonCoachListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (admin.verifyCoachDetails(AdminModifyMenu.this, coachPanelManager.getEnteredCoachDetails()) == 1) {
+            if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails(),new FormChecker()) == 1) {
+                JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
+            } else {
+                admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach);
+                parentFrame.coachPanelManager.clearUpdateTable();
+                parentFrame.frame.setVisible(true);
+                frame.dispose();
+            }
+        }
+    }
+    
+    private class saveCloseButtonSessionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails(),new FormChecker()) == 1) {
+                JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
+            } else {
+                admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach);
+                parentFrame.coachPanelManager.clearUpdateTable();
+                parentFrame.frame.setVisible(true);
+                frame.dispose();
+            }
+        }
+    }
+    private class saveCloseButtonSportsListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails(),new FormChecker()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
                 admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach);
@@ -151,44 +370,55 @@ public class AdminModifyMenu {
         }
     }
 
-    public void setBorderRed(int index, String message) {
-        switch (index) {
-            case 0:
-                coachIDField.setBorder(new LineBorder(Color.RED, 2));
-                coachIDField.setToolTipText(message);
-                break;
-            case 1:
-                break;
-            case 2:
-                dateJoinedField.setBorder(new LineBorder(Color.RED, 2));
-                dateJoinedField.setToolTipText(message);
-                break;
-            case 3:
-                dateTerminatedField.setBorder(new LineBorder(Color.RED, 2));
-                dateTerminatedField.setToolTipText(message);
-                break;
-            case 4:
-                hourlyRateField.setBorder(new LineBorder(Color.RED, 2));
-                hourlyRateField.setToolTipText(message);
-                break;
-            case 5:
-                contactNumberField.setBorder(new LineBorder(Color.RED, 2));
-                contactNumberField.setToolTipText(message);
-                break;
-            case 6:
-                addressField.setBorder(new LineBorder(Color.RED, 2));
-                addressField.setToolTipText(message);
-                break;
-            case 7:
-                break;
-            case 8:
-                break;
-            case 9:
-                ratingField.setBorder(new LineBorder(Color.RED, 2));
-                ratingField.setToolTipText(message);
-                break;
-        }
 
+
+
+}
+
+class FormChecker{
+    // Not sure where to put it
+    public boolean onlyDigits (String str){
+        for (int index = 0; index < str.length(); index ++){
+            if (!Character.isDigit(str.charAt(index)))
+                return false;
+        }
+        return true;
     }
 
+    public boolean isDateObject (String str){
+        try {
+            LocalDate.parse(str);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isIntegerObject (String str){
+        try{
+            Integer.parseInt(str);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public boolean isDay (String str){
+        ArrayList<String> listOfDays = new ArrayList<String> (Arrays.asList(
+                "monday","tuesday","wednesday","thursday","friday","saturday","sunday"));
+        return listOfDays.contains(str.toLowerCase());
+    }
+
+    public boolean isTime (String str){
+        if (str.length() >5)
+            return false;
+        String[] tokens = str.split(":");
+        if (tokens.length == 2){
+            try {
+                LocalTime.of(Integer.parseInt(tokens[0]),Integer.parseInt(tokens[1]));
+                return true;
+            } catch (Exception e){}
+        }
+        return false;
+    }
 }
