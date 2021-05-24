@@ -177,9 +177,9 @@ public class Admin {
         for (String line:fileContent)
         {
             String[] token = line.split("\\|");
-            if (Integer.parseInt(token[1].replace("C",""))>max)
+            if (Integer.parseInt(token[0].replace("C",""))>max)
             {
-                max = Integer.parseInt(token[1].replace("C",""));
+                max = Integer.parseInt(token[0].replace("C",""));
             }
         }
         max++;

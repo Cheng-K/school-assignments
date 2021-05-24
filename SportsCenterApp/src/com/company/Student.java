@@ -1,5 +1,6 @@
 package com.company;
 
+import java.io.File;
 import java.util.Comparator;
 
 public class Student extends BaseStudent {
@@ -34,7 +35,6 @@ public class Student extends BaseStudent {
         contactNumber = studentDetails[4];
         email = studentDetails[5];
         registeredSports = studentDetails[6];
-
         sportsCenterCode = studentDetails[7];
         // intialize the coach
 
@@ -89,6 +89,26 @@ public class Student extends BaseStudent {
     public static String[] getAllAttributes () {
         return new String[] {"Name","StudentID","Age","Address","Contact Number", "Email","Registered Sports", "Sports Center Code"};
     }
+
+    public void giveRating(int rating,Coach coach){
+        String[] coachFileContent = FileServer.readFile(getSportsCenterCode(),"Coach.txt");
+        int cnt = 0;
+        for (String line:coachFileContent){
+            String[] token = line.split("\\|");
+            if (token[0].equals(coach.getCoachID())){
+                coach.setRating(coach.getRating()+rating);
+                coach.setTotalRates(coach.getTotalRates()+1);
+                coachFileContent[cnt] = coach.toString();
+                break;
+            }
+            cnt++;
+        }
+        FileServer.writeFile(getSportsCenterCode(),"Coach.txt","");
+        for (String line:coachFileContent){
+            FileServer.appendFile(getSportsCenterCode(),"Coach.txt",line+"\n");
+        }
+    }
+
 
     public String getName() {
         return name;

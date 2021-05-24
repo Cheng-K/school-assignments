@@ -7,13 +7,13 @@ public class Coach {
     private String name;
     private String dateJoined;
     private String dateTerminated;
-    private int hourlyRate; // Stick with integer or float ?
+    private int hourlyRate;
     private String phone;
     private String address;
     private String sportsCenterID;
     private String sportsCode;
-    private float rating; // might need to change to integer
-    private int totalRating;
+    private int rating;
+    private int totalRates;
     private Sports sports; // figure this out
 
 
@@ -67,7 +67,8 @@ public class Coach {
         address = coachDetails[6];
         sportsCenterID = coachDetails[7];
         sportsCode = coachDetails[8];
-        rating = Float.parseFloat(coachDetails[9]);
+        rating = Integer.parseInt(coachDetails[9]);
+        totalRates = Integer.parseInt(coachDetails[10]);
 
         // initialize sports
 
@@ -85,7 +86,8 @@ public class Coach {
         address = coachDetails[6];
         sportsCenterID = coachDetails[7];
         sportsCode = coachDetails[8];
-        rating = Float.parseFloat(coachDetails[9]);
+        rating = Integer.parseInt(coachDetails[9]);
+        totalRates = Integer.parseInt(coachDetails[10]);
         this.sports = sports;
         // initialize sports
 
@@ -94,11 +96,11 @@ public class Coach {
         return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Rating"};
     }
 
-    public void setRating(float rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
-    public float getRating() {
+    public int getRating() {
         return rating;
     }
 
@@ -110,9 +112,22 @@ public class Coach {
         this.coachID = coachID;
     }
 
+    public int getTotalRates() {
+        return totalRates;
+    }
+
+    public void setTotalRates(int totalRates) {
+        this.totalRates = totalRates;
+    }
+
+    public String getCoachID() {
+        return coachID;
+    }
+
     @Override
     public String toString () {
-        return coachID + "|" + name + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|" + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating;
+        return coachID + "|" + name + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
+                + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating + "|" + totalRates;
     }
 
 
