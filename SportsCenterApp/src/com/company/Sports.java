@@ -49,6 +49,7 @@ public class Sports {
     public Schedule getSchedule() {
         return schedule;
     }
+    public String getSportsID (){return sportsID;}
 
     // addCoach
     // deleteCoach

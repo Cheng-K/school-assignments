@@ -163,7 +163,7 @@ public class DisplayAllRecord {
 
     }
 
-    private class setSportsPanel {
+    public class setSportsPanel {
         private ArrayList<Sports> sportsArrayList = new ArrayList<>();
         private setSportsPanel(){
             getAllSports();
@@ -196,14 +196,23 @@ public class DisplayAllRecord {
                 sportsTableModel.addRow(sport.toString().split("\\|"));
             }
         }
+        public void showFoundSports (ArrayList<Sports> results){
+            clearSportsTable();
+            for (Sports sports : results){
+                sportsTableModel.addRow(sports.toString().split("\\|"));
+            }
+            tabbedPane1.setSelectedIndex(2);
+        }
         private void setSortDropMenu() {
             sortBySportsMenu.addItem(new Sports.sortByName());
             sortBySportsMenu.addItem(new Sports.sortByFees());
         }
         private void clearSportsTable() {sportsTableModel.setRowCount(0);}
+
         public ArrayList<Sports> getSportsArrayList() {
             return sportsArrayList;
         }
+
     }
 
     public class setSchedulePanel {

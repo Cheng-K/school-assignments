@@ -315,6 +315,24 @@ public class Admin {
         return searchCoach(searchCoach(coachList,ID),rating);
     }
 
+    public ArrayList<Sports> searchSports(List <Sports> sportsList, String ID){
+        ArrayList<Sports>found = new ArrayList<>();
+        for (Sports sports : sportsList){
+            if (ID.equalsIgnoreCase(sports.getSportsID()))
+                found.add(sports);
+        }
+        return found;
+    }
+
+    public ArrayList<Student> searchStudent(List<Student>studentList,String ID){
+        ArrayList<Student>found = new ArrayList<>();
+        for (Student student : studentList){
+            if (ID.equalsIgnoreCase(student.getStudentID()))
+                found.add(student);
+        }
+        return found;
+    }
+
 
     // Not sure where to put it
     private boolean onlyDigits (String str){

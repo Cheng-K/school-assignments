@@ -20,6 +20,12 @@ public class AdminSearchForm {
     private JLabel IDLabel;
     private JLabel ratingLabel;
     private JPanel rootPanel;
+    private JPanel sportsSearching;
+    private JPanel studentSearching;
+    private JTextField studentIDField;
+    private JTextField sportsIDField;
+    private JLabel sportsIDLabel;
+    private JLabel studentIDLabel;
     private Admin admin;
     private DisplayAllRecord displayFrame;
     private coachTabServer coachTabManager;
@@ -68,52 +74,72 @@ public class AdminSearchForm {
         @Override
         public void actionPerformed(ActionEvent e) {
             boolean proceed = true; // determine whether values provided are valid
-            ArrayList<Coach> searchResult = new ArrayList<>();
+            ArrayList<?> searchResult = new ArrayList<>();
             switch (tabbedPane1.getSelectedIndex()){
-                case 0:
+                case 0: { // Coach tab
                     // Validate all the values provided
                     Integer ratingProvided = null;
                     String idProvided = null;
-                    if (searchWithRatingCheckBox.isSelected()){
+                    if (searchWithRatingCheckBox.isSelected()) {
                         try {
                             ratingProvided = Integer.parseInt(ratingField.getText());
-                        }catch (Exception error){
-                            ratingField.setBorder(new LineBorder(Color.RED,2));
+                        } catch (Exception error) {
+                            ratingField.setBorder(new LineBorder(Color.RED, 2));
                             ratingField.setToolTipText("This is not an integer/The field is empty");
                             proceed = false;
                         }
                     }
-                    if (searchWithIDCheckBox.isSelected() && IDField.getText().isEmpty()){
-                        IDField.setBorder(new LineBorder(Color.RED,2));
+                    if (searchWithIDCheckBox.isSelected() && IDField.getText().isEmpty()) {
+                        IDField.setBorder(new LineBorder(Color.RED, 2));
                         IDField.setToolTipText("The field is empty");
                         proceed = false;
-                    }
-                    else if (searchWithIDCheckBox.isSelected())
+                    } else if (searchWithIDCheckBox.isSelected())
                         idProvided = IDField.getText();
 
                     // Start searching once value provided is validated
-                    if (proceed){
+                    if (proceed) {
                         if (ratingProvided != null && idProvided != null)
-                            searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(),idProvided,ratingProvided);
+                            searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(), idProvided, ratingProvided);
                         else if (ratingProvided != null)
-                            searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(),ratingProvided);
+                            searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(), ratingProvided);
                         else if (idProvided != null)
-                            searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(),idProvided);
+                            searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(), idProvided);
                         else
-                            JOptionPane.showMessageDialog(frame,"Please select a search mode","Error",JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(frame, "Please select a search mode", "Error", JOptionPane.ERROR_MESSAGE);
                         if (searchResult.size() == 0)
-                            JOptionPane.showMessageDialog(frame,"Sorry, no result was found","Warning",JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(frame, "Sorry, no result was found", "Warning", JOptionPane.WARNING_MESSAGE);
                         else
-                            displayFrame.coachPanelManager.showFoundCoaches(searchResult);
-                            displayFrame.frame.setVisible(true);
-                            frame.dispose();
+                            displayFrame.coachPanelManager.showFoundCoaches((ArrayList<Coach>) searchResult);
+                        displayFrame.frame.setVisible(true);
+                        frame.dispose();
                     }
                     // Return dialog for invalid
                     else
-                        JOptionPane.showMessageDialog(frame,"Invalid values provided","Error",JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(frame, "Invalid values provided", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
-                case 1:
+                }
+                case 1: {// Sports tab
+                    String idProvided = null;
+                    if (sportsIDField.getText().isEmpty()) {
+                        sportsIDField.setBorder(new LineBorder(Color.RED, 2));
+                        sportsIDField.setToolTipText("Please provide a value.");
+                    } else {
+                        idProvided = sportsIDField.getText();
+                        searchResult = admin.searchSports(displayFrame.sportsPanelManager.getSportsArrayList(), idProvided);
+                        if (searchResult.size() == 0)
+                            JOptionPane.showMessageDialog(frame, "Sorry, no result was found", "Warning", JOptionPane.WARNING_MESSAGE);
+                        else {
+                            displayFrame.sportsPanelManager.showFoundSports((ArrayList<Sports>) searchResult);
+                            frame.dispose();
+                            displayFrame.frame.setVisible(true);
+                        }
+                    }
+                }
                     break;
+                case 2 : { // Students tab
+                    break;
+
+                }
                 default :
                     break;
             }
