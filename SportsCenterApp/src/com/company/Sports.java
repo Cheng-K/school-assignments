@@ -13,11 +13,18 @@ public class Sports {
         name = details[0];
         sportsID = details[1];
         sportFees = Integer.parseInt(details[2]);
-        schedule = new Schedule(sportCenterCode,details[3].split(","));
+        schedule = new Schedule(sportCenterCode,name,details[3].split(","));
     }
 
+    public static String[] getAllAttributes () {
+        return new String[]{"Name","Sports ID","Sport Fees"};
+    }
     public String toString() {
-        return name + "|" + sportsID;
+        return name + "|" + sportsID + "|" + sportFees + "|" + schedule.toString() ;
+    }
+
+    public Schedule getSchedule() {
+        return schedule;
     }
 
     // addCoach

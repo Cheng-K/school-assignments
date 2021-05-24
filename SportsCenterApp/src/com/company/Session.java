@@ -10,19 +10,24 @@ public class Session {
     private Duration duration;
     private String sportName;
     private String coachName;
+    private String day;
 
     public Session (String[] details){
-        sessionID = details[0];
-        startTime = LocalTime.of(Integer.parseInt(details[1]),Integer.parseInt(details[2]));
-        endTime = LocalTime.of(Integer.parseInt(details[3]),Integer.parseInt(details[4]));
+        day = details[0];
+        sessionID = details[1];
+        startTime = LocalTime.of(Integer.parseInt(details[2]),Integer.parseInt(details[3]));
+        endTime = LocalTime.of(Integer.parseInt(details[4]),Integer.parseInt(details[5]));
         duration = Duration.between(startTime,endTime);
-        sportName = details[5];
-        coachName = details[6];
+        sportName = details[6];
+        coachName = details[7];
     }
 
+    public static String[] getAllAttributes (){
+        return new String[] {"Day","Session ID", "Start Time", "End Time", "Duration","Sport Name", "Coach Name"};
+    }
     @Override
     public String toString () {
-        return sessionID + "|" + startTime + "|" + endTime;
+        return day+"|"+sessionID + "|" + startTime + "|" + endTime + "|"+ duration.toHours() + "|"+ sportName + "|"+ coachName;
     }
 
 }

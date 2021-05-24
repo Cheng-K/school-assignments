@@ -4,15 +4,12 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
 public class DisplayAllRecord {
-    private JFrame frame;
+    public JFrame frame;
     private JTabbedPane tabbedPane1;
     private JPanel rootPanel;
     private JPanel studentRecordPanel;
@@ -34,18 +31,25 @@ public class DisplayAllRecord {
     private JButton sortTableButton;
     private JButton backToMenuButton;
     private JButton modifyDetailsButton;
-    private MyTableModel coachTableModel;
+    private JPanel scheduleRecordPanel;
+    private JScrollPane scheduleTableContainer;
+    private JTable scheduleRecordTable;
+    private JComboBox<Schedule> scheduleSelector;
+    private DefaultTableModel coachTableModel;
     private DefaultTableModel studentTableModel = (DefaultTableModel) studentRecordTable.getModel();
+    private DefaultTableModel sportsTableModel;
+    private DefaultTableModel scheduleTableModel;
     private Admin admin;
-    private setCoachPanel coachPanelManager;
+    public setCoachPanel coachPanelManager;
     private setStudentPanel studentPanelManager;
-
-
+    public setSportsPanel sportsPanelManager;
+    private final setSchedulePanel schedulePanelManger;
 
     /*  Class : setCoachPanel
         Description : Responsible for setting up/ changing components in Coach Tab (Coach Tab Manager)
      */
-    private class setCoachPanel {
+    public class setCoachPanel {
+
         private ArrayList<Coach> coachList = new ArrayList<>();
 
         public setCoachPanel (){
@@ -53,6 +57,11 @@ public class DisplayAllRecord {
             prepareCoachTable();
             updateCoachTable();
             setSortDropMenu();
+        }
+
+        public void clearUpdateTable() {
+            clearCoachTable();
+            updateCoachTable();
         }
 
         /*  Method Name : getAllCoach
@@ -72,10 +81,13 @@ public class DisplayAllRecord {
          */
         private void prepareCoachTable (){
             coachRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            coachTableModel = new MyTableModel(Coach.getAllAttributes(),coachList.size());
+            coachTableModel = new DefaultTableModel(Coach.getAllAttributes(),0){
+                @Override
+                public boolean isCellEditable (int row, int column){ return false; }
+            };
             coachRecordTable.setModel(coachTableModel);
+            coachRecordTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }
-
         /*  Method Name : updateCoachTable
             Description : Add rows in JTable based on the order of arrayList containing coaches
                           (pair with clearCoachTable Method to clear & update table order)
@@ -141,7 +153,98 @@ public class DisplayAllRecord {
 
     }
 
-    private class setSportsPanel {}
+    private class setSportsPanel {
+        private ArrayList<Sports> sportsArrayList = new ArrayList<>();
+        private setSportsPanel(){
+            getAllSports();
+            prepareSportsTable();
+            updateSportsTable();
+        }
+        private void getAllSports() {
+            String[] sportsFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Sports.txt");
+            for (String sportsInfo : sportsFileContent){
+                Sports sports = new Sports(admin.getSportsCenterCode(),sportsInfo.split("\\|"));
+                sportsArrayList.add(sports);
+            }
+        }
+        private void prepareSportsTable() {
+
+            for (String column : Sports.getAllAttributes()){
+                sportsRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                sportsTableModel = new DefaultTableModel(Sports.getAllAttributes(),0){
+                    @Override
+                    public boolean isCellEditable (int row, int column ){return false;}
+                };
+                sportsRecordTable.setModel(sportsTableModel);
+                sportsRecordTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            }
+        }
+
+        private void updateSportsTable() {
+            for (Sports sport : sportsArrayList){
+                sportsTableModel.addRow(sport.toString().split("\\|"));
+            }
+        }
+
+        public ArrayList<Sports> getSportsArrayList() {
+            return sportsArrayList;
+        }
+    }
+
+    public class setSchedulePanel {
+        private ArrayList<Schedule> weeklySchedule = new ArrayList<>();
+
+        public setSchedulePanel () {
+            getWeeklySchedule();
+            prepareScheduleTable();
+            updateScheduleTable();
+            prepareScheduleSelector();
+        }
+        private void getWeeklySchedule() {
+            String[] scheduleFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Schedule.txt");
+            for (int line = 0; line<7 ; line++){
+                String[] tokens = scheduleFileContent[line].split("\\|");
+                weeklySchedule.add(new Schedule(admin.getSportsCenterCode(),tokens[0],tokens)); // a bit inefficient
+            }
+        }
+
+        private void prepareScheduleTable() {
+            scheduleRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+            scheduleTableModel = new DefaultTableModel(Schedule.getAllAttributes(),0){
+               @Override
+               public boolean isCellEditable(int row, int column) {return false;}
+            };
+            scheduleRecordTable.setModel(scheduleTableModel);
+            scheduleRecordTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        }
+
+        private void updateScheduleTable(Schedule schedule) {
+                for (Session session : schedule.getAllSession())
+                scheduleTableModel.addRow(session.toString().split("\\|"));
+        }
+
+        private void updateScheduleTable() {
+            updateScheduleTable(weeklySchedule.get(0));
+        }
+
+        private void clearScheduleTable() {scheduleTableModel.setRowCount(0);}
+
+        private void prepareScheduleSelector() {
+            for (Schedule schedule : weeklySchedule)
+                scheduleSelector.addItem(schedule);
+            for (Sports sports: sportsPanelManager.getSportsArrayList())
+                scheduleSelector.addItem(sports.getSchedule());
+
+            scheduleSelector.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    clearScheduleTable();
+                    updateScheduleTable((Schedule)scheduleSelector.getSelectedItem());
+                }
+            });
+        }
+
+    }
 
     /*  Class : sortTableButtonListener
         Description : Calls method to sort the list of objects (student,coach) in specified order
@@ -174,60 +277,46 @@ public class DisplayAllRecord {
             // determine which tab is selected
             int tabNumber = tabbedPane1.getSelectedIndex();
             // check whether it is -1
-            if (modifyDetailsButton.getText().equals("Modify Details")) {
-                switch (tabNumber) {
-                    case 0:
-                        break;
-                    case 1:
-                        coachTableModel.setRowEditable(coachRecordTable.getSelectedRow());
-                        coachTableModel.isCellEditable(coachRecordTable.getSelectedRow(), 0);
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(frame, "Individual is not specified", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                modifyDetailsButton.setText("Save Details");
+            switch (tabNumber){
+                case 0 :
+                    break;
+                case 1:
+                    int row = coachRecordTable.getSelectedRow();
+                    Coach targetCoach;
+                    if (row == -1)
+                        JOptionPane.showMessageDialog(frame,"Please select a row to modify");
+                    else {
+                        targetCoach = coachPanelManager.coachList.get(row);
+                        frame.setVisible(false);
+                        new AdminModifyMenu(targetCoach,admin,DisplayAllRecord.this);
+                    }
+                case 2:
+                    break;
             }
-            else {
-                switch (tabNumber) {
-                    case 0:
-                        break;
-                    case 1:
-                        coachTableModel.disableRowEditable();
-                        break;
-                    case 2:
-                        break;
-                    default:
-                        JOptionPane.showMessageDialog(frame, "Individual is not specified", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-                modifyDetailsButton.setText("Modify Details");
-            }
-
-
-
         }
     }
 
-    private class mouseClickListener extends MouseAdapter {
-        @Override
-        public void mouseClicked(MouseEvent e){
-            coachRecordTable.rowAtPoint(e.getPoint());
-            modifyDetailsButton.setEnabled(true);
-            ((DefaultTableCellRenderer)coachRecordTable.getCellRenderer(1,1)).setBackground(Color.cyan);
-        }
-    }
+
+
 
     public DisplayAllRecord (Admin admin) {
         this.admin = admin;
         coachPanelManager = new setCoachPanel();
         studentPanelManager = new setStudentPanel();
+        sportsPanelManager = new setSportsPanel();
+        schedulePanelManger = new setSchedulePanel();
         radioButtonGroup.add(ascendingRadioButton);
         radioButtonGroup.add(descendingRadioButton);
         ascendingRadioButton.setSelected(true);
         sortTableButton.addActionListener(new sortTableButtonListener());
         modifyDetailsButton.addActionListener(new modifyDetailsListener());
-        coachRecordTable.addMouseListener(new mouseClickListener());
+        backToMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new AdminMenu(admin);
+            }
+        });
         frame = new JFrame("Showing All Records");
         frame.setContentPane(rootPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
