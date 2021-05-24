@@ -51,7 +51,5 @@ public class Sports {
     }
     public String getSportsID (){return sportsID;}
 
-    // addCoach
-    // deleteCoach
     // getters & setters
 }
