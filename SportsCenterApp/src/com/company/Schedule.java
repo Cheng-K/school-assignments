@@ -5,7 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Schedule {
-    private List<Session> sessionList = new ArrayList<Session>();
+    private List<Session> sessionList = new ArrayList<>();
+    private String day = "null";
 
     public Schedule (String sportsCenterCode, String[] sessionID) {
         String[] sessionFile = FileServer.readFile(sportsCenterCode,"Session.txt");
@@ -16,6 +17,11 @@ public class Schedule {
                     sessionList.add(new Session(tokens));
             }
         }
+    }
+
+    public Schedule (String sportsCenterCode, String day, String[] sessionID){
+        this(sportsCenterCode,sessionID);
+        this.day = day;
     }
 
 
@@ -34,7 +40,15 @@ public class Schedule {
         return null;
     }
 
+    public static String[] getAllAttributes () {
+        return Session.getAllAttributes();
+    }
+
     public String toString() {
-        return sessionList.toString();
+        return "Show schedule for " + day;
+    }
+
+    public List<Session> getAllSession() {
+        return sessionList;
     }
 }

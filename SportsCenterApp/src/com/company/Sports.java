@@ -16,8 +16,11 @@ public class Sports {
         schedule = new Schedule(sportCenterCode,details[3].split(","));
     }
 
+    public static String[] getAllAttributes () {
+        return new String[]{"Name","Sports ID","Sport Fees"};
+    }
     public String toString() {
-        return name + "|" + sportsID;
+        return name + "|" + sportsID + "|" + sportFees + "|" + schedule.toString() ;
     }
 
     // addCoach

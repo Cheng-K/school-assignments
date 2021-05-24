@@ -51,14 +51,14 @@ public class Main {
 //
 //        Collections.sort(coachList,new Coach.sortByRating());
 //        System.out.println(coachList);
-//        new LoginScreen();
+        new LoginScreen();
 //          Admin admin = Admin.adminLogin("Kei Zhong","345");
 //          Schedule monday = new Schedule(admin.getSportsCenterCode(),"T01|T02|T03".split("\\|"));
 //        System.out.println(monday);
 //
-        String line = FileServer.readFile("L002","Sports.txt")[0];
-        Sports sport = new Sports("L002",line.split("\\|"));
-        System.out.println(sport);
+//        String line = FileServer.readFile("L002","Sports.txt")[0];
+//        Sports sport = new Sports("L002",line.split("\\|"));
+//        System.out.println(sport);
 
 
     }

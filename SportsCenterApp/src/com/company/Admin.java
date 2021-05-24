@@ -4,10 +4,8 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Admin {
     private String ID;
@@ -222,5 +220,106 @@ public class Admin {
 
     public void setSportsCenterCode(String sportsCenterCode) {
         SportsCenterCode = sportsCenterCode;
+    }
+
+
+    public int verifyCoachDetails (AdminModifyMenu form, List<String> coachDetails){
+        int returnNum = 0;
+        // Check for each length
+        for (int index = 0; index<coachDetails.size(); index++){
+            if (coachDetails.get(index).length() >= 100){
+                form.setBorderRed(index,"Value is too unrealistic large/long");
+                returnNum = 1;
+            }
+            else {
+                switch (index){
+                    case 0 :
+                        if (!coachDetails.get(0).startsWith("C") && !onlyDigits(coachDetails.get(0).substring(1))) {
+                            form.setBorderRed(index, "Coach ID should start with C and end with digits");
+                            returnNum = 1;
+                        }
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        if (!isDateObject(coachDetails.get(2))) {
+                            form.setBorderRed(index, "Date format should be YYYY-MM-DD");
+                            returnNum = 1;
+                        }
+                        break;
+                    case 3:
+                        if (!isDateObject(coachDetails.get(3)) && !coachDetails.get(3).equals("null")) {
+                            form.setBorderRed(index, "Date format should be YYYY-MM-DD");
+                            returnNum = 1;
+                        }
+                        break;
+                    case 4:
+                        if (!isIntegerObject(coachDetails.get(4))) {
+                            form.setBorderRed(index, "Invalid integer provided");
+                            returnNum = 1;
+                        }
+                        break;
+                    case 5 :
+                        if (!onlyDigits(coachDetails.get(5))) {
+                            form.setBorderRed(index, "Invalid contact number, only digits are allowed");
+                            returnNum = 1;
+                        }
+                        break;
+                    case 6 :
+                        break;
+                    case 7:
+                        break;
+                    case 8 :
+                        break;
+                    case 9 :
+                        break;
+
+                }
+            }
+        }
+        return returnNum;
+    }
+
+    public void modCoach(List<String>newDetails,Coach coach){
+        coach.setCoachID(newDetails.get(0));
+        coach.setDateJoined(LocalDate.parse(newDetails.get(2)));
+        try {
+            coach.setDateTerminated(LocalDate.parse(newDetails.get(3)));
+        }
+        catch (Exception e){
+            coach.setDateTerminated(null);
+        }
+        coach.setHourlyRate(Integer.parseInt(newDetails.get(4)));
+        coach.setPhone(newDetails.get(5));
+        coach.setAddress(newDetails.get(6));
+        // Other continue below here
+    }
+
+
+    // Not sure where to put it
+    private boolean onlyDigits (String str){
+        for (int index = 0; index < str.length(); index ++){
+            if (!Character.isDigit(str.charAt(index)))
+                return false;
+        }
+        return true;
+    }
+
+    private boolean isDateObject (String str){
+        try {
+            LocalDate.parse(str);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isIntegerObject (String str){
+        try{
+            Integer.parseInt(str);
+        } catch (Exception e){
+            return false;
+        }
+        return true;
     }
 }

@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/L001/Coach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Coach.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L001/Sports.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Sports.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L001/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Student.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Student.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UnregStudent.txt" beforeDir="false" afterPath="$PROJECT_DIR$/UnregStudent.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateStudentProfile.class" beforeDir="false" />
-    </list>
+    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -109,7 +100,7 @@
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.SHOW" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="160" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
-    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="417" />
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="346" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -187,5 +178,15 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NumberFormatException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -20,9 +20,12 @@ public class Session {
         coachName = details[6];
     }
 
+    public static String[] getAllAttributes (){
+        return new String[] {"Session ID", "Start Time", "End Time", "Duration","Sport Name", "Coach Name"};
+    }
     @Override
     public String toString () {
-        return sessionID + "|" + startTime + "|" + endTime;
+        return sessionID + "|" + startTime + "|" + endTime + "|"+ duration + "|"+ sportName + "|"+ coachName;
     }
 
 }
