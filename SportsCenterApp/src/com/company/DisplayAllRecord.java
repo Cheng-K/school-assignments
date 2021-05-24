@@ -35,6 +35,7 @@ public class DisplayAllRecord {
     private JScrollPane scheduleTableContainer;
     private JTable scheduleRecordTable;
     private JComboBox<Schedule> scheduleSelector;
+    private JComboBox<Comparator<Session>> sortByScheduleMenu;
     private DefaultTableModel coachTableModel;
     private DefaultTableModel studentTableModel = (DefaultTableModel) studentRecordTable.getModel();
     private DefaultTableModel sportsTableModel;
@@ -159,6 +160,7 @@ public class DisplayAllRecord {
             getAllSports();
             prepareSportsTable();
             updateSportsTable();
+            setSortDropMenu();
         }
         private void getAllSports() {
             String[] sportsFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Sports.txt");
@@ -185,7 +187,11 @@ public class DisplayAllRecord {
                 sportsTableModel.addRow(sport.toString().split("\\|"));
             }
         }
-
+        private void setSortDropMenu() {
+            sortBySportsMenu.addItem(new Sports.sortByName());
+            sortBySportsMenu.addItem(new Sports.sortByFees());
+        }
+        private void clearSportsTable() {sportsTableModel.setRowCount(0);}
         public ArrayList<Sports> getSportsArrayList() {
             return sportsArrayList;
         }
@@ -199,6 +205,7 @@ public class DisplayAllRecord {
             prepareScheduleTable();
             updateScheduleTable();
             prepareScheduleSelector();
+            setSortDropMenu();
         }
         private void getWeeklySchedule() {
             String[] scheduleFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Schedule.txt");
@@ -244,6 +251,11 @@ public class DisplayAllRecord {
             });
         }
 
+        private void setSortDropMenu (){
+            sortByScheduleMenu.addItem(new Session.sortByDay());
+            sortByScheduleMenu.addItem(new Session.sortByName());
+        }
+
     }
 
     /*  Class : sortTableButtonListener
@@ -265,7 +277,15 @@ public class DisplayAllRecord {
                     admin.sort(coachPanelManager.coachList,(Comparator<Coach>) sortByCoachMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     coachPanelManager.updateCoachTable();
                     break;
+                case 2:
+                    sportsPanelManager.clearSportsTable();
+                    admin.sort(sportsPanelManager.sportsArrayList,(Comparator<Sports>)sortBySportsMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    sportsPanelManager.updateSportsTable();
+                    break;
                 default:
+                    schedulePanelManger.clearScheduleTable();
+                    admin.sort(((Schedule)scheduleSelector.getSelectedItem()).getAllSession(),(Comparator<Session>)sortByScheduleMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    schedulePanelManger.updateScheduleTable((Schedule) scheduleSelector.getSelectedItem());
                     break;
             }
         }
