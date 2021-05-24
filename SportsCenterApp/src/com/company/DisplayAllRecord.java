@@ -255,6 +255,7 @@ public class DisplayAllRecord {
             prepareScheduleSelector();
             setSortDropMenu();
         }
+        // fix here (problem)
         private void getWeeklySchedule() {
             String[] scheduleFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Schedule.txt");
             for (int line = 0; line<7 ; line++){

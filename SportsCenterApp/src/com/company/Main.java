@@ -51,7 +51,7 @@ public class Main {
 //
 //        Collections.sort(coachList,new Coach.sortByRating());
 //        System.out.println(coachList);
-        new LoginScreen();
+//        new LoginScreen();
 //          Admin admin = Admin.adminLogin("Kei Zhong","345");
 //          Schedule monday = new Schedule(admin.getSportsCenterCode(),"T01|T02|T03".split("\\|"));
 //        System.out.println(monday);
@@ -67,10 +67,9 @@ public class Main {
 
 //            Admin admin = new Admin("Jack","L001");
 //            new AdminMenu(admin);
-//      new LoginScreen();
+      new LoginScreen();
 
-
-        Integer.parseInt("08");
+        Schedule.updateScheduleFile("L002");
 
     }
 }
