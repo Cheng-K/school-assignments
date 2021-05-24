@@ -4,7 +4,9 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Admin {
@@ -224,7 +226,6 @@ public class Admin {
 
 
     public void modCoach(List<String>newDetails,Coach coach){
-        coach.setCoachID(newDetails.get(0));
         coach.setDateJoined(LocalDate.parse(newDetails.get(2)));
         try {
             coach.setDateTerminated(LocalDate.parse(newDetails.get(3)));
@@ -236,6 +237,18 @@ public class Admin {
         coach.setPhone(newDetails.get(5));
         coach.setAddress(newDetails.get(6));
         // Other continue below here
+    }
+    public void modSports (Integer newFees, Sports sports){
+        sports.setSportFees(newFees);
+    }
+    public void modSession (List<String>newDetails,Session session){
+        String newDay = newDetails.get(0);
+        String[] newStartTime = newDetails.get(2).split(":");
+        String[] newEndTime = newDetails.get(3).split(":");
+        session.setDay(newDay.substring(0,1).toUpperCase() + newDay.substring(1));
+        session.setStartTime(LocalTime.of(Integer.parseInt(newStartTime[0]),Integer.parseInt(newStartTime[1])));
+        session.setEndTime(LocalTime.of(Integer.parseInt(newEndTime[0]),Integer.parseInt(newEndTime[1])));
+        session.setDuration(Duration.between(session.getStartTime(),session.getEndTime()));
     }
 
     public  ArrayList<Coach> searchCoach(List<Coach>coachList,String ID){

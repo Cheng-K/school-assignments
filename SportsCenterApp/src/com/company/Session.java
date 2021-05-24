@@ -7,15 +7,12 @@ import java.util.Comparator;
 public class Session {
     private String sessionID;
     private LocalTime startTime;
-
     private LocalTime endTime;
-
     private Duration duration;
     private String sportName;
     private String coachName;
     private String day;
     public static class sortByDay implements Comparator<Session>{
-
         private int changeDayToNum (String day){
             if (day.equalsIgnoreCase("monday"))
                 return 1;
@@ -32,21 +29,21 @@ public class Session {
             else
                 return 0;
         }
+
         @Override
         public int compare(Session o1, Session o2) {
             int day1 = changeDayToNum(o1.day);
             int day2 = changeDayToNum(o2.day);
             return day1-day2;
         }
-
         @Override
         public String toString() {
             return "Sort by day";
         }
 
+
     }
     public static class sortByName implements Comparator<Session>{
-
         @Override
         public int compare(Session o1, Session o2) {
             return o1.sportName.compareTo(o2.sportName);
@@ -56,6 +53,7 @@ public class Session {
         public String toString() {
             return "Sort by sport name";
         }
+
 
     }
     public Session (String[] details){
@@ -67,7 +65,6 @@ public class Session {
         sportName = details[6];
         coachName = details[7];
     }
-
     public static String[] getAllAttributes (){
         return new String[] {"Day","Session ID", "Start Time", "End Time", "Duration","Sport Name", "Coach Name"};
     }
@@ -76,10 +73,10 @@ public class Session {
     public String toString () {
         return day+"|"+sessionID + "|" + startTime + "|" + endTime + "|"+ duration.toHours() + "|"+ sportName + "|"+ coachName;
     }
+
     public String getSessionID() {
         return sessionID;
     }
-
     public LocalTime getStartTime() {
         return startTime;
     }
@@ -103,5 +100,23 @@ public class Session {
     public String getDay() {
         return day;
     }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+
 
 }

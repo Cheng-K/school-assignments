@@ -55,4 +55,7 @@ public class Sports {
     public int getSportFees() {
         return sportFees;
     }
+    public void setSportFees(int sportFees){
+        this.sportFees = sportFees;
+    }
 }

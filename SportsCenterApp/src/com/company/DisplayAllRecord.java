@@ -3,7 +3,6 @@ package com.company;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -44,7 +43,7 @@ public class DisplayAllRecord {
     public SetCoachPanel coachPanelManager;
     public SetStudentPanel studentPanelManager;
     public SetSportsPanel sportsPanelManager;
-    private final SetSchedulePanel schedulePanelManger;
+    public final SetSchedulePanel schedulePanelManager;
 
 
 
@@ -217,6 +216,10 @@ public class DisplayAllRecord {
                 sportsTableModel.addRow(sport.toString().split("\\|"));
             }
         }
+        public void clearUpdateTable() {
+            clearSportsTable();
+            updateSportsTable();
+        }
         public void showFoundSports (ArrayList<Sports> results){
             clearSportsTable();
             for (Sports sports : results){
@@ -279,6 +282,11 @@ public class DisplayAllRecord {
             updateScheduleTable(weeklySchedule.get(0));
         }
 
+        public void clearUpdateTable(){
+            clearScheduleTable();
+            updateScheduleTable((Schedule) scheduleSelector.getSelectedItem());
+        }
+
         private void clearScheduleTable() {scheduleTableModel.setRowCount(0);}
 
         private void prepareScheduleSelector() {
@@ -328,9 +336,9 @@ public class DisplayAllRecord {
                     sportsPanelManager.updateSportsTable();
                     break;
                 default:
-                    schedulePanelManger.clearScheduleTable();
+                    schedulePanelManager.clearScheduleTable();
                     admin.sort(((Schedule)scheduleSelector.getSelectedItem()).getAllSession(),(Comparator<Session>)sortByScheduleMenu.getSelectedItem(),ascendingRadioButton.isSelected());
-                    schedulePanelManger.updateScheduleTable((Schedule) scheduleSelector.getSelectedItem());
+                    schedulePanelManager.updateScheduleTable((Schedule) scheduleSelector.getSelectedItem());
                     break;
             }
         }
@@ -413,7 +421,7 @@ public class DisplayAllRecord {
         coachPanelManager = new SetCoachPanel();
         studentPanelManager = new SetStudentPanel();
         sportsPanelManager = new SetSportsPanel();
-        schedulePanelManger = new SetSchedulePanel();
+        schedulePanelManager = new SetSchedulePanel();
         radioButtonGroup.add(ascendingRadioButton);
         radioButtonGroup.add(descendingRadioButton);
         ascendingRadioButton.setSelected(true);

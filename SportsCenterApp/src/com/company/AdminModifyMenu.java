@@ -41,7 +41,7 @@ public class AdminModifyMenu {
     private JTextField endTimeField;
     private JTextField durationField;
     private JTextField coachNameField;
-    private JTextField sportNameField;
+    private JTextField sportNameFieldSession;
     private JTextField dayField;
     private JLabel sessionIDLabel;
     private JLabel startTimeLabel;
@@ -53,7 +53,7 @@ public class AdminModifyMenu {
     private JTabbedPane tabbedPane1;
     private JButton saveCloseButtonSession;
     private JPanel modifySportsTab;
-    private JTextField sportsNameField;
+    private JTextField sportNameField;
     private JTextField sportIDField;
     private JTextField sportFeesField;
     private JButton saveCloseButtonSports;
@@ -68,8 +68,8 @@ public class AdminModifyMenu {
     private DisplayAllRecord parentFrame;
     private Admin admin;
     private SetCoachTab coachPanelManager;
-    private SetSessionTab sessionPanelManger;
-    private SetSportsTab sportsPanelManger;
+    private SetSessionTab sessionPanelManager;
+    private SetSportsTab sportsPanelManager;
 
 
     public AdminModifyMenu(Object received, Admin admin, DisplayAllRecord returnFrame) {
@@ -82,10 +82,11 @@ public class AdminModifyMenu {
                 frame.setContentPane(modifyCoachTab);
             } else if (received instanceof Sports) {
                 sports = (Sports) received;
+                sportsPanelManager = new SetSportsTab();
                 frame.setContentPane(modifySportsTab);
             } else if (received instanceof Session){
                 session = (Session) received;
-                sessionPanelManger = new SetSessionTab();
+                sessionPanelManager = new SetSessionTab();
                 frame.setContentPane(modifySessionTab);
             }
             frame.setTitle("Modifying " + received.getClass().getSimpleName());
@@ -230,7 +231,8 @@ public class AdminModifyMenu {
             endTimeField.setText(session.getEndTime().toString());
             durationField.setText(Long.toString(session.getDuration().toHours()));
             coachNameField.setText(session.getCoachName());
-            sportNameField.setText(session.getSportName());
+            sportNameFieldSession.setText(session.getSportName());
+            saveCloseButtonSession.addActionListener(new saveCloseButtonSessionListener());
         }
         private List<String> getEnteredDetails () {
             List<String> returnList = new ArrayList<>();
@@ -240,7 +242,7 @@ public class AdminModifyMenu {
             returnList.add(endTimeField.getText());
             returnList.add(durationField.getText());
             returnList.add(coachNameField.getText());
-            returnList.add(sportNameField.getText());
+            returnList.add(sportNameFieldSession.getText());
             return returnList;
         }
 
@@ -251,11 +253,11 @@ public class AdminModifyMenu {
                 returnNum = 1;
             }
             if (!validator.isTime(sessionDetails.get(2))){
-                setSessionBorderRed(2,"Please provide time in HH:MM 24 hour format");
+                setSessionBorderRed(2,"Please provide a valid time in HH:MM 24 hour format");
                 returnNum = 1;
             }
             if (!validator.isTime(sessionDetails.get(3))){
-                setSessionBorderRed(3,"Please provide time in HH:MM 24 hour format");
+                setSessionBorderRed(3,"Please provide a valid time in HH:MM 24 hour format");
                 returnNum = 1;
             }
             return returnNum;
@@ -288,8 +290,8 @@ public class AdminModifyMenu {
                     coachNameField.setToolTipText(message);
                     break;
                 case 6:
-                    sportNameField.setBorder(new LineBorder(Color.RED,2));
-                    sportNameField.setToolTipText(message);
+                    sportNameFieldSession.setBorder(new LineBorder(Color.RED,2));
+                    sportNameFieldSession.setToolTipText(message);
                     break;
                 default :
                     break;
@@ -303,6 +305,7 @@ public class AdminModifyMenu {
             sportIDField.setText(sports.getSportsID());
             sportNameField.setText(sports.getName());
             sportFeesField.setText(Integer.toString(sports.getSportFees()));
+            saveCloseButtonSports.addActionListener(new saveCloseButtonSportsListener());
         }
         private int verifySportsDetails (String newSportFees,FormChecker validator){
             if (validator.isIntegerObject(newSportFees)) {
@@ -319,8 +322,8 @@ public class AdminModifyMenu {
                     sportIDField.setBorder(new LineBorder(Color.RED, 2));
                     sportIDField.setToolTipText(message);
                 case 1:
-                    sportNameField.setBorder(new LineBorder(Color.RED,2));
-                    sportNameField.setToolTipText(message);
+                    sportNameFieldSession.setBorder(new LineBorder(Color.RED,2));
+                    sportNameFieldSession.setToolTipText(message);
                 case 2 :
                     sportFeesField.setBorder(new LineBorder(Color.RED,2));
                     sportFeesField.setToolTipText(message);
@@ -346,11 +349,11 @@ public class AdminModifyMenu {
     private class saveCloseButtonSessionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails(),new FormChecker()) == 1) {
+            if (sessionPanelManager.verifySessionDetails(sessionPanelManager.getEnteredDetails(),new FormChecker()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
-                admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach);
-                parentFrame.coachPanelManager.clearUpdateTable();
+                admin.modSession(sessionPanelManager.getEnteredDetails(), session);
+                parentFrame.schedulePanelManager.clearUpdateTable();
                 parentFrame.frame.setVisible(true);
                 frame.dispose();
             }
@@ -359,11 +362,11 @@ public class AdminModifyMenu {
     private class saveCloseButtonSportsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails(),new FormChecker()) == 1) {
+            if (sportsPanelManager.verifySportsDetails(sportFeesField.getText(),new FormChecker()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
-                admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach);
-                parentFrame.coachPanelManager.clearUpdateTable();
+                admin.modSports(Integer.parseInt(sportFeesField.getText()), sports);
+                parentFrame.sportsPanelManager.clearUpdateTable();
                 parentFrame.frame.setVisible(true);
                 frame.dispose();
             }
