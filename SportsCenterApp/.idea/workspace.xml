@@ -101,7 +101,11 @@
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="173" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="true" />
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="394" />
+=======
+    <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="452" />
+>>>>>>> Stashed changes
 =======
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="452" />
 >>>>>>> Stashed changes

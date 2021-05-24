@@ -58,6 +58,7 @@ public class Main {
 
 
 
+<<<<<<< Updated upstream
 
 
 
@@ -67,6 +68,11 @@ public class Main {
 //            Admin admin = new Admin("Jack","L001");
 //            new AdminMenu(admin);
 //      new LoginScreen();
+=======
+//            Admin admin = new Admin("Jack","L001");
+//            new AdminMenu(admin);
+//        new LoginScreen();
+>>>>>>> Stashed changes
         Integer.parseInt("08");
 
     }
