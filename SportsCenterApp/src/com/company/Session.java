@@ -7,13 +7,15 @@ import java.util.Comparator;
 public class Session {
     private String sessionID;
     private LocalTime startTime;
+
     private LocalTime endTime;
+
     private Duration duration;
     private String sportName;
     private String coachName;
     private String day;
-
     public static class sortByDay implements Comparator<Session>{
+
         private int changeDayToNum (String day){
             if (day.equalsIgnoreCase("monday"))
                 return 1;
@@ -30,7 +32,6 @@ public class Session {
             else
                 return 0;
         }
-
         @Override
         public int compare(Session o1, Session o2) {
             int day1 = changeDayToNum(o1.day);
@@ -42,8 +43,8 @@ public class Session {
         public String toString() {
             return "Sort by day";
         }
-    }
 
+    }
     public static class sortByName implements Comparator<Session>{
 
         @Override
@@ -55,6 +56,7 @@ public class Session {
         public String toString() {
             return "Sort by sport name";
         }
+
     }
     public Session (String[] details){
         day = details[0];
@@ -69,9 +71,37 @@ public class Session {
     public static String[] getAllAttributes (){
         return new String[] {"Day","Session ID", "Start Time", "End Time", "Duration","Sport Name", "Coach Name"};
     }
+
     @Override
     public String toString () {
         return day+"|"+sessionID + "|" + startTime + "|" + endTime + "|"+ duration.toHours() + "|"+ sportName + "|"+ coachName;
+    }
+    public String getSessionID() {
+        return sessionID;
+    }
+
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public String getSportName() {
+        return sportName;
+    }
+
+    public String getCoachName() {
+        return coachName;
+    }
+
+    public String getDay() {
+        return day;
     }
 
 }

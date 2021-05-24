@@ -26,7 +26,6 @@ public class Schedule {
     }
 
 
-
     public void addSession(Session newSession) {
 
     }
@@ -37,8 +36,8 @@ public class Schedule {
     }
 
 
-    public Session getSession() {
-        return null;
+    public Session getSession(int index) {
+        return sessionList.get(index);
     }
 
     public static String[] getAllAttributes () {

@@ -10,22 +10,22 @@ import java.util.ArrayList;
 public class AdminSearchForm {
     private JFrame frame = new JFrame();
     private JTabbedPane tabbedPane1;
+    private JPanel rootPanel;
+    private JPanel sportsSearching;
+    private JPanel studentSearching;
+    private JPanel coachSearching;
     private JButton searchButton;
     private JButton backToMenuButton;
     private JTextField IDField;
     private JTextField ratingField;
     private JCheckBox searchWithIDCheckBox;
     private JCheckBox searchWithRatingCheckBox;
-    private JPanel coachSearching;
     private JLabel IDLabel;
     private JLabel ratingLabel;
-    private JPanel rootPanel;
-    private JPanel sportsSearching;
-    private JPanel studentSearching;
-    private JTextField studentIDField;
-    private JTextField sportsIDField;
     private JLabel sportsIDLabel;
     private JLabel studentIDLabel;
+    private JTextField studentIDField;
+    private JTextField sportsIDField;
     private Admin admin;
     private DisplayAllRecord displayFrame;
     private coachTabServer coachTabManager;
@@ -108,10 +108,11 @@ public class AdminSearchForm {
                             JOptionPane.showMessageDialog(frame, "Please select a search mode", "Error", JOptionPane.ERROR_MESSAGE);
                         if (searchResult.size() == 0)
                             JOptionPane.showMessageDialog(frame, "Sorry, no result was found", "Warning", JOptionPane.WARNING_MESSAGE);
-                        else
+                        else {
                             displayFrame.coachPanelManager.showFoundCoaches((ArrayList<Coach>) searchResult);
-                        displayFrame.frame.setVisible(true);
-                        frame.dispose();
+                            displayFrame.frame.setVisible(true);
+                            frame.dispose();
+                        }
                     }
                     // Return dialog for invalid
                     else
@@ -137,15 +138,26 @@ public class AdminSearchForm {
                 }
                     break;
                 case 2 : { // Students tab
+                    String idProvided = null;
+                    if (studentIDField.getText().isEmpty()){
+                        studentIDField.setBorder(new LineBorder(Color.RED,2));
+                        studentIDField.setToolTipText("Please provide a value.");
+                    } else {
+                        idProvided = studentIDField.getText();
+                        searchResult = admin.searchStudent(displayFrame.studentPanelManager.getStudentList(),idProvided);
+                        if (searchResult.size() == 0)
+                            JOptionPane.showMessageDialog(frame, "Sorry, no result was found", "Warning", JOptionPane.WARNING_MESSAGE);
+                        else {
+                            displayFrame.studentPanelManager.showFoundStudents((ArrayList<Student>) searchResult);
+                            frame.dispose();
+                            displayFrame.frame.setVisible(true);
+                        }
+                        }
+                    }
                     break;
-
                 }
-                default :
-                    break;
             }
-
         }
-    }
     private class backToMenuListener implements ActionListener{
 
         @Override
@@ -154,5 +166,6 @@ public class AdminSearchForm {
             new AdminMenu(admin);
         }
     }
-
 }
+
+
