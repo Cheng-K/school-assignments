@@ -19,6 +19,7 @@ public class StudentMenu {
     private JPanel guestButtonPanel;
     private Student regStudent;
     private UnregStudent guestStudent;
+    private Coach myCoach;
 
     /*  Description : Constructor that creates studentMenu frame
         Parameter   : BaseStudent object (current user)
@@ -60,6 +61,13 @@ public class StudentMenu {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 new CreateRecord(guestStudent);
+            }
+        });
+        coachDetailsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                new CoachProfile(regStudent,myCoach);
             }
         });
     }

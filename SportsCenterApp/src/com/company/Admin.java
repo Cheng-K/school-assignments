@@ -157,7 +157,7 @@ public class Admin {
         for (String line:fileContent)
         {
             String[] token = line.split("\\|");
-            if (token[1].equals(newCoach.getName()))
+            if (token[0].equals(newCoach.getName()))
             {
                 return 1; //name already exists
             }
@@ -175,9 +175,9 @@ public class Admin {
         for (String line:fileContent)
         {
             String[] token = line.split("\\|");
-            if (Integer.parseInt(token[0].replace("C",""))>max)
+            if (Integer.parseInt(token[1].replace("C",""))>max)
             {
-                max = Integer.parseInt(token[0].replace("C",""));
+                max = Integer.parseInt(token[1].replace("C",""));
             }
         }
         max++;

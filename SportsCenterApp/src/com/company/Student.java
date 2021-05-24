@@ -37,7 +37,7 @@ public class Student extends BaseStudent {
         registeredSports = studentDetails[6];
         sportsCenterCode = studentDetails[7];
         // intialize the coach
-
+        givenRating = Boolean.parseBoolean(studentDetails[9]);
     }
 
     // Use this please and refactor others
@@ -174,5 +174,7 @@ public class Student extends BaseStudent {
         this.sportsCenterCode = sportsCenterCode;
     }
 
-
+    public boolean getGivenRating() {
+        return givenRating;
+    }
 }

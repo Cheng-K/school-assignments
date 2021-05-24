@@ -1,9 +1,9 @@
-Enya|S001|19|Sri Petaling|011123|enya@gmail.com|Badminton|L001
-HLgirl|S002|19|Sri Petaling|0111345|HLgirl@gmail.com|Volleyball|L001
-Boo|S003|19|KL|012-3345|adam@gmail.com|Badminton|L001
-CK1|S004|19|KL|012-3345|adam@gmail.com|Badminton|L001
-CK6|S005|19|KL|012-3345|adam@gmail.com|Badminton|L001
-Kong Kei Zhong|S006|12|PJ|016-2985667|kzkong14@gmail.com|badminton|L001
-Lim Enya|S007|12|qwe|016-2985667|kzkong14@gmail.com|badminton|L001
-Ng Wei Jun|S008|12|wqeqweqewq|016-2985667|emya@gmail.com|badminton|L001
-Loe Hui Lin|S009|19|Cheras|6969696969|Huilin@gmail.com|volleyball|L001
+Enya|S001|19|Sri Petaling|011123|enya@gmail.com|Badminton|L001|Jacky Lim|false
+HLgirl|S002|19|Sri Petaling|0111345|HLgirl@gmail.com|Volleyball|L001|Jacky Lim|true
+Boo|S003|19|KL|012-3345|adam@gmail.com|Badminton|L001|Jacky Lim|false
+CK1|S004|19|KL|012-3345|adam@gmail.com|Badminton|L001|Jacky Lim|true
+CK6|S005|19|KL|012-3345|adam@gmail.com|Badminton|L001|Jacky Lim|false
+Kong Kei Zhong|S006|12|PJ|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Lim|true
+Lim Enya|S007|12|qwe|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Lim|false
+Ng Wei Jun|S008|12|wqeqweqewq|016-2985667|emya@gmail.com|badminton|L001|Jacky Lim|true
+Loe Hui Lin|S009|19|Cheras|6969696969|Huilin@gmail.com|volleyball|L001|Jacky Lim|true

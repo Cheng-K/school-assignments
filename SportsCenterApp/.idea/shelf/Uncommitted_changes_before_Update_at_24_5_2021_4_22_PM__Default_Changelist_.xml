@@ -1,0 +1,29 @@
+<changelist name="Uncommitted_changes_before_Update_at_24_5_2021_4_22_PM_[Default_Changelist]" date="1621844601590" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_5_2021_4_22_PM_[Default_Changelist]/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 24/5/2021 4:22 PM [Default Changelist]" />
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/Coach.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/Coach.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_5_2021_4_22_PM_[Default_Changelist]/Coach.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/Coach$sortByRating.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/Coach$sortByRating.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_5_2021_4_22_PM_[Default_Changelist]/Coach$sortByRating.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/Main.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/Main.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_5_2021_4_22_PM_[Default_Changelist]/Main.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/AdminModifyMenu$setCoachPanel.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/AdminModifyMenu$setCoachPanel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_5_2021_4_22_PM_[Default_Changelist]/AdminModifyMenu$setCoachPanel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="out/production/SportsCenterApp/com/company/Admin.class" />
+    <option name="AFTER_PATH" value="out/production/SportsCenterApp/com/company/Admin.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_24_5_2021_4_22_PM_[Default_Changelist]/Admin.class" />
+  </binary>
+</changelist>

@@ -50,6 +50,14 @@ public class CreateRecord {
             setStudentVisibility();
         } else if (type.equals("coach")) {
             setCoachVisibility();
+            sportsBox.setEnabled(false);
+            sportsCodeBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    sportsBox.setSelectedIndex(sportsCodeBox.getSelectedIndex());
+                }
+            });
+
         } else if (type.equals("sport")) {
             setStudentVisibility();
             setCoachVisibility();
@@ -261,8 +269,6 @@ public class CreateRecord {
         ageLabel.setVisible(false);
         emailField.setVisible(false);
         eMailLabel.setVisible(false);
-        sportsLabel.setVisible(false);
-        sportsBox.setVisible(false);
         passwordField.setVisible(false);
         passwordLabel.setVisible(false);
         sportsCentreBox.setVisible(false);
