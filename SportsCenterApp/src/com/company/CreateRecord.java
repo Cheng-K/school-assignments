@@ -44,6 +44,9 @@ public class CreateRecord {
     private JComboBox durationBox;
     private JLabel startTimeLabel;
     private JLabel durationLabel;
+    private JTextField feesField;
+    private JLabel feesLabel;
+    private FormChecker formChecker;
 
     public CreateRecord(Admin admin, String type) {
         frame = new JFrame("Create " + type + " profile");
@@ -53,6 +56,7 @@ public class CreateRecord {
         errorLabel.setForeground(Color.red);
         frame.setVisible(true);
         headerLabel.setText("Enter " + type + " details below: ");
+        this.formChecker = new FormChecker();
         setComboBox(admin.getSportsCenterCode());
         if (type.equals("student")) {
             setStudentVisibility();
@@ -88,6 +92,8 @@ public class CreateRecord {
             contactLabel.setVisible(false);
             sportsLabel.setVisible(false);
             sportsBox.setVisible(false);
+            feesLabel.setVisible(true);
+            feesField.setVisible(true);
         }else if (type.equals("session")) {
             setSessionVisibility();
             sportsBox.setEnabled(false);
@@ -137,28 +143,25 @@ public class CreateRecord {
                         errorLabel.setText("Please select a sport!");
                     } else if (coachBox.getSelectedItem().equals("---")) {
                         errorLabel.setText("Please select a coach!");
+                    } else if (formChecker.onlyDigits(ageField.getText())==false){
+                        errorLabel.setText("Please enter a number for the age field!");
                     } else {
-                        try {
-                            Integer.parseInt(studentDetail[2]);
-                            int check = admin.createAccount(studentDetail, passwordField.getText());
-                            switch (check) {
-                                case 0:
-                                    JOptionPane.showMessageDialog(frame, "Account successfully created!",
-                                            "Successful", JOptionPane.INFORMATION_MESSAGE);
-                                    frame.setVisible(false);
-                                    new AdminMenu(admin);
-                                    break;
-                                case 1:
-                                    JOptionPane.showMessageDialog(frame, "Profile with the same name is already created and awaiting for admins' approval!",
-                                            "Error", JOptionPane.ERROR_MESSAGE);
-                                    break;
-                                case 2:
-                                    JOptionPane.showMessageDialog(frame, "Profile with the same name already exists!",
-                                            "Error", JOptionPane.ERROR_MESSAGE);
+                        int check = admin.createAccount(studentDetail, passwordField.getText());
+                        switch (check) {
+                            case 0:
+                                JOptionPane.showMessageDialog(frame, "Account successfully created!",
+                                        "Successful", JOptionPane.INFORMATION_MESSAGE);
+                                frame.setVisible(false);
+                                new AdminMenu(admin);
+                                break;
+                            case 1:
+                                JOptionPane.showMessageDialog(frame, "Profile with the same name is already created and awaiting for admins' approval!",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
+                                break;
+                            case 2:
+                                JOptionPane.showMessageDialog(frame, "Profile with the same name already exists!",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
                             }
-                        } catch (Exception a) {
-                            errorLabel.setText("Please enter a number for the age field!");
-                        }
                     }
                 } else if (type.equals("coach")) {
                     if (nameField.getText().equals("") || addressField.getText().equals("") ||
@@ -170,29 +173,24 @@ public class CreateRecord {
                         errorLabel.setText("Contact entered is invalid!");
                     } else if (sportsCodeBox.getSelectedItem().equals("---")) {
                         errorLabel.setText("Select a sports code!");
-
+                    } else if (formChecker.onlyDigits(hourlyRateField.getText())==false) {
+                        errorLabel.setText("Enter a number for 'hourly rate'!");
                     } else {
-                        try {
-                            Integer.parseInt(hourlyRateField.getText());
-                            String[] coachDetails = {nameField.getText(), "null", String.valueOf(java.time.LocalDate.now()), "null",
-                                    hourlyRateField.getText(), contactField.getText(), addressField.getText(),
-                                    admin.getSportsCenterCode(), String.valueOf(sportsCodeBox.getSelectedItem()), "0", "0"};
-                            int check = admin.createCoach(coachDetails);
-                            switch (check) {
-                                case 0:
-                                    JOptionPane.showMessageDialog(frame, "Coach record successfully created!",
-                                            "Successful", JOptionPane.INFORMATION_MESSAGE);
-                                    frame.setVisible(false);
-                                    new CreateRecordMenu(admin);
-                                    break;
-                                case 1:
-                                    JOptionPane.showMessageDialog(frame, "Coach profile with the same name already exists!",
-                                            "Error", JOptionPane.ERROR_MESSAGE);
+                        String[] coachDetails = {nameField.getText(), "null", String.valueOf(java.time.LocalDate.now()), "null",
+                                hourlyRateField.getText(), contactField.getText(), addressField.getText(),
+                                admin.getSportsCenterCode(), String.valueOf(sportsCodeBox.getSelectedItem()), "0", "0"};
+                        int check = admin.createCoach(coachDetails);
+                        switch (check) {
+                            case 0:
+                                JOptionPane.showMessageDialog(frame, "Coach record successfully created!",
+                                        "Successful", JOptionPane.INFORMATION_MESSAGE);
+                                frame.setVisible(false);
+                                new CreateRecordMenu(admin);
+                                break;
+                            case 1:
+                                JOptionPane.showMessageDialog(frame, "Coach profile with the same name already exists!",
+                                        "Error", JOptionPane.ERROR_MESSAGE);
                             }
-
-                        } catch (Exception a) {
-                            errorLabel.setText("Enter a number for 'hourly rate'!");
-                        }
                     }
                 } else if (type.equals("sport")) {
                     String[] existingSports = FileServer.readFile(admin.getSportsCenterCode(), "Sports.txt");
@@ -206,15 +204,21 @@ public class CreateRecord {
                     }
                     if (nameField.getText().equals("")) {
                         errorLabel.setText("Please enter the sports' name!");
+                    } else if(feesField.getText().equals("")){
+                        errorLabel.setText("Please enter amount for the fees!");
+                    } else if(formChecker.onlyDigits(feesField.getText())==false){
+                        errorLabel.setText("Please enter numeric digits only for the fees!");
                     } else if (validSport == true) {
-                        admin.createSports(nameField.getText());
+                        admin.createSports(nameField.getText(),feesField.getText());
                         JOptionPane.showMessageDialog(frame, "Sport successfully created!",
                                 "Successful", JOptionPane.INFORMATION_MESSAGE);
+                        frame.setVisible(false);
+                        new CreateRecordMenu(admin);
                     } else {
                         errorLabel.setText("Sport entered already exist!");
                     }
                 } else if(type.equals("session")){
-                    if(dayBox.getSelectedIndex()==0||sportsCodeBox.getSelectedIndex()==1||coachBox.getSelectedIndex()==0||
+                    if(dayBox.getSelectedIndex()==0||sportsCodeBox.getSelectedIndex()==0||coachBox.getSelectedIndex()==0||
                     startTimeBox.getSelectedIndex()==0||durationBox.getSelectedIndex()==0){
                         errorLabel.setText("Select an option for all details above!");
                     }
@@ -225,25 +229,23 @@ public class CreateRecord {
                         if(time.length==2){
                             startMinute = Integer.parseInt(time[1]);
                         }
-                        LocalTime startTime = LocalTime.of(startHour,startMinute);
                         LocalTime endTime=LocalTime.of(0,0);
-                        if (durationBox.getSelectedIndex()==1){
-                            endTime=startTime.plusHours(1);
-                        }else if(durationBox.getSelectedIndex()==2){
-                            endTime=startTime.plusHours(1);
-                            endTime=startTime.plusMinutes(30);
-                        }else if(durationBox.getSelectedIndex()==3){
-                            endTime=startTime.plusHours(2);
-                        }else if(durationBox.getSelectedIndex()==4){
-                            endTime=startTime.plusHours(2);
-                            endTime=startTime.plusMinutes(30);
-                        }else if(durationBox.getSelectedIndex()==5){
-                            endTime=startTime.plusHours(3);
+                        LocalTime startTime = LocalTime.of(startHour,startMinute);
+                        if (String.valueOf(durationBox.getSelectedItem()).split(" ").length==2){
+                            startTime = startTime.plusMinutes(Integer.parseInt(extractInt(String.valueOf(durationBox.getSelectedItem()).split(" ")[1])));
+                            endTime = endTime.plusMinutes(startTime.getMinute());
+                            endTime = startTime.plusHours(Integer.parseInt(extractInt(String.valueOf(durationBox.getSelectedItem()).split(" ")[0])));
+                        }else{
+                            endTime = startTime.plusHours(Integer.parseInt(extractInt(String.valueOf(durationBox.getSelectedItem()).split(" ")[0])));
                         }
                         String[] sessionDetail = {String.valueOf(dayBox.getSelectedItem()),"null",String.valueOf(startHour),
                                 String.valueOf(startMinute),String.valueOf(endTime.getHour()),String.valueOf(endTime.getMinute()),
                                 String.valueOf(sportsBox.getSelectedItem()),String.valueOf(coachBox.getSelectedItem())};
-                        admin.createSession(sessionDetail);
+                        admin.createSession(sessionDetail,String.valueOf(dayBox.getSelectedItem()),String.valueOf(sportsCodeBox.getSelectedItem()));
+                        JOptionPane.showMessageDialog(frame, "Session successfully created!",
+                                "Successful", JOptionPane.INFORMATION_MESSAGE);
+                        frame.setVisible(false);
+                        new CreateRecordMenu(admin);
                     }
                 }
             }
@@ -267,6 +269,7 @@ public class CreateRecord {
         errorLabel.setForeground(Color.red);
         frame.setVisible(true);
         headerLabel.setText("Enter your details below: ");
+        this.formChecker = new FormChecker();
         setStudentVisibility();
         sportsCentreCodeLabel.setVisible(true);
         sportsCentreBox.setVisible(true);
@@ -326,28 +329,25 @@ public class CreateRecord {
                     errorLabel.setText("Select a sports!");
                 } else if (coachBox.getSelectedItem().equals("---")) {
                     errorLabel.setText("Select a coach!");
-                } else {
-                    try {
-                        Integer.parseInt(ageField.getText());
-                        String[] studentDetail = {nameField.getText(), "null", ageField.getText(), addressField.getText(),
-                                contactField.getText(), emailField.getText(), String.valueOf(sportsBox.getSelectedItem()) ,
-                                String.valueOf(sportsCentreBox.getSelectedItem()), String.valueOf(coachBox.getSelectedItem()), "false"};
-                        int check = student.registerAccount(studentDetail, passwordField.getText());
-                        switch (check) {
-                            case 0:
-                                JOptionPane.showMessageDialog(frame, "Account creation request made!\nAwait for admins' approval to access your account.",
-                                        "Successful", JOptionPane.INFORMATION_MESSAGE);
-                                frame.setVisible(false);
-                                new StudentMenu(student);
-                                break;
-                            case 1:
-                                errorLabel.setText("<html>Profile with the same name already created<br/>and awaiting for admins' approval!<html>");
-                                break;
-                            case 2:
-                                errorLabel.setText("Profile with the same name already exists!");
-                        }
-                    } catch (Exception a) {
-                        errorLabel.setText("Please enter a number for the age field!");
+                } else if (formChecker.onlyDigits(ageField.getText())==false) {
+                    errorLabel.setText("Please enter a number for the age field!");
+                }else {
+                    String[] studentDetail = {nameField.getText(), "null", ageField.getText(), addressField.getText(),
+                            contactField.getText(), emailField.getText(), String.valueOf(sportsBox.getSelectedItem()) ,
+                            String.valueOf(sportsCentreBox.getSelectedItem()), String.valueOf(coachBox.getSelectedItem()), "false"};
+                    int check = student.registerAccount(studentDetail, passwordField.getText());
+                    switch (check) {
+                        case 0:
+                            JOptionPane.showMessageDialog(frame, "Account creation request made!\nAwait for admins' approval to access your account.",
+                                    "Successful", JOptionPane.INFORMATION_MESSAGE);
+                            frame.setVisible(false);
+                            new StudentMenu(student);
+                            break;
+                        case 1:
+                            errorLabel.setText("<html>Profile with the same name already created<br/>and awaiting for admins' approval!<html>");
+                            break;
+                        case 2:
+                            errorLabel.setText("Profile with the same name already exists!");
                     }
                 }
             }
@@ -367,6 +367,8 @@ public class CreateRecord {
         startTimeBox.setVisible(false);
         durationBox.setVisible(false);
         durationLabel.setVisible(false);
+        feesField.setVisible(false);
+        feesLabel.setVisible(false);
     }
 
     public void setCoachVisibility() {
@@ -386,6 +388,8 @@ public class CreateRecord {
         startTimeBox.setVisible(false);
         durationBox.setVisible(false);
         durationLabel.setVisible(false);
+        feesField.setVisible(false);
+        feesLabel.setVisible(false);
     }
 
     public void setSessionVisibility(){
@@ -405,6 +409,8 @@ public class CreateRecord {
         passwordField.setVisible(false);
         hourlyRateLabel.setVisible(false);
         hourlyRateField.setVisible(false);
+        feesField.setVisible(false);
+        feesLabel.setVisible(false);
         dayBox.addItem("---");
         dayBox.addItem("Sunday");
         dayBox.addItem("Monday");
@@ -453,9 +459,18 @@ public class CreateRecord {
         for (String time : timeSlot) {
             startTimeBox.addItem(time);
         }
-        String[] durationSlot = {"---","1 hour","1 hour30minutes","2 hours","2 hours30minutes","3 hours"};
+        String[] durationSlot = {"---","1hour","1hour 30minutes","2hours","2hours 30minutes","3hours"};
         for(String duration:durationSlot){
             durationBox.addItem(duration);
         }
+    }
+    static String extractInt(String str)
+    {
+        str = str.replaceAll("[^\\d]", " ");
+        str = str.trim();
+        str = str.replaceAll(" +", " ");
+        if (str.equals(""))
+            return "-1";
+        return str;
     }
 }

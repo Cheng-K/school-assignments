@@ -121,7 +121,7 @@ public class Admin {
         }
     }
 
-    public int createSports(String sportsName)
+    public int createSports(String sportsName,String fees)
     {
         String[] fileContent = FileServer.readFile(getSportsCenterCode(),"Sports.txt");
         String sportsID="";
@@ -146,7 +146,7 @@ public class Admin {
         else {
             sportsID = "B"+max;
         }
-        FileServer.appendFile(getSportsCenterCode(),"Sports.txt",sportsName+"|"+sportsID+"\n");
+        FileServer.appendFile(getSportsCenterCode(),"Sports.txt",sportsName+"|"+sportsID+"|"+fees+"|"+"\n");
         return 0;
     }
 
@@ -193,7 +193,7 @@ public class Admin {
         return coachID;
     }
 
-    public int createSession(String[] sessionDetail) {
+    public void createSession(String[] sessionDetail,String day, String sportCode) {
         int max = 0;
         String[] sessionFileContent = FileServer.readFile(getSportsCenterCode(), "Session.txt");
         for (String line : sessionFileContent) {
@@ -202,11 +202,18 @@ public class Admin {
                 max = Integer.parseInt(token[1].replace("T", ""));
             }
         }
-        sessionDetail[1] = "T" + (max++);
+        if (max<9){
+            sessionDetail[1] = "T0" + (max+1);
+        }else{
+            sessionDetail[1] = "T" + (max+1);
+        }
         Session newSession = new Session(sessionDetail);
-        FileServer.appendFile(getSportsCenterCode(),"Session.txt",newSession.toString());
-        return 0;
+        FileServer.appendFile(getSportsCenterCode(),"Session.txt",newSession.getWriteToFileString()+"\n");
+        String[] scheduleFileContent = FileServer.readFile(getSportsCenterCode(),"Schedule.txt");
+        int cnt = 0;
+        Schedule.updateScheduleFile(getSportsCenterCode());
     }
+
     /*  Method name : sort (Generic Method)
         Parameter   : tArrayList (Array list containing T typed *preferably instances of Coach/Students*) ,
                       sorter (Comparator instance tells how to sort tArrayList ),
