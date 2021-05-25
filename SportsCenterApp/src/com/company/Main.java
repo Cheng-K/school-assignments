@@ -78,17 +78,15 @@ public class Main {
 
 
 //
-            Admin admin = new Admin("Jack","L001");
-            new AdminMenu(admin);
+//            Admin admin = new Admin("Jack","L001");
+//            new AdminMenu(admin);
 //        Schedule.updateScheduleFile("L001");
 //
 //
-
-
 //        System.out.println(Arrays.toString(FileServer.readFile("L002","Session.txt")));
 //        System.out.println(FileServer.readFile("L002","Session.txt").length);
 //        Schedule.updateScheduleFile("L002");
 
-
+        new LoginScreen();
     }
 }

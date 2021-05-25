@@ -120,10 +120,15 @@ public class CoachProfile {
         IDField.setEditable(false);
         contactField.setText(coach.getPhone());
         contactField.setEditable(false);
-        sportsField.setText(coach.getSportsCenterID());
+        sportsField.setText(coach.getSportsCode());
         sportsField.setEditable(false);
-        ratingField.setText(Float.toString(coach.getRating() / coach.getTotalRates()));
         ratingField.setEditable(false);
+        try{
+            ratingField.setText(Integer.toString(coach.getRating() / coach.getTotalRates()));
+        }catch (Exception e){
+            ratingField.setText("0");
+        }
+
     }
 
     public void hideRadioButtons(){

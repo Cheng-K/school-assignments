@@ -1,10 +1,10 @@
-Leela Garfield|S001|19|Sri Petaling|011123|garfield69@gmail.com|Badminton|L002|Jacky Lim|true
-Nathalie Henrietta|S002|22|Bukit Jalil|0111345|iloveyou520@gmail.com|Swimming|L002|Jacky Lim|true
-Darwin Liana|S003|19|Cheras|011123|coolmaster@gmail.com|Badminton|L002|Jacky Lim|true
-Enya|S001|19|Sri Petaling|011123|enya@gmail.com|Badminton|L001|Jacky Lim|true
-HLgirl|S002|19|Sri Petaling|0111345|HLgirl@gmail.com|Volleyball|L001|Jacky Lim|true
-CK1|S004|19|KL|012-3345|adam@gmail.com|Badminton|L001|Jacky Lim|true
-Kong Kei Zhong|S006|12|PJ|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Lim|true
-Lim Enya|S007|12|qwe|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Lim|true
-Ng Wei Jun|S008|12|wqeqweqewq|016-2985667|emya@gmail.com|badminton|L001|Jacky Lim|true
-Loe Hui Lin|S009|19|Cheras|6969696969|Huilin@gmail.com|volleyball|L001|Jacky Lim|true
+Fret Erther|S001|16|2242 9 Jln Pantai Dalam Kampung Pantai Dalam|01975246812|flat.earth@gmail.com|Badminton|L002|Chan Chee Mun|true
+Benson Junior|S002|20|16, JalanBU2/1|216495487654|nelson@gmail.com|Swimming |L002|Michael Phelps|false
+Mohamad Suliaman|S003|17|No. 20 1St Floor Jln Ss25/22 Ss25|2164975156|wendylee@gmail.com|Football|L002|Mohammad Danur|false
+Kim Dahyun|S004|24|22 Lrg Datuk Sulaiman 2 Taman Tun Dr Ismail|1649581365|twice@gmail.com|Archery|L002|Jett Kim|false
+Sern Chuu Bin|S005|15|B 514 1 Jln Wilayah Persekutuan|01369746545|chubbsdog@gmail.com|Gymnastics|L002|Issabella|false
+Bruh Kong|S006|20|3 300 Lrg Taman Melawati Hulu|0136978456|bruhbro@gmail.com|Volleyball|L002|Shoyo Hinata|false
+Michael Yeezes|S007|25| No. 107 Jln Kuning Taman Pelangi|01879431521|sponsership@gmail.com|Basketball|L002|Michael Jordan|false
+Kong Kei Ming|S008|24|14, JalanBu2/8|01697845612|kkm@gmail.com|Cricket|L002|Kong Kok Keong|false
+Soyokaze Ame|S009|19|Stesen Bas Terminal 1 Jln Sungai Ujong|0167953125|ame@gmail.com|Tennis|L002|Roger Federer|false
+Lee Tiong Gee|S010|21|7A Persiaran Greentown 8|0147956412|huiLinSimp@gmail.com|Table tennis|L002|Kawaski Fubuki|true
