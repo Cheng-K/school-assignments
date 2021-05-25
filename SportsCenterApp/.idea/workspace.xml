@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/L001/Schedule.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Schedule.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L001/Session.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Session.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L001/Sports.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Sports.txt" afterDir="false" />
-    </list>
+    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

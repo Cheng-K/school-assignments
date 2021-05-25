@@ -1,4 +1,3 @@
-Ying Geop|S001|23|23,jalan king, taman lee|0154267894|yingGeop@gmail.com|Badminton|L001|Ong Cheng Kei|false
 Allison Tee|S002|34|Hotel 69 Jln Bukit Bintang Kuala Lumpur|60321428049|katharina_will26@hotmail.com |Archery|L001|Loe Hui Lin|false
 Sterling Raheem|S003|27|Setesen Pemancar Bukit Lanjan Jln Damansara|0378051351|maximo_glover@yahoo.com |Football|L001|Kong Kei Zhong|false
 Kira Denesik|S004|35|Lot 4937 Batu 5 1/2 Jalan Meru|0192233421|kira_denesik@hotmail.com |Basketball|L001|Ng Wei Jun|false

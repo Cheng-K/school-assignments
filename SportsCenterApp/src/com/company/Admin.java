@@ -351,6 +351,24 @@ public class Admin {
     }
 
     public int deleteStudentRecord (List<Student> studentList, int index){
+        // remove student at credentials file
+        String nameToBeRemoved = studentList.get(index).getName();
+        String[] credentialsFile = FileServer.readFile("Student.txt");
+        List<String> credentials = new ArrayList<>(Arrays.asList(credentialsFile));
+        int rowToBeRemove = 0;
+        for (int row = 0; row < credentials.size();row++){
+            String[] credentialsTokens = credentials.get(row).split("\\|");
+            if (credentialsTokens[0].equals(nameToBeRemoved)){
+                rowToBeRemove = row;
+                break;
+            }
+        }
+        credentials.remove(rowToBeRemove);
+        FileServer.writeFile("Student.txt","");
+        for (String line : credentials){
+            FileServer.appendFile("Student.txt",line+"\n");
+        }
+        // remove student at student.txt in subfolder
         studentList.remove(index);
         if (FileServer.writeFile(this.SportsCenterCode,"Student.txt","") == 1)
             return 1;
@@ -358,6 +376,7 @@ public class Admin {
             if (FileServer.appendFile(this.SportsCenterCode,"Student.txt",student.toString()+"\n") == 1)
                 return 1;
         }
+
         return 0;
     }
 

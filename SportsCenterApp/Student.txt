@@ -1,15 +1,3 @@
-Enya|123|L001
-HLgirl|456|L001
-Boo|123|L001
-CK1|123|L001
-CK6|123|L001
-Kong Kei Zhong|123|L001
-Lim Enya|qwe|L001
-Ng Wei Jun|eweqwqewq|L001
-Loe Hui Lin|123|L001
-Jack Lee|12345|L001
-Ying Geop|12345|L001
-Ying Geop|1234|L001
 Allison Tee|12345|L001
 Sterling Raheem|12345|L001
 Kira Denesik|12345|L001
