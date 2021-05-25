@@ -49,6 +49,7 @@ public class StudentMenu {
                 }
             });
         }
+
         setWelcomeHeading();
         setVisibleButtons();
         frame.setContentPane(studentMenuPanel);

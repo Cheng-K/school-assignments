@@ -1,4 +1,3 @@
 package com.company;
 
-public class BaseStudent {
-}
+public abstract class BaseStudent {}

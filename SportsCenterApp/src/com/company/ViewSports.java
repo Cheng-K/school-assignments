@@ -19,6 +19,7 @@ public class ViewSports {
     private DefaultTableModel sportsTableModel;
     private Student student;
     private UnregStudent guestStudent;
+    private ArrayList<Sports> sportsList = new ArrayList<>();
 
 
     public ViewSports(Student student) {
@@ -40,6 +41,9 @@ public class ViewSports {
         viewSportsScheduleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int rowSelected = sportsTable.getSelectedRow();
+                new DisplayAllRecord(student,sportsList.get(rowSelected));
+                frame.dispose();
 
             }
         });
@@ -73,13 +77,16 @@ public class ViewSports {
         viewSportsScheduleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int rowSelected = sportsTable.getSelectedRow();
+                new DisplayAllRecord(guestStudent,sportsList.get(rowSelected));
+                frame.dispose();
 
             }
         });
     }
 
     public void setTable(String sportsCentreCode){
-        ArrayList<Sports> sportsList = new ArrayList<>();
+        sportsList.clear();
         String[] sportFileContent = FileServer.readFile(sportsCentreCode,"Sports.txt");
         for (String sportsInfo:sportFileContent){
             Sports sport = new Sports(sportsCentreCode, sportsInfo.split("\\|"));

@@ -1,12 +1,6 @@
 package com.company;
 
-import java.io.File;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
+
 
 public class Main {
 
@@ -70,8 +64,8 @@ public class Main {
 
 
 
-            Admin admin = new Admin("Jack","L001");
-            new AdminMenu(admin);
+//            Admin admin = new Admin("Jack","L001");
+//            new AdminMenu(admin);
 //        new LoginScreen();
 
 //        for (String line : FileServer.readFile("L002","Sports.txt")){
@@ -83,11 +77,11 @@ public class Main {
 //        Schedule.updateScheduleFile("L002");
 
 
-
-//            Admin admin = new Admin("Jack","L001");
-//            new AdminMenu(admin);
-//        Schedule.updateScheduleFile("L002");
-      
+//
+            Admin admin = new Admin("Jack","L001");
+            new AdminMenu(admin);
+//        Schedule.updateScheduleFile("L001");
+//
 //
 
 

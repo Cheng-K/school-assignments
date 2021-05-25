@@ -99,7 +99,7 @@ public class DisplayAllRecord {
          */
         private void updateCoachTable() {
             for (Coach coach : coachList){
-                coachTableModel.addRow(coach.toString().split("\\|"));
+                coachTableModel.addRow(coach.getDisplayString().split("\\|"));
             }
         }
 
@@ -144,7 +144,8 @@ public class DisplayAllRecord {
         private void getAllStudent () {
             String[] studentFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Student.txt");
             for (String studentInfo : studentFileContent){
-                Student student = new Student(studentInfo.split("\\|"));
+                String[] tokens = studentInfo.split("\\|");
+                Student student = new Student(tokens,Student.findMyCoach(tokens[8],tokens[7]));
                 studentList.add(student);
             }
         }
@@ -373,6 +374,7 @@ public class DisplayAllRecord {
                         frame.setVisible(false);
                         new AdminModifyMenu(targetCoach, admin, DisplayAllRecord.this);
                     }
+                    break;
                 }
                 case 2: {
                     int row = sportsRecordTable.getSelectedRow();
@@ -398,6 +400,8 @@ public class DisplayAllRecord {
                     }
                     break;
                 }
+                default :
+                    break;
             }
         }
     }
@@ -432,7 +436,7 @@ public class DisplayAllRecord {
                     if (row == -1)
                         JOptionPane.showMessageDialog(frame, "Please select a row to delete");
                     else {
-                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
+                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record? This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
                             admin.deleteStudentRecord(studentPanelManager.studentList, row);
@@ -521,8 +525,7 @@ public class DisplayAllRecord {
         this(admin,true);
     }
 
-    public DisplayAllRecord (Student student, Sports sports){
-        // set student
+    public DisplayAllRecord (BaseStudent student, Sports sports){
         schedulePanelManager = new SetSchedulePanel(sports);
         deleteRecordButton.setVisible(false);
         modifyDetailsButton.setVisible(false);
@@ -549,8 +552,8 @@ public class DisplayAllRecord {
         backToMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
                 new StudentMenu(student);
+                frame.setVisible(false);
             }
         });
         tabbedPane1.setSelectedIndex(3);
