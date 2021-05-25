@@ -172,11 +172,13 @@ public class CreateRecord {
                     } else if (nameField.getText().length() < 8) {
                         errorLabel.setText("Name entered is too short! (min. 8 char)");
                     } else if (contactField.getText().length() < 10) {
-                        errorLabel.setText("Contact entered is invalid!");
+                        errorLabel.setText("Contact entered is too short!");
                     } else if (sportsCodeBox.getSelectedItem().equals("---")) {
                         errorLabel.setText("Select a sports code!");
                     } else if (formChecker.onlyDigits(hourlyRateField.getText())==false) {
                         errorLabel.setText("Enter a number for 'hourly rate'!");
+                    } else if (formChecker.onlyDigits(contactField.getText())==false) {
+                        errorLabel.setText("Please enter only digits for contact number!");
                     } else {
                         String[] coachDetails = {nameField.getText(), "null", String.valueOf(java.time.LocalDate.now()), "null",
                                 hourlyRateField.getText(), contactField.getText(), addressField.getText(),
