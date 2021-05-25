@@ -251,8 +251,6 @@ public class Admin {
         String newString = coach.toString();
         String[] coachFileContent = FileServer.readFile(this.SportsCenterCode,"Coach.txt");
         FileServer.findAndReplace(coachFileContent,oldString,newString);
-        System.out.println(newString);
-        System.out.println(Arrays.toString(coachFileContent));
         return FileServer.writeFile(this.SportsCenterCode,"Coach.txt",String.join("\n",coachFileContent)+"\n");
 
 
@@ -295,7 +293,7 @@ public class Admin {
     public ArrayList<Coach> searchCoach(List<Coach>coachList,int rating){
         ArrayList<Coach>found = new ArrayList<>();
         for (Coach coach:coachList){
-            if (rating == coach.getRating())
+            if (rating == (coach.getRating()/coach.getTotalRates()))
                 found.add(coach);
         }
         return found;

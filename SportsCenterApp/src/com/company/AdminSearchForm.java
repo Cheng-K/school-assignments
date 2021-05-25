@@ -35,11 +35,13 @@ public class AdminSearchForm {
         displayFrame = new DisplayAllRecord(admin,false);
         coachTabManager = new coachTabServer();
         searchButton.addActionListener(new searchButtonListener());
+        backToMenuButton.addActionListener(new backToMenuListener());
         frame.setTitle("Search Record");
         frame.setContentPane(rootPanel);
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+
 
     }
 

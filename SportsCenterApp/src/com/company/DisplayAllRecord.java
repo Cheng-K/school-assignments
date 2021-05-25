@@ -99,7 +99,7 @@ public class DisplayAllRecord {
          */
         private void updateCoachTable() {
             for (Coach coach : coachList){
-                coachTableModel.addRow(coach.toString().split("\\|"));
+                coachTableModel.addRow(coach.getDisplayString().split("\\|"));
             }
         }
 
@@ -373,6 +373,7 @@ public class DisplayAllRecord {
                         frame.setVisible(false);
                         new AdminModifyMenu(targetCoach, admin, DisplayAllRecord.this);
                     }
+                    break;
                 }
                 case 2: {
                     int row = sportsRecordTable.getSelectedRow();
@@ -398,6 +399,8 @@ public class DisplayAllRecord {
                     }
                     break;
                 }
+                default :
+                    break;
             }
         }
     }
@@ -521,8 +524,7 @@ public class DisplayAllRecord {
         this(admin,true);
     }
 
-    public DisplayAllRecord (Student student, Sports sports){
-        // set student
+    public DisplayAllRecord (BaseStudent student, Sports sports){
         schedulePanelManager = new SetSchedulePanel(sports);
         deleteRecordButton.setVisible(false);
         modifyDetailsButton.setVisible(false);
@@ -549,8 +551,8 @@ public class DisplayAllRecord {
         backToMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
                 new StudentMenu(student);
+                frame.setVisible(false);
             }
         });
         tabbedPane1.setSelectedIndex(3);

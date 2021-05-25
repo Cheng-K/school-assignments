@@ -61,6 +61,7 @@ public class AdminModifyMenu {
     private JLabel sportIDLabel;
     private JLabel sportsNameLabel;
     private JTextField sportsCoachingField;
+    private JTextField totalFeedbackField;
     private JPanel coachPanel;
     private Coach coach;
     private Session session;
@@ -114,7 +115,8 @@ public class AdminModifyMenu {
             addressField.setText(coach.getAddress());
             sportsCenterIDField.setText(coach.getSportsCenterID());
             sportsCoachingField.setText(coach.getSportsCode());
-            ratingField.setText(Float.toString(coach.getRating()));
+            ratingField.setText(Integer.toString(coach.getRating()/coach.getTotalRates()));
+            totalFeedbackField.setText(Integer.toString(coach.getTotalRates()));
             saveCloseButtonCoach.addActionListener(new saveCloseButtonCoachListener());
         }
 

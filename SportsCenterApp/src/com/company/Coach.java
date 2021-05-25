@@ -96,7 +96,7 @@ public class Coach {
 
 
     public static String[] getAllAttributes () {
-        return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Rating"};
+        return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Rating","Total Feedback"};
     }
 
     //Getters and setters
@@ -185,15 +185,6 @@ public class Coach {
         this.address = address;
     }
 
-    public void setSportsCenterID(String sportsCenterID) {
-        this.sportsCenterID = sportsCenterID;
-    }
-
-    public void setSportsCode(String sportsCode) {
-        this.sportsCode = sportsCode;
-    }
-
-
 
     public void setSports(Sports sports) {
         this.sports = sports;
@@ -206,6 +197,12 @@ public class Coach {
         return name + "|"+ coachID + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
                 + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating + "|" + totalRates;
     }
+
+    public String getDisplayString() {
+        return name + "|"+ coachID + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
+                + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating/totalRates + "|" + totalRates;
+    }
+
 
 
 }

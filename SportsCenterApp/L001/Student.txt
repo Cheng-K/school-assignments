@@ -7,4 +7,3 @@ Kong Kei Zhong|S006|12|PJ|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Li
 Lim Enya|S007|12|qwe|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Lim|false
 Ng Wei Jun|S008|12|wqeqweqewq|016-2985667|emya@gmail.com|badminton|L001|Jacky Lim|true
 Loe Hui Lin|S009|19|Cheras|6969696969|Huilin@gmail.com|volleyball|L001|Jacky Lim|true
-bruh i am done|S010|12|dsadasd|123131323231|@|Badminton|L001|Jacky Lim|false
