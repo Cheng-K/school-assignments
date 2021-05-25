@@ -178,7 +178,7 @@ public class CreateRecord {
                     } else {
                         String[] coachDetails = {nameField.getText(), "null", String.valueOf(java.time.LocalDate.now()), "null",
                                 hourlyRateField.getText(), contactField.getText(), addressField.getText(),
-                                admin.getSportsCenterCode(), String.valueOf(sportsCodeBox.getSelectedItem()), "0", "0"};
+                                admin.getSportsCenterCode(), String.valueOf(sportsCodeBox.getSelectedItem()), "0", "0",String.valueOf(sportsBox.getSelectedItem())};
                         int check = admin.createCoach(coachDetails);
                         switch (check) {
                             case 0:

@@ -146,7 +146,8 @@ public class Admin {
         else {
             sportsID = "B"+max;
         }
-        FileServer.appendFile(getSportsCenterCode(),"Sports.txt",sportsName+"|"+sportsID+"|"+fees+"|"+"\n");
+        Sports sports = new Sports(getSportsCenterCode(),new String[]{sportsName,sportsID,fees});
+        FileServer.appendFile(getSportsCenterCode(),"Sports.txt", sports +"\n");
         return 0;
     }
 

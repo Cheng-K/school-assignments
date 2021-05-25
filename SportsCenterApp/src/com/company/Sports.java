@@ -52,7 +52,7 @@ public class Sports {
     public static String[] getAllAttributes () {
         return new String[]{"Name","Sports ID","Sport Fees"};
     }
-
+    @Override
     public String toString() {
         return name + "|" + sportsID + "|" + sportFees ;
     }

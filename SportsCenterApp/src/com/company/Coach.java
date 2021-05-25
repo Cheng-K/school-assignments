@@ -12,10 +12,11 @@ public class Coach {
     private String phone;
     private String address;
     private String sportsCenterID;
+    private String sportsCenterName;
     private String sportsCode;
+    private String sportsName;
     private int rating;
     private int totalRates;
-    private Sports sports; // figure this out
     public static class sortByRating implements Comparator<Coach> {
 
         @Override
@@ -71,32 +72,12 @@ public class Coach {
         sportsCode = coachDetails[8];
         rating = Integer.parseInt(coachDetails[9]);
         totalRates = Integer.parseInt(coachDetails[10]);
-        // initialize sports
+        sportsName = coachDetails[11];
 
     }
-
-    public Coach (String[] coachDetails,Sports sports){
-        name = coachDetails[0];
-        coachID = coachDetails[1];
-        dateJoined = LocalDate.parse(coachDetails[2]);
-        if (coachDetails[3].equals("null"))
-            dateTerminated = null;
-        else
-            dateTerminated = LocalDate.parse(coachDetails[3]);
-        hourlyRate = Integer.parseInt(coachDetails[4]);
-        phone = coachDetails[5];
-        address = coachDetails[6];
-        sportsCenterID = coachDetails[7];
-        sportsCode = coachDetails[8];
-        rating = Integer.parseInt(coachDetails[9]);
-        totalRates = Integer.parseInt(coachDetails[10]);
-        this.sports = sports;
-        // initialize sports
-    }
-
 
     public static String[] getAllAttributes () {
-        return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Rating","Total Feedback"};
+        return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Sports Name","Rating","Total Feedback"};
     }
 
     //Getters and setters
@@ -143,10 +124,6 @@ public class Coach {
     }
 
 
-    public Sports getSports() {
-        return sports;
-    }
-
     public void setCoachID(String coachID) {
         this.coachID = coachID;
     }
@@ -186,21 +163,20 @@ public class Coach {
     }
 
 
-    public void setSports(Sports sports) {
-        this.sports = sports;
-
-    }
-
     @Override
     public String toString () {
 
         return name + "|"+ coachID + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
-                + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating + "|" + totalRates;
+                + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating + "|" + totalRates + "|" + sportsName;
     }
 
     public String getDisplayString() {
+        int displayRating = 0;
+        try{
+            displayRating = rating/totalRates;
+        }catch (ArithmeticException ignored){}
         return name + "|"+ coachID + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
-                + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating/totalRates + "|" + totalRates;
+                + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + sportsName+ "|"+ displayRating + "|" + totalRates;
     }
 
 

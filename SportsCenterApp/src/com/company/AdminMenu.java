@@ -10,7 +10,6 @@ public class AdminMenu {
     private JButton showRecordsButton;
     private JButton searchRecordButton;
     private JButton signOutButton;
-    private JButton displaySportCenterDetailsButton;
     private JLabel secondHeading;
     private JLabel welcomeHeading;
     private JPanel adminMenuPanel;

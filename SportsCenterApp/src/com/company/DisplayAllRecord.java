@@ -450,11 +450,17 @@ public class DisplayAllRecord {
                     if (row == -1)
                         JOptionPane.showMessageDialog(frame, "Please select a row to delete");
                     else {
+                        List<String> occupiedCoaches = getAllOccupiedCoach();
                         int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
-                            admin.deleteCoachRecord(coachPanelManager.coachList, row);
-                            coachPanelManager.clearUpdateTable();
+                            if (coachIsOccupied(occupiedCoaches,coachPanelManager.coachList.get(row).getName()))
+                                JOptionPane.showMessageDialog(frame,"Cannot delete coach. There are students under this coach.","Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            else {
+                                admin.deleteCoachRecord(coachPanelManager.coachList, row);
+                                coachPanelManager.clearUpdateTable();
+                            }
                         }
                     }
                     break;
@@ -464,11 +470,19 @@ public class DisplayAllRecord {
                     if (row == -1)
                         JOptionPane.showMessageDialog(frame, "Please select a row to delete");
                     else {
+                        List<String> occupiedSports = getAllOccupiedSports();
                         int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
-                            admin.deleteSportsRecord(sportsPanelManager.sportsArrayList, row);
-                            sportsPanelManager.clearUpdateTable();
+                            if (sportsIsOccupied(occupiedSports,sportsPanelManager.sportsArrayList.get(row).getName())) {
+                                JOptionPane.showMessageDialog(frame,"Cannot delete sports. There are students & coaches under this sport.","Error",
+                                        JOptionPane.ERROR_MESSAGE);
+                            }
+                            else {
+                                admin.deleteSportsRecord(sportsPanelManager.sportsArrayList,row);
+                                sportsPanelManager.clearUpdateTable();
+                            }
+
                         }
                     }
                     break;
@@ -488,6 +502,36 @@ public class DisplayAllRecord {
                     break;
                 }
             }
+        }
+        public List<String> getAllOccupiedCoach() {
+            List<String> occupiedCoaches = new ArrayList<>();
+            String[] studentFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Student.txt");
+            for (String line : studentFileContent){
+                String[] tokens = line.split("\\|");
+                occupiedCoaches.add(tokens[8]);
+            }
+            return occupiedCoaches;
+        }
+        public boolean coachIsOccupied (List<String>occupiedCoaches,String coachName){
+            return occupiedCoaches.contains(coachName);
+        }
+
+        public List<String> getAllOccupiedSports() {
+            List<String> occupiedSports = new ArrayList<>();
+            String[] studentFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Student.txt");
+            String[] coachFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Coach.txt");
+            for (String line : studentFileContent){
+                String[] tokens = line.split("\\|");
+                occupiedSports.add(tokens[6]);
+            }
+            for (String line : coachFileContent){
+                String[] tokens = line.split("\\|");
+                occupiedSports.add(tokens[11]);
+            }
+            return occupiedSports;
+        }
+        public boolean sportsIsOccupied (List<String>occupiedSports,String sportsName){
+            return occupiedSports.contains(sportsName);
         }
     }
 

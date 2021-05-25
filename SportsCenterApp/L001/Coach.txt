@@ -1,3 +1,5 @@
-Jacky Lim|C001|2018-09-12|null|20|0129994563|Bandar Utama|L002|B001|309|72
-Wilson Lee|C002|2018-09-15|null|10|0179994563|Damansara|L002|B002|100|60
-Muthu Ali|C003|2020-03-19|null|15|0119994563|Kepong|L002|B003|1000|200
+Muthu Ali|C001|2021-05-25|null|100|0321664220 |11 Medan Setia 1 Plaza D'Sara Bukit D'Sara|L001|B001|0|0|Swimming
+Ong Cheng Kei|C002|2021-05-25|null|120|033807636 | 93B Medan Bunus Off Jalan Masjid India|L001|B002|0|0|Badminton
+Kong Kei Zhong|C003|2021-05-25|null|150|038061-6179 |Kawasan Perindustrian 14, Bandar Indera Mahkota|L001|B003|0|0|Football
+Loe Hui Lin|C004|2021-05-25|null|150|0378053108 |Persiaran Puchong, Bandar Puchong,|L001|B004|0|0|Archery
+Lee Hui Iong|C005|2021-05-25|null|165|607-3336669 | 93B Medan Bunus Off Jalan Masjid India|L001|B005|0|0|Gymnastics
