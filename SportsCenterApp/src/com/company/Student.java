@@ -1,6 +1,5 @@
 package com.company;
 
-import java.io.File;
 import java.util.Comparator;
 
 public class Student extends BaseStudent {
@@ -10,7 +9,7 @@ public class Student extends BaseStudent {
     private String address;
     private String contactNumber;
     private String email;
-    private String registeredSports; // ArrayList <sports> make it contains class object
+    private String registeredSports;
     private String sportsCenterCode;
     private Sports sport;
     private Coach coach;
@@ -25,6 +24,17 @@ public class Student extends BaseStudent {
         public int compare(Student o1, Student o2) {
             return o1.name.compareTo(o2.name);
         }
+    }
+    public static Coach findMyCoach(String coachName,String sportsCenterCode) {
+        String[] coachFile = FileServer.readFile(sportsCenterCode,"Coach.txt");
+        Coach foundCoach = null;
+        for(String line:coachFile){
+            String[] coachDetails = line.split("\\|");
+            if (coachDetails[0].equals(coachName)){
+                foundCoach = new Coach(coachDetails);
+            }
+        }
+        return foundCoach;
     }
 
     public Student(String[] studentDetails) {
@@ -47,8 +57,7 @@ public class Student extends BaseStudent {
         givenRating = Boolean.parseBoolean(studentDetails[9]);
     }
 
-    // Use this please and refactor others
-    public Student(String[] studentDetails,Sports sport,Coach coach) {
+    public Student(String[] studentDetails,Coach myCoach) {
         name = studentDetails[0];
         studentID = studentDetails[1];
         age = Integer.parseInt(studentDetails[2]);
@@ -56,10 +65,12 @@ public class Student extends BaseStudent {
         contactNumber = studentDetails[4];
         email = studentDetails[5];
         registeredSports = studentDetails[6];
-        this.sport = sport;
         sportsCenterCode = studentDetails[7];
-        this.coach = coach;
+        String[] coachFile = FileServer.readFile(getSportsCenterCode(),"Coach.txt");
+        this.coach = myCoach;
+        givenRating = Boolean.parseBoolean(studentDetails[9]);
     }
+
 
     public static Student studentLogin (String username, String password){
         String[] studentFileContent = FileServer.readFile("Student.txt");
@@ -72,7 +83,7 @@ public class Student extends BaseStudent {
                     String[] studentInfo = lines.split("\\|");
                     if (studentInfo[0].equals(username))
                     {
-                        return new Student(studentInfo);
+                        return new Student(studentInfo,Student.findMyCoach(studentInfo[8],studentInfo[7]));
                     }
                 }
             }
@@ -185,16 +196,8 @@ public class Student extends BaseStudent {
         return registeredSports;
     }
 
-    public void setRegisteredSports(String registeredSports) {
-        this.registeredSports = registeredSports;
-    }
-
     public String getSportsCenterCode() {
         return sportsCenterCode;
-    }
-
-    public void setSportsCenterCode(String sportsCenterCode) {
-        this.sportsCenterCode = sportsCenterCode;
     }
 
     public boolean getGivenRating() {

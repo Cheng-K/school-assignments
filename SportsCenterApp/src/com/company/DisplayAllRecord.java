@@ -144,7 +144,8 @@ public class DisplayAllRecord {
         private void getAllStudent () {
             String[] studentFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Student.txt");
             for (String studentInfo : studentFileContent){
-                Student student = new Student(studentInfo.split("\\|"));
+                String[] tokens = studentInfo.split("\\|");
+                Student student = new Student(tokens,Student.findMyCoach(tokens[8],tokens[7]));
                 studentList.add(student);
             }
         }
@@ -435,7 +436,7 @@ public class DisplayAllRecord {
                     if (row == -1)
                         JOptionPane.showMessageDialog(frame, "Please select a row to delete");
                     else {
-                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
+                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record? This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
                             admin.deleteStudentRecord(studentPanelManager.studentList, row);
