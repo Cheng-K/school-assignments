@@ -5,14 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L002/Coach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L002/Coach.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L002/Schedule.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L002/Schedule.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L002/Session.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L002/Session.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L002/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L002/Student.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Student.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateRecord$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/CreateRecord$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/CoachProfile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/CoachProfile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L001/Schedule.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Schedule.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L001/Session.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Session.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/L001/Sports.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L001/Sports.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
