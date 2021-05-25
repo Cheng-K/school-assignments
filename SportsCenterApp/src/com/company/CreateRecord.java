@@ -6,7 +6,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.util.Locale;
+import java.time.Duration;
+import java.time.LocalTime;
 
 public class CreateRecord {
     private JFrame frame;
@@ -37,6 +38,12 @@ public class CreateRecord {
     private JComboBox sportsCodeBox;
     private JComboBox coachBox;
     private JLabel coachLabel;
+    private JLabel dayLabel;
+    private JComboBox dayBox;
+    private JComboBox startTimeBox;
+    private JComboBox durationBox;
+    private JLabel startTimeLabel;
+    private JLabel durationLabel;
 
     public CreateRecord(Admin admin, String type) {
         frame = new JFrame("Create " + type + " profile");
@@ -81,6 +88,30 @@ public class CreateRecord {
             contactLabel.setVisible(false);
             sportsLabel.setVisible(false);
             sportsBox.setVisible(false);
+        }else if (type.equals("session")) {
+            setSessionVisibility();
+            sportsBox.setEnabled(false);
+            coachBox.setEnabled(false);
+            setTimeBox();
+            sportsCodeBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    sportsBox.setSelectedIndex(sportsCodeBox.getSelectedIndex());
+                }
+            });
+            sportsBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (!(sportsBox.getSelectedItem().equals("---"))) {
+                        coachBox.setEnabled(true);
+                        coachBox.removeAllItems();
+                        setCoachBox(admin.getSportsCenterCode(),String.valueOf(sportsBox.getSelectedItem()));
+                    } else {
+                        coachBox.removeAllItems();
+                        coachBox.setEnabled(false);
+                    }
+                }
+            });
         }
         registerButton.addActionListener(new ActionListener() {
             @Override
@@ -182,8 +213,41 @@ public class CreateRecord {
                     } else {
                         errorLabel.setText("Sport entered already exist!");
                     }
+                } else if(type.equals("session")){
+                    if(dayBox.getSelectedIndex()==0||sportsCodeBox.getSelectedIndex()==1||coachBox.getSelectedIndex()==0||
+                    startTimeBox.getSelectedIndex()==0||durationBox.getSelectedIndex()==0){
+                        errorLabel.setText("Select an option for all details above!");
+                    }
+                    else{
+                        String[] time = String.valueOf(startTimeBox.getSelectedItem()).split(":");
+                        int startHour = Integer.parseInt(time[0]);
+                        int startMinute = 0;
+                        if(time.length==2){
+                            startMinute = Integer.parseInt(time[1]);
+                        }
+                        LocalTime startTime = LocalTime.of(startHour,startMinute);
+                        LocalTime endTime=LocalTime.of(0,0);
+                        if (durationBox.getSelectedIndex()==1){
+                            endTime=startTime.plusHours(1);
+                        }else if(durationBox.getSelectedIndex()==2){
+                            endTime=startTime.plusHours(1);
+                            endTime=startTime.plusMinutes(30);
+                        }else if(durationBox.getSelectedIndex()==3){
+                            endTime=startTime.plusHours(2);
+                        }else if(durationBox.getSelectedIndex()==4){
+                            endTime=startTime.plusHours(2);
+                            endTime=startTime.plusMinutes(30);
+                        }else if(durationBox.getSelectedIndex()==5){
+                            endTime=startTime.plusHours(3);
+                        }
+                        String[] sessionDetail = {String.valueOf(dayBox.getSelectedItem()),"null",String.valueOf(startHour),
+                                String.valueOf(startMinute),String.valueOf(endTime.getHour()),String.valueOf(endTime.getMinute()),
+                                String.valueOf(sportsBox.getSelectedItem()),String.valueOf(coachBox.getSelectedItem())};
+                        admin.createSession(sessionDetail);
+                    }
                 }
             }
+
         });
 
         goBackButton.addActionListener(new ActionListener() {
@@ -297,6 +361,12 @@ public class CreateRecord {
         sportsCodeLabel.setVisible(false);
         sportsCentreBox.setVisible(false);
         sportsCentreCodeLabel.setVisible(false);
+        dayBox.setVisible(false);
+        dayLabel.setVisible(false);
+        startTimeLabel.setVisible(false);
+        startTimeBox.setVisible(false);
+        durationBox.setVisible(false);
+        durationLabel.setVisible(false);
     }
 
     public void setCoachVisibility() {
@@ -310,8 +380,40 @@ public class CreateRecord {
         sportsCentreCodeLabel.setVisible(false);
         coachBox.setVisible(false);
         coachLabel.setVisible(false);
+        dayBox.setVisible(false);
+        dayLabel.setVisible(false);
+        startTimeLabel.setVisible(false);
+        startTimeBox.setVisible(false);
+        durationBox.setVisible(false);
+        durationLabel.setVisible(false);
     }
 
+    public void setSessionVisibility(){
+        nameField.setVisible(false);
+        nameLabel.setVisible(false);
+        addressLabel.setVisible(false);
+        addressField.setVisible(false);
+        ageLabel.setVisible(false);
+        ageField.setVisible(false);
+        contactLabel.setVisible(false);
+        contactField.setVisible(false);
+        eMailLabel.setVisible(false);
+        emailField.setVisible(false);
+        sportsCentreBox.setVisible(false);
+        sportsCentreCodeLabel.setVisible(false);
+        passwordLabel.setVisible(false);
+        passwordField.setVisible(false);
+        hourlyRateLabel.setVisible(false);
+        hourlyRateField.setVisible(false);
+        dayBox.addItem("---");
+        dayBox.addItem("Sunday");
+        dayBox.addItem("Monday");
+        dayBox.addItem("Tuesday");
+        dayBox.addItem("Wednesday");
+        dayBox.addItem("Thursday");
+        dayBox.addItem("Friday");
+        dayBox.addItem("Saturday");
+    }
     public void setComboBox(String sportsCentreCode) {
         coachBox.removeAllItems();
         coachBox.setEnabled(true);
@@ -343,6 +445,17 @@ public class CreateRecord {
             if (coach[8].equals(selectedSport)){
                 coachBox.addItem(coach[0]);
             }
+        }
+    }
+    public void setTimeBox() {
+        String[] timeSlot = {"---","8:00", "8:30", "9:00", "9:30", "10:00", "10:30","11:00","11:30","12:00","12:30","13:00","13:30",
+        "14:00","14:30","15:00","15:30","16:00","16:30","17:00"};
+        for (String time : timeSlot) {
+            startTimeBox.addItem(time);
+        }
+        String[] durationSlot = {"---","1 hour","1 hour30minutes","2 hours","2 hours30minutes","3 hours"};
+        for(String duration:durationSlot){
+            durationBox.addItem(duration);
         }
     }
 }

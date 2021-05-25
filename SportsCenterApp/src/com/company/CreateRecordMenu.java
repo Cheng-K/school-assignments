@@ -14,6 +14,7 @@ public class CreateRecordMenu {
     private JButton createNewSportsButton;
     private JButton approveStudentAccountsButton;
     private JButton goBackButton;
+    private JButton createNewSessionButton;
     private Admin admin;
 
     public CreateRecordMenu(Admin admin) {
@@ -44,6 +45,14 @@ public class CreateRecordMenu {
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
                 String type = "sport";
+                new CreateRecord(admin,type);
+            }
+        });
+        createNewSessionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                String type = "session";
                 new CreateRecord(admin,type);
             }
         });

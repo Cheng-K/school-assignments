@@ -191,7 +191,20 @@ public class Admin {
         return coachID;
     }
 
-
+    public int createSession(String[] sessionDetail) {
+        int max = 0;
+        String[] sessionFileContent = FileServer.readFile(getSportsCenterCode(), "Session.txt");
+        for (String line : sessionFileContent) {
+            String[] token = line.split("\\|");
+            if (Integer.parseInt(token[1].replace("T", "")) > max) {
+                max = Integer.parseInt(token[1].replace("T", ""));
+            }
+        }
+        sessionDetail[1] = "T" + (max++);
+        Session newSession = new Session(sessionDetail);
+        FileServer.appendFile(getSportsCenterCode(),"Session.txt",newSession.toString());
+        return 0;
+    }
     /*  Method name : sort (Generic Method)
         Parameter   : tArrayList (Array list containing T typed *preferably instances of Coach/Students*) ,
                       sorter (Comparator instance tells how to sort tArrayList ),
