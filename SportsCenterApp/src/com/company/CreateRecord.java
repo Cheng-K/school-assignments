@@ -35,7 +35,8 @@ public class CreateRecord {
     private JComboBox sportsBox;
     private JComboBox sportsCentreBox;
     private JComboBox sportsCodeBox;
-
+    private JComboBox coachBox;
+    private JLabel coachLabel;
 
     public CreateRecord(Admin admin, String type) {
         frame = new JFrame("Create " + type + " profile");
@@ -48,6 +49,20 @@ public class CreateRecord {
         setComboBox(admin.getSportsCenterCode());
         if (type.equals("student")) {
             setStudentVisibility();
+            coachBox.setEnabled(false);
+            sportsBox.addItemListener(new ItemListener() {
+                @Override
+                public void itemStateChanged(ItemEvent e) {
+                    if (!(sportsBox.getSelectedItem().equals("---"))) {
+                        coachBox.setEnabled(true);
+                        coachBox.removeAllItems();
+                        setCoachBox(admin.getSportsCenterCode(),String.valueOf(sportsBox.getSelectedItem()));
+                    } else {
+                        coachBox.removeAllItems();
+                        coachBox.setEnabled(false);
+                    }
+                }
+            });
         } else if (type.equals("coach")) {
             setCoachVisibility();
             sportsBox.setEnabled(false);
@@ -57,7 +72,6 @@ public class CreateRecord {
                     sportsBox.setSelectedIndex(sportsCodeBox.getSelectedIndex());
                 }
             });
-
         } else if (type.equals("sport")) {
             setStudentVisibility();
             setCoachVisibility();
@@ -65,13 +79,16 @@ public class CreateRecord {
             addressLabel.setVisible(false);
             contactField.setVisible(false);
             contactLabel.setVisible(false);
+            sportsLabel.setVisible(false);
+            sportsBox.setVisible(false);
         }
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (type.equals("student")) {
                     String[] studentDetail = {nameField.getText(), "null", ageField.getText(), addressField.getText(), contactField.getText(),
-                            emailField.getText(), String.valueOf(sportsBox.getSelectedItem()),admin.getSportsCenterCode()};
+                            emailField.getText(), String.valueOf(sportsBox.getSelectedItem()), admin.getSportsCenterCode(),
+                            String.valueOf(coachBox.getSelectedItem()),"false"};
                     for (String item : studentDetail) {
                         if (item.equals("")) {
                             errorLabel.setText("Enter details for all options above!");
@@ -87,10 +104,11 @@ public class CreateRecord {
                         errorLabel.setText("Format of email entered is invalid!");
                     } else if (sportsBox.getSelectedItem().equals("---")) {
                         errorLabel.setText("Please select a sport!");
+                    } else if (coachBox.getSelectedItem().equals("---")) {
+                        errorLabel.setText("Please select a coach!");
                     } else {
                         try {
                             Integer.parseInt(studentDetail[2]);
-                            System.out.println("hi");
                             int check = admin.createAccount(studentDetail, passwordField.getText());
                             switch (check) {
                                 case 0:
@@ -126,17 +144,19 @@ public class CreateRecord {
                         try {
                             Integer.parseInt(hourlyRateField.getText());
                             String[] coachDetails = {nameField.getText(), "null", String.valueOf(java.time.LocalDate.now()), "null",
-                                    hourlyRateField.getText(),contactField.getText(), addressField.getText(),
-                                    admin.getSportsCenterCode(), String.valueOf(sportsCodeBox.getSelectedItem()), "0","0"};
+                                    hourlyRateField.getText(), contactField.getText(), addressField.getText(),
+                                    admin.getSportsCenterCode(), String.valueOf(sportsCodeBox.getSelectedItem()), "0", "0"};
                             int check = admin.createCoach(coachDetails);
-                            switch (check){
-                                case 0: JOptionPane.showMessageDialog(frame, "Coach record successfully created!",
-                                        "Successful", JOptionPane.INFORMATION_MESSAGE);
-                                        frame.setVisible(false);
-                                        new CreateRecordMenu(admin);
-                                        break;
-                                case 1: JOptionPane.showMessageDialog(frame, "Coach profile with the same name already exists!",
-                                        "Error", JOptionPane.ERROR_MESSAGE);
+                            switch (check) {
+                                case 0:
+                                    JOptionPane.showMessageDialog(frame, "Coach record successfully created!",
+                                            "Successful", JOptionPane.INFORMATION_MESSAGE);
+                                    frame.setVisible(false);
+                                    new CreateRecordMenu(admin);
+                                    break;
+                                case 1:
+                                    JOptionPane.showMessageDialog(frame, "Coach profile with the same name already exists!",
+                                            "Error", JOptionPane.ERROR_MESSAGE);
                             }
 
                         } catch (Exception a) {
@@ -153,10 +173,9 @@ public class CreateRecord {
                             break;
                         }
                     }
-                    if(nameField.getText().equals("")){
+                    if (nameField.getText().equals("")) {
                         errorLabel.setText("Please enter the sports' name!");
-                    }
-                    else if (validSport == true) {
+                    } else if (validSport == true) {
                         admin.createSports(nameField.getText());
                         JOptionPane.showMessageDialog(frame, "Sport successfully created!",
                                 "Successful", JOptionPane.INFORMATION_MESSAGE);
@@ -175,7 +194,8 @@ public class CreateRecord {
             }
         });
     }
-    public CreateRecord(UnregStudent student){
+
+    public CreateRecord(UnregStudent student) {
         frame = new JFrame("Create profile");
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -188,19 +208,31 @@ public class CreateRecord {
         sportsCentreBox.setVisible(true);
         sportsBox.setEnabled(false);
         sportsCentreBox.addItem("---");
+        sportsBox.addItem("---");
         sportsCentreBox.addItem("L001");
         sportsCentreBox.addItem("L002");
+        coachBox.setEnabled(false);
         sportsCentreBox.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                if(!(sportsCentreBox.getSelectedItem().equals("---"))){
+                if (!(sportsCentreBox.getSelectedIndex()==0)) {
                     sportsBox.setEnabled(true);
                     sportsBox.removeAllItems();
                     setComboBox(String.valueOf(sportsCentreBox.getSelectedItem()));
-                }
-                else{
-                    sportsBox.removeAllItems();
+                } else {
+                    coachBox.setEnabled(false);
+                    coachBox.removeAllItems();
                     sportsBox.setEnabled(false);
+                    sportsBox.setSelectedIndex(0);
+                }
+            }
+        });
+        sportsBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!(String.valueOf(sportsBox.getSelectedItem()).equals("---"))) {
+                    coachBox.removeAllItems();
+                    setCoachBox(String.valueOf(sportsCentreBox.getSelectedItem()), String.valueOf(sportsBox.getSelectedItem()));
                 }
             }
         });
@@ -228,11 +260,14 @@ public class CreateRecord {
                     errorLabel.setText("Select a sports centre!");
                 } else if (sportsBox.getSelectedItem().equals("---")) {
                     errorLabel.setText("Select a sports!");
+                } else if (coachBox.getSelectedItem().equals("---")) {
+                    errorLabel.setText("Select a coach!");
                 } else {
                     try {
                         Integer.parseInt(ageField.getText());
                         String[] studentDetail = {nameField.getText(), "null", ageField.getText(), addressField.getText(),
-                                contactField.getText(), emailField.getText(), sportsBox.getSelectedItem() + "", String.valueOf(sportsCentreBox.getSelectedItem())};
+                                contactField.getText(), emailField.getText(), String.valueOf(sportsBox.getSelectedItem()) ,
+                                String.valueOf(sportsCentreBox.getSelectedItem()), String.valueOf(coachBox.getSelectedItem()), "false"};
                         int check = student.registerAccount(studentDetail, passwordField.getText());
                         switch (check) {
                             case 0:
@@ -264,7 +299,7 @@ public class CreateRecord {
         sportsCentreCodeLabel.setVisible(false);
     }
 
-    public void setCoachVisibility(){
+    public void setCoachVisibility() {
         ageField.setVisible(false);
         ageLabel.setVisible(false);
         emailField.setVisible(false);
@@ -273,17 +308,41 @@ public class CreateRecord {
         passwordLabel.setVisible(false);
         sportsCentreBox.setVisible(false);
         sportsCentreCodeLabel.setVisible(false);
+        coachBox.setVisible(false);
+        coachLabel.setVisible(false);
     }
 
-    public void setComboBox(String sportsCentreCode){
+    public void setComboBox(String sportsCentreCode) {
+        coachBox.removeAllItems();
+        coachBox.setEnabled(true);
         sportsBox.addItem("---");
         sportsCodeBox.addItem("---");
-        String[] allSports = FileServer.readFile(sportsCentreCode,"Sports.txt");
-        for (String line:allSports){
+        coachBox.addItem("---");
+        String[] allSports = FileServer.readFile(sportsCentreCode, "Sports.txt");
+        for (String line : allSports) {
             String sport[] = line.split("\\|");
             sportsBox.addItem(sport[0]);
             sportsCodeBox.addItem(sport[1]);
         }
+    }
 
+    public void setCoachBox(String sportsCentreCode, String sportsName) {
+        coachBox.addItem("---");
+        String selectedSport = "";
+        String[] sports = FileServer.readFile(sportsCentreCode, "Sports.txt");
+        for (String line : sports) {
+            String sportDetails[] = line.split("\\|");
+            if (sportDetails[0].equals(sportsName)){
+                selectedSport = sportDetails[1];
+                break;
+            }
+        }
+        String[] allCoach = FileServer.readFile(sportsCentreCode, "Coach.txt");
+        for (String line : allCoach) {
+            String coach[] = line.split("\\|");
+            if (coach[8].equals(selectedSport)){
+                coachBox.addItem(coach[0]);
+            }
+        }
     }
 }

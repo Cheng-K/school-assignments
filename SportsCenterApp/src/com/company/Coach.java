@@ -53,6 +53,9 @@ public class Coach {
         }
 
     }
+
+    //Class constructors
+
     public Coach (String[] coachDetails){
         name = coachDetails[0];
         coachID = coachDetails[1];
@@ -89,20 +92,21 @@ public class Coach {
         totalRates = Integer.parseInt(coachDetails[10]);
         this.sports = sports;
         // initialize sports
-
     }
+
 
     public static String[] getAllAttributes () {
         return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Rating"};
     }
+
+    //Getters and setters
+
     public String getCoachID() {
         return coachID;
     }
     public String getName() {
         return name;
     }
-
-
     public void setRating(int rating) {
         this.rating = rating;
     }

@@ -35,7 +35,6 @@ public class Admin {
         for (String line : fileCheck) {
             String[] token = line.split("\\|");
             if (token[0].equals(newStudent.getName())) {
-                System.out.println(1);
                 return 1; //When profile with same name and sports centre already created and waiting for admins' approval
             }
         }
@@ -43,7 +42,6 @@ public class Admin {
         for (String line : fileCheck) {
             String[] token = line.split("\\|");
             if (token[0].equals(newStudent.getName())) {
-                System.out.println(2);
                 return 2; //Profile with same name already exists in the sports center database
             }
         }
@@ -93,7 +91,7 @@ public class Admin {
                 Student student = new Student(token);
                 student.setStudentID(newStudentID());
                 FileServer.appendFile(getSportsCenterCode(),"Student.txt",student.toString()+"\n");
-                FileServer.appendFile("Student.txt",student.getName()+"|"+token[8]+"|"+getSportsCenterCode()+"\n");
+                FileServer.appendFile("Student.txt",student.getName()+"|"+token[10]+"|"+getSportsCenterCode()+"\n");
                 String[] fileContent = FileServer.readFile("UnregStudent.txt");
                 FileServer.writeFile("UnregStudent.txt","");
                 for (String newlines:fileContent)

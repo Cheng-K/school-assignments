@@ -30,10 +30,24 @@ public class StudentMenu {
         if (studentA instanceof Student) {
             regStudent = (Student) studentA;
             guestStudent = null;
+            viewSportsDetailsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.setVisible(false);
+                    new ViewSports(regStudent);
+                }
+            });
         }
         else{
             guestStudent = (UnregStudent) studentA;
             regStudent = null;
+            viewSportsDetailsButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.setVisible(false);
+                    new ViewSports(guestStudent);
+                }
+            });
         }
         setWelcomeHeading();
         setVisibleButtons();
@@ -67,7 +81,14 @@ public class StudentMenu {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setVisible(false);
-                new CoachProfile(regStudent,myCoach);
+                new CoachProfile(regStudent);
+            }
+        });
+        sportScheduleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setVisible(false);
+                new ViewSelfSchedule(regStudent);
             }
         });
     }

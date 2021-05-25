@@ -33,7 +33,7 @@ public class CoachProfile {
     private JLabel spacing;
     private ButtonGroup radioButtonGroup = new ButtonGroup();
 
-    public CoachProfile(Student student,Coach coach) {
+    public CoachProfile(Student student) {
         frame = new JFrame("Coach details");
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -44,6 +44,7 @@ public class CoachProfile {
         radioButtonGroup.add(a3RadioButton);
         radioButtonGroup.add(a4RadioButton);
         radioButtonGroup.add(a5RadioButton);
+        Coach coach = student.getCoach();
         backToMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -92,15 +93,15 @@ public class CoachProfile {
                         feedbackLabel.setText("Please select a rating from 1 to 5 below!");}
                     else{
                         if(a1RadioButton.isSelected()==true){
-                            student.giveRating(1,coach);
+                            student.giveRating(1);
                         }else if(a2RadioButton.isSelected()==true){
-                            student.giveRating(2,coach);
+                            student.giveRating(2);
                         }else if(a3RadioButton.isSelected()==true){
-                            student.giveRating(3,coach);
+                            student.giveRating(3);
                         }else if(a4RadioButton.isSelected()==true){
-                            student.giveRating(4,coach);
+                            student.giveRating(4);
                         }else if(a5RadioButton.isSelected()==true) {
-                            student.giveRating(5,coach); }
+                            student.giveRating(5); }
                         JOptionPane.showMessageDialog(frame, "Feedback has been recorded!",
                                 "Successful", JOptionPane.INFORMATION_MESSAGE);
                         frame.setVisible(false);
@@ -108,6 +109,10 @@ public class CoachProfile {
                     }
                 }
             });
+        }
+        else{
+            notRated.setVisible(false);
+            feedbackLabel.setText("Feedback has been given for this coach.");
         }
         nameField.setText(coach.getName());
         nameField.setEditable(false);
@@ -117,7 +122,8 @@ public class CoachProfile {
         contactField.setEditable(false);
         sportsField.setText(coach.getSportsCenterID());
         sportsField.setEditable(false);
-        ratingField.setText(String.valueOf(coach.getRating() / coach.getTotalRates()));
+        ratingField.setText(Float.toString(coach.getRating() / coach.getTotalRates()));
+        ratingField.setEditable(false);
     }
 
     public void hideRadioButtons(){
