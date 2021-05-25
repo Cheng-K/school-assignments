@@ -5,7 +5,11 @@ import java.time.LocalTime;
 import java.util.Comparator;
 import java.util.Objects;
 
-import static java.lang.Math.round;
+
+/* Class Description : Session
+
+
+ */
 
 public class Session {
     private String sessionID;
@@ -86,6 +90,7 @@ public class Session {
     public String getSessionID() {
         return sessionID;
     }
+
     public LocalTime getStartTime() {
         return startTime;
     }

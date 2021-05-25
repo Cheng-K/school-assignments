@@ -240,6 +240,8 @@ public class Admin {
         String newString = coach.toString();
         String[] coachFileContent = FileServer.readFile(this.SportsCenterCode,"Coach.txt");
         FileServer.findAndReplace(coachFileContent,oldString,newString);
+        System.out.println(newString);
+        System.out.println(Arrays.toString(coachFileContent));
         return FileServer.writeFile(this.SportsCenterCode,"Coach.txt",String.join("\n",coachFileContent)+"\n");
 
 

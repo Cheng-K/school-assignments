@@ -27,7 +27,7 @@ public class Schedule implements Comparable<Schedule> {
 
             scheduleHashMap.get(tokens[0]).addSession(sessionToAdd);
 
-            if (scheduleHashMap.get(tokens[6]) == null) 
+            if (scheduleHashMap.get(tokens[6]) == null)
                 scheduleHashMap.put(tokens[6], new Schedule(tokens[6]));
 
 

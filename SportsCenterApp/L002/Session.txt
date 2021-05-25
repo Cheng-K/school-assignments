@@ -1,5 +1,4 @@
-Friday|T01|8|30|10|30|B002|Jacky Lim
+Monday|T01|7|50|10|30|B002|Jacky Lim
 Thursday|T03|8|40|10|30|B002|Jacky Lim
 Saturday|T04|8|30|10|30|B002|Jacky Lim
-Sunday|T05|9|0|10|0|B002|Jacky Lim
 Sunday|T05|9|0|10|0|B003|Jacky Lim

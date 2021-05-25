@@ -1,2 +1,3 @@
 Swimming|B002|250
-Football|B003|400
+Football|B003|4000
+Volleyball|B005|400

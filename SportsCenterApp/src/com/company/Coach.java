@@ -198,7 +198,7 @@ public class Coach {
 
     @Override
     public String toString () {
-        return coachID + "|" + name + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
+        return name + "|"+ coachID + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
                 + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + rating + "|" + totalRates;
     }
 

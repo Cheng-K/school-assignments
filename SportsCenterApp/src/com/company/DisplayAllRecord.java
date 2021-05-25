@@ -125,11 +125,6 @@ public class DisplayAllRecord {
         private void clearCoachTable() {coachTableModel.setRowCount(0);}
         public ArrayList<Coach> getCoachList() {return coachList;}
 
-        public void refreshCoachList() {
-            coachList.clear();
-            getAllCoach();
-            clearUpdateTable();
-        }
     }
 
     /*  Class : SetStudentPanel
@@ -227,9 +222,8 @@ public class DisplayAllRecord {
         }
         public void showFoundSports (ArrayList<Sports> results){
             clearSportsTable();
-            for (Sports sports : results){
-                sportsTableModel.addRow(sports.toString().split("\\|"));
-            }
+            sportsArrayList = results;
+            updateSportsTable();
             tabbedPane1.setSelectedIndex(2);
         }
         private void setSortDropMenu() {
@@ -242,12 +236,6 @@ public class DisplayAllRecord {
             return sportsArrayList;
         }
 
-        public void refreshSportsList() {
-            sportsArrayList.clear();
-            getAllSports();
-            clearSportsTable();
-            updateSportsTable();
-        }
     }
 
     public class SetSchedulePanel {
@@ -423,12 +411,13 @@ public class DisplayAllRecord {
                     studentPanelManager.refreshStudentList();
                     break;
                 case 1:
-                    coachPanelManager.refreshCoachList();
+                    coachPanelManager.clearUpdateTable();
                     break;
                 case 2:
-                    sportsPanelManager.refreshSportsList();
+                    sportsPanelManager.clearUpdateTable();
                     break;
                 case 3 :
+                    schedulePanelManager.clearUpdateTable();
                     break;
             }
         }
@@ -461,7 +450,7 @@ public class DisplayAllRecord {
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
                             admin.deleteCoachRecord(coachPanelManager.coachList, row);
-                            coachPanelManager.refreshCoachList();
+                            coachPanelManager.clearUpdateTable();
                         }
                     }
                     break;
@@ -475,7 +464,7 @@ public class DisplayAllRecord {
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
                             admin.deleteSportsRecord(sportsPanelManager.sportsArrayList, row);
-                            sportsPanelManager.refreshSportsList();
+                            sportsPanelManager.clearUpdateTable();
                         }
                     }
                     break;

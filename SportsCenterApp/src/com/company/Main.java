@@ -70,8 +70,8 @@ public class Main {
 
 //            Admin admin = new Admin("Jack","L001");
 //            new AdminMenu(admin);
-        Schedule.updateScheduleFile("L002");
-//      new LoginScreen();
+//        Schedule.updateScheduleFile("L002");
+      new LoginScreen();
 //
 
 

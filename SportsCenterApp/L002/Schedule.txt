@@ -1,11 +1,11 @@
-Sunday|T05|T05|
-Monday|
+Sunday|T05|
+Monday|T01|
 Tuesday|
 Wednesday|
 Thursday|T03|
-Friday|T01|
+Friday|
 Saturday|T04|
 B001|
-B002|T01|T03|T04|T05|
+B002|T01|T03|T04|
 B003|T05|
 B004|
