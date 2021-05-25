@@ -1,1 +1,10 @@
-Fret Erther|S001|16|2242 9 Jln Pantai Dalam Kampung Pantai Dalam|01975246812|flat.earth@gmail.com|Badminton|L002|Chan Chee Mun|false
+Fret Erther|S001|16|2242 9 Jln Pantai Dalam Kampung Pantai Dalam|01975246812|flat.earth@gmail.com|Badminton|L002|Chan Chee Mun|true
+Benson Junior|S002|20|16, JalanBU2/1|216495487654|nelson@gmail.com|Swimming |L002|Michael Phelps|false
+Mohamad Suliaman|S003|17|No. 20 1St Floor Jln Ss25/22 Ss25|2164975156|wendylee@gmail.com|Football|L002|Mohammad Danur|false
+Kim Dahyun|S004|24|22 Lrg Datuk Sulaiman 2 Taman Tun Dr Ismail|1649581365|twice@gmail.com|Archery|L002|Jett Kim|false
+Sern Chuu Bin|S005|15|B 514 1 Jln Wilayah Persekutuan|01369746545|chubbsdog@gmail.com|Gymnastics|L002|Issabella|false
+Bruh Kong|S006|20|3 300 Lrg Taman Melawati Hulu|0136978456|bruhbro@gmail.com|Volleyball|L002|Shoyo Hinata|false
+Michael Yeezes|S007|25| No. 107 Jln Kuning Taman Pelangi|01879431521|sponsership@gmail.com|Basketball|L002|Michael Jordan|false
+Kong Kei Ming|S008|24|14, JalanBu2/8|01697845612|kkm@gmail.com|Cricket|L002|Kong Kok Keong|false
+Soyokaze Ame|S009|19|Stesen Bas Terminal 1 Jln Sungai Ujong|0167953125|ame@gmail.com|Tennis|L002|Roger Federer|false
+Lee Tiong Gee|S010|21|7A Persiaran Greentown 8|0147956412|huiLinSimp@gmail.com|Table tennis|L002|Kawaski Fubuki|true
