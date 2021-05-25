@@ -30,7 +30,7 @@ public class ApproveStudents {
             } else {
                 for (String line : fileContent) {
                     String[] token = line.split("\\|");
-                    Student newStudent = new Student(token);
+                    Student newStudent = new Student(token,Student.findMyCoach(token[8],token[7]));
                     if (newStudent.getSportsCenterCode().equals(admin.getSportsCenterCode())) {
                         studentList.add(newStudent);
                     }

@@ -32,7 +32,7 @@ public class Admin {
 
     public int createAccount(String[] studentDetail, String password) //ID passed in will be null, and sports centre same with admins'
     {
-        Student newStudent = new Student(studentDetail);
+        Student newStudent = new Student(studentDetail,Student.findMyCoach(studentDetail[8],studentDetail[7]));
         String fileCheck[] = FileServer.readFile("UnregStudent.txt");
         for (String line : fileCheck) {
             String[] token = line.split("\\|");
@@ -90,7 +90,7 @@ public class Admin {
             String[] token = line.split("\\|");
             if (name.equals(token[0]))
             {
-                Student student = new Student(token);
+                Student student = new Student(token,Student.findMyCoach(token[8],token[7]));
                 student.setStudentID(newStudentID());
                 FileServer.appendFile(getSportsCenterCode(),"Student.txt",student.toString()+"\n");
                 FileServer.appendFile("Student.txt",student.getName()+"|"+token[10]+"|"+getSportsCenterCode()+"\n");

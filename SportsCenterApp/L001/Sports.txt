@@ -1,3 +1,2 @@
-Badminton|B001|100
 Swimming|B002|250
 Football|B003|300

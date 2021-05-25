@@ -37,26 +37,6 @@ public class Student extends BaseStudent {
         return foundCoach;
     }
 
-    public Student(String[] studentDetails) {
-        name = studentDetails[0];
-        studentID = studentDetails[1];
-        age = Integer.parseInt(studentDetails[2]);
-        address = studentDetails[3];
-        contactNumber = studentDetails[4];
-        email = studentDetails[5];
-        registeredSports = studentDetails[6];
-        sportsCenterCode = studentDetails[7];
-        String[] coachFile = FileServer.readFile(getSportsCenterCode(),"Coach.txt");
-        for(String line:coachFile){
-            String[] coachDetails = line.split("\\|");
-            if (coachDetails[0].equals(studentDetails[8])){
-                coach = new Coach(coachDetails);
-                break;
-            }
-        }
-        givenRating = Boolean.parseBoolean(studentDetails[9]);
-    }
-
     public Student(String[] studentDetails,Coach myCoach) {
         name = studentDetails[0];
         studentID = studentDetails[1];
@@ -66,7 +46,6 @@ public class Student extends BaseStudent {
         email = studentDetails[5];
         registeredSports = studentDetails[6];
         sportsCenterCode = studentDetails[7];
-        String[] coachFile = FileServer.readFile(getSportsCenterCode(),"Coach.txt");
         this.coach = myCoach;
         givenRating = Boolean.parseBoolean(studentDetails[9]);
     }
