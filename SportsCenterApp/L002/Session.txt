@@ -1,4 +1,7 @@
-Monday|T01|7|50|10|30|Swimming|Jacky Lim
-Thursday|T03|8|40|10|30|Swimming|Jacky Lim
-Saturday|T04|8|30|10|30|Swimming|Jacky Lim
-Sunday|T05|9|0|10|0|Football|Jacky Lim
+Sunday|T01|8|0|10|0|Swimming |Michael Phelps
+Saturday|T02|14|30|16|30|Badminton|Chan Chee Mun
+Sunday|T03|9|0|12|0|Football|Mohammad Danur
+Wednesday|T04|15|0|16|30|Archery|Jett Kim
+Tuesday|T05|15|0|17|0|Gymnastics|Issabella
+Saturday|T06|10|30|12|30|Volleyball|Shoyo Hinata
+Thursday|T07|10|30|13|0|Basketball|Michael Jordan

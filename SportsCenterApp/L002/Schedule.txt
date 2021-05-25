@@ -1,11 +1,12 @@
-Sunday|T05|
-Monday|T01|
-Tuesday|
-Wednesday|
-Thursday|T03|
-Friday|
-Saturday|T04|
-B001|
-B002|T01|T03|T04|
-B003|T05|
-B004|
+Sunday|T01|T03|
+Tuesday|T05|
+Wednesday|T04|
+Thursday|T07|
+Saturday|T02|T06|
+Archery|T04|
+Badminton|T02|
+Basketball|T07|
+Football|T03|
+Gymnastics|T05|
+Swimming |T01|
+Volleyball|T06|

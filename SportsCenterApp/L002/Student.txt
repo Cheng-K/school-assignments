@@ -1,10 +1,1 @@
-Leela Garfield|S001|19|Sri Petaling|011123|garfield69@gmail.com|Badminton|L002|Jacky Lim|true
-Nathalie Henrietta|S002|22|Bukit Jalil|0111345|iloveyou520@gmail.com|Swimming|L002|Jacky Lim|true
-Darwin Liana|S003|19|Cheras|011123|coolmaster@gmail.com|Badminton|L002|Jacky Lim|true
-Enya|S001|19|Sri Petaling|011123|enya@gmail.com|Badminton|L001|Jacky Lim|true
-HLgirl|S002|19|Sri Petaling|0111345|HLgirl@gmail.com|Volleyball|L001|Jacky Lim|true
-CK1|S004|19|KL|012-3345|adam@gmail.com|Badminton|L001|Jacky Lim|true
-Kong Kei Zhong|S006|12|PJ|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Lim|true
-Lim Enya|S007|12|qwe|016-2985667|kzkong14@gmail.com|badminton|L001|Jacky Lim|true
-Ng Wei Jun|S008|12|wqeqweqewq|016-2985667|emya@gmail.com|badminton|L001|Jacky Lim|true
-Loe Hui Lin|S009|19|Cheras|6969696969|Huilin@gmail.com|volleyball|L001|Jacky Lim|true
+Fret Erther|S001|16|2242 9 Jln Pantai Dalam Kampung Pantai Dalam|01975246812|flat.earth@gmail.com|Badminton|L002|Chan Chee Mun|false
