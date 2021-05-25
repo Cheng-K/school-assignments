@@ -52,7 +52,11 @@ public class Main {
 //
 //
 //        Collections.sort(coachList,new Coach.sortByRating());
+
 ////        System.out.println(coachList);
+
+//        System.out.println(coachList);
+
 //        new LoginScreen();
 //          Admin admin = Admin.adminLogin("Kei Zhong","345");
 //          Schedule monday = new Schedule(admin.getSportsCenterCode(),"T01|T02|T03".split("\\|"));
@@ -65,8 +69,32 @@ public class Main {
 
 
 
+
             Admin admin = new Admin("Jack","L001");
             new AdminMenu(admin);
 //        new LoginScreen();
+
+//        for (String line : FileServer.readFile("L002","Sports.txt")){
+//            Sports sports = new Sports("L002",line.split("\\|"));
+//            System.out.println(sports.toString());
+//        }
+
+
+//        Schedule.updateScheduleFile("L002");
+
+
+
+//            Admin admin = new Admin("Jack","L001");
+//            new AdminMenu(admin);
+//        Schedule.updateScheduleFile("L002");
+      
+//
+
+
+//        System.out.println(Arrays.toString(FileServer.readFile("L002","Session.txt")));
+//        System.out.println(FileServer.readFile("L002","Session.txt").length);
+//        Schedule.updateScheduleFile("L002");
+
+
     }
 }

@@ -4,7 +4,9 @@ import jdk.swing.interop.SwingInterOpUtils;
 import org.w3c.dom.ls.LSOutput;
 
 import java.io.File;
+import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.*;
 
 public class Admin {
@@ -234,65 +236,8 @@ public class Admin {
     }
 
 
-    public int verifyCoachDetails (AdminModifyMenu form, List<String> coachDetails){
-        int returnNum = 0;
-        // Check for each length
-        for (int index = 0; index<coachDetails.size(); index++){
-            if (coachDetails.get(index).length() >= 100){
-                form.setBorderRed(index,"Value is too unrealistic large/long");
-                returnNum = 1;
-            }
-            else {
-                switch (index){
-                    case 0 :
-                        if (!coachDetails.get(0).startsWith("C") && !onlyDigits(coachDetails.get(0).substring(1))) {
-                            form.setBorderRed(index, "Coach ID should start with C and end with digits");
-                            returnNum = 1;
-                        }
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        if (!isDateObject(coachDetails.get(2))) {
-                            form.setBorderRed(index, "Date format should be YYYY-MM-DD");
-                            returnNum = 1;
-                        }
-                        break;
-                    case 3:
-                        if (!isDateObject(coachDetails.get(3)) && !coachDetails.get(3).equals("null")) {
-                            form.setBorderRed(index, "Date format should be YYYY-MM-DD");
-                            returnNum = 1;
-                        }
-                        break;
-                    case 4:
-                        if (!isIntegerObject(coachDetails.get(4))) {
-                            form.setBorderRed(index, "Invalid integer provided");
-                            returnNum = 1;
-                        }
-                        break;
-                    case 5 :
-                        if (!onlyDigits(coachDetails.get(5))) {
-                            form.setBorderRed(index, "Invalid contact number, only digits are allowed");
-                            returnNum = 1;
-                        }
-                        break;
-                    case 6 :
-                        break;
-                    case 7:
-                        break;
-                    case 8 :
-                        break;
-                    case 9 :
-                        break;
-
-                }
-            }
-        }
-        return returnNum;
-    }
-
-    public void modCoach(List<String>newDetails,Coach coach){
-        coach.setCoachID(newDetails.get(0));
+    public int modCoach(List<String>newDetails,Coach coach){
+        String oldString = coach.toString();
         coach.setDateJoined(LocalDate.parse(newDetails.get(2)));
         try {
             coach.setDateTerminated(LocalDate.parse(newDetails.get(3)));
@@ -303,7 +248,40 @@ public class Admin {
         coach.setHourlyRate(Integer.parseInt(newDetails.get(4)));
         coach.setPhone(newDetails.get(5));
         coach.setAddress(newDetails.get(6));
-        // Other continue below here
+        String newString = coach.toString();
+        String[] coachFileContent = FileServer.readFile(this.SportsCenterCode,"Coach.txt");
+        FileServer.findAndReplace(coachFileContent,oldString,newString);
+        System.out.println(newString);
+        System.out.println(Arrays.toString(coachFileContent));
+        return FileServer.writeFile(this.SportsCenterCode,"Coach.txt",String.join("\n",coachFileContent)+"\n");
+
+
+    }
+    public int modSports (Integer newFees, Sports sports){
+        String oldString = sports.toString();
+        sports.setSportFees(newFees);
+        String[] currentFileContent = FileServer.readFile(SportsCenterCode,"Sports.txt");
+        FileServer.findAndReplace(currentFileContent,oldString,sports.toString());
+        return FileServer.writeFile(SportsCenterCode,"Sports.txt",String.join("\n",currentFileContent)+"\n");
+    }
+    public int modSession (List<String>newDetails,Session session){
+        String oldString = session.getWriteToFileString();
+        // modifying attributes
+        String newDay = newDetails.get(0);
+        String[] newStartTime = newDetails.get(2).split(":");
+        String[] newEndTime = newDetails.get(3).split(":");
+        session.setDay(newDay.substring(0,1).toUpperCase() + newDay.substring(1));
+        session.setStartTime(LocalTime.of(Integer.parseInt(newStartTime[0]),Integer.parseInt(newStartTime[1])));
+        session.setEndTime(LocalTime.of(Integer.parseInt(newEndTime[0]),Integer.parseInt(newEndTime[1])));
+        session.setDuration(Duration.between(session.getStartTime(),session.getEndTime()));
+        // get new string representation
+        String newString = session.getWriteToFileString();
+        String[] sessionFileContent = FileServer.readFile(this.SportsCenterCode,"Session.txt");
+        FileServer.findAndReplace(sessionFileContent,oldString,newString);
+        if (FileServer.writeFile(this.SportsCenterCode,"Session.txt",String.join("\n",sessionFileContent)+"\n") == 1)
+            return 1;
+        else
+            return Schedule.updateScheduleFile(this.SportsCenterCode);
     }
 
     public  ArrayList<Coach> searchCoach(List<Coach>coachList,String ID){
@@ -344,31 +322,56 @@ public class Admin {
         return found;
     }
 
-
-    // Not sure where to put it
-    private boolean onlyDigits (String str){
-        for (int index = 0; index < str.length(); index ++){
-            if (!Character.isDigit(str.charAt(index)))
-                return false;
+    public int deleteCoachRecord (List<Coach> coachList, int index){
+        coachList.remove(index);
+        if (FileServer.writeFile(this.SportsCenterCode,"Coach.txt","") == 1)
+            return 1;
+        for (Coach coach : coachList){
+            if (FileServer.appendFile(this.SportsCenterCode,"Coach.txt",coach.toString()+"\n") == 1)
+                return 1;
         }
-        return true;
+        return 0;
     }
 
-    private boolean isDateObject (String str){
-        try {
-            LocalDate.parse(str);
-        } catch (Exception e){
-            return false;
+    public int deleteSportsRecord (List<Sports> sportsList, int index){
+        sportsList.remove(index);
+        if (FileServer.writeFile(this.SportsCenterCode,"Sports.txt","") == 1)
+            return 1;
+        for (Sports sports : sportsList){
+            if (FileServer.appendFile(this.SportsCenterCode,"Sports.txt",sports.toString()+"\n") == 1)
+                return 1;
         }
-        return true;
+        return 0;
     }
 
-    private boolean isIntegerObject (String str){
-        try{
-            Integer.parseInt(str);
-        } catch (Exception e){
-            return false;
+    public int deleteStudentRecord (List<Student> studentList, int index){
+        studentList.remove(index);
+        if (FileServer.writeFile(this.SportsCenterCode,"Student.txt","") == 1)
+            return 1;
+        for (Student student : studentList){
+            if (FileServer.appendFile(this.SportsCenterCode,"Student.txt",student.toString()+"\n") == 1)
+                return 1;
         }
-        return true;
+        return 0;
     }
+
+    public int deleteSessionRecord (Session sessionToBeRemove){
+        // intialize all sessions
+        List<Session> allSession = new ArrayList<>();
+        System.out.println(sessionToBeRemove.toString());
+        String[] sessionFileContent = FileServer.readFile(this.SportsCenterCode,"Session.txt");
+        for (String line : sessionFileContent){
+            allSession.add(new Session(line.split("\\|")));
+        }
+        allSession.remove(sessionToBeRemove);
+        if (FileServer.writeFile(this.SportsCenterCode,"Session.txt","") == 1)
+            return 1;
+        for (Session session : allSession){
+            if (FileServer.appendFile(this.SportsCenterCode,"Session.txt",session.getWriteToFileString()+"\n") == 1)
+                return 1;
+        }
+        return Schedule.updateScheduleFile(this.SportsCenterCode);
+    }
+
+
 }

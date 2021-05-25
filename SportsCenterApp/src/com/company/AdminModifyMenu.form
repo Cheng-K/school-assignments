@@ -101,7 +101,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="feb20" class="javax.swing.JTextField" binding="nameField">
             <constraints>
@@ -109,7 +111,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="de027" class="javax.swing.JTextField" binding="dateJoinedField">
             <constraints>
@@ -157,13 +161,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
-          </component>
-          <component id="c62b2" class="javax.swing.JComboBox" binding="sportsBox">
-            <constraints>
-              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="9de54" class="javax.swing.JTextField" binding="ratingField">
             <constraints>
@@ -181,6 +181,16 @@
             </constraints>
             <properties>
               <text value="Save and Close"/>
+            </properties>
+          </component>
+          <component id="136f7" class="javax.swing.JTextField" binding="sportsCoachingField">
+            <constraints>
+              <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <editable value="false"/>
             </properties>
           </component>
         </children>
@@ -247,7 +257,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="f81fa" class="javax.swing.JTextField" binding="startTimeField">
             <constraints>
@@ -271,7 +283,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="b77e4" class="javax.swing.JTextField" binding="coachNameField">
             <constraints>
@@ -279,15 +293,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
-          </component>
-          <component id="29b6b" class="javax.swing.JTextField" binding="sportNameField">
-            <constraints>
-              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="9d628" class="javax.swing.JTextField" binding="dayField">
             <constraints>
@@ -313,6 +321,16 @@
               <text value="Save and Close"/>
             </properties>
           </component>
+          <component id="29b6b" class="javax.swing.JTextField" binding="sportNameFieldSession">
+            <constraints>
+              <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="150" height="-1"/>
+              </grid>
+            </constraints>
+            <properties>
+              <editable value="false"/>
+            </properties>
+          </component>
         </children>
       </grid>
       <grid id="f8fa0" binding="modifySportsTab" layout-manager="GridLayoutManager" row-count="4" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
@@ -323,13 +341,15 @@
         <properties/>
         <border type="none"/>
         <children>
-          <component id="808b0" class="javax.swing.JTextField" binding="sportsNameField">
+          <component id="808b0" class="javax.swing.JTextField" binding="sportNameField">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="fb890" class="javax.swing.JLabel" binding="sportsNameLabel">
             <constraints>
@@ -345,7 +365,9 @@
                 <preferred-size width="150" height="-1"/>
               </grid>
             </constraints>
-            <properties/>
+            <properties>
+              <editable value="false"/>
+            </properties>
           </component>
           <component id="7d54b" class="javax.swing.JTextField" binding="sportFeesField">
             <constraints>
