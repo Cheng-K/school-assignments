@@ -32,19 +32,31 @@ public class Sports {
             return "Sort by Sport Name";
         }
     }
+
     public Sports (String sportCenterCode, String[] details){
         name = details[0];
         sportsID = details[1];
         sportFees = Integer.parseInt(details[2]);
-        schedule = new Schedule(sportCenterCode,name,details[3].split(","));
+        schedule = null;
+        String[] sessionIDs = FileServer.readFile(sportCenterCode,"Schedule.txt");
+        for (String line : sessionIDs){
+            String[] tokens = line.split("\\|");
+            if (tokens[0].equals(sportsID)) {
+                schedule = new Schedule(sportCenterCode, name, tokens);
+                break;
+            }
+        }
+        if (schedule == null)
+            schedule = new Schedule(name);
     }
     public static String[] getAllAttributes () {
         return new String[]{"Name","Sports ID","Sport Fees"};
     }
 
     public String toString() {
-        return name + "|" + sportsID + "|" + sportFees + "|" + schedule.toString() ;
+        return name + "|" + sportsID + "|" + sportFees ;
     }
+
     public Schedule getSchedule() {
         return schedule;
     }

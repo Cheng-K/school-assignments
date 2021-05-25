@@ -221,6 +221,18 @@ public class AdminModifyMenu {
             }
 
         }
+        private void setBorderBlack() {
+            dateJoinedField.setBorder(new LineBorder(Color.BLACK,1));
+            dateJoinedField.setToolTipText("");
+            dateTerminatedField.setBorder(new LineBorder(Color.BLACK,1));
+            dateTerminatedField.setToolTipText("");
+            hourlyRateField.setBorder(new LineBorder(Color.BLACK,1));
+            hourlyRateField.setToolTipText("");
+            contactNumberField.setBorder(new LineBorder(Color.BLACK,1));
+            contactNumberField.setToolTipText("");
+            addressField.setBorder(new LineBorder(Color.BLACK,1));
+            addressField.setToolTipText("");
+        }
     }
 
     private class SetSessionTab {
@@ -229,7 +241,7 @@ public class AdminModifyMenu {
             sessionIDField.setText(session.getSessionID());
             startTimeField.setText(session.getStartTime().toString());
             endTimeField.setText(session.getEndTime().toString());
-            durationField.setText(Long.toString(session.getDuration().toHours()));
+            durationField.setText(Double.toString((session.getDuration().toMinutes()/60.0)) + "hours");
             coachNameField.setText(session.getCoachName());
             sportNameFieldSession.setText(session.getSportName());
             saveCloseButtonSession.addActionListener(new saveCloseButtonSessionListener());
@@ -260,6 +272,11 @@ public class AdminModifyMenu {
                 setSessionBorderRed(3,"Please provide a valid time in HH:MM 24 hour format");
                 returnNum = 1;
             }
+            if (validator.isLogicalDuration(sessionDetails.get(2),sessionDetails.get(3)) == 1){
+                setSessionBorderRed(4,"Please provide a valid time with start time earlier than end time.");
+                returnNum = 1;
+            }
+
             return returnNum;
         }
 
@@ -283,7 +300,7 @@ public class AdminModifyMenu {
                     break;
                 case 4:
                     durationField.setBorder(new LineBorder(Color.RED,2));
-                    endTimeField.setToolTipText(message);
+                    durationField.setToolTipText(message);
                     break;
                 case 5:
                     coachNameField.setBorder(new LineBorder(Color.RED,2));
@@ -296,6 +313,15 @@ public class AdminModifyMenu {
                 default :
                     break;
             }
+        }
+        private void setBorderBlack() {
+            dayField.setBorder(new LineBorder(Color.BLACK,1));
+            dayField.setToolTipText("");
+            startTimeField.setBorder(new LineBorder(Color.BLACK,1));
+            startTimeField.setToolTipText("");
+            endTimeField.setBorder(new LineBorder(Color.BLACK,1));
+            endTimeField.setToolTipText("");
+
         }
 
     }
@@ -329,19 +355,27 @@ public class AdminModifyMenu {
                     sportFeesField.setToolTipText(message);
             }
         }
+        private void setSportsBorderBlack() {
+            sportFeesField.setBorder(new LineBorder(Color.BLACK,1));
+            sportFeesField.setToolTipText("");
+        }
 
     }
 
     private class saveCloseButtonCoachListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            coachPanelManager.setBorderBlack();
             if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails(),new FormChecker()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
-                admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach);
-                parentFrame.coachPanelManager.clearUpdateTable();
-                parentFrame.frame.setVisible(true);
-                frame.dispose();
+                if (admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach) == 1)
+                    JOptionPane.showMessageDialog(frame,"Cannot modify record. Contact technical assistance. Please try again!","Error",JOptionPane.ERROR_MESSAGE);
+                else {
+                    parentFrame.coachPanelManager.clearUpdateTable();
+                    parentFrame.frame.setVisible(true);
+                    frame.dispose();
+                }
             }
         }
     }
@@ -349,32 +383,38 @@ public class AdminModifyMenu {
     private class saveCloseButtonSessionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            sessionPanelManager.setBorderBlack();
             if (sessionPanelManager.verifySessionDetails(sessionPanelManager.getEnteredDetails(),new FormChecker()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
-                admin.modSession(sessionPanelManager.getEnteredDetails(), session);
-                parentFrame.schedulePanelManager.clearUpdateTable();
-                parentFrame.frame.setVisible(true);
-                frame.dispose();
+                if (admin.modSession(sessionPanelManager.getEnteredDetails(), session) == 1){
+                    JOptionPane.showMessageDialog(frame,"Cannot modify record. Contact technical assistance","Error",JOptionPane.ERROR_MESSAGE);
+                }
+                else {
+                    parentFrame.schedulePanelManager.clearUpdateTable();
+                    parentFrame.frame.setVisible(true);
+                    frame.dispose();
+                }
             }
         }
     }
     private class saveCloseButtonSportsListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
+            sportsPanelManager.setSportsBorderBlack();
             if (sportsPanelManager.verifySportsDetails(sportFeesField.getText(),new FormChecker()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
-                admin.modSports(Integer.parseInt(sportFeesField.getText()), sports);
-                parentFrame.sportsPanelManager.clearUpdateTable();
-                parentFrame.frame.setVisible(true);
-                frame.dispose();
+                if (admin.modSports(Integer.parseInt(sportFeesField.getText()), sports) == 1)
+                    JOptionPane.showMessageDialog(frame,"Cannot modify record. Contact technical assistance","Error",JOptionPane.ERROR_MESSAGE);
+                else {
+                    parentFrame.sportsPanelManager.clearUpdateTable();
+                    parentFrame.frame.setVisible(true);
+                    frame.dispose();
+                }
             }
         }
     }
-
-
-
 
 }
 
@@ -423,5 +463,20 @@ class FormChecker{
             } catch (Exception e){}
         }
         return false;
+    }
+
+    public int isLogicalDuration (String startStr, String endStr){
+        String[] startTokens = startStr.split(":");
+        String[] endTokens = endStr.split(":");
+        try {
+            LocalTime startTime = LocalTime.of(Integer.parseInt(startTokens[0]),Integer.parseInt(startTokens[1]));
+            LocalTime endTime = LocalTime.of(Integer.parseInt(endTokens[0]),Integer.parseInt(endTokens[1]));
+            if (startTime.isBefore(endTime))
+                return 0;
+            else
+                return 1;
+        } catch(Exception e) {
+            return 2;
+        }
     }
 }

@@ -3,6 +3,9 @@ package com.company;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Comparator;
+import java.util.Objects;
+
+import static java.lang.Math.round;
 
 public class Session {
     private String sessionID;
@@ -43,6 +46,7 @@ public class Session {
 
 
     }
+
     public static class sortByName implements Comparator<Session>{
         @Override
         public int compare(Session o1, Session o2) {
@@ -71,7 +75,12 @@ public class Session {
 
     @Override
     public String toString () {
-        return day+"|"+sessionID + "|" + startTime + "|" + endTime + "|"+ duration.toHours() + "|"+ sportName + "|"+ coachName;
+        return day+"|"+sessionID + "|" + startTime + "|" + endTime + "|"+ String.format("%.2f hours",duration.toMinutes()/60.0)+ "|"+ sportName + "|"+ coachName;
+    }
+
+    public String getWriteToFileString () {
+        return day+"|"+sessionID + "|" + startTime.getHour() + "|" + startTime.getMinute() + "|" + endTime.getHour() + "|"+
+                endTime.getMinute() + "|"+ sportName + "|"+ coachName;
     }
 
     public String getSessionID() {
@@ -117,6 +126,16 @@ public class Session {
         this.day = day;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Session session = (Session) o;
+        return getSessionID().equals(session.getSessionID()) && getStartTime().equals(session.getStartTime()) && getEndTime().equals(session.getEndTime()) && getDuration().equals(session.getDuration()) && getSportName().equals(session.getSportName()) && getCoachName().equals(session.getCoachName()) && getDay().equals(session.getDay());
+    }
 
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(getSessionID(), getStartTime(), getEndTime(), getDuration(), getSportName(), getCoachName(), getDay());
+    }
 }

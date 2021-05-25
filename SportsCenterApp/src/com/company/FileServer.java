@@ -31,6 +31,9 @@ public class FileServer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (fileContent.isEmpty()){
+            return new String[0];
+        }
         return fileContent.split("\\r?\\n");
     }
 

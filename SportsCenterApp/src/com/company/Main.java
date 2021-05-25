@@ -57,19 +57,27 @@ public class Main {
 //        System.out.println(monday);
 
 
+//
+//        for (String line : FileServer.readFile("L002","Sports.txt")){
+//            Sports sports = new Sports("L002",line.split("\\|"));
+//            System.out.println(sports.toString());
+//        }
 
 
-
-
-
+//        Schedule.updateScheduleFile("L002");
 
 
 
 //            Admin admin = new Admin("Jack","L001");
 //            new AdminMenu(admin);
-      new LoginScreen();
-
         Schedule.updateScheduleFile("L002");
+//      new LoginScreen();
+//
+
+
+//        System.out.println(Arrays.toString(FileServer.readFile("L002","Session.txt")));
+//        System.out.println(FileServer.readFile("L002","Session.txt").length);
+//        Schedule.updateScheduleFile("L002");
 
     }
 }

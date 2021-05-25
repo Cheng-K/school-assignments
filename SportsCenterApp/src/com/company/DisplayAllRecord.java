@@ -3,8 +3,8 @@ package com.company;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class DisplayAllRecord {
     public JFrame frame;
@@ -35,6 +35,7 @@ public class DisplayAllRecord {
     private JComboBox<Schedule> scheduleSelector;
     private JComboBox<Comparator<Session>> sortByScheduleMenu;
     private JButton refreshButton;
+    private JButton deleteRecordButton;
     private DefaultTableModel coachTableModel;
     private DefaultTableModel studentTableModel = (DefaultTableModel) studentRecordTable.getModel();
     private DefaultTableModel sportsTableModel;
@@ -63,6 +64,8 @@ public class DisplayAllRecord {
 
         public void clearUpdateTable() {
             clearCoachTable();
+            coachList.clear();
+            getAllCoach();
             updateCoachTable();
         }
 
@@ -218,6 +221,8 @@ public class DisplayAllRecord {
         }
         public void clearUpdateTable() {
             clearSportsTable();
+            sportsArrayList.clear();
+            getAllSports();
             updateSportsTable();
         }
         public void showFoundSports (ArrayList<Sports> results){
@@ -246,21 +251,29 @@ public class DisplayAllRecord {
     }
 
     public class SetSchedulePanel {
-        private ArrayList<Schedule> weeklySchedule = new ArrayList<>();
+        private ArrayList<Schedule> allScheduleList = new ArrayList<>();
 
         public SetSchedulePanel() {
-            getWeeklySchedule();
+            getAllSchedule();
             prepareScheduleTable();
             updateScheduleTable();
             prepareScheduleSelector();
             setSortDropMenu();
         }
-        // fix here (problem)
-        private void getWeeklySchedule() {
+
+        public SetSchedulePanel(Sports sportsToDisplay){
+            allScheduleList.add(sportsToDisplay.getSchedule());
+            prepareScheduleTable();
+            updateScheduleTable();
+            prepareScheduleSelector();
+            setSortDropMenu();
+        }
+
+        private void getAllSchedule() {
             String[] scheduleFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Schedule.txt");
-            for (int line = 0; line<7 ; line++){
+            for (int line = 0; line<scheduleFileContent.length ; line++){
                 String[] tokens = scheduleFileContent[line].split("\\|");
-                weeklySchedule.add(new Schedule(admin.getSportsCenterCode(),tokens[0],tokens)); // a bit inefficient
+                allScheduleList.add(new Schedule(admin.getSportsCenterCode(),tokens[0],Arrays.copyOfRange(tokens,1,tokens.length)));
             }
         }
 
@@ -275,26 +288,31 @@ public class DisplayAllRecord {
         }
 
         private void updateScheduleTable(Schedule schedule) {
-                for (Session session : schedule.getAllSession())
+            for (Session session : schedule.getAllSession())
                 scheduleTableModel.addRow(session.toString().split("\\|"));
         }
 
         private void updateScheduleTable() {
-            updateScheduleTable(weeklySchedule.get(0));
+            updateScheduleTable(allScheduleList.get(0));
         }
 
         public void clearUpdateTable(){
+            int previouslySelectedIndex = scheduleSelector.getSelectedIndex();
             clearScheduleTable();
-            updateScheduleTable((Schedule) scheduleSelector.getSelectedItem());
+            allScheduleList.clear();
+            getAllSchedule();
+            scheduleSelector.removeItemListener(scheduleSelector.getItemListeners()[0]);
+            scheduleSelector.removeAllItems();
+            prepareScheduleSelector();
+            updateScheduleTable();
+            scheduleSelector.setSelectedIndex(previouslySelectedIndex);
         }
 
         private void clearScheduleTable() {scheduleTableModel.setRowCount(0);}
 
         private void prepareScheduleSelector() {
-            for (Schedule schedule : weeklySchedule)
+            for (Schedule schedule : allScheduleList)
                 scheduleSelector.addItem(schedule);
-            for (Sports sports: sportsPanelManager.getSportsArrayList())
-                scheduleSelector.addItem(sports.getSchedule());
 
             scheduleSelector.addItemListener(new ItemListener() {
                 @Override
@@ -336,10 +354,12 @@ public class DisplayAllRecord {
                     admin.sort(sportsPanelManager.sportsArrayList,(Comparator<Sports>)sortBySportsMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     sportsPanelManager.updateSportsTable();
                     break;
-                default:
+                case 3:
                     schedulePanelManager.clearScheduleTable();
                     admin.sort(((Schedule)scheduleSelector.getSelectedItem()).getAllSession(),(Comparator<Session>)sortByScheduleMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     schedulePanelManager.updateScheduleTable((Schedule) scheduleSelector.getSelectedItem());
+                    break;
+                default :
                     break;
             }
         }
@@ -353,6 +373,7 @@ public class DisplayAllRecord {
             // check whether it is -1
             switch (tabNumber){
                 case 0 :
+                    JOptionPane.showMessageDialog(frame , "Sorry, admin cannot edit student personal information");
                     break;
                 case 1: {
                     int row = coachRecordTable.getSelectedRow();
@@ -408,12 +429,74 @@ public class DisplayAllRecord {
                     sportsPanelManager.refreshSportsList();
                     break;
                 case 3 :
-
                     break;
             }
         }
     }
 
+    private class deleteRecordButtonListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            switch(tabbedPane1.getSelectedIndex()){
+                case 0 : {
+                    int row = studentRecordTable.getSelectedRow();
+                    if (row == -1)
+                        JOptionPane.showMessageDialog(frame, "Please select a row to delete");
+                    else {
+                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if (confirmation == 0) {
+                            admin.deleteStudentRecord(studentPanelManager.studentList, row);
+                            studentPanelManager.refreshStudentList();
+                        }
+                    }
+                    break;
+                }
+                case 1: {
+                    int row = coachRecordTable.getSelectedRow();
+                    if (row == -1)
+                        JOptionPane.showMessageDialog(frame, "Please select a row to delete");
+                    else {
+                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if (confirmation == 0) {
+                            admin.deleteCoachRecord(coachPanelManager.coachList, row);
+                            coachPanelManager.refreshCoachList();
+                        }
+                    }
+                    break;
+                }
+                case 2: {
+                    int row = sportsRecordTable.getSelectedRow();
+                    if (row == -1)
+                        JOptionPane.showMessageDialog(frame, "Please select a row to delete");
+                    else {
+                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if (confirmation == 0) {
+                            admin.deleteSportsRecord(sportsPanelManager.sportsArrayList, row);
+                            sportsPanelManager.refreshSportsList();
+                        }
+                    }
+                    break;
+                }
+                case 3: {
+                    int row = scheduleRecordTable.getSelectedRow();
+                    if (row == -1)
+                        JOptionPane.showMessageDialog(frame, "Please select a row to delete");
+                    else {
+                        int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
+                                "Confirmation", JOptionPane.YES_NO_OPTION);
+                        if (confirmation == 0) {
+                            admin.deleteSessionRecord(((Schedule)(Objects.requireNonNull(scheduleSelector.getSelectedItem()))).getSession(row));
+                            schedulePanelManager.clearUpdateTable();
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    }
 
 
 
@@ -429,6 +512,7 @@ public class DisplayAllRecord {
         sortTableButton.addActionListener(new sortTableButtonListener());
         modifyDetailsButton.addActionListener(new modifyDetailsListener());
         refreshButton.addActionListener(new RefreshButtonListener());
+        deleteRecordButton.addActionListener(new deleteRecordButtonListener());
         backToMenuButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -446,6 +530,49 @@ public class DisplayAllRecord {
 
     public DisplayAllRecord (Admin admin){
         this(admin,true);
+    }
+
+    public DisplayAllRecord (Student student, Sports sports){
+        // set student
+        schedulePanelManager = new SetSchedulePanel(sports);
+        deleteRecordButton.setVisible(false);
+        modifyDetailsButton.setVisible(false);
+        refreshButton.setVisible(false);
+        radioButtonGroup.add(ascendingRadioButton);
+        radioButtonGroup.add(descendingRadioButton);
+        ascendingRadioButton.setSelected(true);
+        sortTableButton.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Comparator<Session> sorter;
+                if (!ascendingRadioButton.isSelected())
+                     sorter = Collections.reverseOrder((Comparator<Session>)sortByScheduleMenu.getSelectedItem());
+                else
+                    sorter = (Comparator<Session>)sortByScheduleMenu.getSelectedItem();
+                Collections.sort(schedulePanelManager.allScheduleList.get(0).getAllSession(),sorter);
+                schedulePanelManager.clearScheduleTable();
+                schedulePanelManager.updateScheduleTable();
+
+            }
+        });
+        // back to menu button
+        backToMenuButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new StudentMenu(student);
+            }
+        });
+        tabbedPane1.setSelectedIndex(3);
+        tabbedPane1.setEnabledAt(0,false);
+        tabbedPane1.setEnabledAt(1,false);
+        tabbedPane1.setEnabledAt(2,false);
+        frame = new JFrame ("Showing Schedule");
+        frame.setContentPane(rootPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
     }
 
 
