@@ -1,6 +1,7 @@
 package com.company;
 
 
+import com.company.GUI.LoginScreen;
 
 public class Main {
 

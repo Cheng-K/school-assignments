@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L002/Coach.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L002/Coach.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/L002/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/L002/Student.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Student.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Student.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Admin.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/SportsCenterApp/com/company/Admin.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/company/Admin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Admin.java" afterDir="false" />
-    </list>
+    <list default="true" id="7cd31a72-447d-4382-8cfe-ce410de7b13c" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -108,7 +101,7 @@
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="160" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.SHOW" value="false" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager.WIDTH" value="304" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/com/company/GUI" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -121,9 +114,13 @@
       <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company\GUI" />
       <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\src\com\company" />
       <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp\textFiles" />
       <recent name="D:\School Materials\Year 2\Object Oriented Design Java\Assignment\OODJ-SportCenterApp\SportsCenterApp" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.company.GUI" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="com.company" />
