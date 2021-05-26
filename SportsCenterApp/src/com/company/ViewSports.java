@@ -30,6 +30,7 @@ public class ViewSports {
         frame.setVisible(true);
         this.student = student;
         setTable(student.getSportsCenterCode());
+        sportsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         sportsCentreBox.setVisible(false);
         goBackButton.addActionListener(new ActionListener() {
             @Override
@@ -42,8 +43,12 @@ public class ViewSports {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int rowSelected = sportsTable.getSelectedRow();
-                new DisplayAllRecord(student,sportsList.get(rowSelected));
-                frame.dispose();
+                if (rowSelected == -1)
+                    JOptionPane.showMessageDialog(frame,"Please select a row.");
+                else {
+                    new DisplayAllRecord(student, sportsList.get(rowSelected));
+                    frame.dispose();
+                }
 
             }
         });
@@ -78,8 +83,13 @@ public class ViewSports {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int rowSelected = sportsTable.getSelectedRow();
-                new DisplayAllRecord(guestStudent,sportsList.get(rowSelected));
-                frame.dispose();
+                if (rowSelected == -1)
+                    JOptionPane.showMessageDialog(frame,"Please select a row.");
+                else {
+                    System.out.println(sportsList.get(rowSelected).getSchedule().getAllSessionToString());
+                    new DisplayAllRecord(guestStudent, sportsList.get(rowSelected));
+                    frame.dispose();
+                }
 
             }
         });

@@ -115,7 +115,11 @@ public class AdminModifyMenu {
             addressField.setText(coach.getAddress());
             sportsCenterIDField.setText(coach.getSportsCenterID());
             sportsCoachingField.setText(coach.getSportsCode());
-            ratingField.setText(Integer.toString(coach.getRating()/coach.getTotalRates()));
+            try {
+                ratingField.setText(Integer.toString(coach.getRating() / coach.getTotalRates()));
+            }catch (ArithmeticException e){
+                ratingField.setText("0");
+            }
             totalFeedbackField.setText(Integer.toString(coach.getTotalRates()));
             saveCloseButtonCoach.addActionListener(new saveCloseButtonCoachListener());
         }

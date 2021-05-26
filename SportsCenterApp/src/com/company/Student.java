@@ -9,10 +9,9 @@ public class Student extends BaseStudent {
     private String address;
     private String contactNumber;
     private String email;
-    private String registeredSports;
-    private String sportsCenterCode;
-    private Sports sport;
-    private Coach coach;
+    private final String registeredSports;
+    private final String sportsCenterCode;
+    private final Coach coach;
     private boolean givenRating;
 
     public static class sortByName implements Comparator<Student>{

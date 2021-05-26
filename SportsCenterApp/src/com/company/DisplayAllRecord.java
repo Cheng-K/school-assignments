@@ -294,7 +294,11 @@ public class DisplayAllRecord {
             scheduleSelector.removeAllItems();
             prepareScheduleSelector();
             updateScheduleTable();
-            scheduleSelector.setSelectedIndex(previouslySelectedIndex);
+            try {
+                scheduleSelector.setSelectedIndex(previouslySelectedIndex);
+            } catch (Exception e){
+                // do nothing prevent error
+            }
         }
 
         private void clearScheduleTable() {scheduleTableModel.setRowCount(0);}
@@ -439,8 +443,10 @@ public class DisplayAllRecord {
                         int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record? This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
-                            admin.deleteStudentRecord(studentPanelManager.studentList, row);
-                            studentPanelManager.refreshStudentList();
+                            if (admin.deleteStudentRecord(studentPanelManager.studentList, row) == 1)
+                                JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
+                            else
+                                studentPanelManager.refreshStudentList();
                         }
                     }
                     break;
@@ -458,8 +464,10 @@ public class DisplayAllRecord {
                                 JOptionPane.showMessageDialog(frame,"Cannot delete coach. There are students under this coach.","Error",
                                         JOptionPane.ERROR_MESSAGE);
                             else {
-                                admin.deleteCoachRecord(coachPanelManager.coachList, row);
-                                coachPanelManager.clearUpdateTable();
+                                if (admin.deleteCoachRecord(coachPanelManager.coachList, row)==1)
+                                    JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
+                                else
+                                    coachPanelManager.clearUpdateTable();
                             }
                         }
                     }
@@ -479,8 +487,10 @@ public class DisplayAllRecord {
                                         JOptionPane.ERROR_MESSAGE);
                             }
                             else {
-                                admin.deleteSportsRecord(sportsPanelManager.sportsArrayList,row);
-                                sportsPanelManager.clearUpdateTable();
+                                if (admin.deleteSportsRecord(sportsPanelManager.sportsArrayList,row) == 1)
+                                    JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
+                                else
+                                    sportsPanelManager.clearUpdateTable();
                             }
 
                         }
@@ -495,8 +505,10 @@ public class DisplayAllRecord {
                         int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
-                            admin.deleteSessionRecord(((Schedule)(Objects.requireNonNull(scheduleSelector.getSelectedItem()))).getSession(row));
-                            schedulePanelManager.clearUpdateTable();
+                            if (admin.deleteSessionRecord(((Schedule)(Objects.requireNonNull(scheduleSelector.getSelectedItem()))).getSession(row)) == 1)
+                                JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
+                            else
+                                schedulePanelManager.clearUpdateTable();
                         }
                     }
                     break;
