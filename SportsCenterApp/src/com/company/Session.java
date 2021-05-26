@@ -12,12 +12,12 @@ import java.util.Objects;
  */
 
 public class Session {
-    private String sessionID;
+    private final String sessionID;
     private LocalTime startTime;
     private LocalTime endTime;
     private Duration duration;
-    private String sportName;
-    private String coachName;
+    private final String sportName;
+    private final String coachName;
     private String day;
     public static class sortByDay implements Comparator<Session>{
         private int changeDayToNum (String day){

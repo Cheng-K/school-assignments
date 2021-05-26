@@ -1,17 +1,13 @@
 package com.company;
 
-import jdk.swing.interop.SwingInterOpUtils;
-import org.w3c.dom.ls.LSOutput;
-
-import java.io.File;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
 public class Admin {
-    private String ID;
-    private String SportsCenterCode;
+    private final String ID;
+    private final String SportsCenterCode;
 
     public Admin(String ID, String sportsCenterCode) {
         this.ID = ID;
@@ -231,16 +227,8 @@ public class Admin {
         return ID;
     }
 
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
     public String getSportsCenterCode() {
         return SportsCenterCode;
-    }
-
-    public void setSportsCenterCode(String sportsCenterCode) {
-        SportsCenterCode = sportsCenterCode;
     }
 
 
@@ -301,8 +289,13 @@ public class Admin {
     public ArrayList<Coach> searchCoach(List<Coach>coachList,int rating){
         ArrayList<Coach>found = new ArrayList<>();
         for (Coach coach:coachList){
-            if (rating == (coach.getRating()/coach.getTotalRates()))
-                found.add(coach);
+            try {
+                if (rating == (coach.getRating() / coach.getTotalRates()))
+                    found.add(coach);
+            }catch (ArithmeticException e){
+                if (rating == 0)
+                    found.add(coach);
+            }
         }
         return found;
     }
@@ -364,9 +357,12 @@ public class Admin {
             }
         }
         credentials.remove(rowToBeRemove);
-        FileServer.writeFile("Student.txt","");
+        if (FileServer.writeFile("Student.txt","") == 1) {
+            return 1;
+        }
         for (String line : credentials){
-            FileServer.appendFile("Student.txt",line+"\n");
+            if (FileServer.appendFile("Student.txt",line+"\n") == 1)
+                return 1;
         }
         // remove student at student.txt in subfolder
         studentList.remove(index);
@@ -383,7 +379,6 @@ public class Admin {
     public int deleteSessionRecord (Session sessionToBeRemove){
         // intialize all sessions
         List<Session> allSession = new ArrayList<>();
-        System.out.println(sessionToBeRemove.toString());
         String[] sessionFileContent = FileServer.readFile(this.SportsCenterCode,"Session.txt");
         for (String line : sessionFileContent){
             allSession.add(new Session(line.split("\\|")));

@@ -1,11 +1,11 @@
 package com.company;
 
-import java.util.ArrayList;
+
 import java.util.Comparator;
 
 public class Sports {
-    private String name;
-    private String sportsID;
+    private final String name;
+    private final String sportsID;
     private int sportFees;
     private Schedule schedule;
     public static class sortByFees implements Comparator<Sports> {

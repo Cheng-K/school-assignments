@@ -11,10 +11,9 @@ public class Coach {
     private LocalDate dateTerminated;
     private String phone;
     private String address;
-    private String sportsCenterID;
-    private String sportsCenterName;
-    private String sportsCode;
-    private String sportsName;
+    private final String sportsCenterID;
+    private final String sportsCode;
+    private final String sportsName;
     private int rating;
     private int totalRates;
     public static class sortByRating implements Comparator<Coach> {

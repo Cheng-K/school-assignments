@@ -1,6 +1,4 @@
 package com.company;
-
-import java.io.File;
 import java.util.*;
 
 public class Schedule implements Comparable<Schedule> {
@@ -13,8 +11,9 @@ public class Schedule implements Comparable<Schedule> {
     public static int updateScheduleFile (String sportCenterCode) {
         HashMap<String,Schedule> scheduleHashMap = new HashMap<>();
         String[] scheduleFile = FileServer.readFile(sportCenterCode,"Schedule.txt");
-        for (String line:scheduleFile){
-            String[] tokens = line.split("\\|");
+        // Grab sunday - saturday in schedule.txt , discards the rest
+        for (int line = 0;line < 7;line++){
+            String[] tokens = scheduleFile[line].split("\\|");
             scheduleHashMap.put(tokens[0], new Schedule(tokens[0]));
         }
 

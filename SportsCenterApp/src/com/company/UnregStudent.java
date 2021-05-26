@@ -5,7 +5,7 @@ public class UnregStudent extends BaseStudent{
     public int registerAccount(String[] studentDetail, String password) //ID passed in will be null
     {
         Student newStudent = new Student(studentDetail,Student.findMyCoach(studentDetail[8],studentDetail[7]));
-        String fileCheck[] = FileServer.readFile("UnregStudent.txt");
+        String[] fileCheck = FileServer.readFile("UnregStudent.txt");
         for (String line : fileCheck) {
             String[] token = line.split("\\|");
             if (token[0].equals(newStudent.getName())) {
@@ -21,7 +21,7 @@ public class UnregStudent extends BaseStudent{
                 return 2; //Profile with same name already exists in the sports center database
             }
         }
-        FileServer.appendFile("UnregStudent.txt",newStudent.toString() +"|"+password+"\n");
+        FileServer.appendFile("UnregStudent.txt",newStudent +"|"+password+"\n");
         System.out.println("Done");
         return 0;
     }
