@@ -1,12 +1,11 @@
 package com.company;
 
-
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
 
-/*---Class Constructor---*/
+/*----------Class Constructor----------*/
 
 public class Admin {
     private final String ID;
@@ -29,7 +28,7 @@ public class Admin {
         return null;
     }
 
-    /*---Create records methods---*/
+    /*----------Create records methods----------*/
 
     public int createAccount(String[] studentDetail, String password) //ID passed in will be null, and sports centre same with admins'
     {
@@ -222,7 +221,7 @@ public class Admin {
             Collections.reverse(tArrayList);
     }
 
-    /*Getters and Setters*/
+    /*---------Getters and Setters---------*/
 
     public String getID() {
         return ID;
@@ -232,6 +231,8 @@ public class Admin {
         return SportsCenterCode;
     }
 
+
+    /*---------Modify records methods---------*/
 
 
     public int modCoach(List<String>newDetails,Coach coach){
@@ -280,6 +281,8 @@ public class Admin {
             return Schedule.updateScheduleFile(this.SportsCenterCode);
     }
 
+    /*---------Search records methods---------*/
+
     public  ArrayList<Coach> searchCoach(List<Coach>coachList,String ID){
         ArrayList<Coach>found = new ArrayList<>();
         for (Coach coach:coachList){
@@ -322,6 +325,8 @@ public class Admin {
         }
         return found;
     }
+
+    /*---------Delete records methods---------*/
 
     public int deleteCoachRecord (List<Coach> coachList, int index){
         coachList.remove(index);
@@ -379,7 +384,7 @@ public class Admin {
     }
 
     public int deleteSessionRecord (Session sessionToBeRemove){
-        // intialize all sessions
+        // initialize all sessions
         List<Session> allSession = new ArrayList<>();
         String[] sessionFileContent = FileServer.readFile(this.SportsCenterCode,"Session.txt");
         for (String line : sessionFileContent){

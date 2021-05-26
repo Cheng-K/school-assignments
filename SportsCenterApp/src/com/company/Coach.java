@@ -16,6 +16,29 @@ public class Coach {
     private final String sportsName;
     private int rating;
     private int totalRates;
+
+    /*----------Class Constructor----------*/
+
+    public Coach (String[] coachDetails){
+        name = coachDetails[0];
+        coachID = coachDetails[1];
+        dateJoined = LocalDate.parse(coachDetails[2]);
+        if (coachDetails[3].equals("null"))
+            dateTerminated = null;
+        else
+            dateTerminated = LocalDate.parse(coachDetails[3]);
+        hourlyRate = Integer.parseInt(coachDetails[4]);
+        phone = coachDetails[5];
+        address = coachDetails[6];
+        sportsCenterID = coachDetails[7];
+        sportsCode = coachDetails[8];
+        rating = Integer.parseInt(coachDetails[9]);
+        totalRates = Integer.parseInt(coachDetails[10]);
+        sportsName = coachDetails[11];
+    }
+
+    /*----------Sorting methods----------*/
+
     public static class sortByRating implements Comparator<Coach> {
 
         @Override
@@ -54,42 +77,24 @@ public class Coach {
 
     }
 
-    //Class constructors
-
-    public Coach (String[] coachDetails){
-        name = coachDetails[0];
-        coachID = coachDetails[1];
-        dateJoined = LocalDate.parse(coachDetails[2]);
-        if (coachDetails[3].equals("null"))
-            dateTerminated = null;
-        else
-            dateTerminated = LocalDate.parse(coachDetails[3]);
-        hourlyRate = Integer.parseInt(coachDetails[4]);
-        phone = coachDetails[5];
-        address = coachDetails[6];
-        sportsCenterID = coachDetails[7];
-        sportsCode = coachDetails[8];
-        rating = Integer.parseInt(coachDetails[9]);
-        totalRates = Integer.parseInt(coachDetails[10]);
-        sportsName = coachDetails[11];
-
-    }
-
     public static String[] getAllAttributes () {
         return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Sports Name","Rating","Total Feedback"};
     }
 
-    //Getters and setters
+    /*----------Getters and Setters----------*/
 
     public String getCoachID() {
         return coachID;
     }
+
     public String getName() {
         return name;
     }
+
     public void setRating(int rating) {
         this.rating = rating;
     }
+
     public LocalDate getDateJoined() {
         return dateJoined;
     }
@@ -122,11 +127,9 @@ public class Coach {
         return rating;
     }
 
-
     public void setCoachID(String coachID) {
         this.coachID = coachID;
     }
-
 
     public int getTotalRates() {
         return totalRates;
@@ -135,7 +138,6 @@ public class Coach {
     public void setTotalRates(int totalRates) {
         this.totalRates = totalRates;
     }
-
 
     public void setName(String name) {
         this.name = name;
@@ -162,6 +164,8 @@ public class Coach {
     }
 
 
+    /*----------To String methods----------*/
+
     @Override
     public String toString () {
 
@@ -177,7 +181,4 @@ public class Coach {
         return name + "|"+ coachID + "|" + dateJoined + "|" + dateTerminated + "|" + hourlyRate + "|"
                 + phone + "|" + address + "|" + sportsCenterID + "|"+ sportsCode + "|" + sportsName+ "|"+ displayRating + "|" + totalRates;
     }
-
-
-
 }

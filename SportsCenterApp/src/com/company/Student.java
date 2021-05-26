@@ -121,6 +121,7 @@ public class Student extends BaseStudent {
         }
     }
 
+    /*----------Getters and Setters----------*/
 
     public String getName() {
         return name;

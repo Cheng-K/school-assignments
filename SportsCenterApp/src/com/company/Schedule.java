@@ -43,6 +43,7 @@ public class Schedule implements Comparable<Schedule> {
         return 0;
     }
 
+    /*----------Class Constructor----------*/
 
     public Schedule (String sportsCenterCode, String[] sessionID) {
         String[] sessionFile = FileServer.readFile(sportsCenterCode,"Session.txt");
