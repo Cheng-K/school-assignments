@@ -197,29 +197,19 @@ public class CreateRecord {
                             }
                     }
                 } else if (type.equals("sport")) {
-                    String[] existingSports = FileServer.readFile(admin.getSportsCenterCode(), "Sports.txt");
-                    boolean validSport = true;
-                    for (String line : existingSports) {
-                        String[] token = line.split("\\|");
-                        if (token[0].toLowerCase().equals(nameField.getText().toLowerCase())) {
-                            validSport = false;
-                            break;
-                        }
-                    }
                     if (nameField.getText().equals("")) {
                         errorLabel.setText("Please enter the sports' name!");
                     } else if(feesField.getText().equals("")){
                         errorLabel.setText("Please enter amount for the fees!");
                     } else if(formChecker.onlyDigits(feesField.getText())==false){
                         errorLabel.setText("Please enter numeric digits only for the fees!");
-                    } else if (validSport == true) {
-                        admin.createSports(nameField.getText(),feesField.getText());
+                    } else if (admin.createSports(nameField.getText(),feesField.getText()) == 1) {
+                        errorLabel.setText("Sport entered already exist!");
+                    } else {
                         JOptionPane.showMessageDialog(frame, "Sport successfully created!",
                                 "Successful", JOptionPane.INFORMATION_MESSAGE);
                         frame.setVisible(false);
                         new CreateRecordMenu(admin);
-                    } else {
-                        errorLabel.setText("Sport entered already exist!");
                     }
                 } else if(type.equals("session")){
                     if(dayBox.getSelectedIndex()==0||sportsCodeBox.getSelectedIndex()==0||coachBox.getSelectedIndex()==0||

@@ -1,13 +1,12 @@
 package com.company;
 
-import jdk.swing.interop.SwingInterOpUtils;
-import org.w3c.dom.ls.LSOutput;
 
-import java.io.File;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.*;
+
+/*---Class Constructor---*/
 
 public class Admin {
     private String ID;
@@ -29,6 +28,8 @@ public class Admin {
         }
         return null;
     }
+
+    /*---Create records methods---*/
 
     public int createAccount(String[] studentDetail, String password) //ID passed in will be null, and sports centre same with admins'
     {
@@ -74,12 +75,6 @@ public class Admin {
             newID = "S"+max;
         }
         return newID;
-    }
-
-    public void viewAccRequest()
-    {
-        String[] fileContent = FileServer.readFile("UnregStudent.txt");
-        //Display info from fileContent to the GUI
     }
 
     public void approveAccount(String name)
@@ -215,6 +210,7 @@ public class Admin {
         Schedule.updateScheduleFile(getSportsCenterCode());
     }
 
+
     /*  Method name : sort (Generic Method)
         Parameter   : tArrayList (Array list containing T typed *preferably instances of Coach/Students*) ,
                       sorter (Comparator instance tells how to sort tArrayList ),
@@ -226,6 +222,7 @@ public class Admin {
             Collections.reverse(tArrayList);
     }
 
+    /*Getters and Setters*/
 
     public String getID() {
         return ID;
@@ -239,9 +236,7 @@ public class Admin {
         return SportsCenterCode;
     }
 
-    public void setSportsCenterCode(String sportsCenterCode) {
-        SportsCenterCode = sportsCenterCode;
-    }
+
 
 
     public int modCoach(List<String>newDetails,Coach coach){
