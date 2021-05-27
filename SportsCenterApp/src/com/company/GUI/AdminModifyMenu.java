@@ -178,6 +178,10 @@ public class AdminModifyMenu {
                             }
                             break;
                         case 6 :
+                            if (coachDetails.get(6).isEmpty()){
+                                setCoachBorderRed(index,"Empty values are not allowed.");
+                                returnNum = 1;
+                            }
                             break;
                         case 7:
                             break;

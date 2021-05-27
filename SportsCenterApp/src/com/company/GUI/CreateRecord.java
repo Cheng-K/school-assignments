@@ -316,7 +316,7 @@ public class CreateRecord {
                     errorLabel.setText("Enter details for all options above!");
                 } else if (nameField.getText().length() < 8) {
                     errorLabel.setText("Name entered is too short! (min. 8 char)");
-                } else if (contactField.getText().length() < 10) {
+                } else if (contactField.getText().length() < 10 || !formChecker.onlyDigits(contactField.getText())) {
                     errorLabel.setText("Contact entered is invalid!");
                 } else if (!(emailField.getText().contains("@"))) {
                     errorLabel.setText("Format of email entered is invalid!");

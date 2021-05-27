@@ -28,6 +28,7 @@ public class Admin {
         return null;
     }
 
+
     /*----------Create records methods----------*/
 
     public int createAccount(String[] studentDetail, String password) //ID passed in will be null, and sports centre same with admins'
@@ -328,31 +329,43 @@ public class Admin {
 
     /*---------Delete records methods---------*/
 
-    public int deleteCoachRecord (List<Coach> coachList, int index){
-        coachList.remove(index);
-        if (FileServer.writeFile(this.SportsCenterCode,"Coach.txt","") == 1)
-            return 1;
-        for (Coach coach : coachList){
-            if (FileServer.appendFile(this.SportsCenterCode,"Coach.txt",coach.toString()+"\n") == 1)
-                return 1;
+    public int deleteCoachRecord (List<Coach> coachList, Coach coachToRemove){
+        int foundCoach = 0;
+        for (;foundCoach < coachList.size();foundCoach++){
+            if (coachList.get(foundCoach).getName().equals(coachToRemove.getName())){
+                coachList.remove(foundCoach);
+                if (FileServer.writeFile(this.SportsCenterCode,"Coach.txt","") == 1)
+                    return 1;
+                for (Coach coach : coachList){
+                    if (FileServer.appendFile(this.SportsCenterCode,"Coach.txt",coach.toString()+"\n") == 1)
+                        return 1;
+                }
+                return 0;
+            }
         }
-        return 0;
+        return 1;
     }
 
-    public int deleteSportsRecord (List<Sports> sportsList, int index){
-        sportsList.remove(index);
-        if (FileServer.writeFile(this.SportsCenterCode,"Sports.txt","") == 1)
-            return 1;
-        for (Sports sports : sportsList){
-            if (FileServer.appendFile(this.SportsCenterCode,"Sports.txt",sports.toString()+"\n") == 1)
-                return 1;
+    public int deleteSportsRecord (List<Sports> sportsList, Sports sportsToRemove){
+        int foundSports = 0;
+        for (;foundSports < sportsList.size();foundSports++){
+            if (sportsList.get(foundSports).getName().equals(sportsToRemove.getName())){
+                sportsList.remove(foundSports);
+                if (FileServer.writeFile(this.SportsCenterCode,"Sports.txt","") == 1)
+                    return 1;
+                for (Sports sports : sportsList){
+                    if (FileServer.appendFile(this.SportsCenterCode,"Sports.txt",sports.toString()+"\n") == 1)
+                        return 1;
+                }
+                return 0;
+            }
         }
-        return 0;
+        return 1;
     }
 
-    public int deleteStudentRecord (List<Student> studentList, int index){
+    public int deleteStudentRecord (List<Student> studentList, Student studentToRemove){
         // remove student at credentials file
-        String nameToBeRemoved = studentList.get(index).getName();
+        String nameToBeRemoved = studentToRemove.getName();
         String[] credentialsFile = FileServer.readFile("Student.txt");
         List<String> credentials = new ArrayList<>(Arrays.asList(credentialsFile));
         int rowToBeRemove = 0;
@@ -371,16 +384,22 @@ public class Admin {
             if (FileServer.appendFile("Student.txt",line+"\n") == 1)
                 return 1;
         }
-        // remove student at student.txt in subfolder
-        studentList.remove(index);
-        if (FileServer.writeFile(this.SportsCenterCode,"Student.txt","") == 1)
-            return 1;
-        for (Student student : studentList){
-            if (FileServer.appendFile(this.SportsCenterCode,"Student.txt",student.toString()+"\n") == 1)
-                return 1;
-        }
 
-        return 0;
+        // remove student at student.txt in subfolder
+        int foundStudent = 0;
+        for (;foundStudent < studentList.size();foundStudent++){
+            if (studentList.get(foundStudent).getName().equals(studentToRemove.getName())){
+                studentList.remove(foundStudent);
+                if (FileServer.writeFile(this.SportsCenterCode,"Student.txt","") == 1)
+                    return 1;
+                for (Student student : studentList){
+                    if (FileServer.appendFile(this.SportsCenterCode,"Student.txt",student.toString()+"\n") == 1)
+                        return 1;
+                }
+                return 0;
+            }
+        }
+        return 1;
     }
 
     public int deleteSessionRecord (Session sessionToBeRemove){
