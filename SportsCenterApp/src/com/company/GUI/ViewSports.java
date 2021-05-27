@@ -90,7 +90,6 @@ public class ViewSports {
                 if (rowSelected == -1)
                     JOptionPane.showMessageDialog(frame,"Please select a row.");
                 else {
-                    System.out.println(sportsList.get(rowSelected).getSchedule().getAllSessionToString());
                     new DisplayAllRecord(guestStudent, sportsList.get(rowSelected));
                     frame.dispose();
                 }

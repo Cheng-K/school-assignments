@@ -108,8 +108,10 @@ public class AdminSearchForm {
                             searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(), ratingProvided);
                         else if (idProvided != null)
                             searchResult = admin.searchCoach(displayFrame.coachPanelManager.getCoachList(), idProvided);
-                        else
+                        else {
                             JOptionPane.showMessageDialog(frame, "Please select a search mode", "Error", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }
                         if (searchResult.size() == 0)
                             JOptionPane.showMessageDialog(frame, "Sorry, no result was found", "Warning", JOptionPane.WARNING_MESSAGE);
                         else {
@@ -139,8 +141,9 @@ public class AdminSearchForm {
                             displayFrame.frame.setVisible(true);
                         }
                     }
-                }
                     break;
+                }
+
                 case 2 : { // Students tab
                     String idProvided = null;
                     if (studentIDField.getText().isEmpty()){
@@ -157,7 +160,9 @@ public class AdminSearchForm {
                             displayFrame.frame.setVisible(true);
                         }
                         }
+                    break;
                     }
+                default :
                     break;
                 }
             }

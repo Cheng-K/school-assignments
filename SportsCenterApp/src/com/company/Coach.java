@@ -78,7 +78,7 @@ public class Coach {
     }
 
     public static String[] getAllAttributes () {
-        return new String[] {"Coach ID","Name","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Sports Name","Rating","Total Feedback"};
+        return new String[] {"Name","Coach ID","Date Joined","Date Terminated","Hourly Rate","Contact Number","Address","Sports Center ID","Sports Code","Sports Name","Rating","Total Feedback"};
     }
 
     /*----------Getters and Setters----------*/

@@ -8,6 +8,9 @@ import java.util.Arrays;
 class FormChecker {
     // Not sure where to put it
     public boolean onlyDigits(String str) {
+        if (str.isEmpty()){
+            return false;
+        }
         for (int index = 0; index < str.length(); index++) {
             if (!Character.isDigit(str.charAt(index)))
                 return false;

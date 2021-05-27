@@ -55,6 +55,7 @@ public class DisplayAllRecord {
     public class SetCoachPanel {
 
         private ArrayList<Coach> coachList = new ArrayList<>();
+        private ArrayList<Coach> currentDisplayList = new ArrayList<>();
 
         public SetCoachPanel(){
             getAllCoach();
@@ -80,6 +81,7 @@ public class DisplayAllRecord {
                 Coach coach = new Coach(coachInfo.split("\\|"));
                 coachList.add(coach);
             }
+            currentDisplayList = (ArrayList<Coach>) coachList.clone();
         }
 
         /*  Method Name : prepareCoachTable
@@ -99,14 +101,14 @@ public class DisplayAllRecord {
                           (pair with clearCoachTable Method to clear & update table order)
          */
         private void updateCoachTable() {
-            for (Coach coach : coachList){
+            for (Coach coach : currentDisplayList){
                 coachTableModel.addRow(coach.getDisplayString().split("\\|"));
             }
         }
 
         public void showFoundCoaches(ArrayList<Coach>searchResults){
             clearCoachTable();
-            coachList = searchResults;
+            currentDisplayList = searchResults;
             updateCoachTable();
             tabbedPane1.setSelectedIndex(1);
         }
@@ -134,6 +136,7 @@ public class DisplayAllRecord {
 
     public class SetStudentPanel {
         private ArrayList<Student> studentList = new ArrayList<>();
+        private ArrayList<Student> currentDisplayList = new ArrayList<>();
 
         public SetStudentPanel() {
             getAllStudent();
@@ -149,25 +152,30 @@ public class DisplayAllRecord {
                 Student student = new Student(tokens,Student.findMyCoach(tokens[8],tokens[7]));
                 studentList.add(student);
             }
+            currentDisplayList = (ArrayList<Student>) studentList.clone();
         }
+
 
         private void prepareStudentTable() {
             studentRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            for (String column : Student.getAllAttributes())
-                studentTableModel.addColumn(column);
+            studentTableModel = new DefaultTableModel(Student.getAllAttributes(),0){
+                @Override
+                public boolean isCellEditable (int row, int column){ return false;}
+            };
+            studentRecordTable.setModel(studentTableModel);
+            studentRecordTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         }
 
         private void updateStudentTable() {
-            for (Student student:studentList)
+            for (Student student:currentDisplayList)
                 studentTableModel.addRow(student.toString().split("\\|"));
         }
 
-        public void showFoundStudents(ArrayList<Student>searchResult){
+        public void showFoundStudents(ArrayList<Student>searchResults){
             clearStudentTable();
-            studentList = searchResult;
+            currentDisplayList = searchResults;
             updateStudentTable();
             tabbedPane1.setSelectedIndex(0);
-
         }
 
         private void clearStudentTable() {studentTableModel.setRowCount(0);}
@@ -184,6 +192,7 @@ public class DisplayAllRecord {
     }
 
     public class SetSportsPanel {
+        public ArrayList<Sports> currentDisplayList = new ArrayList<>();
         private ArrayList<Sports> sportsArrayList = new ArrayList<>();
         private SetSportsPanel(){
             getAllSports();
@@ -197,10 +206,9 @@ public class DisplayAllRecord {
                 Sports sports = new Sports(admin.getSportsCenterCode(),sportsInfo.split("\\|"));
                 sportsArrayList.add(sports);
             }
+            currentDisplayList = (ArrayList<Sports>) sportsArrayList.clone();
         }
         private void prepareSportsTable() {
-
-            for (String column : Sports.getAllAttributes()){
                 sportsRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
                 sportsTableModel = new DefaultTableModel(Sports.getAllAttributes(),0){
                     @Override
@@ -208,11 +216,11 @@ public class DisplayAllRecord {
                 };
                 sportsRecordTable.setModel(sportsTableModel);
                 sportsRecordTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            }
+
         }
 
         private void updateSportsTable() {
-            for (Sports sport : sportsArrayList){
+            for (Sports sport : currentDisplayList){
                 sportsTableModel.addRow(sport.toString().split("\\|"));
             }
         }
@@ -224,7 +232,7 @@ public class DisplayAllRecord {
         }
         public void showFoundSports (ArrayList<Sports> results){
             clearSportsTable();
-            sportsArrayList = results;
+            currentDisplayList = results;
             updateSportsTable();
             tabbedPane1.setSelectedIndex(2);
         }
@@ -335,17 +343,17 @@ public class DisplayAllRecord {
             switch (selectedTab){
                 case 0 :
                     studentPanelManager.clearStudentTable();
-                    admin.sort(studentPanelManager.studentList,(Comparator<Student>)sortByStudentMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    admin.sort(studentPanelManager.currentDisplayList,(Comparator<Student>)sortByStudentMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     studentPanelManager.updateStudentTable(); // display the table in sorted order
                    break;
                 case 1 :
                     coachPanelManager.clearCoachTable();
-                    admin.sort(coachPanelManager.coachList,(Comparator<Coach>) sortByCoachMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    admin.sort(coachPanelManager.currentDisplayList,(Comparator<Coach>) sortByCoachMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     coachPanelManager.updateCoachTable();
                     break;
                 case 2:
                     sportsPanelManager.clearSportsTable();
-                    admin.sort(sportsPanelManager.sportsArrayList,(Comparator<Sports>)sortBySportsMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    admin.sort(sportsPanelManager.currentDisplayList,(Comparator<Sports>)sortBySportsMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     sportsPanelManager.updateSportsTable();
                     break;
                 case 3:
@@ -375,7 +383,7 @@ public class DisplayAllRecord {
                     if (row == -1)
                         JOptionPane.showMessageDialog(frame, "Please select a row to modify");
                     else {
-                        targetCoach = coachPanelManager.coachList.get(row);
+                        targetCoach = coachPanelManager.currentDisplayList.get(row);
                         frame.setVisible(false);
                         new AdminModifyMenu(targetCoach, admin, DisplayAllRecord.this);
                     }
@@ -387,7 +395,7 @@ public class DisplayAllRecord {
                     if (row == -1)
                         JOptionPane.showMessageDialog(frame, "Please select a row to modify");
                     else {
-                        targetSports = sportsPanelManager.sportsArrayList.get(row);
+                        targetSports = sportsPanelManager.currentDisplayList.get(row);
                         frame.setVisible(false);
                         new AdminModifyMenu(targetSports, admin, DisplayAllRecord.this);
                     }
@@ -444,7 +452,7 @@ public class DisplayAllRecord {
                         int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record? This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
-                            if (admin.deleteStudentRecord(studentPanelManager.studentList, row) == 1)
+                            if (admin.deleteStudentRecord(studentPanelManager.studentList, studentPanelManager.currentDisplayList.get(row)) == 1)
                                 JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
                             else
                                 studentPanelManager.refreshStudentList();
@@ -461,11 +469,11 @@ public class DisplayAllRecord {
                         int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
-                            if (coachIsOccupied(occupiedCoaches,coachPanelManager.coachList.get(row).getName()))
+                            if (coachIsOccupied(occupiedCoaches,coachPanelManager.currentDisplayList.get(row).getName()))
                                 JOptionPane.showMessageDialog(frame,"Cannot delete coach. There are students under this coach.","Error",
                                         JOptionPane.ERROR_MESSAGE);
                             else {
-                                if (admin.deleteCoachRecord(coachPanelManager.coachList, row)==1)
+                                if ((admin.deleteCoachRecord(coachPanelManager.coachList, coachPanelManager.currentDisplayList.get(row)))==1)
                                     JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
                                 else
                                     coachPanelManager.clearUpdateTable();
@@ -483,12 +491,12 @@ public class DisplayAllRecord {
                         int confirmation = JOptionPane.showConfirmDialog(frame, "Are you sure you want to delete this record. This operation cannot be undone later.",
                                 "Confirmation", JOptionPane.YES_NO_OPTION);
                         if (confirmation == 0) {
-                            if (sportsIsOccupied(occupiedSports,sportsPanelManager.sportsArrayList.get(row).getName())) {
+                            if (sportsIsOccupied(occupiedSports,sportsPanelManager.currentDisplayList.get(row).getName())) {
                                 JOptionPane.showMessageDialog(frame,"Cannot delete sports. There are students & coaches under this sport.","Error",
                                         JOptionPane.ERROR_MESSAGE);
                             }
                             else {
-                                if (admin.deleteSportsRecord(sportsPanelManager.sportsArrayList,row) == 1)
+                                if (admin.deleteSportsRecord(sportsPanelManager.sportsArrayList,sportsPanelManager.currentDisplayList.get(row)) == 1)
                                     JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
                                 else
                                     sportsPanelManager.clearUpdateTable();

@@ -4,6 +4,8 @@ import com.company.FileServer;
 import com.company.Student;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
@@ -69,25 +71,30 @@ public class StudentProfile {
     private class saveDetailsButtonListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e){
+            resetBorderBlack();
             String[] fileContent = FileServer.readFile(student.getSportsCenterCode(),"Student.txt");
             String oldDetails = student.toString();
-            updateStudentDetails();
-            String newDetails = student.toString();
-            String[] newFileContent = FileServer.findAndReplace(fileContent,oldDetails,newDetails);
-            int writeFailed = FileServer.writeFile(student.getSportsCenterCode(),"Student.txt",String.join("\n",newFileContent)+"\n");
+            if (updateStudentDetails(new FormChecker()) == 0) {
+                String newDetails = student.toString();
+                String[] newFileContent = FileServer.findAndReplace(fileContent, oldDetails, newDetails);
+                int writeFailed = FileServer.writeFile(student.getSportsCenterCode(), "Student.txt", String.join("\n", newFileContent) + "\n");
 
-            if (writeFailed == 1){
-                // display error message
-                JOptionPane.showMessageDialog(frame,"Cannot update your information. Contact your admin","Error",JOptionPane.ERROR_MESSAGE);
-            }else {
-                // display success message
-                JOptionPane.showMessageDialog(frame,"Update Successful","Successful",JOptionPane.INFORMATION_MESSAGE);
-                // direct back to display profile menu
-                saveDetailsPanel.setVisible(false);
-                modifyDetailsPanel.setVisible(true);
-                setAllField();
-                setAllFieldDisabled();
+                if (writeFailed == 1) {
+                    // display error message
+                    JOptionPane.showMessageDialog(frame, "Cannot update your information. Contact your admin", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    // display success message
+                    JOptionPane.showMessageDialog(frame, "Update Successful", "Successful", JOptionPane.INFORMATION_MESSAGE);
+                    // direct back to display profile menu
+                    saveDetailsPanel.setVisible(false);
+                    modifyDetailsPanel.setVisible(true);
+                    setAllField();
+                    setAllFieldDisabled();
+                }
             }
+            else
+                JOptionPane.showMessageDialog(frame,"Invalid values/No values provided, please check again","Error",JOptionPane.ERROR_MESSAGE);
+
         }
     }
 
@@ -225,12 +232,54 @@ public class StudentProfile {
 
     /*
         Method Name : updateStudentDetails
-        Parameter & Return : Null
+        Parameter : FormChecker instance to validate the form
+        Return : 0 -- update success / 1 -- update failed
         Description : Update student attribute with edited information
      */
 
-    private void updateStudentDetails () {
-        student.updateDetails(Integer.parseInt(ageField.getText()),addressField.getText(),phoneField.getText(),emailField.getText());
+    private int updateStudentDetails (FormChecker validator) {
+        int returnNum = 0;
+        if (!validator.onlyDigits(ageField.getText()) || ageField.getText().length()>2 || ageField.getText().isEmpty()) {
+            setBorderRed(ageField, "Invalid age provided");
+            returnNum = 1;
+        }
+        if (!validator.onlyDigits(phoneField.getText())|| phoneField.getText().isEmpty()) {
+            setBorderRed(phoneField, "Invalid contact number provided");
+            returnNum = 1;
+        }
+        if (!emailField.getText().contains("@") || emailField.getText().isEmpty()) {
+            setBorderRed(emailField, "Invalid email address provided");
+            returnNum = 1;
+        }
+        if (addressField.getText().isEmpty()){
+            setBorderRed(addressField,"Empty values provided");
+            returnNum = 1;
+        }
+        if (returnNum == 0) {
+            student.updateDetails(Integer.parseInt(ageField.getText()), addressField.getText(), phoneField.getText(), emailField.getText());
+            return returnNum;
+        }
+        else
+            return returnNum;
+
+
+    }
+
+    private void setBorderRed (JTextField textField,String message) {
+        textField.setBorder(new LineBorder(Color.RED,2));
+        textField.setToolTipText(message);
+    }
+
+    private void resetBorderBlack() {
+        ageField.setBorder(new LineBorder(Color.BLACK,1));
+        ageField.setToolTipText("");
+        phoneField.setBorder(new LineBorder(Color.BLACK,1));
+        phoneField.setToolTipText("");
+        addressField.setBorder(new LineBorder(Color.BLACK,1));
+        addressField.setToolTipText("");
+        emailField.setBorder(new LineBorder(Color.BLACK,1));
+        emailField.setToolTipText("");
+
     }
 
     /*
