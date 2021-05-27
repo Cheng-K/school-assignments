@@ -2,8 +2,8 @@ package com.company.GUI;
 
 import com.company.BaseStudent;
 import com.company.Coach;
-import com.company.Student;
-import com.company.UnregStudent;
+import com.company.RegisteredStudent;
+import com.company.UnregisteredStudent;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -22,8 +22,8 @@ public class StudentMenu {
     private JPanel regStudentButtonPanel;
     private JButton registerButton;
     private JPanel guestButtonPanel;
-    private Student regStudent;
-    private UnregStudent guestStudent;
+    private RegisteredStudent regStudent;
+    private UnregisteredStudent guestStudent;
     private Coach myCoach;
 
     /*  Description : Constructor that creates studentMenu frame
@@ -32,8 +32,8 @@ public class StudentMenu {
      */
     public StudentMenu (BaseStudent studentA){
         frame = new JFrame("Main Menu");
-        if (studentA instanceof Student) {
-            regStudent = (Student) studentA;
+        if (studentA instanceof RegisteredStudent) {
+            regStudent = (RegisteredStudent) studentA;
             guestStudent = null;
             viewSportsDetailsButton.addActionListener(new ActionListener() {
                 @Override
@@ -44,7 +44,7 @@ public class StudentMenu {
             });
         }
         else{
-            guestStudent = (UnregStudent) studentA;
+            guestStudent = (UnregisteredStudent) studentA;
             regStudent = null;
             viewSportsDetailsButton.addActionListener(new ActionListener() {
                 @Override

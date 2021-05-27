@@ -2,7 +2,7 @@ package com.company.GUI;
 
 import com.company.Admin;
 import com.company.FileServer;
-import com.company.UnregStudent;
+import com.company.UnregisteredStudent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -258,7 +258,7 @@ public class CreateRecord {
         });
     }
 
-    public CreateRecord(UnregStudent student) {
+    public CreateRecord(UnregisteredStudent student) {
         frame = new JFrame("Create profile");
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

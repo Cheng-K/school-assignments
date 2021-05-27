@@ -2,7 +2,7 @@ package com.company.GUI;
 
 import com.company.FileServer;
 import com.company.Session;
-import com.company.Student;
+import com.company.RegisteredStudent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -20,9 +20,9 @@ public class ViewSelfSchedule {
     private JLabel coachLabel;
     private JButton goBackButton;
     private DefaultTableModel scheduleTableModel;
-    Student student;
+    RegisteredStudent student;
 
-    public ViewSelfSchedule(Student student) {
+    public ViewSelfSchedule(RegisteredStudent student) {
         frame = new JFrame("Schedule details");
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -1,10 +1,10 @@
 package com.company;
 
-public class UnregStudent extends BaseStudent{
+public class UnregisteredStudent extends BaseStudent{
 
     public int registerAccount(String[] studentDetail, String password) //ID passed in will be null
     {
-        Student newStudent = new Student(studentDetail,Student.findMyCoach(studentDetail[8],studentDetail[7]));
+        RegisteredStudent newStudent = new RegisteredStudent(studentDetail, RegisteredStudent.findMyCoach(studentDetail[8],studentDetail[7]));
         String[] fileCheck = FileServer.readFile("UnregStudent.txt");
         for (String line : fileCheck) {
             String[] token = line.split("\\|");

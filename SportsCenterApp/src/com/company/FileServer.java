@@ -4,7 +4,7 @@ import java.io.*;
 /*
     Description : FileServer class is responsible for fileIO operations. Class should be used without instantiation.
  */
-public class FileServer {
+public abstract class FileServer {
 
     /*
         Method Name : readFile
@@ -37,7 +37,7 @@ public class FileServer {
         return fileContent.split("\\r?\\n");
     }
 
-
+    // Method overloaded
     public static String[] readFile (String fileName){
         return readFile("",fileName);
     }
@@ -69,6 +69,7 @@ public class FileServer {
         return 1;
     }
 
+    // Method overloaded
     public static int writeFile (String fileName, String fileContent){
         return writeFile("",fileName,fileContent);
     }
@@ -98,6 +99,7 @@ public class FileServer {
         return 1;
     }
 
+    // Method overloaded
     public static int appendFile(String fileName,String fileContent){
         return appendFile("",fileName,fileContent);
     }

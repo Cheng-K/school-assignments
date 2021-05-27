@@ -2,8 +2,8 @@ package com.company.GUI;
 
 import com.company.Admin;
 import com.company.BaseStudent;
-import com.company.Student;
-import com.company.UnregStudent;
+import com.company.RegisteredStudent;
+import com.company.UnregisteredStudent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,7 +79,7 @@ public class LoginScreen {
 
                 } else if (studentBox.isSelected()) {
                     //Enter Student login here
-                    Student student = Student.studentLogin(username,password);
+                    RegisteredStudent student = RegisteredStudent.studentLogin(username,password);
                     if (student == null)
                         errorMessage.setText("Password or username entered is incorrect!");
                     else{
@@ -89,7 +89,7 @@ public class LoginScreen {
 
                 } else if (guestBox.isSelected()) {
                     //Enter guest login here
-                    BaseStudent guest = new UnregStudent();
+                    BaseStudent guest = new UnregisteredStudent();
                     StudentMenu screenSwitch = new StudentMenu(guest);
                     frame.setVisible(false);
                 } else if (!(studentBox.isSelected() || adminBox.isSelected() || guestBox.isSelected())) {

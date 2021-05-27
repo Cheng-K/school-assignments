@@ -1,6 +1,4 @@
 package com.company;
-
-
 import java.util.Comparator;
 
 public class Sports {
@@ -24,11 +22,17 @@ public class Sports {
                 break;
             }
         }
+        // Create schedule with empty session, due to no session has been created yet
         if (schedule == null)
             schedule = new Schedule(name);
     }
 
-    /*----------Sorting method----------*/
+    /*----------Sorting classes----------*/
+
+    /*
+    Class       : sortByFees (implements Comparator interface)
+    Description : Paired with built in list sorting method to sort sports by fees
+    */
 
     public static class sortByFees implements Comparator<Sports> {
 
@@ -42,6 +46,11 @@ public class Sports {
             return "Sort by Sport Fees";
         }
     }
+
+    /*
+    Class       : sortByName  (implements Comparator interface)
+    Description : Paired with built in list sorting method to sort sports by their name
+    */
     public static class sortByName implements Comparator<Sports>{
 
         @Override
@@ -55,12 +64,12 @@ public class Sports {
         }
     }
 
-    /*----------Getters and Setters----------*/
-
     @Override
     public String toString() {
         return name + "|" + sportsID + "|" + sportFees ;
     }
+
+    /*----------Getters and Setters----------*/
 
     public Schedule getSchedule() {
         return schedule;
@@ -76,6 +85,12 @@ public class Sports {
         this.sportFees = sportFees;
     }
 
+    /*
+    Method      : getAllAttributes
+    Description : Return an array of strings that represents all the attributes sports class has
+    Parameter   : -
+    Return      : An array of strings containing all the attributes name
+    */
     public static String[] getAllAttributes () {
         return new String[]{"Name","Sports ID","Sport Fees"};
     }

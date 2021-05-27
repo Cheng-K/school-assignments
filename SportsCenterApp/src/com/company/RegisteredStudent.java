@@ -2,7 +2,7 @@ package com.company;
 
 import java.util.Comparator;
 
-public class Student extends BaseStudent {
+public class RegisteredStudent extends BaseStudent {
     private String name;
     private String studentID;
     private int age;
@@ -14,13 +14,13 @@ public class Student extends BaseStudent {
     private final Coach coach;
     private boolean givenRating;
 
-    public static class sortByName implements Comparator<Student>{
+    public static class sortByName implements Comparator<RegisteredStudent>{
         @Override
         public String toString() {
             return "Sort By Name";
         }
         @Override
-        public int compare(Student o1, Student o2) {
+        public int compare(RegisteredStudent o1, RegisteredStudent o2) {
             return o1.name.compareTo(o2.name);
         }
     }
@@ -36,7 +36,7 @@ public class Student extends BaseStudent {
         return foundCoach;
     }
 
-    public Student(String[] studentDetails,Coach myCoach) {
+    public RegisteredStudent(String[] studentDetails, Coach myCoach) {
         name = studentDetails[0];
         studentID = studentDetails[1];
         age = Integer.parseInt(studentDetails[2]);
@@ -50,7 +50,7 @@ public class Student extends BaseStudent {
     }
 
 
-    public static Student studentLogin (String username, String password){
+    public static RegisteredStudent studentLogin (String username, String password){
         String[] studentFileContent = FileServer.readFile("Student.txt");
         for (String line:studentFileContent){
             String[] tokens = line.split("\\|");
@@ -61,7 +61,7 @@ public class Student extends BaseStudent {
                     String[] studentInfo = lines.split("\\|");
                     if (studentInfo[0].equals(username))
                     {
-                        return new Student(studentInfo,Student.findMyCoach(studentInfo[8],studentInfo[7]));
+                        return new RegisteredStudent(studentInfo, RegisteredStudent.findMyCoach(studentInfo[8],studentInfo[7]));
                     }
                 }
             }

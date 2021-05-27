@@ -37,7 +37,7 @@ public class Admin {
 
     public int createAccount(String[] studentDetail, String password) //ID passed in will be null, and sports centre same with admins'
     {
-        Student newStudent = new Student(studentDetail,Student.findMyCoach(studentDetail[8],studentDetail[7]));
+        RegisteredStudent newStudent = new RegisteredStudent(studentDetail, RegisteredStudent.findMyCoach(studentDetail[8],studentDetail[7]));
         String fileCheck[] = FileServer.readFile("UnregStudent.txt");
         for (String line : fileCheck) {
             String[] token = line.split("\\|");
@@ -98,7 +98,7 @@ public class Admin {
             String[] token = line.split("\\|");
             if (name.equals(token[0]))
             {
-                Student student = new Student(token,Student.findMyCoach(token[8],token[7]));
+                RegisteredStudent student = new RegisteredStudent(token, RegisteredStudent.findMyCoach(token[8],token[7]));
                 student.setStudentID(newStudentID());
                 FileServer.appendFile(getSportsCenterCode(),"Student.txt",student.toString()+"\n");
                 FileServer.appendFile("Student.txt",student.getName()+"|"+token[10]+"|"+getSportsCenterCode()+"\n");
@@ -350,9 +350,9 @@ public class Admin {
         return found;
     }
 
-    public ArrayList<Student> searchStudent(List<Student>studentList,String ID){
-        ArrayList<Student>found = new ArrayList<>();
-        for (Student student : studentList){
+    public ArrayList<RegisteredStudent> searchStudent(List<RegisteredStudent>studentList, String ID){
+        ArrayList<RegisteredStudent>found = new ArrayList<>();
+        for (RegisteredStudent student : studentList){
             if (ID.equalsIgnoreCase(student.getStudentID()))
                 found.add(student);
         }
@@ -395,7 +395,7 @@ public class Admin {
         return 1;
     }
 
-    public int deleteStudentRecord (List<Student> studentList, Student studentToRemove){
+    public int deleteStudentRecord (List<RegisteredStudent> studentList, RegisteredStudent studentToRemove){
         // remove student at credentials file
         String nameToBeRemoved = studentToRemove.getName();
         String[] credentialsFile = FileServer.readFile("Student.txt");
@@ -424,7 +424,7 @@ public class Admin {
                 studentList.remove(foundStudent);
                 if (FileServer.writeFile(this.SportsCenterCode,"Student.txt","") == 1)
                     return 1;
-                for (Student student : studentList){
+                for (RegisteredStudent student : studentList){
                     if (FileServer.appendFile(this.SportsCenterCode,"Student.txt",student.toString()+"\n") == 1)
                         return 1;
                 }

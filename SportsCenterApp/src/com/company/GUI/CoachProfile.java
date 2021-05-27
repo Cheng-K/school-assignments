@@ -1,7 +1,7 @@
 package com.company.GUI;
 
 import com.company.Coach;
-import com.company.Student;
+import com.company.RegisteredStudent;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -35,7 +35,7 @@ public class CoachProfile {
     private JLabel spacing;
     private ButtonGroup radioButtonGroup = new ButtonGroup();
 
-    public CoachProfile(Student student) {
+    public CoachProfile(RegisteredStudent student) {
         frame = new JFrame("Coach details");
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

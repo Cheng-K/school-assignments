@@ -29,8 +29,12 @@ public class Session {
         coachName = details[7];
     }
 
-    /*----------Sorting methods----------*/
+    /*----------Sorting classes ----------*/
 
+    /*
+    Class       : sortByDay (implements Comparator interface)
+    Description : Paired with built in list sorting method to sort sessions by day
+    */
     public static class sortByDay implements Comparator<Session>{
         private int changeDayToNum (String day){
             if (day.equalsIgnoreCase("monday"))
@@ -60,9 +64,12 @@ public class Session {
             return "Sort by day";
         }
 
-
     }
 
+    /*
+    Class       : sortByName (implements Comparator interface)
+    Description : Paired with built in list sorting method to sort sessions by sportName
+    */
     public static class sortByName implements Comparator<Session>{
         @Override
         public int compare(Session o1, Session o2) {
@@ -73,12 +80,16 @@ public class Session {
         public String toString() {
             return "Sort by sport name";
         }
-
-
     }
 
-    /*----------ToString Methods----------*/
+    /*----------Strings Generation Methods----------*/
 
+/*
+    Method      : getAllAttributes
+    Description : Return an array of strings that represents all the attributes session class has
+    Parameter   : -
+    Return      : An array of strings containing all the attributes name
+ */
     public static String[] getAllAttributes (){
         return new String[] {"Day","Session ID", "Start Time", "End Time", "Duration","Sport Name", "Coach Name"};
     }
@@ -87,6 +98,13 @@ public class Session {
     public String toString () {
         return day+"|"+sessionID + "|" + startTime + "|" + endTime + "|"+ String.format("%.2f hours",duration.toMinutes()/60.0)+ "|"+ sportName + "|"+ coachName;
     }
+
+/*
+    Method      : getWriteToFileString
+    Description : Return a string representation of session object that is used to write to session.txt
+    Parameter   : -
+    Return      : A string representation of session object (used for storing in session.txt)
+*/
 
     public String getWriteToFileString () {
         return day+"|"+sessionID + "|" + startTime.getHour() + "|" + startTime.getMinute() + "|" + endTime.getHour() + "|"+
@@ -139,12 +157,21 @@ public class Session {
         this.day = day;
     }
 
+    /*---------- Equals and hashCode methods----------*/
+
+    /* Description :
+        Override the built in equals and hashCode function to tell java to compare session objects by the
+        values in the all session's attributes instead of memory address reference.
+     */
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Session session = (Session) o;
-        return getSessionID().equals(session.getSessionID()) && getStartTime().equals(session.getStartTime()) && getEndTime().equals(session.getEndTime()) && getDuration().equals(session.getDuration()) && getSportName().equals(session.getSportName()) && getCoachName().equals(session.getCoachName()) && getDay().equals(session.getDay());
+        return getSessionID().equals(session.getSessionID()) && getStartTime().equals(session.getStartTime()) &&
+                getEndTime().equals(session.getEndTime()) && getDuration().equals(session.getDuration()) && getSportName().equals(session.getSportName())
+                && getCoachName().equals(session.getCoachName()) && getDay().equals(session.getDay());
     }
 
     @Override

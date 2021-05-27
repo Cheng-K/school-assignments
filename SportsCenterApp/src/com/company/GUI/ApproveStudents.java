@@ -2,7 +2,7 @@ package com.company.GUI;
 
 import com.company.Admin;
 import com.company.FileServer;
-import com.company.Student;
+import com.company.RegisteredStudent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -24,7 +24,7 @@ public class ApproveStudents {
     private DefaultTableModel studentTableModel = (DefaultTableModel)studentTable.getModel();
     private setTable tableManager;
     private class setTable {
-        private ArrayList<Student> studentList = new ArrayList<>();
+        private ArrayList<RegisteredStudent> studentList = new ArrayList<>();
         public setTable() {
             String[] fileContent = FileServer.readFile("Unregstudent.txt");
             if (fileContent.length == 1 && fileContent[0] == "") {
@@ -32,16 +32,16 @@ public class ApproveStudents {
             } else {
                 for (String line : fileContent) {
                     String[] token = line.split("\\|");
-                    Student newStudent = new Student(token,Student.findMyCoach(token[8],token[7]));
+                    RegisteredStudent newStudent = new RegisteredStudent(token, RegisteredStudent.findMyCoach(token[8],token[7]));
                     if (newStudent.getSportsCenterCode().equals(admin.getSportsCenterCode())) {
                         studentList.add(newStudent);
                     }
                 }
                 studentTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                for (String column : Student.getAllAttributes()) {
+                for (String column : RegisteredStudent.getAllAttributes()) {
                     studentTableModel.addColumn(column);
                 }
-                for (Student student : studentList) {
+                for (RegisteredStudent student : studentList) {
                     studentTableModel.addRow(student.toString().split("\\|"));
                 }
             }
@@ -49,7 +49,7 @@ public class ApproveStudents {
         }
     }
     public boolean checkName(String name) {
-        for (Student student : tableManager.studentList) {
+        for (RegisteredStudent student : tableManager.studentList) {
             if (name.equals(student.getName())) {
                 return true;
             }

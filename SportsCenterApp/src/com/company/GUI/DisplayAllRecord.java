@@ -21,7 +21,7 @@ public class DisplayAllRecord {
     private JTable coachRecordTable;
     private JTable sportsRecordTable;
     private JComboBox<Comparator <Coach>> sortByCoachMenu;
-    private JComboBox<Comparator <Student>> sortByStudentMenu;
+    private JComboBox<Comparator <RegisteredStudent>> sortByStudentMenu;
     private JComboBox<Comparator <Sports>> sortBySportsMenu;
     private JLabel orderLabel;
     private ButtonGroup radioButtonGroup = new ButtonGroup();
@@ -135,8 +135,8 @@ public class DisplayAllRecord {
      */
 
     public class SetStudentPanel {
-        private ArrayList<Student> studentList = new ArrayList<>();
-        private ArrayList<Student> currentDisplayList = new ArrayList<>();
+        private ArrayList<RegisteredStudent> studentList = new ArrayList<>();
+        private ArrayList<RegisteredStudent> currentDisplayList = new ArrayList<>();
 
         public SetStudentPanel() {
             getAllStudent();
@@ -149,16 +149,16 @@ public class DisplayAllRecord {
             String[] studentFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Student.txt");
             for (String studentInfo : studentFileContent){
                 String[] tokens = studentInfo.split("\\|");
-                Student student = new Student(tokens,Student.findMyCoach(tokens[8],tokens[7]));
+                RegisteredStudent student = new RegisteredStudent(tokens, RegisteredStudent.findMyCoach(tokens[8],tokens[7]));
                 studentList.add(student);
             }
-            currentDisplayList = (ArrayList<Student>) studentList.clone();
+            currentDisplayList = (ArrayList<RegisteredStudent>) studentList.clone();
         }
 
 
         private void prepareStudentTable() {
             studentRecordTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-            studentTableModel = new DefaultTableModel(Student.getAllAttributes(),0){
+            studentTableModel = new DefaultTableModel(RegisteredStudent.getAllAttributes(),0){
                 @Override
                 public boolean isCellEditable (int row, int column){ return false;}
             };
@@ -167,11 +167,11 @@ public class DisplayAllRecord {
         }
 
         private void updateStudentTable() {
-            for (Student student:currentDisplayList)
+            for (RegisteredStudent student:currentDisplayList)
                 studentTableModel.addRow(student.toString().split("\\|"));
         }
 
-        public void showFoundStudents(ArrayList<Student>searchResults){
+        public void showFoundStudents(ArrayList<RegisteredStudent>searchResults){
             clearStudentTable();
             currentDisplayList = searchResults;
             updateStudentTable();
@@ -180,7 +180,7 @@ public class DisplayAllRecord {
 
         private void clearStudentTable() {studentTableModel.setRowCount(0);}
 
-        private void setDropMenu () {sortByStudentMenu.addItem(new Student.sortByName());}
+        private void setDropMenu () {sortByStudentMenu.addItem(new RegisteredStudent.sortByName());}
 
         public void refreshStudentList() {
             studentList.clear();
@@ -188,7 +188,7 @@ public class DisplayAllRecord {
             clearStudentTable();
             updateStudentTable();
         }
-        public ArrayList<Student> getStudentList() {return studentList;}
+        public ArrayList<RegisteredStudent> getStudentList() {return studentList;}
     }
 
     public class SetSportsPanel {
@@ -343,7 +343,7 @@ public class DisplayAllRecord {
             switch (selectedTab){
                 case 0 :
                     studentPanelManager.clearStudentTable();
-                    admin.sort(studentPanelManager.currentDisplayList,(Comparator<Student>)sortByStudentMenu.getSelectedItem(),ascendingRadioButton.isSelected());
+                    admin.sort(studentPanelManager.currentDisplayList,(Comparator<RegisteredStudent>)sortByStudentMenu.getSelectedItem(),ascendingRadioButton.isSelected());
                     studentPanelManager.updateStudentTable(); // display the table in sorted order
                    break;
                 case 1 :

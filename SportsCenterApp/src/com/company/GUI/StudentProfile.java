@@ -1,7 +1,7 @@
 package com.company.GUI;
 
 import com.company.FileServer;
-import com.company.Student;
+import com.company.RegisteredStudent;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -46,7 +46,8 @@ public class StudentProfile {
     private JButton changePasswordButton;
     private JLabel reenterLabel;
     private JLabel newPasswordLabel;
-    private Student student;
+    private JButton backToMenuButtonPassword;
+    private RegisteredStudent student;
 
     /*
         Class Description : Perform action when modify button is clicked such as hiding modify button, enabling edit, etc..
@@ -157,7 +158,7 @@ public class StudentProfile {
     }
 
 
-    public StudentProfile (Student currStudent){
+    public StudentProfile (RegisteredStudent currStudent){
         student = currStudent;
         setAllField();
         setAllFieldDisabled();
@@ -180,6 +181,14 @@ public class StudentProfile {
                 new StudentMenu(student);
             }
         });
+        backToMenuButtonPassword.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                new StudentMenu(student);
+            }
+        });
+
     }
 
     /*

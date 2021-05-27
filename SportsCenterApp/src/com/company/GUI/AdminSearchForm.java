@@ -155,7 +155,7 @@ public class AdminSearchForm {
                         if (searchResult.size() == 0)
                             JOptionPane.showMessageDialog(frame, "Sorry, no result was found", "Warning", JOptionPane.WARNING_MESSAGE);
                         else {
-                            displayFrame.studentPanelManager.showFoundStudents((ArrayList<Student>) searchResult);
+                            displayFrame.studentPanelManager.showFoundStudents((ArrayList<RegisteredStudent>) searchResult);
                             frame.dispose();
                             displayFrame.frame.setVisible(true);
                         }

@@ -2,8 +2,8 @@ package com.company.GUI;
 
 import com.company.FileServer;
 import com.company.Sports;
-import com.company.Student;
-import com.company.UnregStudent;
+import com.company.RegisteredStudent;
+import com.company.UnregisteredStudent;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,12 +21,12 @@ public class ViewSports {
     private JButton goBackButton;
     private JComboBox sportsCentreBox;
     private DefaultTableModel sportsTableModel;
-    private Student student;
-    private UnregStudent guestStudent;
+    private RegisteredStudent student;
+    private UnregisteredStudent guestStudent;
     private ArrayList<Sports> sportsList = new ArrayList<>();
 
 
-    public ViewSports(Student student) {
+    public ViewSports(RegisteredStudent student) {
         frame = new JFrame("Sports details");
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,7 +58,7 @@ public class ViewSports {
         });
     }
 
-    public ViewSports(UnregStudent guestStudent) {
+    public ViewSports(UnregisteredStudent guestStudent) {
         frame = new JFrame("Sports details");
         frame.setContentPane(mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
