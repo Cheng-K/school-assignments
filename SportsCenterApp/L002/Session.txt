@@ -1,6 +1,6 @@
 Sunday|T01|8|0|10|0|Swimming |Michael Phelps
 Saturday|T02|14|30|16|30|Badminton|Chan Chee Mun
-Sunday|T03|9|0|12|0|Football|Mohammad Danur
+Monday|T03|9|0|12|0|Football|Mohammad Danur
 Wednesday|T04|15|0|16|30|Archery|Jett Kim
 Tuesday|T05|15|0|17|0|Gymnastics|Issabella
 Saturday|T06|10|30|12|30|Volleyball|Shoyo Hinata
@@ -8,4 +8,4 @@ Thursday|T07|10|30|13|0|Basketball|Michael Jordan
 Saturday|T08|8|30|11|30|Cricket|Kong Kok Keong
 Friday|T09|16|0|19|0|Tennis|Roger Federer
 Saturday|T10|13|0|14|30|Table tennis|Kawaski Fubuki
-Monday|T11|9|0|10|30|Badminton|Chan Chee Mun
+Sunday|T11|9|0|10|30|Badminton|Chan Chee Mun

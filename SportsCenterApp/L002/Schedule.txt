@@ -1,5 +1,5 @@
-Sunday|T01|T03|
-Monday|T11|
+Sunday|T01|T11|
+Monday|T03|
 Tuesday|T05|
 Wednesday|T04|
 Thursday|T07|
