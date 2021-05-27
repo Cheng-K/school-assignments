@@ -6,10 +6,7 @@ import java.util.Comparator;
 import java.util.Objects;
 
 
-/* Class Description : Session
-
-
- */
+/* Class Description : Session */
 
 public class Session {
     private final String sessionID;
@@ -19,6 +16,21 @@ public class Session {
     private final String sportName;
     private final String coachName;
     private String day;
+
+    /*----------Class Constructor----------*/
+
+    public Session (String[] details){
+        day = details[0];
+        sessionID = details[1];
+        startTime = LocalTime.of(Integer.parseInt(details[2]),Integer.parseInt(details[3]));
+        endTime = LocalTime.of(Integer.parseInt(details[4]),Integer.parseInt(details[5]));
+        duration = Duration.between(startTime,endTime);
+        sportName = details[6];
+        coachName = details[7];
+    }
+
+    /*----------Sorting methods----------*/
+
     public static class sortByDay implements Comparator<Session>{
         private int changeDayToNum (String day){
             if (day.equalsIgnoreCase("monday"))
@@ -64,15 +76,9 @@ public class Session {
 
 
     }
-    public Session (String[] details){
-        day = details[0];
-        sessionID = details[1];
-        startTime = LocalTime.of(Integer.parseInt(details[2]),Integer.parseInt(details[3]));
-        endTime = LocalTime.of(Integer.parseInt(details[4]),Integer.parseInt(details[5]));
-        duration = Duration.between(startTime,endTime);
-        sportName = details[6];
-        coachName = details[7];
-    }
+
+    /*----------ToString Methods----------*/
+
     public static String[] getAllAttributes (){
         return new String[] {"Day","Session ID", "Start Time", "End Time", "Duration","Sport Name", "Coach Name"};
     }
@@ -86,6 +92,8 @@ public class Session {
         return day+"|"+sessionID + "|" + startTime.getHour() + "|" + startTime.getMinute() + "|" + endTime.getHour() + "|"+
                 endTime.getMinute() + "|"+ sportName + "|"+ coachName;
     }
+
+    /*---------- Getters and Setters----------*/
 
     public String getSessionID() {
         return sessionID;

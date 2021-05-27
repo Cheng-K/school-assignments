@@ -30,6 +30,10 @@ public class Admin {
 
     /*----------Create records methods----------*/
 
+    /* Method : createAccount
+       Description : Takes in students' profile details and passwords as parameters to create an account
+    */
+
     public int createAccount(String[] studentDetail, String password) //ID passed in will be null, and sports centre same with admins'
     {
         Student newStudent = new Student(studentDetail,Student.findMyCoach(studentDetail[8],studentDetail[7]));
@@ -53,6 +57,11 @@ public class Admin {
         return 0;
     }
 
+
+    /* Method : newStudentID
+       Description : Generates new student ID when creating account for students
+    */
+
     public String newStudentID() {
         int max = 0;
         String newID="";
@@ -75,6 +84,10 @@ public class Admin {
         }
         return newID;
     }
+
+    /* Method : approveAccount
+       Description : Approve students' account creation request made by guests logins using names entered as the parameter
+    */
 
     public void approveAccount(String name)
     {
@@ -102,6 +115,9 @@ public class Admin {
 
     }
 
+    /* Method : rejectAccount
+       Description : Reject students' account creation request made by guests logins using names entered as the parameter
+    */
 
     public void rejectAccount(String name)
     {
@@ -114,6 +130,10 @@ public class Admin {
             }
         }
     }
+
+    /* Method : createSports
+       Description : Creates new sport using the sports name and fees entered as the parameter
+    */
 
     public int createSports(String sportsName,String fees)
     {
@@ -145,7 +165,11 @@ public class Admin {
         return 0;
     }
 
-    public int createCoach(String[] coachDetails) //coachID and date terminated passed will be null
+    /* Method : createCoach
+       Description : Takes in coach's profile details as parameters to create a new coach profile
+    */
+
+    public int createCoach(String[] coachDetails) //coachID and date terminated will be passed as "null"
     {
         Coach newCoach = new Coach(coachDetails);
         String[] fileContent = FileServer.readFile(getSportsCenterCode(),"Coach.txt");
@@ -161,6 +185,10 @@ public class Admin {
         FileServer.appendFile(getSportsCenterCode(),"Coach.txt",newCoach.toString()+"\n");
         return 0;
     }
+
+    /* Method : newCoachID
+       Description : Generates new coach ID when creating new coach profiles
+    */
 
     public String newCoachID()
     {
@@ -187,6 +215,10 @@ public class Admin {
         }
         return coachID;
     }
+
+    /* Method : createSession
+       Description : Takes in session details as parameters to create a new sport session
+    */
 
     public void createSession(String[] sessionDetail,String day, String sportCode) {
         int max = 0;
