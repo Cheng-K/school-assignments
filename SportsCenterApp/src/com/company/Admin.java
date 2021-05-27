@@ -16,7 +16,12 @@ public class Admin {
         SportsCenterCode = sportsCenterCode;
     }
 
-
+    /*
+    Method      : adminLogin
+    Description : Verify the details of admin, if correct, return an instance of admin, otherwise null
+    Parameter   : username (String) / password (String)
+    Return      : Admin instance / Null
+ */
     public static Admin adminLogin(String username, String password) {
         String[] adminFileContent = FileServer.readFile("", "Admin.txt");
         for (String line : adminFileContent) {
@@ -267,7 +272,13 @@ public class Admin {
 
     /*---------Modify records methods---------*/
 
-
+    /*
+    Method      : modCoach
+    Description : Modify the coach details
+    Parameter   : newDetails (List of strings) , Coach object with details to be modified
+    Return      : 0 -- modify success
+                  1 -- modify failed
+ */
     public int modCoach(List<String>newDetails,Coach coach){
         String oldString = coach.toString();
         coach.setDateJoined(LocalDate.parse(newDetails.get(2)));
@@ -287,6 +298,14 @@ public class Admin {
 
 
     }
+
+    /*
+    Method      : modSports
+    Description : Modify a sport details
+    Parameter   : newFees (updated sport fees) , sports object with fees to be modified
+    Return      : 0 -- modify success
+                  1 -- modify failed
+   */
     public int modSports (Integer newFees, Sports sports){
         String oldString = sports.toString();
         sports.setSportFees(newFees);
@@ -294,6 +313,14 @@ public class Admin {
         FileServer.findAndReplace(currentFileContent,oldString,sports.toString());
         return FileServer.writeFile(SportsCenterCode,"Sports.txt",String.join("\n",currentFileContent)+"\n");
     }
+
+    /*
+        Method      : modSession
+        Description : Modify the session details
+        Parameter   : newDetails (List of strings) , Session object with details to be modified
+        Return      : 0 -- modify success
+                      1 -- modify failed
+*/
     public int modSession (List<String>newDetails,Session session){
         String oldString = session.getWriteToFileString();
         // modifying attributes
@@ -316,6 +343,13 @@ public class Admin {
 
     /*---------Search records methods---------*/
 
+    /*
+    Method      : searchCoach
+    Description : used to search for coach in a list of coaches
+    Parameter   : coachList (List of coaches) , ID (Coach ID to be searched)
+    Return      : An array list of coaches (contains the coach with similar ID)
+    */
+
     public  ArrayList<Coach> searchCoach(List<Coach>coachList,String ID){
         ArrayList<Coach>found = new ArrayList<>();
         for (Coach coach:coachList){
@@ -324,6 +358,12 @@ public class Admin {
         }
         return found;
     }
+    /*
+    Method      : searchCoach (Overloaded)
+    Description : used to search for coach in a list of coaches
+    Parameter   : coachList (List of coaches) , rating (coach rating to be searched)
+    Return      : An array list of coaches (contains the coach with similar rating)
+*/
     public ArrayList<Coach> searchCoach(List<Coach>coachList,int rating){
         ArrayList<Coach>found = new ArrayList<>();
         for (Coach coach:coachList){
@@ -337,10 +377,23 @@ public class Admin {
         }
         return found;
     }
+
+    /*
+        Method      : searchCoach (Overloaded)
+        Description : used to search for coach in a list of coaches
+        Parameter   : coachList (List of coaches) , ID (Coach ID to be searched), rating (coach rating to be searched)
+        Return      : An array list of coaches (contains the coach with similar rating & similar ID)
+*/
     public ArrayList<Coach> searchCoach(List<Coach>coachList,String ID, int rating){
         return searchCoach(searchCoach(coachList,ID),rating);
     }
 
+    /*
+    Method      : searchSports
+    Description : used to search for sports in a list of sports
+    Parameter   : sportsList (List of sports) , ID (Sport ID to be searched)
+    Return      : An array list of sports (contains the sports with similar ID)
+*/
     public ArrayList<Sports> searchSports(List <Sports> sportsList, String ID){
         ArrayList<Sports>found = new ArrayList<>();
         for (Sports sports : sportsList){
@@ -350,6 +403,12 @@ public class Admin {
         return found;
     }
 
+    /*
+    Method      : searchStudent
+    Description : used to search for student in a list of coaches
+    Parameter   : studentList (List of students) , ID (Student ID to be searched)
+    Return      : An array list of students (contains the students with similar ID)
+*/
     public ArrayList<RegisteredStudent> searchStudent(List<RegisteredStudent>studentList, String ID){
         ArrayList<RegisteredStudent>found = new ArrayList<>();
         for (RegisteredStudent student : studentList){
@@ -360,6 +419,14 @@ public class Admin {
     }
 
     /*---------Delete records methods---------*/
+
+    /*
+        Method      : deleteCoachRecord
+        Description : Used to delete a coach in the system
+        Parameter   : coachList (List of coaches) , coachToRemove (Coach object to be removed)
+        Return      : 0 -- remove successful
+                      1 -- remove unsuccessful
+    */
 
     public int deleteCoachRecord (List<Coach> coachList, Coach coachToRemove){
         int foundCoach = 0;
@@ -378,6 +445,13 @@ public class Admin {
         return 1;
     }
 
+    /*
+        Method      : deleteSportsRecord
+        Description : Used to delete a sport in the system
+        Parameter   : sportsList (List of coaches) , sportsToRemove (sports object to be removed)
+        Return      : 0 -- remove successful
+                      1 -- remove unsuccessful
+    */
     public int deleteSportsRecord (List<Sports> sportsList, Sports sportsToRemove){
         int foundSports = 0;
         for (;foundSports < sportsList.size();foundSports++){
@@ -395,6 +469,14 @@ public class Admin {
         return 1;
     }
 
+
+    /*
+        Method      : deleteStudentRecord
+        Description : Used to delete a student in the system
+        Parameter   : studentList (List of students) , studentToRemove (Student object to be removed)
+        Return      : 0 -- remove successful
+                      1 -- remove unsuccessful
+    */
     public int deleteStudentRecord (List<RegisteredStudent> studentList, RegisteredStudent studentToRemove){
         // remove student at credentials file
         String nameToBeRemoved = studentToRemove.getName();
@@ -434,6 +516,14 @@ public class Admin {
         return 1;
     }
 
+    /*
+        Method      : deleteSessionRecord
+        Description : Used to delete a session in the system
+        Parameter   : sessionToBeRemove (session object to be removed)
+        Return      : 0 -- remove successful
+                      1 -- remove unsuccessful
+    */
+
     public int deleteSessionRecord (Session sessionToBeRemove){
         // initialize all sessions
         List<Session> allSession = new ArrayList<>();
@@ -448,8 +538,8 @@ public class Admin {
             if (FileServer.appendFile(this.SportsCenterCode,"Session.txt",session.getWriteToFileString()+"\n") == 1)
                 return 1;
         }
+        // update schedule.txt
         return Schedule.updateScheduleFile(this.SportsCenterCode);
     }
-
 
 }

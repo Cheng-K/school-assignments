@@ -1,6 +1,6 @@
 Swimming |B001|50
 Badminton|B002|40
-Football|B003|35
+Football|B003|50
 Archery|B004|60
 Gymnastics|B005|50
 Volleyball|B006|60

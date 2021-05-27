@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 /* Questions : Modifying password*/
 
-public class StudentProfile {
+public class StudentProfile extends FormChecker{
     private JFrame frame;
     private JPanel rootPanel;
     private JPanel studentProfilePanel;
@@ -75,7 +75,7 @@ public class StudentProfile {
             resetBorderBlack();
             String[] fileContent = FileServer.readFile(student.getSportsCenterCode(),"Student.txt");
             String oldDetails = student.toString();
-            if (updateStudentDetails(new FormChecker()) == 0) {
+            if (updateStudentDetails() == 0) {
                 String newDetails = student.toString();
                 String[] newFileContent = FileServer.findAndReplace(fileContent, oldDetails, newDetails);
                 int writeFailed = FileServer.writeFile(student.getSportsCenterCode(), "Student.txt", String.join("\n", newFileContent) + "\n");
@@ -246,13 +246,13 @@ public class StudentProfile {
         Description : Update student attribute with edited information
      */
 
-    private int updateStudentDetails (FormChecker validator) {
+    private int updateStudentDetails () {
         int returnNum = 0;
-        if (!validator.onlyDigits(ageField.getText()) || ageField.getText().length()>2 || ageField.getText().isEmpty()) {
+        if (!onlyDigits(ageField.getText()) || ageField.getText().length()>2 || ageField.getText().isEmpty()) {
             setBorderRed(ageField, "Invalid age provided");
             returnNum = 1;
         }
-        if (!validator.onlyDigits(phoneField.getText())|| phoneField.getText().isEmpty()) {
+        if (!onlyDigits(phoneField.getText())|| phoneField.getText().isEmpty()) {
             setBorderRed(phoneField, "Invalid contact number provided");
             returnNum = 1;
         }

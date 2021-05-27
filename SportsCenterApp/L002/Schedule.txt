@@ -1,10 +1,10 @@
-Sunday|T01|T11|
+Sunday|T01|
 Monday|T03|
 Tuesday|T05|
 Wednesday|T04|
 Thursday|T07|
-Friday|T09|
-Saturday|T02|T06|T08|T10|
+Friday|T09|T10|
+Saturday|T02|T06|T08|T11|
 Archery|T04|
 Badminton|T02|T11|
 Basketball|T07|

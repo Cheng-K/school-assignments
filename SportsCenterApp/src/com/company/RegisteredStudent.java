@@ -14,6 +14,11 @@ public class RegisteredStudent extends BaseStudent {
     private final Coach coach;
     private boolean givenRating;
 
+    /*
+    Class       : sortByName (implements Comparator interface)
+    Description : Paired with built in list sorting method to sort students by their name in alphebetical order
+    */
+
     public static class sortByName implements Comparator<RegisteredStudent>{
         @Override
         public String toString() {
@@ -24,6 +29,13 @@ public class RegisteredStudent extends BaseStudent {
             return o1.name.compareTo(o2.name);
         }
     }
+
+    /*
+        Method       : findMyCoach (Static method)
+        Description  : Used to find student's coach given coachName and sportsCenterCode
+        Parameter    : coachName (String) , sportsCentercode (String)
+        Return       : Coach object / Null (if not found)
+    */
     public static Coach findMyCoach(String coachName,String sportsCenterCode) {
         String[] coachFile = FileServer.readFile(sportsCenterCode,"Coach.txt");
         Coach foundCoach = null;
@@ -36,20 +48,12 @@ public class RegisteredStudent extends BaseStudent {
         return foundCoach;
     }
 
-    public RegisteredStudent(String[] studentDetails, Coach myCoach) {
-        name = studentDetails[0];
-        studentID = studentDetails[1];
-        age = Integer.parseInt(studentDetails[2]);
-        address = studentDetails[3];
-        contactNumber = studentDetails[4];
-        email = studentDetails[5];
-        registeredSports = studentDetails[6];
-        sportsCenterCode = studentDetails[7];
-        this.coach = myCoach;
-        givenRating = Boolean.parseBoolean(studentDetails[9]);
-    }
-
-
+    /*
+     Method       : studentLogin (Static method)
+     Description  : Used to validate student credentials before creating a student instance
+     Parameter    : username(String), password(String)
+     Return       : RegisteredStudent object / null if invalid credentials
+ */
     public static RegisteredStudent studentLogin (String username, String password){
         String[] studentFileContent = FileServer.readFile("Student.txt");
         for (String line:studentFileContent){
@@ -69,12 +73,32 @@ public class RegisteredStudent extends BaseStudent {
         return null;
     }
 
+    public RegisteredStudent(String[] studentDetails, Coach myCoach) {
+        name = studentDetails[0];
+        studentID = studentDetails[1];
+        age = Integer.parseInt(studentDetails[2]);
+        address = studentDetails[3];
+        contactNumber = studentDetails[4];
+        email = studentDetails[5];
+        registeredSports = studentDetails[6];
+        sportsCenterCode = studentDetails[7];
+        this.coach = myCoach;
+        givenRating = Boolean.parseBoolean(studentDetails[9]);
+    }
+
+
     @Override
     public String toString(){
         return name +"|"+ studentID +"|" + age +"|"+ address + "|" + contactNumber + "|" + email + "|"+
                 registeredSports + "|" + sportsCenterCode + "|" + coach.getName() + "|" + givenRating;
     }
 
+    /*
+     Method       : updateDetails
+     Description  : Used to update student details
+     Parameter    : age (int), address (String), contactNumber (String), email (String)
+     Return       : void
+ */
     public void updateDetails (int age,String address,String contactNumber,String email){
         setAge(age);
         setAddress(address);
@@ -82,6 +106,12 @@ public class RegisteredStudent extends BaseStudent {
         setEmail(email);
     }
 
+    /*
+     Method       : getAllAttributes (static)
+     Description  : Used to get all attributes a student has
+     Parameter    : -
+     Return       : An array of strings containing all the attributes name
+ */
     public static String[] getAllAttributes () {
         return new String[] {"Name","StudentID","Age","Address","Contact Number", "Email","Registered Sports",
                 "Sports Center Code", "Coach", "Rating given"};

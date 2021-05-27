@@ -102,7 +102,7 @@ public class AdminModifyMenu {
         }
     }
 
-    private class SetCoachTab {
+    private class SetCoachTab extends FormChecker{
         public SetCoachTab() {
             coachIDField.setText(coach.getCoachID());
             nameField.setText(coach.getName());
@@ -139,7 +139,7 @@ public class AdminModifyMenu {
             return returnList;
         }
 
-        private int verifyCoachDetails (List<String> coachDetails, FormChecker validator){
+        private int verifyCoachDetails (List<String> coachDetails){
             int returnNum = 0;
             // Check for each length
             for (int index = 0; index<coachDetails.size(); index++){
@@ -154,25 +154,25 @@ public class AdminModifyMenu {
                         case 1:
                             break;
                         case 2:
-                            if (!validator.isDateObject(coachDetails.get(2))) {
+                            if (!isDateObject(coachDetails.get(2))) {
                                 setCoachBorderRed(index, "Date format should be YYYY-MM-DD");
                                 returnNum = 1;
                             }
                             break;
                         case 3:
-                            if (!validator.isDateObject(coachDetails.get(3)) && !coachDetails.get(3).equals("null")) {
+                            if (!isDateObject(coachDetails.get(3)) && !coachDetails.get(3).equals("null")) {
                                 setCoachBorderRed(index, "Date format should be YYYY-MM-DD");
                                 returnNum = 1;
                             }
                             break;
                         case 4:
-                            if (!validator.isIntegerObject(coachDetails.get(4))) {
+                            if (!isIntegerObject(coachDetails.get(4))) {
                                 setCoachBorderRed(index, "Invalid integer provided");
                                 returnNum = 1;
                             }
                             break;
                         case 5 :
-                            if (!validator.onlyDigits(coachDetails.get(5))) {
+                            if (!onlyDigits(coachDetails.get(5))) {
                                 setCoachBorderRed(index, "Invalid contact number, only digits are allowed, no space.");
                                 returnNum = 1;
                             }
@@ -247,7 +247,7 @@ public class AdminModifyMenu {
         }
     }
 
-    private class SetSessionTab {
+    private class SetSessionTab extends FormChecker{
         public SetSessionTab(){
             dayField.setText(session.getDay());
             sessionIDField.setText(session.getSessionID());
@@ -270,21 +270,21 @@ public class AdminModifyMenu {
             return returnList;
         }
 
-        private int verifySessionDetails (List<String> sessionDetails, FormChecker validator){
+        private int verifySessionDetails (List<String> sessionDetails){
             int returnNum = 0;
-            if (!validator.isDay(sessionDetails.get(0))){
+            if (!isDay(sessionDetails.get(0))){
                 setSessionBorderRed(0,"Invalid day provided.");
                 returnNum = 1;
             }
-            if (!validator.isTime(sessionDetails.get(2))){
+            if (!isTime(sessionDetails.get(2))){
                 setSessionBorderRed(2,"Please provide a valid time in HH:MM 24 hour format");
                 returnNum = 1;
             }
-            if (!validator.isTime(sessionDetails.get(3))){
+            if (!isTime(sessionDetails.get(3))){
                 setSessionBorderRed(3,"Please provide a valid time in HH:MM 24 hour format");
                 returnNum = 1;
             }
-            if (validator.isLogicalDuration(sessionDetails.get(2),sessionDetails.get(3)) == 1){
+            if (isLogicalDuration(sessionDetails.get(2),sessionDetails.get(3)) == 1){
                 setSessionBorderRed(4,"Please provide a valid time with start time earlier than end time.");
                 returnNum = 1;
             }
@@ -338,15 +338,15 @@ public class AdminModifyMenu {
 
     }
 
-    private class SetSportsTab {
+    private class SetSportsTab extends FormChecker{
         public SetSportsTab (){
             sportIDField.setText(sports.getSportsID());
             sportNameField.setText(sports.getName());
             sportFeesField.setText(Integer.toString(sports.getSportFees()));
             saveCloseButtonSports.addActionListener(new saveCloseButtonSportsListener());
         }
-        private int verifySportsDetails (String newSportFees,FormChecker validator){
-            if (validator.isIntegerObject(newSportFees)) {
+        private int verifySportsDetails (String newSportFees){
+            if (isIntegerObject(newSportFees)) {
                 return 0;
             }
             else {
@@ -378,7 +378,7 @@ public class AdminModifyMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             coachPanelManager.setBorderBlack();
-            if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails(),new FormChecker()) == 1) {
+            if (coachPanelManager.verifyCoachDetails(coachPanelManager.getEnteredCoachDetails()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
                 if (admin.modCoach(coachPanelManager.getEnteredCoachDetails(), coach) == 1)
@@ -396,7 +396,7 @@ public class AdminModifyMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             sessionPanelManager.setBorderBlack();
-            if (sessionPanelManager.verifySessionDetails(sessionPanelManager.getEnteredDetails(),new FormChecker()) == 1) {
+            if (sessionPanelManager.verifySessionDetails(sessionPanelManager.getEnteredDetails()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
                 if (admin.modSession(sessionPanelManager.getEnteredDetails(), session) == 1){
@@ -414,7 +414,7 @@ public class AdminModifyMenu {
         @Override
         public void actionPerformed(ActionEvent e) {
             sportsPanelManager.setSportsBorderBlack();
-            if (sportsPanelManager.verifySportsDetails(sportFeesField.getText(),new FormChecker()) == 1) {
+            if (sportsPanelManager.verifySportsDetails(sportFeesField.getText()) == 1) {
                 JOptionPane.showMessageDialog(frame, "Invalid value/format for red coloured border fields. Please try again");
             } else {
                 if (admin.modSports(Integer.parseInt(sportFeesField.getText()), sports) == 1)

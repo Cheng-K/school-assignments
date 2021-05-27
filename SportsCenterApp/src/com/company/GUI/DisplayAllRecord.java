@@ -52,7 +52,7 @@ public class DisplayAllRecord {
     /*  Class : SetCoachPanel
         Description : Responsible for setting up/ changing components in Coach Tab (Coach Tab Manager)
      */
-    public class SetCoachPanel {
+    public class SetCoachPanel implements TablePanelManager {
 
         private ArrayList<Coach> coachList = new ArrayList<>();
         private ArrayList<Coach> currentDisplayList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class DisplayAllRecord {
             updateCoachTable();
             setSortDropMenu();
         }
-
+        @Override
         public void clearUpdateTable() {
             clearCoachTable();
             coachList.clear();
@@ -134,7 +134,7 @@ public class DisplayAllRecord {
         Description : Responsible for setting up/ changing components in Coach Tab (Student Tab Manager)
      */
 
-    public class SetStudentPanel {
+    public class SetStudentPanel implements TablePanelManager{
         private ArrayList<RegisteredStudent> studentList = new ArrayList<>();
         private ArrayList<RegisteredStudent> currentDisplayList = new ArrayList<>();
 
@@ -182,7 +182,8 @@ public class DisplayAllRecord {
 
         private void setDropMenu () {sortByStudentMenu.addItem(new RegisteredStudent.sortByName());}
 
-        public void refreshStudentList() {
+        @Override
+        public void clearUpdateTable() {
             studentList.clear();
             getAllStudent();
             clearStudentTable();
@@ -191,7 +192,7 @@ public class DisplayAllRecord {
         public ArrayList<RegisteredStudent> getStudentList() {return studentList;}
     }
 
-    public class SetSportsPanel {
+    public class SetSportsPanel implements TablePanelManager{
         public ArrayList<Sports> currentDisplayList = new ArrayList<>();
         private ArrayList<Sports> sportsArrayList = new ArrayList<>();
         private SetSportsPanel(){
@@ -224,12 +225,6 @@ public class DisplayAllRecord {
                 sportsTableModel.addRow(sport.toString().split("\\|"));
             }
         }
-        public void clearUpdateTable() {
-            clearSportsTable();
-            sportsArrayList.clear();
-            getAllSports();
-            updateSportsTable();
-        }
         public void showFoundSports (ArrayList<Sports> results){
             clearSportsTable();
             currentDisplayList = results;
@@ -241,14 +236,21 @@ public class DisplayAllRecord {
             sortBySportsMenu.addItem(new Sports.sortByFees());
         }
         private void clearSportsTable() {sportsTableModel.setRowCount(0);}
-
         public ArrayList<Sports> getSportsArrayList() {
             return sportsArrayList;
         }
 
+        @Override
+        public void clearUpdateTable() {
+            clearSportsTable();
+            sportsArrayList.clear();
+            getAllSports();
+            updateSportsTable();
+        }
+
     }
 
-    public class SetSchedulePanel {
+    public class SetSchedulePanel implements TablePanelManager {
         private ArrayList<Schedule> allScheduleList = new ArrayList<>();
 
         public SetSchedulePanel() {
@@ -294,22 +296,6 @@ public class DisplayAllRecord {
             updateScheduleTable(allScheduleList.get(0));
         }
 
-        public void clearUpdateTable(){
-            int previouslySelectedIndex = scheduleSelector.getSelectedIndex();
-            clearScheduleTable();
-            allScheduleList.clear();
-            getAllSchedule();
-            scheduleSelector.removeItemListener(scheduleSelector.getItemListeners()[0]);
-            scheduleSelector.removeAllItems();
-            prepareScheduleSelector();
-            updateScheduleTable();
-            try {
-                scheduleSelector.setSelectedIndex(previouslySelectedIndex);
-            } catch (Exception e){
-                // do nothing prevent error
-            }
-        }
-
         private void clearScheduleTable() {scheduleTableModel.setRowCount(0);}
 
         private void prepareScheduleSelector() {
@@ -328,6 +314,23 @@ public class DisplayAllRecord {
         private void setSortDropMenu (){
             sortByScheduleMenu.addItem(new Session.sortByDay());
             sortByScheduleMenu.addItem(new Session.sortByName());
+        }
+
+        @Override
+        public void clearUpdateTable(){
+            int previouslySelectedIndex = scheduleSelector.getSelectedIndex();
+            clearScheduleTable();
+            allScheduleList.clear();
+            getAllSchedule();
+            scheduleSelector.removeItemListener(scheduleSelector.getItemListeners()[0]);
+            scheduleSelector.removeAllItems();
+            prepareScheduleSelector();
+            updateScheduleTable();
+            try {
+                scheduleSelector.setSelectedIndex(previouslySelectedIndex);
+            } catch (Exception e){
+                // do nothing prevent error
+            }
         }
 
     }
@@ -425,7 +428,7 @@ public class DisplayAllRecord {
         public void actionPerformed(ActionEvent e) {
             switch (tabbedPane1.getSelectedIndex()){
                 case 0 :
-                    studentPanelManager.refreshStudentList();
+                    studentPanelManager.clearUpdateTable();
                     break;
                 case 1:
                     coachPanelManager.clearUpdateTable();
@@ -455,7 +458,7 @@ public class DisplayAllRecord {
                             if (admin.deleteStudentRecord(studentPanelManager.studentList, studentPanelManager.currentDisplayList.get(row)) == 1)
                                 JOptionPane.showMessageDialog(frame, "Cannot perform delete operation. File cannot be accessed. Check with technical assistance.");
                             else
-                                studentPanelManager.refreshStudentList();
+                                studentPanelManager.clearUpdateTable();
                         }
                     }
                     break;
@@ -524,7 +527,7 @@ public class DisplayAllRecord {
                 }
             }
         }
-        public List<String> getAllOccupiedCoach() {
+        private List<String> getAllOccupiedCoach() {
             List<String> occupiedCoaches = new ArrayList<>();
             String[] studentFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Student.txt");
             for (String line : studentFileContent){
@@ -533,11 +536,11 @@ public class DisplayAllRecord {
             }
             return occupiedCoaches;
         }
-        public boolean coachIsOccupied (List<String>occupiedCoaches,String coachName){
+        private boolean coachIsOccupied (List<String>occupiedCoaches,String coachName){
             return occupiedCoaches.contains(coachName);
         }
 
-        public List<String> getAllOccupiedSports() {
+        private List<String> getAllOccupiedSports() {
             List<String> occupiedSports = new ArrayList<>();
             String[] studentFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Student.txt");
             String[] coachFileContent = FileServer.readFile(admin.getSportsCenterCode(),"Coach.txt");
@@ -551,7 +554,7 @@ public class DisplayAllRecord {
             }
             return occupiedSports;
         }
-        public boolean sportsIsOccupied (List<String>occupiedSports,String sportsName){
+        private boolean sportsIsOccupied (List<String>occupiedSports,String sportsName){
             return occupiedSports.contains(sportsName);
         }
     }

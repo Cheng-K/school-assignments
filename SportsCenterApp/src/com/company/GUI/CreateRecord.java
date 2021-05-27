@@ -12,7 +12,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.time.LocalTime;
 
-public class CreateRecord {
+public class CreateRecord extends FormChecker{
     private JFrame frame;
     private JPanel mainPanel;
     private JTextField ageField;
@@ -49,7 +49,7 @@ public class CreateRecord {
     private JLabel durationLabel;
     private JTextField feesField;
     private JLabel feesLabel;
-    private FormChecker formChecker;
+
 
     public CreateRecord(Admin admin, String type) {
         frame = new JFrame("Create " + type + " profile");
@@ -59,7 +59,6 @@ public class CreateRecord {
         errorLabel.setForeground(Color.red);
         frame.setVisible(true);
         headerLabel.setText("Enter " + type + " details below: ");
-        this.formChecker = new FormChecker();
         setComboBox(admin.getSportsCenterCode());
         if (type.equals("student")) {
             setStudentVisibility();
@@ -146,9 +145,9 @@ public class CreateRecord {
                         errorLabel.setText("Please select a sport!");
                     } else if (coachBox.getSelectedItem().equals("---")) {
                         errorLabel.setText("Please select a coach!");
-                    } else if (formChecker.onlyDigits(ageField.getText())==false){
+                    } else if (onlyDigits(ageField.getText())==false){
                         errorLabel.setText("Please enter a number for the age field!");
-                    } else if (formChecker.onlyDigits(contactField.getText())==false){
+                    } else if (onlyDigits(contactField.getText())==false){
                         errorLabel.setText("Please enter only digits for contact number!");
                     } else {
                         int check = admin.createAccount(studentDetail, passwordField.getText());
@@ -178,9 +177,9 @@ public class CreateRecord {
                         errorLabel.setText("Contact entered is too short!");
                     } else if (sportsCodeBox.getSelectedItem().equals("---")) {
                         errorLabel.setText("Select a sports code!");
-                    } else if (formChecker.onlyDigits(hourlyRateField.getText())==false) {
+                    } else if (onlyDigits(hourlyRateField.getText())==false) {
                         errorLabel.setText("Enter a number for 'hourly rate'!");
-                    } else if (formChecker.onlyDigits(contactField.getText())==false) {
+                    } else if (onlyDigits(contactField.getText())==false) {
                         errorLabel.setText("Please enter only digits for contact number!");
                     } else {
                         String[] coachDetails = {nameField.getText(), "null", String.valueOf(java.time.LocalDate.now()), "null",
@@ -204,7 +203,7 @@ public class CreateRecord {
                         errorLabel.setText("Please enter the sports' name!");
                     } else if(feesField.getText().equals("")){
                         errorLabel.setText("Please enter amount for the fees!");
-                    } else if(formChecker.onlyDigits(feesField.getText())==false){
+                    } else if(onlyDigits(feesField.getText())==false){
                         errorLabel.setText("Please enter numeric digits only for the fees!");
                     } else if (admin.createSports(nameField.getText(),feesField.getText()) == 1) {
                         errorLabel.setText("Sport entered already exist!");
@@ -266,7 +265,6 @@ public class CreateRecord {
         errorLabel.setForeground(Color.red);
         frame.setVisible(true);
         headerLabel.setText("Enter your details below: ");
-        this.formChecker = new FormChecker();
         setStudentVisibility();
         sportsCentreCodeLabel.setVisible(true);
         sportsCentreBox.setVisible(true);
@@ -316,7 +314,7 @@ public class CreateRecord {
                     errorLabel.setText("Enter details for all options above!");
                 } else if (nameField.getText().length() < 8) {
                     errorLabel.setText("Name entered is too short! (min. 8 char)");
-                } else if (contactField.getText().length() < 10 || !formChecker.onlyDigits(contactField.getText())) {
+                } else if (contactField.getText().length() < 10 || !onlyDigits(contactField.getText())) {
                     errorLabel.setText("Contact entered is invalid!");
                 } else if (!(emailField.getText().contains("@"))) {
                     errorLabel.setText("Format of email entered is invalid!");
@@ -326,7 +324,7 @@ public class CreateRecord {
                     errorLabel.setText("Select a sports!");
                 } else if (coachBox.getSelectedItem().equals("---")) {
                     errorLabel.setText("Select a coach!");
-                } else if (formChecker.onlyDigits(ageField.getText())==false) {
+                } else if (onlyDigits(ageField.getText())==false) {
                     errorLabel.setText("Please enter a number for the age field!");
                 }else {
                     String[] studentDetail = {nameField.getText(), "null", ageField.getText(), addressField.getText(),

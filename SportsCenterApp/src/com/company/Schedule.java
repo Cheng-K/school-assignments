@@ -64,8 +64,8 @@ public class Schedule implements Comparable<Schedule> {
     Parameter   : sportsCentercode (String) , sessionID (String Array)
     Return      : -
  */
-    public Schedule (String sportsCenterCode, String[] sessionID) {
-        // Initialize sessions that belongs to the schedule and place it in list
+
+    public Schedule (String sportsCenterCode, String type, String[] sessionID){
         String[] sessionFile = FileServer.readFile(sportsCenterCode,"Session.txt");
         for (String ID : sessionID){
             for (String line : sessionFile){
@@ -76,9 +76,6 @@ public class Schedule implements Comparable<Schedule> {
                 }
             }
         }
-    }
-    public Schedule (String sportsCenterCode, String type, String[] sessionID){
-        this(sportsCenterCode,sessionID);
         this.type = type;
     }
 
