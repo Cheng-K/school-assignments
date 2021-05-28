@@ -9,3 +9,4 @@ Ng Wei Jun|C008|2021-05-25|null|189|0322848594|423A 1St Floor Jalan Pahang Setap
 Samad Ali|C009|2021-05-25|null|200|6077994995|423A 1St Floor Jalan Pahang Setapak Kuala Lumpur|L001|B008|0|0|Cricket
 Liew Yee Jing|C010|2021-05-25|null|190|6072248151|4 Highway Centre 47 4 Jln 51/205 Seksyen 51 Petaling Jaya|L001|B009|0|0|Tennis
 Jojo King|C011|2021-05-25|null|300|0379557985|2C Jln Yahya Awal Kampung Gertak Merah|L001|B010|0|0|Table tennis
+Steve Rogers|C012|2021-05-28|null|300|01345678890|27,Jalan Armani, Taman Ameka|L001|B007|0|0|Basketball

@@ -149,7 +149,7 @@ public class AdminModifyMenu {
                 }
                 else {
                     switch (index){
-                        case 0 :
+                        case 0 :  // no action is performed is the field does not allowed modification
                             break;
                         case 1:
                             break;

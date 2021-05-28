@@ -5,12 +5,11 @@ import java.io.*;
     Description : FileServer class is responsible for fileIO operations. Class should be used without instantiation.
  */
 public abstract class FileServer {
-
     /*
         Method Name : readFile
         Return : Array of strings that represents each line in the file.
      */
-    public static String[] readFile (String subDirectory, String fileName){ // Bugs : should check whether the file content is empty ?
+    public static String[] readFile (String subDirectory, String fileName){
         String fileContent = "";
         File file = null;
 
@@ -48,7 +47,6 @@ public abstract class FileServer {
                  1 represents write to file is unsuccessful
      */
 
-    // Bugs discovered previously passing in string filecontent, the last string does not contain "\n"
     public static int writeFile (String subDirectory, String fileName, String fileContent){
         File file = null;
         if (subDirectory.isEmpty()) {

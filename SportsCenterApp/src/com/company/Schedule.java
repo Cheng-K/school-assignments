@@ -100,18 +100,6 @@ public class Schedule implements Comparable<Schedule> {
         writeThis.append("|").append("\n");
         return writeThis.toString();
     }
-    public String getAllSessionToString() {
-        StringBuilder returnString = new StringBuilder();
-        if (sessionList.size() > 0) {
-            int index = 0;
-            for (; index < sessionList.size() - 1; index++) {
-                returnString.append(sessionList.get(index).getSessionID()).append(",");
-            }
-            // Append last session without comma
-            returnString.append(sessionList.get(index).getSessionID());
-        }
-        return returnString.toString();
-    }
 
     public void addSession(Session newSession) {
         sessionList.add(newSession);

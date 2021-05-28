@@ -8,3 +8,4 @@ Basketball|B007|40
 Cricket|B008|69
 Tennis|B009|50
 Table tennis|B010|40
+Bowling|B011|100

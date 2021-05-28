@@ -5,8 +5,11 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/*
+    Class Description : Used to validate text strings entered by the user in GUI
+ */
+
 class FormChecker {
-    // Not sure where to put it
     public boolean onlyDigits(String str) {
         if (str.isEmpty()){
             return false;
@@ -27,7 +30,7 @@ class FormChecker {
         return true;
     }
 
-    public boolean isIntegerObject(String str) {
+    public final boolean isIntegerObject(String str) {
         try {
             Integer.parseInt(str);
         } catch (Exception e) {
@@ -36,7 +39,7 @@ class FormChecker {
         return true;
     }
 
-    public boolean isDay(String str) {
+    public final boolean isDay(String str) {
         ArrayList<String> listOfDays = new ArrayList<String>(Arrays.asList(
                 "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"));
         return listOfDays.contains(str.toLowerCase());

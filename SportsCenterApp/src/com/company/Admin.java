@@ -242,8 +242,6 @@ public class Admin {
         }
         Session newSession = new Session(sessionDetail);
         FileServer.appendFile(getSportsCenterCode(),"Session.txt",newSession.getWriteToFileString()+"\n");
-        String[] scheduleFileContent = FileServer.readFile(getSportsCenterCode(),"Schedule.txt");
-        int cnt = 0;
         Schedule.updateScheduleFile(getSportsCenterCode());
     }
 

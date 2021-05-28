@@ -24,7 +24,6 @@ public class StudentMenu {
     private JPanel guestButtonPanel;
     private RegisteredStudent regStudent;
     private UnregisteredStudent guestStudent;
-    private Coach myCoach;
 
     /*  Description : Constructor that creates studentMenu frame
         Parameter   : BaseStudent object (current user)

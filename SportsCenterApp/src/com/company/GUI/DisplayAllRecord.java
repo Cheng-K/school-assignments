@@ -52,7 +52,7 @@ public class DisplayAllRecord {
     /*  Class : SetCoachPanel
         Description : Responsible for setting up/ changing components in Coach Tab (Coach Tab Manager)
      */
-    public class SetCoachPanel implements TablePanelManager {
+    public class SetCoachPanel {
 
         private ArrayList<Coach> coachList = new ArrayList<>();
         private ArrayList<Coach> currentDisplayList = new ArrayList<>();
@@ -63,7 +63,7 @@ public class DisplayAllRecord {
             updateCoachTable();
             setSortDropMenu();
         }
-        @Override
+
         public void clearUpdateTable() {
             clearCoachTable();
             coachList.clear();
@@ -134,7 +134,7 @@ public class DisplayAllRecord {
         Description : Responsible for setting up/ changing components in Coach Tab (Student Tab Manager)
      */
 
-    public class SetStudentPanel implements TablePanelManager{
+    public class SetStudentPanel {
         private ArrayList<RegisteredStudent> studentList = new ArrayList<>();
         private ArrayList<RegisteredStudent> currentDisplayList = new ArrayList<>();
 
@@ -182,7 +182,7 @@ public class DisplayAllRecord {
 
         private void setDropMenu () {sortByStudentMenu.addItem(new RegisteredStudent.sortByName());}
 
-        @Override
+
         public void clearUpdateTable() {
             studentList.clear();
             getAllStudent();
@@ -192,7 +192,7 @@ public class DisplayAllRecord {
         public ArrayList<RegisteredStudent> getStudentList() {return studentList;}
     }
 
-    public class SetSportsPanel implements TablePanelManager{
+    public class SetSportsPanel {
         public ArrayList<Sports> currentDisplayList = new ArrayList<>();
         private ArrayList<Sports> sportsArrayList = new ArrayList<>();
         private SetSportsPanel(){
@@ -240,7 +240,7 @@ public class DisplayAllRecord {
             return sportsArrayList;
         }
 
-        @Override
+
         public void clearUpdateTable() {
             clearSportsTable();
             sportsArrayList.clear();
@@ -250,7 +250,7 @@ public class DisplayAllRecord {
 
     }
 
-    public class SetSchedulePanel implements TablePanelManager {
+    public class SetSchedulePanel  {
         private ArrayList<Schedule> allScheduleList = new ArrayList<>();
 
         public SetSchedulePanel() {
@@ -316,7 +316,7 @@ public class DisplayAllRecord {
             sortByScheduleMenu.addItem(new Session.sortByName());
         }
 
-        @Override
+
         public void clearUpdateTable(){
             int previouslySelectedIndex = scheduleSelector.getSelectedIndex();
             clearScheduleTable();
