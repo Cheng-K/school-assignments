@@ -3,10 +3,10 @@
 ## Sports Center Application
 ## Table of Contents
 
-- [Overview](##Overview)
-- [Problem Statement](##Problem-Statement)
-- [Documentation & Screenshots of Program](##Documentation-&-Screenshots-of-Program)
-- [Contributors](##Contributors)
+- [Overview](#overview)
+- [Problem Statement](#problem-statement)
+- [Documentation & Screenshots of Program](#documentation-&-screenshots-of-program)
+- [Contributors](#contributors)
 
 
 ## Overview
