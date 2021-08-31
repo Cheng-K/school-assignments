@@ -5,7 +5,7 @@
 
 - [Overview](#overview)
 - [Problem Statement](#problem-statement)
-- [Documentation & Screenshots of Program](#documentation-&-screenshots-of-program)
+- [Documentation & Screenshots](#documentation--screenshots-of-program)
 - [Contributors](#contributors)
 
 
