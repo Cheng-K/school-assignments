@@ -11,5 +11,6 @@ int main()
     cout << "This is krong\n";
     cout << "This is Kei\n";
     cout << "This is the another line\n";
+    cout << "This is the another line\n";
 }
 
