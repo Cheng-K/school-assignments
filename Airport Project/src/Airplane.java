@@ -2,12 +2,21 @@
 
 public class Airplane {
 
+    private final String name;
+    private final AirportTrafficController controller;
+
+    public final Thread performLanding;
+    public final Thread performTakeOff;
+    public final Thread performDocking;
+    public final Thread performUndocking;
+    public final Thread performUnloadAndLoad;
+
     /* Private classes encapsulated in the airplane class represent individual operations that an airplane can perform.*/
 
     private class Landing implements Runnable {
         @Override
         public void run() {
-            System.out.println(Thread.currentThread().getName() + " is preparing for landing.");
+            System.out.println(Thread.currentThread().getName() + " : Copy that. " +  Thread.currentThread().getName()+ " is preparing for landing.");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -27,7 +36,7 @@ public class Airplane {
             } catch (InterruptedException e){
                 System.out.println(Thread.currentThread().getName() + " departure process interrupted.");
             }
-            System.out.println(Thread.currentThread().getName() + " departed successfully");
+            System.out.println(Thread.currentThread().getName() + " departed successfully. Thanks.");
         }
     }
 
@@ -64,6 +73,7 @@ public class Airplane {
                 e.printStackTrace();
             }
             System.out.println(Thread.currentThread().getName() + " finished loading all necessary supplies.");
+            requestUndockAndTakeOff();
         }
     }
 
@@ -81,15 +91,6 @@ public class Airplane {
         }
     }
 
-    private final String name;
-    private final AirportTrafficController controller;
-
-    public final Thread performLanding;
-    public final Thread performTakeOff;
-    public final Thread performDocking;
-    public final Thread performUndocking;
-    public final Thread performUnloadAndLoad;
-
     public Airplane(String name,AirportTrafficController controller){
         this.name = name;
         this.controller = controller;
@@ -101,13 +102,43 @@ public class Airplane {
         requestLanding();
     }
 
-    private void requestLanding () {
-        System.out.println(name + " : Approaching airport in 20 minutes. Requesting permission to land on runway.");
-        // Plug in airport api here
+    public void requestLanding () {
+        Thread initialConnection = new Thread ( () -> {
+            System.out.println(Thread.currentThread().getName() + " : Approaching airport in 20 minutes. Requesting permission to land on runway.");
+            // Plug in airport api here
+            controller.addAirplaneToLandingQueue(this);
+            System.out.println(Thread.currentThread().getName() + " : Copy that. Joining the landing queue now.");
+        },name);
+        initialConnection.start();
+        // joining not necessary (block the airplane generator thread)
     }
 
-    // Might not be needed since undock -> straight go to takeoff queue ?
-    private void requestTakeOff () {
-        System.out.println(Thread.currentThread().getName() + " : Requesting permission to take off from airport.");
+    public void postLandingReply () {
+        Thread replyThread = new Thread (() -> {
+            System.out.println(Thread.currentThread().getName() + " : Copy that. Exiting the runway and joining the docking queue now.");
+        },name);
+        replyThread.start();
+        try {
+            replyThread.join();
+        } catch (InterruptedException e){
+            System.out.println("Unexpected Interruption occurred.");
+            e.printStackTrace();
+        }
     }
+
+    private void requestUndockAndTakeOff () {
+        System.out.println(Thread.currentThread().getName() + " : Requesting permission to undock and take off from airport.");
+        // Plug airport api here
+        controller.addAirplaneToUndockQueue(this);
+        System.out.println(Thread.currentThread().getName() + " : Copy that. Will wait for further instructions.");
+
+    }
+
+    /* Getters & Setters */
+
+    public String getName() {
+        return name;
+    }
+
+
 }

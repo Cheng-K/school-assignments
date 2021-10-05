@@ -21,7 +21,8 @@ public class LandingCoordinator implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread().getName()+ " : finished landing airplane");
+                System.out.println(Thread.currentThread().getName()+ " : Noted. Please exit the runway and join the docking queue to wait for instructions to dock at specific gateway.");
+                // call post landing reply here for airplane
                 airportTrafficController.runway.notify();
             }
 

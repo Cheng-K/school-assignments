@@ -52,6 +52,36 @@ public class AirportTrafficController extends Thread{
         }
     }
 
+    public void addAirplaneToLandingQueue (Airplane airplane) {
+        landingQueue.add(airplane);
+        Thread replyThread = new Thread(()->{
+            System.out.println(Thread.currentThread().getName() + " : please join the landing queue and fly in circles. Will come back to you when the runway is clear for you.");
+        },"Airport Traffic Controller");
+        replyThread.start();
+        try{
+            replyThread.join();
+        } catch (InterruptedException e){
+            System.out.println("Unexpected interruption occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public void addAirplaneToUndockQueue (Airplane airplane){
+        undockingQueue.add(airplane);
+        Thread replyThread = new Thread(()->{
+            System.out.println(Thread.currentThread().getName() + " : added " + airplane.getName() + " into the waiting list. Please wait for further instructions to undock.");
+        },"Airport Traffic Controller");
+        replyThread.start();
+        try{
+            replyThread.join();
+        } catch (InterruptedException e){
+            System.out.println("Unexpected interruption occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    /* Getters & Setters */
+    
     public BlockingDeque<Airplane> getLandingQueue() {
         return landingQueue;
     }
