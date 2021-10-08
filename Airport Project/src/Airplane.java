@@ -32,7 +32,7 @@ public class Airplane {
         public void run () {
             System.out.println(Thread.currentThread().getName() + " is preparing for takeoff.");
             try {
-                Thread.sleep(1500);
+                Thread.sleep(1000);
             } catch (InterruptedException e){
                 System.out.println(Thread.currentThread().getName() + " departure process interrupted.");
             }
@@ -110,7 +110,7 @@ public class Airplane {
             System.out.println(Thread.currentThread().getName() + " : Copy that. Joining the landing queue now.");
         },name);
         initialConnection.start();
-        // joining not necessary (block the airplane generator thread)
+        // Maybe joining is necessary to really wait for airplane to get noticed by the airport. (Niche case : when the airport is closing the airplane might not get noticed)
     }
 
     public void postLandingReply () {
@@ -132,6 +132,19 @@ public class Airplane {
         controller.addAirplaneToUndockQueue(this);
         System.out.println(Thread.currentThread().getName() + " : Copy that. Will wait for further instructions.");
 
+    }
+
+    public void postUndockReply(){
+         Thread replyThread = new Thread (() -> {
+            System.out.println(Thread.currentThread().getName() + " : Copy that. Joining the departure queue now.");
+        },name);
+        replyThread.start();
+        try {
+            replyThread.join();
+        } catch (InterruptedException e){
+            System.out.println("Unexpected Interruption occurred.");
+            e.printStackTrace();
+        }       
     }
 
     /* Getters & Setters */

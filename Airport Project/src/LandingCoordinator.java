@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class LandingCoordinator implements Runnable{
     private final AirportTrafficController airportTrafficController;
 
@@ -13,17 +15,33 @@ public class LandingCoordinator implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread().getName()+ " : landing an airplane");
-                // Wait for airplane to land
-                // after that add airplane to docking queue
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                if (airportTrafficController.getDockingQueue().size() < 2){
+                    try {
+                        Airplane airplaneToLand = airportTrafficController.getLandingQueue().removeFirst();
+                        System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToLand.getName() + " has the permission to land now.");
+                        airplaneToLand.performLanding.start();
+                        try {
+                            airplaneToLand.performLanding.join();
+                        } catch (InterruptedException error){
+                            System.out.println("Landing operation interrupted unexpectedly. Check simulation program !!");
+                            error.printStackTrace();
+//                            continue;
+                        }
+                        System.out.println(Thread.currentThread().getName()+ " : Airplane" + airplaneToLand.getName() +" please exit the runway and join the docking queue to wait for instructions to dock at specific gateway.");
+                        airplaneToLand.postLandingReply();
+                        airportTrafficController.getDockingQueue().addLast(airplaneToLand);
+                    }
+                    catch (NoSuchElementException exception){
+//                        System.out.println(Thread.currentThread().getName() + " : There are no incoming airplanes currently.");
+                    }
                 }
-                System.out.println(Thread.currentThread().getName()+ " : Noted. Please exit the runway and join the docking queue to wait for instructions to dock at specific gateway.");
-                // call post landing reply here for airplane
+                else {
+                    System.out.println(Thread.currentThread().getName() + " : Unable to land an airplane due to docking queue is at full capacity.");
+                }
+
                 airportTrafficController.runway.notify();
+                if (airportTrafficController.isClosed() && airportTrafficController.getTotalAirplanesInPremise() == 0)
+                    return;
             }
 
         }

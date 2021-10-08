@@ -1,3 +1,5 @@
+import java.util.NoSuchElementException;
+
 public class DepartureCoordinator implements Runnable{
     private AirportTrafficController airportTrafficController;
 
@@ -14,16 +16,28 @@ public class DepartureCoordinator implements Runnable{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                System.out.println(Thread.currentThread().getName() + " : coordinating departure of some airplanes");
-                // Wait for airplane to finish departure
-                // Remove the airplane from departure queue
                 try {
-                    Thread.sleep(3100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    // Throws exception when the queue is empty
+                    Airplane airplaneToDepart = airportTrafficController.getDepartureQueue().remove();
+                    System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToDepart.getName() + " has the permission to take off now.");
+                    airplaneToDepart.performTakeOff.start();
+                    try {
+                        airplaneToDepart.performTakeOff.join();
+                    } catch (InterruptedException e){
+                        System.out.println("Takeoff operation interrupted unexpectedly. Check simulation program!!");
+                        e.printStackTrace();
+                        continue;
+                    }
+                    System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToDepart.getName() + " have a safe trip.");
+                    airportTrafficController.incrementDepartedAirplane();
                 }
-                System.out.println(Thread.currentThread().getName()+ " : finished departure airplane");
+                catch (NoSuchElementException e){
+                    // Catch exception when queue is empty
+                }
                 airportTrafficController.runway.notify();
+                if (airportTrafficController.isClosed() && airportTrafficController.getTotalAirplanesInPremise() == 0) {
+                    return;
+                }
             }
         }
     }
