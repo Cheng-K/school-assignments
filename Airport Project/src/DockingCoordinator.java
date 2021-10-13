@@ -18,7 +18,9 @@ public class DockingCoordinator implements Runnable{
                 if (airportTrafficController.availableGateways.tryAcquire()){
                     try {
                         Airplane airplaneToDock = airportTrafficController.getDockingQueue().removeFirst();
-                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToDock.getName() + " has the permission to dock now.");
+                        String gatewayToDock = airportTrafficController.gateways.poll();
+                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToDock.getName() + " has the permission to dock at gateway " + gatewayToDock);
+                        airplaneToDock.setAssignedGateway(gatewayToDock);
                         airplaneToDock.performDocking.start();
                         try {
                             airplaneToDock.performDocking.join();

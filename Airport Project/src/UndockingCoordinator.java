@@ -19,7 +19,8 @@ public class UndockingCoordinator implements Runnable{
                 if (airportTrafficController.getDepartureQueue().size() < 2){
                     try {
                         Airplane airplaneToUndock = airportTrafficController.getUndockingQueue().remove();
-                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() + " has the permission to undock now.");
+                        String gatewayToUndock = airplaneToUndock.getAssignedGateway();
+                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() + " has the permission to undock from gateway " + gatewayToUndock);
                         airplaneToUndock.performUndocking.start();
                         try {
                             airplaneToUndock.performUndocking.join();
@@ -29,6 +30,7 @@ public class UndockingCoordinator implements Runnable{
                             continue;
                         }
                         airportTrafficController.availableGateways.release();
+                        airportTrafficController.gateways.offer(gatewayToUndock);
                         System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() + " please proceed to join the departure queue beside the runway.");
                         airplaneToUndock.postUndockReply();
                         airportTrafficController.getDepartureQueue().add(airplaneToUndock);

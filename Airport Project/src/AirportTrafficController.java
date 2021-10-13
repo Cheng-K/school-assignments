@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -9,6 +11,7 @@ public class AirportTrafficController extends Thread{
     private BlockingDeque<Airplane> dockingQueue;
     private BlockingQueue<Airplane> undockingQueue;
     private BlockingQueue<Airplane> departureQueue;
+    public final BlockingQueue<String> gateways;
     public Semaphore availableGateways;
     public final ReentrantLock runway;
     public final ReentrantLock landTrafficController;
@@ -27,6 +30,7 @@ public class AirportTrafficController extends Thread{
         dockingQueue = new LinkedBlockingDeque<>(2);
         undockingQueue = new LinkedBlockingQueue<>();
         departureQueue = new LinkedBlockingQueue<>(2);
+        gateways = new ArrayBlockingQueue<String>(4,false, Arrays.asList("1","2","3","4")); // set fairness to false (default)
         closed = false;
 
         landingThread = new Thread(new LandingCoordinator(this),"Air traffic controller");
@@ -46,7 +50,7 @@ public class AirportTrafficController extends Thread{
         dockThread.start();
         undockThread.start();
         departureThread.start();
-        // Buffer so that all threads are in sleep condition before notifying
+        // Buffer to make sure all threads started in sleep condition before notifying
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -71,8 +75,6 @@ public class AirportTrafficController extends Thread{
     }
 
     public void addAirplaneToLandingQueue (Airplane airplane) {
-        totalAirplanesArrived.incrementAndGet();
-        landingQueue.add(airplane);
         Thread replyThread = new Thread(()->{
             System.out.println(Thread.currentThread().getName() + " : Airplane " + airplane.getName() + " please join the landing queue and fly in circles. Will come back to you when the runway is clear for you.");
         },"Airport Traffic Controller");
@@ -83,10 +85,11 @@ public class AirportTrafficController extends Thread{
             System.out.println("Unexpected interruption occurred.");
             e.printStackTrace();
         }
+        totalAirplanesArrived.incrementAndGet();
+        landingQueue.add(airplane);
     }
 
     public void addAirplaneToUndockQueue (Airplane airplane){
-        undockingQueue.add(airplane);
         Thread replyThread = new Thread(()->{
             System.out.println(Thread.currentThread().getName() + " : added " + airplane.getName() + " into the waiting list. Please wait for further instructions to undock.");
         },"Airport Traffic Controller");
@@ -97,6 +100,7 @@ public class AirportTrafficController extends Thread{
             System.out.println("Unexpected interruption occurred.");
             e.printStackTrace();
         }
+        undockingQueue.add(airplane);
     }
 
     /* Getters & Setters */
@@ -132,6 +136,5 @@ public class AirportTrafficController extends Thread{
     public void incrementDepartedAirplane () {
         totalAirplanesDeparted.incrementAndGet();
     }
-
 
 }

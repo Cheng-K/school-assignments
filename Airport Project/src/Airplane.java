@@ -4,12 +4,13 @@ public class Airplane {
 
     private final String name;
     private final AirportTrafficController controller;
-
+    private String assignedGateway;
     public final Thread performLanding;
     public final Thread performTakeOff;
     public final Thread performDocking;
     public final Thread performUndocking;
     public final Thread performUnloadAndLoad;
+
 
     /* Private classes encapsulated in the airplane class represent individual operations that an airplane can perform.*/
 
@@ -43,14 +44,14 @@ public class Airplane {
     private class Dock implements Runnable {
         @Override
         public void run() {
-            System.out.println(Thread.currentThread().getName() + " is preparing to dock at Gateway : ");
+            System.out.println(Thread.currentThread().getName() + " is preparing to dock at Gateway : " + assignedGateway);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread().getName() + " docking process interrupted.");
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + " docked successfully at Gateway : ");
+            System.out.println(Thread.currentThread().getName() + " docked successfully at Gateway : " + assignedGateway);
         }
     }
 
@@ -80,14 +81,14 @@ public class Airplane {
     private class Undock implements Runnable {
         @Override
         public void run() {
-            System.out.println(Thread.currentThread().getName() + " is preparing to undock from Gateway : ");
+            System.out.println(Thread.currentThread().getName() + " is preparing to undock from Gateway : " + assignedGateway);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread().getName() + " undocking process interrupted.");
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + " undocked successfully from Gateway : ");
+            System.out.println(Thread.currentThread().getName() + " undocked successfully from Gateway : " + assignedGateway);
         }
     }
 
@@ -148,6 +149,13 @@ public class Airplane {
     }
 
     /* Getters & Setters */
+    public void setAssignedGateway (String assignedGateway){
+        this.assignedGateway = assignedGateway;
+    }
+
+    public String getAssignedGateway (){
+        return assignedGateway;
+    }
 
     public String getName() {
         return name;
