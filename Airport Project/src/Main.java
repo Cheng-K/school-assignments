@@ -1,12 +1,14 @@
 /*
     Author : Ong Cheng Kei TP055620
-    Description : This file contains the main class which starts the program.
+    Intake : UC2102CS(DA)
+    Module : Concurrent Programming CT074-3-2
+    Description : This file contains the main method which starts the program.
  */
 
 
 /* 
     Next Task : Test & Optimize the program
-               : Implement specific gateway
+                Comment all files
 */
 
 public class Main {

@@ -1,5 +1,11 @@
 import java.util.NoSuchElementException;
 
+/*
+    Class Name  : DockingCoordinator
+    Description : A thread that will coordinate between UndockingCoordinator to make sure only one airplane is given permission to dock/undock.
+*/
+
+
 public class DockingCoordinator implements Runnable{
     private final AirportTrafficController airportTrafficController;
 

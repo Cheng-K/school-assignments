@@ -1,10 +1,15 @@
-// Airplane has four threads docking/undocking/arrival/departure/ therefore airplane is responsible for reporting for themselves
+
+/*
+    Class name  : Airplane
+    Description : This class contains essential methods for airplane to report themselves to Airport Traffic Controller, and 
+                  also four threads that perform necessary airplane operations (dock/undock/takeoff/landing)
+*/
 
 public class Airplane {
 
     private final String name;
     private final AirportTrafficController controller;
-    private String assignedGateway;
+    private String assignedGateway;   // name of gateway to dock (assigned by airport traffic controller)
     public final Thread performLanding;
     public final Thread performTakeOff;
     public final Thread performDocking;
@@ -12,7 +17,7 @@ public class Airplane {
     public final Thread performUnloadAndLoad;
 
 
-    /* Private classes encapsulated in the airplane class represent individual operations that an airplane can perform.*/
+    /* Private classes encapsulated in the airplane class represent individual tasks that an airplane will perform throughout the program.*/
 
     private class Landing implements Runnable {
         @Override
@@ -92,6 +97,7 @@ public class Airplane {
         }
     }
 
+
     public Airplane(String name,AirportTrafficController controller){
         this.name = name;
         this.controller = controller;
@@ -103,16 +109,26 @@ public class Airplane {
         requestLanding();
     }
 
+    /*
+        Method name : requestLanding
+        Parameter   : -
+        Description : Notify the airport traffic controller to add this airplane to landing queue.
+    */
     public void requestLanding () {
         Thread initialConnection = new Thread ( () -> {
             System.out.println(Thread.currentThread().getName() + " : Approaching airport in 20 minutes. Requesting permission to land on runway.");
-            // Plug in airport api here
             controller.addAirplaneToLandingQueue(this);
             System.out.println(Thread.currentThread().getName() + " : Copy that. Joining the landing queue now.");
         },name);
         initialConnection.start();
         // Maybe joining is necessary to really wait for airplane to get noticed by the airport. (Niche case : when the airport is closing the airplane might not get noticed)
     }
+
+    /*
+        Method name : postLandingReply
+        Parameter   : -
+        Description : Notify the airport traffic controller that this airplane successfully landed.
+    */
 
     public void postLandingReply () {
         Thread replyThread = new Thread (() -> {
@@ -127,6 +143,11 @@ public class Airplane {
         }
     }
 
+    /*
+        Method name : requestUndockAndTakeOff
+        Parameter   : -
+        Description : Notify the airport traffic controller to add this airplane to undock queue. This is called after airplane finish loading supplies.
+    */
     private void requestUndockAndTakeOff () {
         System.out.println(Thread.currentThread().getName() + " : Requesting permission to undock and take off from airport.");
         // Plug airport api here
@@ -134,6 +155,11 @@ public class Airplane {
         System.out.println(Thread.currentThread().getName() + " : Copy that. Will wait for further instructions.");
 
     }
+    /*
+        Method name : postUndockReply
+        Parameter   : -
+        Description : Notify the airport traffic controller that this airplane successfully undock.
+    */
 
     public void postUndockReply(){
          Thread replyThread = new Thread (() -> {
@@ -149,6 +175,7 @@ public class Airplane {
     }
 
     /* Getters & Setters */
+    
     public void setAssignedGateway (String assignedGateway){
         this.assignedGateway = assignedGateway;
     }

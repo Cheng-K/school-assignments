@@ -1,5 +1,12 @@
 import java.util.NoSuchElementException;
 
+
+/*
+    Class Name  : DepartureCoordinator
+    Description : A thread that will alternate between LandingCoordinator to make sure only one airplane is given permission to land/depart.
+*/
+
+
 public class DepartureCoordinator implements Runnable{
     private AirportTrafficController airportTrafficController;
 
@@ -12,6 +19,7 @@ public class DepartureCoordinator implements Runnable{
         synchronized (airportTrafficController.runway){
             while (true){
                 try {
+                    // start off by waiting (will be notified by Airport Traffic Controller shortly)
                     airportTrafficController.runway.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -20,6 +28,7 @@ public class DepartureCoordinator implements Runnable{
                     // Throws exception when the queue is empty
                     Airplane airplaneToDepart = airportTrafficController.getDepartureQueue().remove();
                     System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToDepart.getName() + " has the permission to take off now.");
+                    // Let airplane to depart and wait for its operation to finish
                     airplaneToDepart.performTakeOff.start();
                     try {
                         airplaneToDepart.performTakeOff.join();
@@ -34,7 +43,9 @@ public class DepartureCoordinator implements Runnable{
                 catch (NoSuchElementException e){
                     // Catch exception when queue is empty
                 }
+                // Wake landing coordinator since runway is free
                 airportTrafficController.runway.notify();
+                // If below two conditions are satisfied, then this thread will terminate 
                 if (airportTrafficController.isClosed() && airportTrafficController.getTotalAirplanesInPremise() == 0) {
                     return;
                 }
