@@ -141,6 +141,12 @@
   <ItemGroup>
     <ClCompile Include="Klinik-Sulaiman-System.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="LinkedList.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="Patient.h" />
+    <ClInclude Include="PatientQueue.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
