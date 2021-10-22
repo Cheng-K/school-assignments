@@ -1,6 +1,5 @@
 #pragma once
-# include <iostream>
-# include "Patient.h";
+# include "Patient.h"
 
 class Node {
 	Node* previousNode;
@@ -30,6 +29,9 @@ public :
 		nextNode = newNextNode;
 	}
 
+	Patient* getPatient() {
+		return patient;
+	}
 
 
 };

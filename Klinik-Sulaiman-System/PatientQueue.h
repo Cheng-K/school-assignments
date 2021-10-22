@@ -22,7 +22,7 @@ public :
 			}
 		}
 		else {
-			//append(patient)
+			append(patient);
 		}
 	}
 };
