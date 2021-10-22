@@ -2,16 +2,26 @@
 //
 
 #include <iostream>
+#include "LinkedList.h"
+#include "Node.h"
 #include "Patient.h"
+#include "PatientQueue.h"
 using namespace std;
 
 int main()
 {
-    cout << "Hello World!\n";
-    cout << "This is Jack\n";
-    cout << "This is krong\n";
-    cout << "This is Kei\n";
-    cout << "This is the another line\n";
-    cout << "This is the another line\n";
+	PatientQueue* p = new PatientQueue();
+	for (int i = 0; i < 4; i++) {
+		Patient* a;
+		if (i%2 == 0)
+			a = new Patient("a" + std::to_string(i), "a", "a", "a", "a",true);
+		else
+			a = new Patient("a" + std::to_string(i), "a", "a", "a", "a",false);
+		p->insertPatient(a);
+	}
+	p->displayList();
+	std::cout << "Remove patient " << std::endl;
+	p->removePatient("a2");
+	p->displayList();
 }
 

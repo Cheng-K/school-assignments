@@ -142,8 +142,10 @@
     <ClCompile Include="Klinik-Sulaiman-System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Doctor.h" />
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="Nurse.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="PatientQueue.h" />
   </ItemGroup>

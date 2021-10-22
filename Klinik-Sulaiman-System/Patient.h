@@ -10,6 +10,16 @@ class Patient {
 	bool disabled;
 
 public :
+	Patient (std::string patientID, std::string firstName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled) {
+		this->patientID = patientID;
+		this->firstName = firstName;
+		this->sicknessDescription = sicknessDescription;
+		this->medicineInformation = medicineInformation;
+		this->doctorName = doctorName;
+		this->disabled = disabled;
+	}
+
+
 	bool isDisabled() {
 		return disabled;
 	}
@@ -17,7 +27,7 @@ public :
 	std::string toString()
 	{
 		std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Responsible Doctor: " + doctorName + "\n"
-			+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n";
+			+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\n";
 		return patientProfile;
 	}
 

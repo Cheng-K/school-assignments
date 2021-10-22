@@ -17,7 +17,7 @@ public :
 		return previousNode;
 	}
 
-	Node* setPreviousNode(Node* newPreviousNode) {
+	void setPreviousNode(Node* newPreviousNode) {
 		previousNode = newPreviousNode;
 	}
 
@@ -25,7 +25,7 @@ public :
 		return nextNode;
 	}
 
-	Node* setNextNode(Node* newNextNode) {
+	void setNextNode(Node* newNextNode) {
 		nextNode = newNextNode;
 	}
 

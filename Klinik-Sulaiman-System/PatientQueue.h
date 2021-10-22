@@ -36,7 +36,7 @@ public :
             std::cout << "Patient queue is already empty, there are no patients to call." << std::endl;
             std::cout << "Press 'enter' to continue";
             getline(std::cin, input);
-            return;
+            return NULL;
         }
         current = head;
         if (head == lastDisabledPatient)
@@ -72,7 +72,7 @@ public :
         }
         else
         {
-            current->setPreviousNode(head);
+            //current->setPreviousNode(head);
             current = head->getNextNode();
             while (current != NULL)
             {
@@ -89,7 +89,7 @@ public :
                 }
                 else
                 {
-                    current->setPreviousNode(current);
+                    //current->setPreviousNode(current);
                     current = current->getNextNode();
                 }
             }

@@ -33,7 +33,7 @@ public :
     {
         Node* newNode = new Node(patient);
 
-        if (tail = NULL)
+        if (tail == NULL)
         {
             head = newNode;
             tail = newNode;
@@ -43,13 +43,16 @@ public :
         tail->setNextNode(newNode);
         newNode->setPreviousNode(tail);
         tail = newNode;
-        return;
+        size++;
     }
 
 
     LinkedList* search(std::string searchReference, int searchMode)
     {
-        if (head == NULL) { std::cout << "Sorry but the list is empty, nothing to see here\n"; return; }
+        if (head == NULL) { 
+            std::cout << "Sorry but the list is empty, nothing to see here\n"; 
+            return NULL; 
+        }
 
         LinkedList* results = new LinkedList;
         Node* currentNode = head;
@@ -58,14 +61,13 @@ public :
 
         while (currentNode != NULL)
         {
-            Patient searchPatient;
             switch (searchMode)
             {
             case 1:
                 searchComparator = currentNode->getPatient()->getPatientID();
                 if (searchComparator == searchReference)
                 {
-                    results->append(searchPatient);
+                    results->append(currentNode->getPatient());
                     return results;
                 }
                 break;
@@ -92,7 +94,7 @@ public :
 
             if (searchComparator == searchReference)
             {
-                results->append(searchPatient);
+                results->append(currentNode->getPatient());
             }
             currentNode = currentNode->getNextNode(); 
         }
@@ -119,7 +121,6 @@ public :
             currentNode = currentNode->getNextNode();
         }
 
-        std::cout << "You have reached the end of the list";
         return;
     }
 

@@ -32,5 +32,11 @@
     <ClInclude Include="PatientQueue.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Nurse.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Doctor.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
