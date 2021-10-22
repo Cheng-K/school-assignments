@@ -50,7 +50,7 @@ public :
         }
         else
         {
-            *head->getPreviousNode() = NULL;
+            head->setPreviousNode(NULL);
         }
         return current->getPatient();
     }
@@ -62,7 +62,7 @@ public :
         {
             current = head;
             head = head->getNextNode();
-            *head->getPreviousNode() = NULL;
+            head->setPreviousNode(NULL);
             if (current = lastDisabledPatient)
             {
                 lastDisabledPatient = NULL;
@@ -72,14 +72,14 @@ public :
         }
         else
         {
-            *current->getPreviousNode() = *head;
+            current->setPreviousNode(head);
             current = head->getNextNode();
             while (current != NULL)
             {
                 if (current->getPatient().getPatientID() == patientID)
                 {
-                    *current->getPreviousNode()->getNextNode() = *current->getNextNode();
-                    *current->getNextNode()->getPreviousNode() = *current->getPreviousNode();
+                    current->getPreviousNode()->setNextNode(current->getNextNode());
+                    current->getNextNode()->setPreviousNode(current->getPreviousNode());
                     if (current == lastDisabledPatient)
                     {
                         lastDisabledPatient = current->getPreviousNode();
@@ -89,7 +89,7 @@ public :
                 }
                 else
                 {
-                    *current->getPreviousNode() = *current;
+                    current->setPreviousNode(current);
                     current = current->getNextNode();
                 }
             }
