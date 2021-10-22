@@ -81,5 +81,27 @@ class LinkedList
     }
 
 
+    void displayList()
+    {
+        Node* currentNode = headNode;
+
+        //Check if the list is empty
+        if (currentNode == NULL)
+        {
+            cout << "The List is currently empty";
+            return;
+        }
+
+        while (currentNode != NULL)
+        {
+            cout << currentNode->patient.toString();
+            cout << "-----------------------------------------\n";
+            currentNode = currentNode->nextAddress;
+        }
+
+        cout << "You have reached the end of the list";
+        return;
+    }
+
 };
 
