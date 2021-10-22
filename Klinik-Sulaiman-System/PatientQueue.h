@@ -55,6 +55,7 @@ public :
         return current->getPatient();
     }
 
+    // Debug *
     int removePatient(std::string patientID)
     {
         Node* current;
@@ -63,7 +64,7 @@ public :
             current = head;
             head = head->getNextNode();
             head->setPreviousNode(NULL);
-            if (current = lastDisabledPatient)
+            if (current == lastDisabledPatient)
             {
                 lastDisabledPatient = NULL;
             }
