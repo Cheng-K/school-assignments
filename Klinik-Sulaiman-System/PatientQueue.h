@@ -27,7 +27,7 @@ public :
 		}
 	}
 
-    Patient getNextPatient()
+    Patient* getNextPatient()
     {
         Node* current;
         std::string input;
@@ -58,7 +58,7 @@ public :
     int removePatient(std::string patientID)
     {
         Node* current;
-        if ((head->getPatient().getPatientID())==patientID)
+        if ((head->getPatient()->getPatientID())== patientID)
         {
             current = head;
             head = head->getNextNode();
@@ -76,7 +76,7 @@ public :
             current = head->getNextNode();
             while (current != NULL)
             {
-                if (current->getPatient().getPatientID() == patientID)
+                if (current->getPatient()->getPatientID() == patientID)
                 {
                     current->getPreviousNode()->setNextNode(current->getNextNode());
                     current->getNextNode()->setPreviousNode(current->getPreviousNode());
