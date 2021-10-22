@@ -29,9 +29,8 @@ public :
 		nextNode = newNextNode;
 	}
 
+
 	Patient* getPatient() {
 		return patient;
 	}
-
-
 };

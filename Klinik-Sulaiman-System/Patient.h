@@ -1,4 +1,5 @@
 #pragma once
+#include <string>
 
 class Patient {
 	std::string patientID;
@@ -37,6 +38,7 @@ public :
 	std::string getDoctorName() {
 		return doctorName;
 	}
+
 
 };
 
