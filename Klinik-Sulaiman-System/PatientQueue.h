@@ -15,10 +15,11 @@ public :
 			}
 			else {
 				Node* newNode = new Node(patient);
+                std::cout << "last : " << lastDisabledPatient->getPatient()->getPatientID() << std::endl;
 				newNode->setPreviousNode(lastDisabledPatient);
 				newNode->setNextNode(lastDisabledPatient->getNextNode());
+                lastDisabledPatient->getNextNode()->setPreviousNode(newNode);
 				lastDisabledPatient->setNextNode(newNode);
-				lastDisabledPatient->getNextNode()->setPreviousNode(newNode);
 				lastDisabledPatient = newNode;
 			}
 		}
@@ -73,7 +74,6 @@ public :
         }
         else
         {
-            //current->setPreviousNode(head);
             current = head->getNextNode();
             while (current != NULL)
             {
@@ -90,7 +90,6 @@ public :
                 }
                 else
                 {
-                    //current->setPreviousNode(current);
                     current = current->getNextNode();
                 }
             }

@@ -37,6 +37,7 @@ public :
         {
             head = newNode;
             tail = newNode;
+            size++;
             return;
         }
 
@@ -122,6 +123,28 @@ public :
         }
 
         return;
+    }
+
+    void displayInQueue() {
+        Node* currentNode = head;
+        while (currentNode != NULL)
+        {
+            std::cout << currentNode->getPatient()->getPatientID();
+            std::cout << "->";
+            currentNode = currentNode->getNextNode();
+        }
+        std::cout << std::endl;
+    }
+
+    void reverseDisplayInQueue() {
+        Node* currentNode = tail;
+        while (currentNode != NULL)
+        {
+            std::cout << currentNode->getPatient()->getPatientID();
+            std::cout << "->";
+            currentNode = currentNode->getPreviousNode();
+        }
+        std::cout << std::endl;
     }
 
     Node* getHeadReference() { return head; }
