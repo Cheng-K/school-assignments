@@ -5,9 +5,13 @@
 
 
 class PatientQueue : public LinkedList {
-	Node* lastDisabledPatient;
+	Node* lastDisabledPatient = NULL;
 public :
-	void insertPatient(Patient* patient) {
+	void insertPatient(Patient* patient) { // Highly prone to bugs
+        if (patient == NULL) {
+            std::cout << "Y";
+            return;
+        }
 		if (patient->isDisabled()) {
 			if (lastDisabledPatient == NULL) {
 				insertAtFront(patient);
@@ -17,10 +21,14 @@ public :
                 Node* newNode = new Node(patient);
 				newNode->setPreviousNode(lastDisabledPatient);
 				newNode->setNextNode(lastDisabledPatient->getNextNode());
-                lastDisabledPatient->getNextNode()->setPreviousNode(newNode);
+                if (lastDisabledPatient->getNextNode() != NULL) {
+                    lastDisabledPatient->getNextNode()->setPreviousNode(newNode);
+                }
 				lastDisabledPatient->setNextNode(newNode);
 				lastDisabledPatient = newNode;
+                size++;
 			}
+            
 		}
 		else {
 			append(patient);

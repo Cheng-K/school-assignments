@@ -148,6 +148,10 @@ public :
     }
 
     Node* getHeadReference() { return head; }
+
+    int getSize() {
+        return size;
+    }
 };
 
 

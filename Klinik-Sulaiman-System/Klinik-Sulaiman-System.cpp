@@ -8,22 +8,26 @@
 #include "PatientQueue.h"
 #include "Utility.h"
 #include "Doctor.h"
-using namespace std;
+#include "Nurse.h"
+
+
 
 int main()
 {
+
 	PatientQueue* p = new PatientQueue();
 	Doctor* d = new Doctor(p);
-	for (int i = 0; i < 8; i++) {
+	Nurse* n = new Nurse(p);
+	for (int i = 0; i < 3; i++) {
 		Patient* a;
-		if (i % 2 == 0)
-			a = new Patient("a" + std::to_string(i), "a", "a", "a", "a", true);
-		else
-			a = new Patient("a" + std::to_string(i), "a", "a", "a", "a", false);
+		a = n->createPatient();
+	/*	if (i % 2 == 0)*/
+		/*a = new Patient("a" + std::to_string(i), "a", "a", "a", "a","a", true);*/
+		//else
+		//	a = new patient("a" + std::to_string(i), "a", "a", "a", "a", false);
 		p->insertPatient(a);
 	}
 	p->displayInQueue();
-	d->viewInfo();
-	
+	//d->viewInfo();
 }
 
