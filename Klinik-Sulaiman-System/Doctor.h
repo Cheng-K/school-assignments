@@ -1,16 +1,23 @@
 #include <iostream>
+#include <string>
 #include "Patient.h"
 #include "Utility.h"
+#include "PatientQueue.h"
 
 class Doctor
 {
+    PatientQueue* waitingList = NULL;
 public:
     std::string doctorName;
     std::string toString() { return doctorName; }
 
+    Doctor(PatientQueue* waitingList) {
+        this->waitingList = waitingList;
+    }
+
     void viewInfo() 
     {
-        std::int choice;
+        int choice = 0;
 
         while (choice != 3)
         {
@@ -22,7 +29,7 @@ public:
             std::cout << "\t\t\t Enter a number above: ";
         
             std::cin >> choice;
-            if (cin.fail()) 
+            if (std::cin.fail()) 
             {
                 std::cin.ignore(256,'\n');
                 continue;
@@ -31,8 +38,7 @@ public:
             switch (choice)
             {
             case 1:
-                PatientQueue * pQ = new PatientQueue();
-                pQ->displayList();
+                waitingList->displayList();
                 break;
 
             case 2:                
@@ -47,6 +53,7 @@ public:
                 std::cout << "\n\n\t\t\t WARNING: The input you have entered is not supported by the system, please select from the menu\n";
                 break;
             }
+            system("pause");
         }
 
         return;
@@ -59,10 +66,12 @@ public:
         std::string changeSicknessDescription;
 
         std::cout << "Please enter doctor name: ";
-        std::cin >> doctorName;
+        getline(std::cin, doctorName);
+
 
         std::cout << "Enter the medicine information prescribed for this patient: ";
-        std::cin >> medicineInfo;
+        getline(std::cin, medicineInfo);
+        
 
         patient->setDoctorName(doctorName);
         patient->setMedicineInformation(medicineInfo);
@@ -70,11 +79,14 @@ public:
 
         std::cout << "\nEnter [1] if you wish to modify the sickness description of patient or any other key to terminate the operation: ";
         std::cin >> changeSicknessDescription;
+        std::cin.ignore(256, '\n');
 
         if (changeSicknessDescription == "1") 
         {
+            std::string newSicknessDescription;
             std::cout << "Enter the sickness description for this patient: ";
-            patient->setSicknessDescription(changeSicknessDescription);
+            getline(std::cin, newSicknessDescription);
+            patient->setSicknessDescription(newSicknessDescription);
         }
 
         std::cout << "All modification saved successfully\n";

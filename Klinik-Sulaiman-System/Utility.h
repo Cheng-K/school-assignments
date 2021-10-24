@@ -86,4 +86,8 @@ public :
 			segmentSize *= 2;
 		}
 	}
+
+	static void viewPatient() {
+		std::cout << "Inside view Patient Method" << std::endl;
+	}
 };

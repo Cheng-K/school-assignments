@@ -7,11 +7,13 @@
 #include "Patient.h"
 #include "PatientQueue.h"
 #include "Utility.h"
+#include "Doctor.h"
 using namespace std;
 
 int main()
 {
 	PatientQueue* p = new PatientQueue();
+	Doctor* d = new Doctor(p);
 	for (int i = 0; i < 8; i++) {
 		Patient* a;
 		if (i % 2 == 0)
@@ -21,8 +23,7 @@ int main()
 		p->insertPatient(a);
 	}
 	p->displayInQueue();
-	p->getNextPatient();
-	std::cout << "After getting patient :" << std::endl;
-	p->displayInQueue();
+	d->viewInfo();
+	
 }
 
