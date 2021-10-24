@@ -12,7 +12,6 @@ public :
 		int segmentSize = 1;
 		while (true) {
 			Node* firstPart = sortedList->getHeadReference();
-			std::cout << "1" << std::endl;
 			Node* secondPart = firstPart;
 			LinkedList* sortedList = new LinkedList();
 			int totalMerges = 0;
@@ -65,25 +64,19 @@ public :
 							secondPartSize--;
 						}
 					}
-					std::cout << "Current List now : ";
-					sortedList->displayInQueue();
+					
 				}
 
 				while (firstPartSize > 0) {
 					sortedList->append(firstPart->getPatient());
 					firstPart = firstPart->getNextNode();
 					firstPartSize--;
-					std::cout << "Current List now : ";
-					sortedList->displayInQueue();
 				}
 				while (secondPartSize > 0 && secondPart != NULL) {
 					sortedList->append(secondPart->getPatient());
 					secondPart = secondPart->getNextNode();
 					secondPartSize--;
-					std::cout << "Current List now : ";
-					sortedList->displayInQueue();
 				}
-
 				firstPart = secondPart;
 			}
 

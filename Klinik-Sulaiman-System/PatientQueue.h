@@ -14,8 +14,7 @@ public :
 				lastDisabledPatient = head;
 			}
 			else {
-				Node* newNode = new Node(patient);
-                std::cout << "last : " << lastDisabledPatient->getPatient()->getPatientID() << std::endl;
+                Node* newNode = new Node(patient);
 				newNode->setPreviousNode(lastDisabledPatient);
 				newNode->setNextNode(lastDisabledPatient->getNextNode());
                 lastDisabledPatient->getNextNode()->setPreviousNode(newNode);

@@ -15,17 +15,14 @@ int main()
 	for (int i = 0; i < 8; i++) {
 		Patient* a;
 		if (i % 2 == 0)
-			a = new Patient("a" + std::to_string(i), "a", "a", "a","a", true);
+			a = new Patient("a" + std::to_string(i), "a", "a", "a", "a", true);
 		else
-			a = new Patient("a" + std::to_string(i), "a", "a", "a","a", false);
+			a = new Patient("a" + std::to_string(i), "a", "a", "a", "a", false);
 		p->insertPatient(a);
 	}
-	p->reverseDisplayInQueue();
 	p->displayInQueue();
-	std::cout << "before remove" << std::endl;
-	p->displayInQueue();
-	std::cout << "remove patient" << std::endl;
-	p->removePatient("a2");
+	p->getNextPatient();
+	std::cout << "After getting patient :" << std::endl;
 	p->displayInQueue();
 }
 
