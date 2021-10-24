@@ -14,6 +14,46 @@ public:
 		return patientProfile;
 	}
 
+	//Getters
+	std::string getPatientID() {
+		return patientID;
+	}
+
+	std::string getFirstName() {
+		return firstName;
+	}
+
+	std::string getSicknessDescription() {
+		return sicknessDescription;
+	}
+	std::string getMedicineInformation() {
+		return medicineInformation;
+	}
+	std::string getDoctorName() {
+		return doctorName;
+	}
+
+	//Setters
+	void setPatientID(std::string patientID) {
+		this->patientID = patientID;
+	}
+
+	void setFirstName(std::string firstName) {
+		this->firstName = firstName;
+	}
+
+	void setSicknessDescription(std::string sicknessDescription) {
+		this->sicknessDescription = sicknessDescription;
+	}
+
+	void setMedicineInformation(std::string medicineInformation) {
+		this->medicineInformation = medicineInformation;
+	}
+
+	void setDoctorName(std::string doctorName) {
+		this->doctorName = doctorName;
+	}
+
 };
 
 
