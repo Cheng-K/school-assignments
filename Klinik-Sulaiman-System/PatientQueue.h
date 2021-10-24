@@ -63,7 +63,7 @@ public :
             current = head;
             head = head->getNextNode();
             head->setPreviousNode(NULL);
-            if (current = lastDisabledPatient)
+            if (current == lastDisabledPatient)
             {
                 lastDisabledPatient = NULL;
             }
@@ -72,7 +72,6 @@ public :
         }
         else
         {
-            //current->setPreviousNode(head);
             current = head->getNextNode();
             while (current != NULL)
             {
@@ -89,7 +88,6 @@ public :
                 }
                 else
                 {
-                    //current->setPreviousNode(current);
                     current = current->getNextNode();
                 }
             }

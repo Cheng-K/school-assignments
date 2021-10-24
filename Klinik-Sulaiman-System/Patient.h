@@ -4,15 +4,17 @@
 class Patient {
 	std::string patientID;
 	std::string firstName;
+	std::string lastName;
 	std::string sicknessDescription;
 	std::string medicineInformation;
 	std::string doctorName;
 	bool disabled;
 
 public :
-	Patient (std::string patientID, std::string firstName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled) {
+	Patient (std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled) {
 		this->patientID = patientID;
 		this->firstName = firstName;
+		this->lastName = lastName;
 		this->sicknessDescription = sicknessDescription;
 		this->medicineInformation = medicineInformation;
 		this->doctorName = doctorName;
