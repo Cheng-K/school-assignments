@@ -201,5 +201,49 @@ public :
 		return;
 	}
 
+	bool Login(std::string userName, std::string password, bool isDoctor) 
+	{
+		//Just putting an array in here for now for testing
+		std::string doctor[2][2] = { {"dotor1Name","doctor1Password"},
+									 {"doctor2Name", "doctor2Password"} };
 
+		std::string nurse[2][2] = { {"nurse1Name","nurse1Password"},
+							 {"nurse2Name", "nurse2Password"} };
+		bool found = false;
+		int rowSize = 0;
+
+		
+		if (isDoctor)
+		{
+			rowSize = sizeof doctor / sizeof doctor[0];
+
+			for (int i = 0; i < rowSize; i++)
+			{
+				if (doctor[i][0] == userName && doctor[i][1] == password)
+				{
+					found = true;
+				}
+			}
+			
+		}
+		else 
+		{
+			rowSize = sizeof nurse / sizeof nurse[0];
+
+			for (int i = 0; i < rowSize; i++)
+			{
+				if (nurse[i][0] == userName && nurse[i][1] == password)
+				{
+					found = true;
+				}
+			}
+		}
+
+		if (!found)
+		{
+			std::cout << "Sorry, but their is no mathcing records found\n";
+		}
+
+		return found;
+	}
 };
