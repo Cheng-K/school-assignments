@@ -15,19 +15,24 @@
 int main()
 {
 
-	PatientQueue* p = new PatientQueue();
-	Doctor* d = new Doctor(p);
-	Nurse* n = new Nurse(p);
-	for (int i = 0; i < 3; i++) {
-		Patient* a;
-		a = n->createPatient();
-	/*	if (i % 2 == 0)*/
-		/*a = new Patient("a" + std::to_string(i), "a", "a", "a", "a","a", true);*/
-		//else
-		//	a = new patient("a" + std::to_string(i), "a", "a", "a", "a", false);
-		p->insertPatient(a);
-	}
-	p->displayInQueue();
-	//d->viewInfo();
+	//patientqueue* p = new patientqueue();
+	//doctor* d = new doctor(p);
+	//nurse* n = new nurse(p);
+	//for (int i = 0; i < 3; i++) {
+	//	patient* a;
+	//	a = n->createpatient();
+	//	if (i % 2 == 0)*/
+	//	a = new patient("a" + std::to_string(i), "a", "a", "a", "a","a", true);*/
+	//	else
+	//		a = new patient("a" + std::to_string(i), "a", "a", "a", "a", false);
+	//	p->insertpatient(a);
+	//}
+	//p->displayinqueue();
+	//d->viewinfo();
+
+	//p->removepatient("a4");
+
+	
+
 }
 
