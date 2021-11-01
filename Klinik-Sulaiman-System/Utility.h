@@ -1,7 +1,10 @@
 # pragma once
 # include <iostream>
+# include <string>
+# include <conio.h>
 # include "LinkedList.h"
 
+using namespace std;
 class Utility {
 public :
 	static LinkedList* mergeSort(LinkedList* linkedList, int searchMode) {
@@ -89,5 +92,39 @@ public :
 
 	static void viewPatient() {
 		std::cout << "Inside view Patient Method" << std::endl;
+	}
+
+	/*
+		Method : getPassword
+		Parameter : None
+		Description : Prompts user to enter password and masks the password input with * and returns the password as string.
+	*/
+
+	static std::string getPassword() {
+		std::string password;
+		char lastChar = ' ';
+		while (lastChar != 13) {
+			lastChar = _getch();
+			if (lastChar != 13 && lastChar != '\b') {
+				std::cout << '*';
+				password += lastChar;
+			}
+			else if (lastChar == '\b' && password.length() > 0) {
+				std::cout << "\b \b";
+				password.pop_back();
+			}
+		}
+		std::cout << "Password is : " << password << std::endl;
+		system("pause"); // testing
+		return password;
+	}
+
+	static void displayDoctorMenu() {
+		std::cout << "Main menu " << std::endl;
+		std::cout << "1. View Patient History List and Patient Waiting List" << std::endl;
+		std::cout << "2. Treat Patients" << std::endl;
+		std::cout << "3. Search Patients" << std::endl;
+		std::cout << "Press any key to logout..." << std::endl;
+		std::cout << "Select one of the options displayed above by entering the number : ";
 	}
 };
