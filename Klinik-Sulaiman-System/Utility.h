@@ -87,16 +87,17 @@ public :
 		}
 	}
 
-	static void viewPatient() {
-		std::cout << "Inside view Patient Method" << std::endl;
-	}
 
-	void viewPatient(LinkedList* linkedList) 
+	static void viewPatient(LinkedList* linkedList) 
 	{
 		bool terminate = false;
 		Node* currentNode = linkedList->getHeadReference();
 
-		while (terminate)
+		if (currentNode == NULL) { 
+			std::cout << "Linked List is empty, nothing to show\n";
+		}
+
+		while (!terminate)
 		{
 			system("cls");
 			std::cout << currentNode->getPatient()->toString();
@@ -104,7 +105,31 @@ public :
 			bool traverseNode = false;
 			int choice = 0;
 
-			if (currentNode->getPreviousNode() == NULL)
+			if (currentNode->getPreviousNode() == NULL && currentNode->getNextNode() == NULL)
+			{
+				if (!traverseNode)
+				{
+					std::cout << "[1] to exit viewing";
+					std::cin >> choice;
+					if (std::cin.fail())
+					{
+						std::cin.ignore(256, '\n');
+						continue;
+					}
+					switch (choice)
+					{
+					case 1:
+						terminate = true;
+						traverseNode = true;
+						break;
+
+					default:
+						std::cout << "\nSorry, but we do not support this input, please try again";
+						break;
+					}
+				}
+			}
+			else if (currentNode->getPreviousNode() == NULL)
 			{
 				if (!traverseNode)
 				{
