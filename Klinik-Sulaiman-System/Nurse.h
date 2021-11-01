@@ -12,6 +12,88 @@ public:
 	Nurse(PatientQueue* waitingList) {
 		this->waitingList = waitingList;
 	}
+
+	void nurseMenu()
+	{
+		int choice = 0;
+		std::string confirm;
+		while (choice != 5)
+		{
+			system("cls");
+			std::cout << "\t\t\t=== Nurse Menu ===\n";
+			std::cout << "\t\t\t1. View patient waiting list\n";
+			std::cout << "\t\t\t2. Add patient to the waiting list\n";
+			std::cout << "\t\t\t3. Call next patient for doctor visit\n";
+			std::cout << "\t\t\t4. Search patient from waiting list\n";
+			std::cout << "\t\t\t5. Exit\n\n";
+			std::cout << "\t\t\t Enter a number above: ";
+
+			std::cin >> choice;
+			if (std::cin.fail())
+			{
+				std::cin.ignore(256, '\n');
+				continue;
+			}
+
+			switch (choice)
+			{
+			case 1:
+				viewWaitingList();
+				break;
+
+			case 2:
+				Patient* newPatient = createPatient();
+				std::cout << "\n---Patient Details---\n";
+				newPatient->toString();
+				std::cout << "\nConfirm adding patient into the waiting list? (yes/no): ";
+				getline(std::cin, confirm);
+				while (confirm != "yes" && confirm != "no")
+				{
+					std::cout << "\nInvalid input, please enter 'yes' or 'no' to confirm for adding patient: ";
+					getline(std::cin, confirm);
+				}
+				if (confirm == "no")
+				{
+					std::cout << "\nProcess has been cancelled, press 'enter' to continue.";
+					getline(std::cin, confirm);
+					break;
+				}
+				else
+				{
+					addPatient(newPatient);
+					std::cout << "Press 'enter' to continue.";
+					getline(std::cin, confirm);
+				}
+				break;
+
+			case 3:
+				callPatient();
+				break;
+
+			case 4:
+				std::cout << "Insert search function here"; //Insert search fuction hereset
+				break;
+
+			case 5:
+				std::cout << "Good bye!";
+				break;
+
+			default:
+				std::cout << "\n\n\t\t\t WARNING: The input you have entered is not supported by the system, please select from the menu\n";
+				break;
+			}
+			system("pause");
+		}
+
+		return;
+	}
+
+	void addPatient(Patient* patient)
+	{
+		waitingList->insertPatient(patient);
+		std::cout << "\nPatient sucessfully added to list.\n";
+	}
+
 	void callPatient() {
 		Patient* currentPatient = waitingList->getNextPatient();
 		std::cout << currentPatient->toString() << std::endl;
