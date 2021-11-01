@@ -42,11 +42,10 @@ public:
                 break;
 
             case 2:                
-                Utility::viewPatient();
+                Utility::viewPatient(patientQueue);
                 break;
 
             case 3:
-                std::cout << "Good bye!";
                 break;
 
             default:
@@ -55,7 +54,7 @@ public:
             }
             system("pause");
         }
-
+        system("cls");
         return;
     }
 

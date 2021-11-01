@@ -18,7 +18,7 @@ int main() {
 	Nurse* nurse = new Nurse(p);
 	std::string username;
 	std::string password;
-	bool loginAsDoctor = false;
+	char loginAsDoctor;
 	int loginStatus = 0;
 	while (true) {
 		std::cout << "Login Page" << std::endl;
@@ -26,7 +26,10 @@ int main() {
 		getline(std::cin, username);
 		std::cout << "Password : ";
 		password = Utility::getPassword();
-		//loginStatus = login(username,password,loginAsDoctor);
+		std::cout << "\nEnter 1 to login as doctor, otherwise enter any key to login as nurse :";
+		std::cin >> loginAsDoctor;
+		std::cin.ignore(256, '\n');
+		loginStatus = Utility::login(username,password,loginAsDoctor);
 		system("cls");
 		if (loginStatus == -1) {
 			std::cout << "Login failed. Invalid credentials provided. Please try again." << std::endl;
