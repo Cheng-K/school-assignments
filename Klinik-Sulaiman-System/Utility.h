@@ -201,7 +201,7 @@ public :
 		return;
 	}
 
-	bool Login(std::string userName, std::string password, bool isDoctor) 
+	int Login(std::string userName, std::string password, bool isDoctor) 
 	{
 		//Just putting an array in here for now for testing
 		std::string doctor[2][2] = { {"dotor1Name","doctor1Password"},
@@ -222,6 +222,7 @@ public :
 				if (doctor[i][0] == userName && doctor[i][1] == password)
 				{
 					found = true;
+					return 0;
 				}
 			}
 			
@@ -235,6 +236,7 @@ public :
 				if (nurse[i][0] == userName && nurse[i][1] == password)
 				{
 					found = true;
+					return 1;
 				}
 			}
 		}
@@ -242,8 +244,9 @@ public :
 		if (!found)
 		{
 			std::cout << "Sorry, but their is no mathcing records found\n";
+			return -1;
 		}
 
-		return found;
+		
 	}
 };
