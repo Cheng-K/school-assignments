@@ -6,19 +6,18 @@
 
 
 class Nurse {
-	PatientQueue* waitingList = NULL;
+	PatientQueue* patientQueue = NULL;
 
 public:
-	Nurse(PatientQueue* waitingList) {
-		this->waitingList = waitingList;
+	Nurse(PatientQueue* patientQueue) {
+		this->patientQueue = patientQueue;
 	}
 	void callPatient() {
-		Patient* currentPatient = waitingList->getNextPatient();
+		Patient* currentPatient = patientQueue->getNextPatient();
 		std::cout << currentPatient->toString() << std::endl;
 	}
 
-	Patient* createPatient()
-	{
+	Patient* createPatient() {
 		std::string firstName;
 		std::string lastName;
 		std::string gender;
@@ -31,7 +30,7 @@ public:
 		std::string disabledStatus;
 		int age;
 		bool isDisabled;
-		std::string patientID = "PID" + std::to_string(waitingList->getSize() + 1);
+		std::string patientID = "PID" + std::to_string(patientQueue->getSize() + 1);
 		std::cout << "Please enter the patient's first name: ";
 		getline(std::cin, firstName);
 		std::cout << "Please enter the patient's last name: ";
@@ -80,13 +79,30 @@ public:
 		return newPatient;
 	}
 
-	void viewWaitingList()
-	{
+	void viewWaitingList() {
 		std::string cont;
 		std::cout << "\nHere are all the patients in the waiting list: \n\n";
-		waitingList->displayList();
+		patientQueue->displayList();
 		std::cout << "\nPlease press 'enter' to continue";
 		getline(std::cin, cont);
 		return;
+	}
+
+	void addPatient(Patient* newPatient) {
+		std::cout << "Inserting patient into the waiting list..." << std::endl << std::endl;
+		patientQueue->insertPatient(newPatient);
+		std::cout << "Patient added successfully" << std::endl;
+
+	}
+
+	void deletePatient() {
+		std::string patientIDDelete;
+		std::cout << "Enter ID of patient to be deleted : ";
+		getline(std::cin,patientIDDelete);
+		int result = patientQueue->removePatient(patientIDDelete);
+		if (result == 1)
+			std::cout << "Patient successfully deleted. " << std::endl;
+		else
+			std::cout << "Invalid Patient ID or Patient with this ID does not exist..." << std::endl;
 	}
 };

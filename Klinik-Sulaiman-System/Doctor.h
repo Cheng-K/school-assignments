@@ -6,13 +6,13 @@
 
 class Doctor
 {
-    PatientQueue* waitingList = NULL;
+    PatientQueue* patientQueue = NULL;
 public:
     std::string doctorName;
     std::string toString() { return doctorName; }
 
-    Doctor(PatientQueue* waitingList) {
-        this->waitingList = waitingList;
+    Doctor(PatientQueue* patientQueue) {
+        this->patientQueue = patientQueue;
     }
 
     void viewInfo() 
@@ -38,7 +38,7 @@ public:
             switch (choice)
             {
             case 1:
-                waitingList->displayList();
+                patientQueue->displayList();
                 break;
 
             case 2:                

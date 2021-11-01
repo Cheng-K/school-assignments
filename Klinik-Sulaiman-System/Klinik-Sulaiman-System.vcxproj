@@ -146,6 +146,7 @@
     <ClInclude Include="LinkedList.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Nurse.h" />
+    <ClInclude Include="NurseDoctorCredentials.h" />
     <ClInclude Include="Patient.h" />
     <ClInclude Include="PatientQueue.h" />
     <ClInclude Include="Utility.h" />

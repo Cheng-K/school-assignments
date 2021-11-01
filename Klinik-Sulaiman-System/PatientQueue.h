@@ -9,7 +9,6 @@ class PatientQueue : public LinkedList {
 public :
 	void insertPatient(Patient* patient) { // Highly prone to bugs
         if (patient == NULL) {
-            std::cout << "Y";
             return;
         }
 		if (patient->isDisabled()) {
@@ -63,7 +62,6 @@ public :
         return current->getPatient();
     }
 
-    // Debug *
     int removePatient(std::string patientID)
     {
         Node* current;
@@ -71,7 +69,8 @@ public :
         {
             current = head;
             head = head->getNextNode();
-            head->setPreviousNode(NULL);
+            if (head != NULL)
+                head->setPreviousNode(NULL);
             if (current == lastDisabledPatient)
             {
                 lastDisabledPatient = NULL;
@@ -84,10 +83,12 @@ public :
             current = head->getNextNode();
             while (current != NULL)
             {
+                // Error when deleting the last node !!!
                 if (current->getPatient()->getPatientID() == patientID)
                 {
                     current->getPreviousNode()->setNextNode(current->getNextNode());
-                    current->getNextNode()->setPreviousNode(current->getPreviousNode());
+                    if (current->getNextNode() != NULL) // added 
+                        current->getNextNode()->setPreviousNode(current->getPreviousNode());
                     if (current == lastDisabledPatient)
                     {
                         lastDisabledPatient = current->getPreviousNode();
