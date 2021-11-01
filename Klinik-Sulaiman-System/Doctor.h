@@ -99,17 +99,21 @@ public:
         int searchMode;
         std::string cont;
         std::string searchReference;
-        std::cout << "1. Search by Patient ID \n2. Search by Patient Name \n3. Search by Sickness Description" <<
+        std::cout << "1. Search by Patient ID \n2. Search by Patient First Name \n3. Search by Sickness Description" <<
             "\n4. Go back\n\nPlease select an option to search for the patients' profile: ";
         std::cin >> searchMode;
         std::cin.clear();
         std::cin.ignore(256, '\n');
-        while (searchMode < 1 && searchMode>4)
+        while (searchMode < 1 || searchMode>4)
         {
             std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3/4): ";
             std::cin >> searchMode;
             std::cin.clear();
             std::cin.ignore(256, '\n');
+        }
+        if (searchMode == 4)
+        {
+            return;
         }
         std::cout << "\nPlease enter the patient details to be searched with: ";
         getline(std::cin, searchReference);
@@ -118,8 +122,10 @@ public:
         {
             patientList->displayList();
         }
-        std::cout << "\nPlease press 'enter' to continue: ";
-        getline(std::cin, cont);
+        else
+        {
+            std::cout << "\nPatient not found!\n";
+        }
         return;
     }
 };

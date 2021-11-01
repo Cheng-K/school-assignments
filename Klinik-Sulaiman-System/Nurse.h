@@ -7,7 +7,7 @@
 
 class Nurse {
 	PatientQueue* waitingList = NULL;
-
+	Patient* newPatient;
 public:
 	Nurse(PatientQueue* waitingList) {
 		this->waitingList = waitingList;
@@ -42,9 +42,9 @@ public:
 				break;
 
 			case 2:
-				Patient* newPatient = createPatient();
+				newPatient = createPatient();
 				std::cout << "\n---Patient Details---\n";
-				newPatient->toString();
+				std::cout<<newPatient->toString();
 				std::cout << "\nConfirm adding patient into the waiting list? (yes/no): ";
 				getline(std::cin, confirm);
 				while (confirm != "yes" && confirm != "no")
@@ -61,8 +61,6 @@ public:
 				else
 				{
 					addPatient(newPatient);
-					std::cout << "Press 'enter' to continue.";
-					getline(std::cin, confirm);
 				}
 				break;
 
@@ -71,7 +69,7 @@ public:
 				break;
 
 			case 4:
-				std::cout << "Insert search function here"; //Insert search fuction hereset
+				searchPatient();
 				break;
 
 			case 5:
@@ -96,7 +94,15 @@ public:
 
 	void callPatient() {
 		Patient* currentPatient = waitingList->getNextPatient();
-		std::cout << currentPatient->toString() << std::endl;
+		if (currentPatient == NULL)
+		{
+			return;
+		}
+		else
+		{
+			std::cout << currentPatient->toString() << std::endl;
+			return;
+		}
 	}
 
 	Patient* createPatient()
@@ -114,6 +120,8 @@ public:
 		int age;
 		bool isDisabled;
 		std::string patientID = "PID" + std::to_string(waitingList->getSize() + 1);
+		std::cin.clear();
+		std::cin.ignore(256, '\n');
 		std::cout << "Please enter the patient's first name: ";
 		getline(std::cin, firstName);
 		std::cout << "Please enter the patient's last name: ";
@@ -164,11 +172,43 @@ public:
 
 	void viewWaitingList()
 	{
-		std::string cont;
 		std::cout << "\nHere are all the patients in the waiting list: \n\n";
 		waitingList->displayList();
-		std::cout << "\nPlease press 'enter' to continue";
-		getline(std::cin, cont);
+		return;
+	}
+
+	void searchPatient()
+	{
+		int searchMode;
+		std::string cont;
+		std::string searchReference;
+		std::cout << "1. Search by Patient ID \n2. Search by Patient First Name"<<
+			"\n3. Go back\n\nPlease select an option to search for the patients' profile: ";
+		std::cin >> searchMode;
+		std::cin.clear();
+		std::cin.ignore(256, '\n');
+		while (searchMode < 1 || searchMode>3)
+		{
+			std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3): ";
+			std::cin >> searchMode;
+			std::cin.clear();
+			std::cin.ignore(256, '\n');
+		}
+		if (searchMode == 3)
+		{
+			return;
+		}
+		std::cout << "\nPlease enter the patient details to be searched with: ";
+		getline(std::cin, searchReference);
+		LinkedList* patientList = waitingList->search(searchReference, searchMode);
+		if (patientList->getHeadReference() != NULL)
+		{
+			patientList->displayList();
+		}
+		else
+		{
+			std::cout << "\nPatient not found!\n";
+		}
 		return;
 	}
 };

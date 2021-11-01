@@ -14,8 +14,7 @@
 
 int main()
 {
-
-	//patientqueue* p = new patientqueue();
+	PatientQueue* p = new PatientQueue();
 	//doctor* d = new doctor(p);
 	//nurse* n = new nurse(p);
 	//for (int i = 0; i < 3; i++) {
@@ -31,8 +30,7 @@ int main()
 	//d->viewinfo();
 
 	//p->removepatient("a4");
-
-	
-
+	Nurse* n = new Nurse(p);
+	n->nurseMenu();
 }
 

@@ -50,55 +50,55 @@ public :
 
     LinkedList* search(std::string searchReference, int searchMode)
     {
-        if (head == NULL) { 
-            std::cout << "Sorry but the list is empty, nothing to see here\n"; 
-            return NULL; 
-        }
-
         LinkedList* results = new LinkedList;
         Node* currentNode = head;
         std::string searchComparator;
-
-
-        while (currentNode != NULL)
+        if (head == NULL) { 
+            
+        }
+        else
         {
-            switch (searchMode)
+            while (currentNode != NULL)
             {
-            case 1:
-                searchComparator = currentNode->getPatient()->getPatientID();
+                switch (searchMode)
+                {
+                case 1:
+                    searchComparator = currentNode->getPatient()->getPatientID();
+                    if (searchComparator == searchReference)
+                    {
+                        results->append(currentNode->getPatient());
+                        return results;
+                    }
+                    break;
+
+                case 2:
+                    searchComparator = currentNode->getPatient()->getFirstName();
+                    break;
+
+                case 3:
+                    searchComparator = currentNode->getPatient()->getSicknessDescription();
+                    break;
+
+                case 4:
+                    searchComparator = currentNode->getPatient()->getMedicineInformation();
+                    break;
+
+                case 5:
+                    searchComparator = currentNode->getPatient()->getDoctorName();
+                    break;
+
+                default:
+                    break;
+                }
+
                 if (searchComparator == searchReference)
                 {
                     results->append(currentNode->getPatient());
-                    return results;
                 }
-                break;
-
-            case 2:
-                searchComparator = currentNode->getPatient()->getFirstName();
-                break;
-
-            case 3:
-                searchComparator = currentNode->getPatient()->getSicknessDescription();
-                break;
-
-            case 4:
-                searchComparator = currentNode->getPatient()->getMedicineInformation();
-                break;
-
-            case 5:
-                searchComparator = currentNode->getPatient()->getDoctorName();
-                break;
-
-            default:
-                break;
+                currentNode = currentNode->getNextNode();
             }
-
-            if (searchComparator == searchReference)
-            {
-                results->append(currentNode->getPatient());
-            }
-            currentNode = currentNode->getNextNode(); 
         }
+
 
         //The function or pointer receiving this "results" linked list will need to use getHeadReference() to start printing the Linked list
         return results;
@@ -111,7 +111,7 @@ public :
         //Check if the list is empty
         if (currentNode == NULL)
         {
-            std::cout << "The List is currently empty";
+            //std::cout << "The List is currently empty.\n"; 
             return;
         }
 
@@ -147,7 +147,10 @@ public :
         std::cout << std::endl;
     }
 
-    Node* getHeadReference() { return head; }
+    Node* getHeadReference() 
+    {
+        return head; 
+    }
 
     int getSize() {
         return size;
