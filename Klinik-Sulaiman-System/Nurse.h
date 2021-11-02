@@ -96,7 +96,6 @@ public:
 		Patient* currentPatient = patientQueue->getNextPatient();
 		if (currentPatient == NULL)
 		{
-			patientQueue->removePatient(currentPatient->getPatientID());
 			historyList->append(currentPatient);
 		}
 		else

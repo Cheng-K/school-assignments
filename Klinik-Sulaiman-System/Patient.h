@@ -36,7 +36,7 @@ public :
 	std::string toString()
 	{
 		std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Responsible Doctor: " + doctorName + "\n"
-			+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "Visiting Hour: "+ visitTime.tm_hour + "Visiting Min: " + visitTime.tm_min + "Visiting Sec: " + visitTime.tm_sec + "\n";
+			+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "Visiting Hour: " + std::to_string(visitTime.tm_hour) + "Visiting Min: " + std::to_string(visitTime.tm_min) + "Visiting Sec: " + std::to_string(visitTime.tm_sec) + "\n";
 		return patientProfile;
 	}
 
