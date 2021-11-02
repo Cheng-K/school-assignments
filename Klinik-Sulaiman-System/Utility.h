@@ -116,14 +116,6 @@ public :
 		return password;
 	}
 
-	static void displayDoctorMenu() {
-		std::cout << "Main menu " << std::endl;
-		std::cout << "1. View Patient History List and Patient Waiting List" << std::endl;
-		std::cout << "2. Treat Patients" << std::endl;
-		std::cout << "3. Search Patients" << std::endl;
-		std::cout << "Press any key to logout..." << std::endl;
-		std::cout << "Select one of the options displayed above by entering the number : ";
-	}
 
 
 	static void viewPatient(LinkedList* linkedList) 
@@ -131,10 +123,7 @@ public :
 		bool terminate = false;
 		Node* currentNode = linkedList->getHeadReference();
 
-		if (currentNode == NULL) { 
-			std::cout << "Linked List is empty, nothing to show\n";
-		}
-		else {
+		if (currentNode != NULL) {
 			while (!terminate)
 			{
 				system("cls");
@@ -262,17 +251,14 @@ public :
 
 			}
 		}
-		return;
 	}
 
 	static int login(std::string userName, std::string password, char isDoctor) 
 	{
-		//Just putting an array in here for now for testing
 
 		bool found = false;
 		int rowSize = 0;
 
-		
 		if (isDoctor == '1')
 		{
 			rowSize = sizeof doctor / sizeof doctor[0];
@@ -301,10 +287,8 @@ public :
 			}
 		}
 
-		if (!found)
-		{
-			std::cout << "Sorry, but their is no mathcing records found\n";
-			return -1;
-		}
+		std::cout << "Sorry, but their is no mathcing records found\n";
+		return -1;
+		
 	}
 };

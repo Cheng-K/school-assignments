@@ -8,82 +8,122 @@ class Doctor
 {
     PatientQueue* patientQueue = NULL;
     LinkedList* historyList = NULL;
+    std::string doctorName = "lee";
 
     
 public:
-    std::string doctorName;
-    std::string toString() { return doctorName; }
+
     Doctor(PatientQueue* waitingList, LinkedList* historyList) {
         this->patientQueue = waitingList;
         this->historyList = historyList;
+    }
+
+    void displayDoctorMenu() {
+        char choice = 0;
+        while (true) {
+            std::cout << "Doctor menu " << std::endl;
+            std::cout << "1. View Patient History List and Patient Waiting List" << std::endl;
+            std::cout << "2. Treat Patients" << std::endl;
+            std::cout << "3. Search Patients" << std::endl;
+            std::cout << "Press any key to logout..." << std::endl;
+            std::cout << "Select one of the options displayed above by entering the number : ";
+            std::cin >> choice;
+            std::cin.ignore(256, '\n');
+            std::cout << std::endl;
+            if (choice == '1')
+                viewInfo();
+            else if (choice == '2')
+                treatPatient();
+            else if (choice == '3')
+                searchPatient();
+            else
+                break;
+            system("cls");
+        }
     }
 
     void viewInfo()
     {
         int choice = 0;
 
-        while (choice != 3)
+        while (choice != 5)
         {
             system("cls");
-            std::cout << "\t\t\t=== Doctor Menu ===\n";
-            std::cout << "\t\t\t1. View waiting list\n";
-            std::cout << "\t\t\t2. View patient visit history\n";
-            std::cout << "\t\t\t3. Go Back to previous menu\n\n";
-            std::cout << "\t\t\t Enter a number above: ";
+            std::cout << "=== Doctor Viewing Menu ===\n";
+            std::cout << "1. View entire patient waiting list\n";
+            std::cout << "2. View patient waiting list in page by page mode\n";
+            std::cout << "3. View entire patient visit history list\n";
+            std::cout << "4. View patient visit history list in page by page mode\n";
+            std::cout << "5. Go Back to previous menu\n\n";
+            std::cout << " Enter a number above: ";
 
             std::cin >> choice;
             if (std::cin.fail())
             {
+                std::cout << choice;
+                std::cin.clear();
                 std::cin.ignore(256, '\n');
                 continue;
             }
-
+            std::cin.ignore(256, '\n');
+            std::cout << std::endl;
             switch (choice)
             {
             case 1:
-                patientQueue->displayList();
+                if (patientQueue->getHeadReference() != NULL)
+                    patientQueue->displayList();
+                else
+                    std::cout << "There are 0 patients in the waiting list." << std::endl;
                 break;
 
-            case 2:                
-                Utility::viewPatient(patientQueue);
+            case 2:         
+                if (patientQueue->getHeadReference() != NULL)
+                    Utility::viewPatient(patientQueue);
+                else 
+                    std::cout << "There are 0 patients in the waiting list." << std::endl;
                 break;
 
             case 3:
+                if (historyList->getHeadReference() != NULL)
+                    historyList->displayList();
+                else
+                    std::cout << "There are 0 patients in the history list." << std::endl;
+                break;
+            case 4:
+                if (historyList->getHeadReference() != NULL)
+                    Utility::viewPatient(historyList);
+                else
+                    std::cout << "There are 0 patients in the history list." << std::endl;
+                break;
+            case 5:
                 break;
 
             default:
-                std::cout << "\n\n\t\t\t WARNING: The input you have entered is not supported by the system, please select from the menu\n";
-                break;
+                std::cout << "\n\n WARNING: The input you have entered is not supported by the system, please select from the menu\n";
             }
+            std::cout << std::endl << std::endl;
             system("pause");
         }
-        system("cls");
         return;
     }
 
     void modifyPatient(Patient* patient)
     {
-        std::string doctorName;
         std::string medicineInfo;
-        std::string changeSicknessDescription;
+        char changeSicknessDescription;
 
-        std::cout << "Please enter doctor name: ";
-        getline(std::cin, doctorName);
-
-
+        std::cout << "Current Patient ID : " << patient->getPatientID() << std::endl;
+        std::cout << "Current Patient Name : " << patient->getFirstName() << std::endl;
         std::cout << "Enter the medicine information prescribed for this patient: ";
         getline(std::cin, medicineInfo);
 
-
-        patient->setDoctorName(doctorName);
         patient->setMedicineInformation(medicineInfo);
 
-
-        std::cout << "\nEnter [1] if you wish to modify the sickness description of patient or any other key to terminate the operation: ";
+        std::cout << "\nEnter [1] if you wish to modify the sickness description of patient or any other key to terminate this operation: ";
         std::cin >> changeSicknessDescription;
         std::cin.ignore(256, '\n');
 
-        if (changeSicknessDescription == "1")
+        if (changeSicknessDescription == '1')
         {
             std::string newSicknessDescription;
             std::cout << "Enter the sickness description for this patient: ";
@@ -91,8 +131,31 @@ public:
             patient->setSicknessDescription(newSicknessDescription);
         }
 
-        std::cout << "All modification saved successfully\n";
-        return;
+        std::cout << "\nAll modification saved successfully\n";
+    }
+
+    void treatPatient() {
+        LinkedList* allPatient = historyList->search(doctorName, 5);
+        LinkedList* treatPatient = allPatient->search("", 4);
+        char confirmation = ' ';
+
+        std::cout << "There are " << treatPatient->getSize() << " patients that need your attention to enter their medical information.";
+        if (treatPatient->getHeadReference() != NULL) {
+            Node* currentPatient = treatPatient->getHeadReference();
+            while (currentPatient != NULL && confirmation == '1') {
+                std::cout << "Would you like to enter continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
+                std::cin >> confirmation;
+                std::cin.ignore(256, '\n');
+                if (confirmation == '1') {
+                    system("cls");
+                    modifyPatient(currentPatient->getPatient());
+                }
+                else
+                    continue;
+            }
+        }
+        std::cout << "Redirecting you back to main menu..." << std::endl << std::endl;
+        system("pause");
     }
 
     void searchPatient()
@@ -100,12 +163,13 @@ public:
         int searchMode;
         std::string cont;
         std::string searchReference;
+        std::cout << "=== Doctor Searching Menu ===\n";
         std::cout << "1. Search by Patient ID \n2. Search by Patient First Name \n3. Search by Sickness Description" <<
             "\n4. Go back\n\nPlease select an option to search for the patients' profile: ";
         std::cin >> searchMode;
         std::cin.clear();
         std::cin.ignore(256, '\n');
-        while (searchMode < 1 || searchMode>4)
+        while (searchMode < 1 || searchMode > 4)
         {
             std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3/4): ";
             std::cin >> searchMode;
@@ -129,5 +193,6 @@ public:
         }
         return;
     }
+
 };
 

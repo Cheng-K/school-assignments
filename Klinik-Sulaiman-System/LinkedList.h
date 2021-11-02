@@ -106,22 +106,12 @@ public :
     void displayList()
     {
         Node* currentNode = head;
-
-        //Check if the list is empty
-        if (currentNode == NULL)
-        {
-            //std::cout << "The List is currently empty.\n"; 
-            return;
-        }
-
         while (currentNode != NULL)
         {
             std::cout << currentNode->getPatient()->toString();
             std::cout << "-----------------------------------------\n";
             currentNode = currentNode->getNextNode();
         }
-
-        return;
     }
 
     void displayInQueue() {

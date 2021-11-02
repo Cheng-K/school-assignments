@@ -23,13 +23,13 @@ public:
 		while (choice != 5)
 		{
 			system("cls");
-			std::cout << "\t\t\t=== Nurse Menu ===\n";
-			std::cout << "\t\t\t1. View patient waiting list\n";
-			std::cout << "\t\t\t2. Add patient to the waiting list\n";
-			std::cout << "\t\t\t3. Call next patient for doctor visit\n";
-			std::cout << "\t\t\t4. Search patient from waiting list\n";
-			std::cout << "\t\t\t5. Exit\n\n";
-			std::cout << "\t\t\t Enter a number above: ";
+			std::cout << "=== Nurse Menu ===\n";
+			std::cout << "1. View patient waiting list\n";
+			std::cout << "2. Add patient to the waiting list\n";
+			std::cout << "3. Call next patient for doctor visit\n";
+			std::cout << "4. Search patient from waiting list\n";
+			std::cout << "5. Logout\n\n";
+			std::cout << "Enter a number above: ";
 
 			std::cin >> choice;
 			std::cin.clear();
@@ -79,13 +79,13 @@ public:
 				break;
 
 			case 5:
-				std::cout << "Good bye!";
-				break;
+				return;
 
 			default:
 				std::cout << "\n\n\t\t\t WARNING: The input you have entered is not supported by the system, please select from the menu\n";
 				break;
 			}
+			std::cout << std::endl << std::endl;
 			system("pause");
 		}
 
@@ -94,12 +94,12 @@ public:
 
 	void callPatient() {
 		Patient* currentPatient = patientQueue->getNextPatient();
-		if (currentPatient == NULL)
-		{
+		if (currentPatient != NULL) {
+			std::cout << "Next patient information : " << std::endl;
+			std::cout << currentPatient->toString() << std::endl << std::endl;
 		}
-		else
-		{
-			std::cout << currentPatient->toString() << std::endl;
+		else {
+			std::cout << "There are 0 patients in the waiting list right now." << std::endl;
 		}
 	}
 
@@ -167,12 +167,12 @@ public:
 
 
 	void viewWaitingList() {
-		std::string cont;
-		std::cout << "\nHere are all the patients in the waiting list: \n\n";
-		patientQueue->displayList();
-		std::cout << "\nPlease press 'enter' to continue";
-		getline(std::cin, cont);
-		return;
+		if (patientQueue->getHeadReference() == NULL)
+			std::cout << "There are 0 patients in the waiting list...";
+		else {
+			std::cout << "\nHere are all the patients in the waiting list: \n\n";
+			patientQueue->displayList();
+		}
 	}
 
 	void addPatient(Patient* newPatient) {

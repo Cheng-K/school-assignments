@@ -37,24 +37,7 @@ int main() {
 		}
 		// Doctor
 		else if (loginStatus == 0) {
-			char choice = 0;
-			while (true) {
-				Utility::displayDoctorMenu();
-				std::cin >> choice;
-				cin.ignore(256, '\n');
-				if (choice == '1')
-					doctor->viewInfo();
-				else if (choice == '2') {
-					// search and modify patients ("treat patient")
-				}
-				else if (choice == '3') {
-					// search patient
-					doctor->searchPatient();
-				}
-				else {
-					break;
-				}
-			}
+			doctor->displayDoctorMenu();
 		}
 		else {
 			//nurse

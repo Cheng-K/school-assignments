@@ -37,12 +37,7 @@ public :
     Patient* getNextPatient()
     {
         Node* current;
-        std::string input;
-        if (head == NULL)
-        {
-            std::cout << "Patient queue is already empty, there are no patients to call." << std::endl;
-            std::cout << "Press 'enter' to continue";
-            getline(std::cin, input);
+        if (head == NULL) {
             return NULL;
         }
         current = head;
