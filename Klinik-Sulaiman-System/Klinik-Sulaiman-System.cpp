@@ -41,9 +41,8 @@ int main() {
 		}
 		else {
 			//nurse
-			while (true) {
-				nurse->displayNurseMenu();
-			}
+			nurse->displayNurseMenu();
+			
 		}
 		system("cls");
 	}
