@@ -72,6 +72,9 @@ public:
 			case 3:
 				callPatient();
 				// transition to history list
+				Patient* myPatient = patientQueue->getNextPatient();
+				patientQueue->removePatient(myPatient->getPatientID());
+				historyList->append(myPatient);
 				break;
 
 			case 4:
