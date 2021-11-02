@@ -25,11 +25,11 @@ public:
         while (choice != 3)
         {
             system("cls");
-            std::cout << "\t\t\t=== Doctor Menu ===\n";
-            std::cout << "\t\t\t1. View waiting list\n";
-            std::cout << "\t\t\t2. View patient visit history\n";
-            std::cout << "\t\t\t3. Go Back to previous menu\n\n";
-            std::cout << "\t\t\t Enter a number above: ";
+            std::cout << "=== Doctor Menu ===\n";
+            std::cout << "1. View waiting list\n";
+            std::cout << "2. View patient visit history\n";
+            std::cout << "3. Go Back to previous menu\n\n";
+            std::cout << "Enter a number above: ";
 
             std::cin >> choice;
             if (std::cin.fail())
@@ -52,7 +52,7 @@ public:
                 break;
 
             default:
-                std::cout << "\n\n\t\t\t WARNING: The input you have entered is not supported by the system, please select from the menu\n";
+                std::cout << "\n\n WARNING: The input you have entered is not supported by the system, please select from the menu\n";
                 break;
             }
             system("pause");
@@ -100,19 +100,21 @@ public:
         int searchMode;
         std::string cont;
         std::string searchReference;
+        system("cls");
+        std::cout << "-----Patient Search Menu-----\n\n";
         std::cout << "1. Search by Patient ID \n2. Search by Patient First Name \n3. Search by Sickness Description" <<
-            "\n4. Go back\n\nPlease select an option to search for the patients' profile: ";
+            "\n4. Medicine Information \n5. Go back\n\nPlease select an option to search for the patients' profile: ";
         std::cin >> searchMode;
         std::cin.clear();
         std::cin.ignore(256, '\n');
-        while (searchMode < 1 || searchMode>4)
+        while (searchMode < 1 || searchMode>5)
         {
-            std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3/4): ";
+            std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3/4/5): ";
             std::cin >> searchMode;
             std::cin.clear();
             std::cin.ignore(256, '\n');
         }
-        if (searchMode == 4)
+        if (searchMode == 5)
         {
             return;
         }

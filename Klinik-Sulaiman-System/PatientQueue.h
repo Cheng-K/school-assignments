@@ -40,9 +40,7 @@ public :
         std::string input;
         if (head == NULL)
         {
-            std::cout << "Patient queue is already empty, there are no patients to call." << std::endl;
-            std::cout << "Press 'enter' to continue";
-            getline(std::cin, input);
+            std::cout << "\nPatient queue is already empty, there are no patients to call.\n" << std::endl;
             return NULL;
         }
         current = head;
