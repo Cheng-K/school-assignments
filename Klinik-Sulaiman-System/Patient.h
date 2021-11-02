@@ -1,7 +1,9 @@
 #pragma once
 #include <string>
-
+#include <time.h>
 class Patient {
+
+	struct tm visitTime;
 	std::string patientID;
 	std::string firstName;
 	std::string lastName;
@@ -21,6 +23,9 @@ public :
 		this->medicineInformation = medicineInformation;
 		this->doctorName = doctorName;
 		this->disabled = disabled;
+
+		time_t now;
+		visitTime = *localtime(&now);
 	}
 
 
@@ -31,7 +36,7 @@ public :
 	std::string toString()
 	{
 		std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Responsible Doctor: " + doctorName + "\n"
-			+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\n";
+			+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "Visiting Hour: " + std::to_string(visitTime.tm_hour) + "Visiting Min: " + std::to_string(visitTime.tm_min) + "Visiting Sec: " + std::to_string(visitTime.tm_sec) + "\n";
 		return patientProfile;
 	}
 

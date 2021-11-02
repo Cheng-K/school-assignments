@@ -97,6 +97,7 @@ public:
 		if (currentPatient != NULL) {
 			std::cout << "Next patient information : " << std::endl;
 			std::cout << currentPatient->toString() << std::endl << std::endl;
+			historyList->append(currentPatient);
 		}
 		else {
 			std::cout << "There are 0 patients in the waiting list right now." << std::endl;
