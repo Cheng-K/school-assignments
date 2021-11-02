@@ -72,9 +72,6 @@ public:
 			case 3:
 				callPatient();
 				// transition to history list
-				Patient* myPatient = patientQueue->getNextPatient();
-				patientQueue->removePatient(myPatient->getPatientID());
-				historyList->append(myPatient);
 				break;
 
 			case 4:
@@ -99,6 +96,8 @@ public:
 		Patient* currentPatient = patientQueue->getNextPatient();
 		if (currentPatient == NULL)
 		{
+			patientQueue->removePatient(currentPatient->getPatientID());
+			historyList->append(currentPatient);
 		}
 		else
 		{
