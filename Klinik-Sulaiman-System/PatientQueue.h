@@ -37,7 +37,8 @@ public :
     Patient* getNextPatient()
     {
         Node* current;
-        if (head == NULL) {
+        if (head == NULL)
+        {
             return NULL;
         }
         current = head;

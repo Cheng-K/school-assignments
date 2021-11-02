@@ -165,18 +165,19 @@ public:
         std::string searchReference;
         std::cout << "=== Doctor Searching Menu ===\n";
         std::cout << "1. Search by Patient ID \n2. Search by Patient First Name \n3. Search by Sickness Description" <<
-            "\n4. Go back\n\nPlease select an option to search for the patients' profile: ";
+            "\n4. Medicine Information \n5. Go back\n\nPlease select an option to search for the patients' profile: ";
         std::cin >> searchMode;
         std::cin.clear();
         std::cin.ignore(256, '\n');
-        while (searchMode < 1 || searchMode > 4)
+
+        while (searchMode < 1 || searchMode>5)
         {
-            std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3/4): ";
+            std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3/4/5): ";
             std::cin >> searchMode;
             std::cin.clear();
             std::cin.ignore(256, '\n');
         }
-        if (searchMode == 4)
+        if (searchMode == 5)
         {
             return;
         }

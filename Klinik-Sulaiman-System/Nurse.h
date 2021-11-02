@@ -59,8 +59,7 @@ public:
 				}
 				if (confirm == "no")
 				{
-					std::cout << "\nProcess has been cancelled, press 'enter' to continue.";
-					getline(std::cin, confirm);
+					std::cout << "\nProcess has been cancelled.\n";
 					break;
 				}
 				else
@@ -82,7 +81,7 @@ public:
 				return;
 
 			default:
-				std::cout << "\n\n\t\t\t WARNING: The input you have entered is not supported by the system, please select from the menu\n";
+				std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu\n";
 				break;
 			}
 			std::cout << std::endl << std::endl;
@@ -95,13 +94,15 @@ public:
 	void callPatient() {
 		Patient* currentPatient = patientQueue->getNextPatient();
 		if (currentPatient != NULL) {
-			std::cout << "Next patient information : " << std::endl;
+			std::cout << "\n-----Details of patient called----\n\n";
 			std::cout << currentPatient->toString() << std::endl << std::endl;
 			historyList->append(currentPatient);
 		}
+
 		else {
 			std::cout << "There are 0 patients in the waiting list right now." << std::endl;
 		}
+
 	}
 
 	Patient* createPatient() {
@@ -118,6 +119,8 @@ public:
 		int age;
 		bool isDisabled;
 		std::string patientID = "PID" + std::to_string(patientQueue->getSize() + 1);
+		system("cls");
+		std::cout << "-----Create patient menu-----\n\n";
 		std::cout << "Please enter the patient's first name: ";
 		getline(std::cin, firstName);
 		std::cout << "Please enter the patient's last name: ";
@@ -169,11 +172,15 @@ public:
 
 	void viewWaitingList() {
 		if (patientQueue->getHeadReference() == NULL)
-			std::cout << "There are 0 patients in the waiting list...";
-		else {
+		{
+			std::cout << "\nThere are 0 patients in the waiting list.\n\n";
+		}
+		else
+		{
 			std::cout << "\nHere are all the patients in the waiting list: \n\n";
 			patientQueue->displayList();
 		}
+		return;
 	}
 
 	void addPatient(Patient* newPatient) {
@@ -199,6 +206,8 @@ public:
 		int searchMode;
 		std::string cont;
 		std::string searchReference;
+		system("cls");
+		std::cout << "-----Patient Search Menu-----\n\n";
 		std::cout << "1. Search by Patient ID \n2. Search by Patient First Name"<<
 			"\n3. Go back\n\nPlease select an option to search for the patients' profile: ";
 		std::cin >> searchMode;
@@ -220,6 +229,7 @@ public:
 		LinkedList* patientList = patientQueue->search(searchReference, searchMode);
 		if (patientList->getHeadReference() != NULL)
 		{
+			std::cout << "\n-----Search Results-----\n\n";
 			patientList->displayList();
 		}
 		else
