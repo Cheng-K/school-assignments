@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Nurse.h"
+#include "Utility.h"
 #include "LinkedList.h"
 #include "PatientQueue.h"
 #include "Patient.h"
@@ -25,7 +26,8 @@ void Nurse::displayNurseMenu()
 		std::cout << "2. Add patient to the waiting list\n";
 		std::cout << "3. Call next patient for doctor visit\n";
 		std::cout << "4. Search patient from waiting list\n";
-		std::cout << "5. Logout\n\n";
+		std::cout << "5. View patient waiting list sorted by time\n";
+		std::cout << "6. Logout\n\n";
 		std::cout << "Enter a number above: ";
 
 		std::cin >> choice;
@@ -74,12 +76,19 @@ void Nurse::displayNurseMenu()
 			searchPatient();
 			break;
 
-		case 5:
+		case 5: {
+			LinkedList* visitTimeSorted = Utility::mergeSort(patientQueue, 3);
+			if (visitTimeSorted->getHeadReference() != NULL)
+				visitTimeSorted->displayList();
+			else
+				std::cout << "\nThere are 0 patients in the patient queue" << std::endl;
+			break;
+		}
+		case 6:
 			return;
 
 		default:
 			std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu\n";
-			break;
 		}
 		std::cout << std::endl << std::endl;
 		system("pause");
