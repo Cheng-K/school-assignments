@@ -142,7 +142,7 @@ Patient* Nurse::createPatient() {
 	std::string disabledStatus;
 	int age;
 	bool isDisabled;
-	std::string patientID = "PID" + std::to_string(patientQueue->getSize() + 1);
+	std::string patientID = "PID" + std::to_string(patientQueue->getSize() + historyList->getSize()+ 1);
 	system("cls");
 	std::cout << "-----Create patient menu-----\n\n";
 	std::cout << "Please enter the patient's first name: ";

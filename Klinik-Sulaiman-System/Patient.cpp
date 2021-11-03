@@ -13,9 +13,10 @@ Patient::Patient(std::string patientID, std::string firstName, std::string lastN
 	this->doctorName = doctorName;
 	this->disabled = disabled;
 
-	time_t now ;
+	time_t now;
 	time(&now);
 	visitTime = localtime(&now);
+	std::cout << "Memory of now : " << now << std::endl << std::endl;
 }
 
 
@@ -28,6 +29,14 @@ std::string Patient::toString()
 	std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Responsible Doctor: " + doctorName + "\n"
 		+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\nVisiting Hour: " + std::to_string(visitTime->tm_hour) + "\tVisiting Min: " + std::to_string(visitTime->tm_min) + "\tVisiting Sec: " + std::to_string(visitTime->tm_sec) + "\n";
 	return patientProfile;
+}
+
+void Patient::setTime(int hour, int minute, int second) {
+	visitTime->tm_hour = hour;
+	visitTime->tm_min = minute;
+	visitTime->tm_sec = second;
+	std::cout << "Hour : " << visitTime->tm_hour << "\t Minute : " << visitTime->tm_min << "\t Seconds : " << visitTime->tm_sec << std::endl << std::endl;
+	std::cout << "Memory of time : " << visitTime;
 }
 
 //Getters

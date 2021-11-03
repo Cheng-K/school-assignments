@@ -5,11 +5,17 @@
 # include "Doctor.h"
 # include "Nurse.h"
 # include "Patient.h"
-# include "NurseDoctorCredentials.h"
 # include "LinkedList.h"
 # include "Node.h"
 
+// Global variable : Doctor username + password
+std::string doctorCredentials[2][2] = { {"e","qwe"},
+							 {"doctor2Name", "doctor2Password"} };
 
+
+// Global variable : Doctor username + password
+std::string nurseCredentials[2][2] = { {"nurse1Name","nurse1Password"},
+					 {"nurse2Name", "nurse2Password"} };
 
 LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 	if (searchMode != 0 && searchMode != 1 && searchMode != 2 && searchMode != 3)

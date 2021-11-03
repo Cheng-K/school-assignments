@@ -19,6 +19,8 @@ public :
 	bool isDisabled(); 
 
 	std::string toString();
+
+	void setTime(int hour, int minute, int second);
 	
 	//Getters
 	std::string getPatientID(); 
@@ -30,6 +32,7 @@ public :
 	std::string getDoctorName();
 
 	tm* getVisitTime();
+
 
 
 	//Setters

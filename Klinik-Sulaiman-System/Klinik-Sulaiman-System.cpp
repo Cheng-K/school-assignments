@@ -3,13 +3,35 @@
 
 #include <iostream>
 #include <string>
-#include "LinkedList.h"
-#include "Node.h"
-#include "Patient.h"
-#include "PatientQueue.h"
 #include "Utility.h"
-#include "Nurse.h"
+#include "LinkedList.h"
 #include "Doctor.h"
+#include "Nurse.h"
+#include "PatientQueue.h"
+#include "Patient.h"
+
+
+
+
+Patient* INIT_PATIENTQUEUE[5] = { new Patient("PID6", "Hui Lin", "Loe", "Fever", "", "Ong", false),
+	new Patient("PID7", "Benson", "Junior", "Migraine", "", "Ong", true),
+	new Patient("PID8", "Chi En", "Chew", "Malnutrition", "", "Wong", false),
+	new Patient("PID9", "Bruh", "Kong", "", "Infection", "Ong", true),
+	new Patient("PID10", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false) };
+
+Patient* INIT_HISTORYLIST[5] = { new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false),
+	new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true),
+	new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false),
+	new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true),
+	new Patient("PID5", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false) };
+
+int INIT_HISTORYTIME[5][3] = {
+	{9,01,01},
+	{9,30,59},
+	{10,05,0},
+	{13,00,00},
+	{16,55,0},
+};
 
 
 int main() {
@@ -17,16 +39,16 @@ int main() {
 	LinkedList* h = new LinkedList();
 	Doctor* doctor = new Doctor(p,h);
 	Nurse* nurse = new Nurse(p,h);
-	Patient* patientArr[5] = { new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false),
-	new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true),
-	new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false),
-	new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true),
-	new Patient("PID5", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false)};
+	
 	for (int i = 0;i < 5; i++)
 	{
-		p->insertPatient(patientArr[i]);
+		p->insertPatient(INIT_PATIENTQUEUE[i]);
+		std::cout << "Memory of patient : " << INIT_HISTORYLIST[i] << std::endl;
+		INIT_HISTORYLIST[i]->setTime(INIT_HISTORYTIME[i][0], INIT_HISTORYTIME[i][1], INIT_HISTORYTIME[i][2]);
+		h->insertAtFront(INIT_HISTORYLIST[i]);
+		
 	}
-	system("cls");
+	//system("cls");
 	std::string username;
 	std::string password;
 	char loginAsDoctor;
@@ -60,6 +82,8 @@ int main() {
 	return 0;
 
 }
+
+
 
 int test() {
 
