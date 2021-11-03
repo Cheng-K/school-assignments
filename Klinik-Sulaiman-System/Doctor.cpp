@@ -155,37 +155,47 @@ void Doctor::treatPatient() {
 
 void Doctor::searchPatient()
 {
-    int searchMode;
+    int searchMode=0;
     std::string cont;
     std::string searchReference;
-    std::cout << "=== Doctor Searching Menu ===\n";
-    std::cout << "1. Search by Patient ID \n2. Search by Patient First Name \n3. Search by Sickness Description" <<
-        "\n4. Medicine Information \n5. Go back\n\nPlease select an option to search for the patients' profile: ";
-    std::cin >> searchMode;
-    std::cin.clear();
-    std::cin.ignore(256, '\n');
-
-    while (searchMode < 1 || searchMode>5)
+    while (searchMode != 5)
     {
-        std::cout << "\nInvalid input, please select an option shown in the menu above (1/2/3/4/5): ";
+        system("cls");
+        std::cout << "=== Doctor Searching Menu ===\n";
+        std::cout << "1. Search by Patient ID \n2. Search by Patient First Name \n3. Search by Sickness Description" <<
+            "\n4. Medicine Information \n5. Go back\n\nPlease select an option to search for the patients' profile: ";
         std::cin >> searchMode;
+        if (searchMode < 1 || searchMode>5 || std::cin.fail())
+        {
+            std::cin.clear();
+            std::cin.ignore(256, '\n');
+            std::cout << "\n\n WARNING: The input you have entered is not supported by the system, please select from the menu.\n";
+            std::cout << std::endl << std::endl;
+            system("pause");
+            continue;
+        }
         std::cin.clear();
         std::cin.ignore(256, '\n');
-    }
-    if (searchMode == 5)
-    {
-        return;
-    }
-    std::cout << "\nPlease enter the patient details to be searched with: ";
-    getline(std::cin, searchReference);
-    LinkedList* patientList = patientQueue->search(searchReference, searchMode);
-    if (patientList->getHeadReference() != NULL)
-    {
-        patientList->displayList();
-    }
-    else
-    {
-        std::cout << "\nPatient not found!\n";
+        if (searchMode==5)
+        {
+            continue;
+        }
+        else
+        {
+            std::cout << "\nPlease enter the patient details to be searched with: ";
+            getline(std::cin, searchReference);
+            LinkedList* patientList = patientQueue->search(searchReference, searchMode);
+            if (patientList->getHeadReference() != NULL)
+            {
+                patientList->displayList();
+            }
+            else
+            {
+                std::cout << "\nPatient not found!\n";
+            }
+        }
+        std::cout << std::endl << std::endl;
+        system("pause");
     }
     return;
 }

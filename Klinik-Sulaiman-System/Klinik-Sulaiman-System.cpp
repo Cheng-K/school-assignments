@@ -17,6 +17,16 @@ int main() {
 	LinkedList* h = new LinkedList();
 	Doctor* doctor = new Doctor(p,h);
 	Nurse* nurse = new Nurse(p,h);
+	Patient* patientArr[5] = { new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false),
+	new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true),
+	new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false),
+	new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true),
+	new Patient("PID5", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false)};
+	for (int i = 0;i < 5; i++)
+	{
+		p->insertPatient(patientArr[i]);
+	}
+	system("cls");
 	std::string username;
 	std::string password;
 	char loginAsDoctor;
@@ -66,5 +76,20 @@ int test() {
 	//}
 	//p->displayinqueue();
 	//d->viewinfo();
+	PatientQueue* p = new PatientQueue();
+	LinkedList* h = new LinkedList();
+	Doctor* doctor = new Doctor(p, h);
+	Nurse* nurse = new Nurse(p, h);
+
+	Patient* patient1 = new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false);
+	Patient* patient2 = new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true);
+	Patient* patient3 = new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false);
+	Patient* patient4 = new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true);
+	Patient* patient5 = new Patient("PID4", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false);
+	Patient* patientArr[5] = { patient1,patient2,patient3,patient4,patient5 };
+	for (int i = 0;i < 5 ; i++)
+	{
+		nurse->addPatient(patientArr[i]);
+	}
 	return 0;
 }
