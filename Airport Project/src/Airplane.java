@@ -9,12 +9,16 @@ public class Airplane {
 
     private final String name;
     private final AirportTrafficController controller;
+    private final boolean hasEmergencies;
     private String assignedGateway;   // name of gateway to dock (assigned by airport traffic controller)
     public final Thread performLanding;
     public final Thread performTakeOff;
     public final Thread performDocking;
     public final Thread performUndocking;
     public final Thread performUnloadAndLoad;
+
+    private long startTime;
+    private long endTime;
 
 
     /* Private classes encapsulated in the airplane class represent individual tasks that an airplane will perform throughout the program.*/
@@ -98,9 +102,10 @@ public class Airplane {
     }
 
 
-    public Airplane(String name,AirportTrafficController controller){
+    public Airplane(String name,AirportTrafficController controller,boolean hasEmergencies){
         this.name = name;
         this.controller = controller;
+        this.hasEmergencies = hasEmergencies;
         performLanding = new Thread(new Landing(),name);
         performTakeOff = new Thread(new Departure(),name);
         performDocking = new Thread(new Dock(),name);
@@ -115,12 +120,18 @@ public class Airplane {
         Description : Notify the airport traffic controller to add this airplane to landing queue.
     */
     public void requestLanding () {
+        String requestString;
+        if (hasEmergencies)
+            requestString = " : 🔴 Mayday! Mayday! Mayday! Requesting for emergency landing at the airport if possible.";
+        else
+            requestString = " : Approaching airport in 20 minutes. Requesting permission to land on runway.";
         Thread initialConnection = new Thread ( () -> {
-            System.out.println(Thread.currentThread().getName() + " : Approaching airport in 20 minutes. Requesting permission to land on runway.");
+            System.out.println(Thread.currentThread().getName() + requestString);
             controller.addAirplaneToLandingQueue(this);
             System.out.println(Thread.currentThread().getName() + " : Copy that. Joining the landing queue now.");
         },name);
         initialConnection.start();
+        startTimer();
         // Maybe joining is necessary to really wait for airplane to get noticed by the airport. (Niche case : when the airport is closing the airplane might not get noticed)
     }
 
@@ -184,8 +195,24 @@ public class Airplane {
         return assignedGateway;
     }
 
+    public boolean requireEmergencyAttention () {
+        return hasEmergencies;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void startTimer() {
+        startTime = System.currentTimeMillis();
+    }
+
+    public void endTimer() {
+        endTime = System.currentTimeMillis();
+    }
+
+    public long getElapsedTime() {
+        return (endTime-startTime)/1000;
     }
 
 

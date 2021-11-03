@@ -20,12 +20,15 @@ public class AirplaneGenerator extends Thread {
 	public void run() {
 		for (int i = 0; i<airplaneToBeGenerated; i++){
 			try {
-				Thread.sleep(random.nextInt(6)*1000L); 
+				Thread.sleep(random.nextInt(2)*1000L);
 			} catch (InterruptedException e){
 				System.out.println("Airplane Generator interrupted unexpectedly.");
 				e.printStackTrace();
 			}
-			new Airplane("A"+(i+1),airportTrafficController);
+			if (i%4 == 0)
+				new Airplane("A"+(i+1),airportTrafficController,true);
+			else
+				new Airplane("A"+(i+1),airportTrafficController,false);
 		}
 		
 		// signal the airport that all planes arrived and should be closing

@@ -21,6 +21,10 @@ public class AirportTrafficController extends Thread{
     private final Thread departureThread;
     private AtomicInteger totalAirplanesDeparted;
     private AtomicInteger totalAirplanesArrived;
+    private long totalLandingTime;
+    private long totalDockingTime;
+    private long totalUndockingTime;
+    private long totalTakeoffTime;
 
     public AirportTrafficController() {
         runway = new ReentrantLock();
@@ -30,7 +34,7 @@ public class AirportTrafficController extends Thread{
         dockingQueue = new LinkedBlockingDeque<>(2);
         undockingQueue = new LinkedBlockingQueue<>();
         departureQueue = new LinkedBlockingQueue<>(2);
-        gateways = new ArrayBlockingQueue<String>(4,false, Arrays.asList("1","2","3","4")); // set fairness to false (default)
+        gateways = new ArrayBlockingQueue<>(4,false, Arrays.asList("1","2","3","4")); // set fairness to false (default)
         closed = false;
 
         landingThread = new Thread(new LandingCoordinator(this),"Air traffic controller");
@@ -41,6 +45,11 @@ public class AirportTrafficController extends Thread{
         // keep track of the airplanes entered and left the airport
         totalAirplanesDeparted = new AtomicInteger(0);
         totalAirplanesArrived = new AtomicInteger(0);
+
+        totalLandingTime = 0;
+        totalDockingTime = 0;
+        totalUndockingTime = 0;
+        totalTakeoffTime = 0;
     }
 
     @Override
@@ -75,8 +84,14 @@ public class AirportTrafficController extends Thread{
     }
 
     public void addAirplaneToLandingQueue (Airplane airplane) {
+        String replyString;
+        if (airplane.requireEmergencyAttention())
+            replyString = " : Airplane " + airplane.getName() + " has the highest priority to land. Please join the landing queue and fly in circles. Will allow you to land as soon as possible once the runway is clear.";
+        else
+            replyString = " : Airplane " + airplane.getName() + " please join the landing queue and fly in circles. Will come back to you when the runway is clear for you.";
+
         Thread replyThread = new Thread(()->{
-            System.out.println(Thread.currentThread().getName() + " : Airplane " + airplane.getName() + " please join the landing queue and fly in circles. Will come back to you when the runway is clear for you.");
+            System.out.println(Thread.currentThread().getName() + replyString);
         },"Airport Traffic Controller");
         replyThread.start();
         try{
@@ -86,7 +101,10 @@ public class AirportTrafficController extends Thread{
             e.printStackTrace();
         }
         totalAirplanesArrived.incrementAndGet();
-        landingQueue.add(airplane);
+        if (airplane.requireEmergencyAttention())
+            landingQueue.addFirst(airplane);
+        else
+            landingQueue.add(airplane);
     }
 
     public void addAirplaneToUndockQueue (Airplane airplane){
@@ -101,6 +119,13 @@ public class AirportTrafficController extends Thread{
             e.printStackTrace();
         }
         undockingQueue.add(airplane);
+    }
+
+    public void generateReport () {
+        System.out.println("Total time taken for airplane to wait and complete landing : " + totalLandingTime);
+        System.out.println("Total time taken for airplane to wait and complete docking : " + totalDockingTime);
+        System.out.println("Total time taken for airplane to wait and complete undocking : " + totalUndockingTime);
+        System.out.println("Total time taken for airplane to wait and complete takeoff : " + totalTakeoffTime);
     }
 
     /* Getters & Setters */
@@ -133,8 +158,42 @@ public class AirportTrafficController extends Thread{
         return totalAirplanesArrived.intValue() - totalAirplanesDeparted.intValue();
     }
 
+    public long getTotalLandingTime () {
+        return totalLandingTime;
+    }
+
+    public void setTotalLandingTime(long totalLandingTime) {
+        this.totalLandingTime = totalLandingTime;
+    }
+
+    public long getTotalDockingTime() {
+        return totalDockingTime;
+    }
+
+    public void setTotalDockingTime(long totalDockingTime) {
+        this.totalDockingTime = totalDockingTime;
+    }
+
+    public long getTotalUndockingTime() {
+        return totalUndockingTime;
+    }
+
+    public void setTotalUndockingTime(long totalUndockingTime) {
+        this.totalUndockingTime = totalUndockingTime;
+    }
+
+    public long getTotalTakeoffTime() {
+        return totalTakeoffTime;
+    }
+
+    public void setTotalTakeoffTime(long totalTakeoffTime) {
+        this.totalTakeoffTime = totalTakeoffTime;
+    }
+
     public void incrementDepartedAirplane () {
         totalAirplanesDeparted.incrementAndGet();
     }
+
+
 
 }

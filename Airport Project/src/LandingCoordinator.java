@@ -37,7 +37,14 @@ public class LandingCoordinator implements Runnable{
                         }
                         System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToLand.getName() + " please exit the runway and join the docking queue to wait for instructions to dock at specific gateway.");
                         airplaneToLand.postLandingReply();
-                        airportTrafficController.getDockingQueue().addLast(airplaneToLand);
+                        airplaneToLand.endTimer();
+                        airportTrafficController.setTotalLandingTime(airportTrafficController.getTotalLandingTime()+airplaneToLand.getElapsedTime());
+                        airplaneToLand.startTimer();
+                        if (airplaneToLand.requireEmergencyAttention())
+                            airportTrafficController.getDockingQueue().addFirst(airplaneToLand);
+                        else
+                            airportTrafficController.getDockingQueue().addLast(airplaneToLand);
+
                     }
                     catch (NoSuchElementException exception){
                         // Catches exception where the landing queue is empty 
