@@ -151,11 +151,14 @@ void Utility::viewPatient(LinkedList* linkedList)
 			{
 				if (!traverseNode)
 				{
-					std::cout << "[1] to exit viewing";
+					std::cout << "\n[1] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
 					{
+						std::cin.clear();
 						std::cin.ignore(256, '\n');
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+						system("pause");
 						continue;
 					}
 					switch (choice)
@@ -166,7 +169,8 @@ void Utility::viewPatient(LinkedList* linkedList)
 						break;
 
 					default:
-						std::cout << "\nSorry, but we do not support this input, please try again";
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+							system("pause");
 						break;
 					}
 				}
@@ -175,11 +179,14 @@ void Utility::viewPatient(LinkedList* linkedList)
 			{
 				if (!traverseNode)
 				{
-					std::cout << "Please enter [1] to view next page or [2] to exit viewing";
+					std::cout << "\nPlease enter [1] to view next page or [2] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
 					{
+						std::cin.clear();
 						std::cin.ignore(256, '\n');
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+						system("pause");
 						continue;
 					}
 					switch (choice)
@@ -195,7 +202,8 @@ void Utility::viewPatient(LinkedList* linkedList)
 						break;
 
 					default:
-						std::cout << "\nSorry, but we do not support this input, please try again";
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+						system("pause");
 						break;
 					}
 				}
@@ -204,11 +212,14 @@ void Utility::viewPatient(LinkedList* linkedList)
 			{
 				if (!traverseNode)
 				{
-					std::cout << "Please enter [0] to view previous page or [2] to exit viewing";
+					std::cout << "\nPlease enter [0] to view previous page or [2] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
 					{
+						std::cin.clear();
 						std::cin.ignore(256, '\n');
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+						system("pause");
 						continue;
 					}
 					switch (choice)
@@ -224,7 +235,8 @@ void Utility::viewPatient(LinkedList* linkedList)
 						break;
 
 					default:
-						std::cout << "\nSorry, but we do not support this input, please try again";
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+						system("pause");
 						break;
 					}
 				}
@@ -233,11 +245,14 @@ void Utility::viewPatient(LinkedList* linkedList)
 			{
 				if (!traverseNode)
 				{
-					std::cout << "Please enter [0] to view previous page or [1] to view next page or [2] to exit viewing";
+					std::cout << "\nPlease enter [0] to view previous page or [1] to view next page or [2] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
 					{
+						std::cin.clear();
 						std::cin.ignore(256, '\n');
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+						system("pause");
 						continue;
 					}
 					switch (choice)
@@ -258,7 +273,8 @@ void Utility::viewPatient(LinkedList* linkedList)
 						break;
 
 					default:
-						std::cout << "\nSorry, but we do not support this input, please try again";
+						std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
+						system("pause");
 						break;
 					}
 				}
