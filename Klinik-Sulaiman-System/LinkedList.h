@@ -27,6 +27,7 @@ public :
     void reverseDisplayInQueue();
 
     Node* getHeadReference();
+    Node* getTailReference();
     
     int getSize();
 };

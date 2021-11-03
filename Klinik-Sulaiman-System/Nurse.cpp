@@ -29,7 +29,8 @@ void Nurse::displayNurseMenu()
 		std::cout << "3. Call next patient for doctor visit\n";
 		std::cout << "4. Search patient from waiting list\n";
 		std::cout << "5. View patient waiting list sorted by time\n";
-		std::cout << "6. Logout\n\n";
+		std::cout << "6. View patient waiting list sorted by patient ID\n";
+		std::cout << "7. Logout\n\n";
 		std::cout << "Enter a number above: ";
 
 		std::cin >> choice;
@@ -100,9 +101,20 @@ void Nurse::displayNurseMenu()
 				visitTimeSorted->displayList();
 			else
 				std::cout << "\nThere are 0 patients in the patient queue" << std::endl;
-			break;
 		}
-		case 6:
+			  break;
+
+		case 6: {
+			LinkedList* patientIDSorted = Utility::mergeSort(patientQueue, 0);
+			if (patientIDSorted->getHeadReference() != NULL)
+				patientIDSorted->displayList();
+			else
+				std::cout << "\nThere are 0 patients in the patient queue" << std::endl;
+		}
+			  break;
+
+
+		case 7:
 			return;
 
 		default:

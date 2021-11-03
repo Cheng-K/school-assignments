@@ -14,9 +14,12 @@ Patient::Patient(std::string patientID, std::string firstName, std::string lastN
 	this->disabled = disabled;
 
 	time_t now;
-	time(&now);
+	struct tm* visitTime;
+	now = time(NULL);
 	visitTime = localtime(&now);
-	std::cout << "Memory of now : " << now << std::endl << std::endl;
+	visitHour = visitTime->tm_hour;
+	visitMinute = visitTime->tm_min;
+	visitSecond = visitTime->tm_sec;
 }
 
 
@@ -27,16 +30,14 @@ bool Patient::isDisabled() {
 std::string Patient::toString()
 {
 	std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Responsible Doctor: " + doctorName + "\n"
-		+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\nVisiting Hour: " + std::to_string(visitTime->tm_hour) + "\tVisiting Min: " + std::to_string(visitTime->tm_min) + "\tVisiting Sec: " + std::to_string(visitTime->tm_sec) + "\n";
+		+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\nVisiting Hour: " + std::to_string(visitHour) + "\tVisiting Min: " + std::to_string(visitMinute) + "\tVisiting Sec: " + std::to_string(visitSecond) + "\n";
 	return patientProfile;
 }
 
 void Patient::setTime(int hour, int minute, int second) {
-	visitTime->tm_hour = hour;
-	visitTime->tm_min = minute;
-	visitTime->tm_sec = second;
-	std::cout << "Hour : " << visitTime->tm_hour << "\t Minute : " << visitTime->tm_min << "\t Seconds : " << visitTime->tm_sec << std::endl << std::endl;
-	std::cout << "Memory of time : " << visitTime;
+	visitHour = hour;
+	visitMinute = minute;
+	visitSecond = second;
 }
 
 //Getters
@@ -58,10 +59,17 @@ std::string Patient::getDoctorName() {
 	return doctorName;
 }
 
-tm* Patient::getVisitTime() {
-	return visitTime;
+int Patient::getVisitHour() {
+	return visitHour;
 }
 
+int Patient::getVisitMinute() {
+	return visitMinute;
+}
+
+int Patient::getVisitSecond() {
+	return visitSecond;
+}
 
 //Setters
 void Patient::setPatientID(std::string patientID) {
@@ -83,7 +91,5 @@ void Patient::setMedicineInformation(std::string medicineInformation) {
 void Patient::setDoctorName(std::string doctorName) {
 	this->doctorName = doctorName;
 }
-
-
 
 

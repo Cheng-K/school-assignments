@@ -43,18 +43,16 @@ int main() {
 	for (int i = 0;i < 5; i++)
 	{
 		p->insertPatient(INIT_PATIENTQUEUE[i]);
-		std::cout << "Memory of patient : " << INIT_HISTORYLIST[i] << std::endl;
 		INIT_HISTORYLIST[i]->setTime(INIT_HISTORYTIME[i][0], INIT_HISTORYTIME[i][1], INIT_HISTORYTIME[i][2]);
 		h->insertAtFront(INIT_HISTORYLIST[i]);
-		
 	}
-	//system("cls");
+	system("cls");
 	std::string username;
 	std::string password;
 	char loginAsDoctor;
-	int loginStatus = 0;
+	int loginStatus = 1;
 	while (true) {
-		std::cout << "Login Page" << std::endl;
+		/*std::cout << "Login Page" << std::endl;
 		std::cout << "Username : ";
 		getline(std::cin, username);
 		std::cout << "Password : ";
@@ -62,7 +60,7 @@ int main() {
 		std::cout << "\nEnter 1 to login as doctor, otherwise enter any key to login as nurse :";
 		std::cin >> loginAsDoctor;
 		std::cin.ignore(256, '\n');
-		loginStatus = Utility::login(username,password,loginAsDoctor,doctor,nurse);
+		loginStatus = Utility::login(username,password,loginAsDoctor,doctor,nurse);*/
 		system("cls");
 		if (loginStatus == -1) {
 			std::cout << "Login failed. Invalid credentials provided. Please try again." << std::endl;

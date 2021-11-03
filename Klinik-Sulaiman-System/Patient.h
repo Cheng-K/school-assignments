@@ -2,8 +2,9 @@
 
 
 class Patient {
-
-	struct tm* visitTime;
+	int visitHour;
+	int visitMinute;
+	int visitSecond;
 	std::string patientID;
 	std::string firstName;
 	std::string lastName;
@@ -14,7 +15,6 @@ class Patient {
 
 public :
 	Patient (std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled); 
-
 
 	bool isDisabled(); 
 
@@ -30,10 +30,10 @@ public :
 	std::string getSicknessDescription(); 
 	std::string getMedicineInformation(); 
 	std::string getDoctorName();
-
-	tm* getVisitTime();
-
-
+	
+	int getVisitHour();
+	int getVisitMinute();
+	int getVisitSecond();
 
 	//Setters
 	void setPatientID(std::string patientID); 
