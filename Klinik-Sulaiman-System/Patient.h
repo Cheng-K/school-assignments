@@ -3,7 +3,7 @@
 
 class Patient {
 
-	struct tm visitTime;
+	struct tm* visitTime;
 	std::string patientID;
 	std::string firstName;
 	std::string lastName;
@@ -28,6 +28,8 @@ public :
 	std::string getSicknessDescription(); 
 	std::string getMedicineInformation(); 
 	std::string getDoctorName();
+
+	tm* getVisitTime();
 
 
 	//Setters

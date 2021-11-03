@@ -132,7 +132,7 @@ void Doctor::modifyPatient(Patient* patient)
 void Doctor::treatPatient() {
     LinkedList* allPatient = historyList->search(name, 5);
     LinkedList* treatPatient = allPatient->search("", 4);
-    char confirmation = ' ';
+    char confirmation = '1';
 
     std::cout << "There are " << treatPatient->getSize() << " patients that need your attention to enter their medical information.";
     if (treatPatient->getHeadReference() != NULL) {
@@ -144,6 +144,7 @@ void Doctor::treatPatient() {
             if (confirmation == '1') {
                 system("cls");
                 modifyPatient(currentPatient->getPatient());
+                currentPatient = currentPatient->getNextNode();
             }
             else
                 continue;

@@ -1,8 +1,8 @@
 #pragma once
 # include <iostream>
 # include "LinkedList.h"
-# include "Node.h";
-# include "Patient.h";
+# include "Node.h"
+# include "Patient.h"
 
 
 LinkedList::LinkedList() {

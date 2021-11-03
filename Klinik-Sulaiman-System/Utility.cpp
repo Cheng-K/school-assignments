@@ -12,7 +12,7 @@
 
 
 LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
-	if (searchMode != 0 && searchMode != 1 && searchMode != 2)
+	if (searchMode != 0 && searchMode != 1 && searchMode != 2 && searchMode != 3)
 		return NULL;
 
 	LinkedList* sortedList = linkedList;
@@ -35,7 +35,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 			}
 			// Compare
 			while (firstPartSize > 0 && (secondPartSize > 0 && secondPart != NULL)) {
-				if (searchMode == 0) {
+				if (searchMode == 0) { // Compare patient ID
 					if (firstPart->getPatient()->getPatientID() <= secondPart->getPatient()->getPatientID()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
@@ -47,7 +47,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 						secondPartSize--;
 					}
 				}
-				else if (searchMode == 1) {
+				else if (searchMode == 1) { // Compare patient first name
 					if (firstPart->getPatient()->getFirstName() <= secondPart->getPatient()->getFirstName()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
@@ -59,8 +59,21 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 						secondPartSize--;
 					}
 				}
-				else if (searchMode == 2) {
+				else if (searchMode == 2) { // Compare patient sickness description
 					if (firstPart->getPatient()->getSicknessDescription() <= secondPart->getPatient()->getSicknessDescription()) {
+						sortedList->append(firstPart->getPatient());
+						firstPart = firstPart->getNextNode();
+						firstPartSize--;
+					}
+					else {
+						sortedList->append(secondPart->getPatient());
+						secondPart = secondPart->getNextNode();
+						secondPartSize--;
+					}
+				}
+
+				else if (searchMode == 3) { // Compare patient time
+					if (Utility::transformTime(firstPart->getPatient()->getVisitTime()) <= Utility::transformTime(secondPart->getPatient()->getVisitTime())) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
 						firstPartSize--;
@@ -293,5 +306,11 @@ int Utility::login(std::string userName, std::string password, char isDoctor,Doc
 
 	std::cout << "Sorry, but their is no mathcing records found\n";
 	return -1;
-
 }
+
+int Utility::transformTime(tm* time1) {
+	return time1->tm_hour + time1->tm_min + time1->tm_sec;
+}
+
+
+
