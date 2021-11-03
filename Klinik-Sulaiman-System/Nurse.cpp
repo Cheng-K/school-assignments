@@ -111,7 +111,7 @@ void Nurse::callPatient() {
 	if (currentPatient != NULL) {
 		std::cout << "\n-----Details of patient called----\n\n";
 		std::cout << currentPatient->toString() << std::endl << std::endl;
-		historyList->append(currentPatient);
+		historyList->insertAtFront(currentPatient);
 	}
 
 	else {
