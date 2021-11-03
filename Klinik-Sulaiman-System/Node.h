@@ -1,5 +1,6 @@
 #pragma once
-# include "Patient.h"
+
+class Patient;
 
 class Node {
 	Node* previousNode;
@@ -7,30 +8,10 @@ class Node {
 	Node* nextNode;
 
 public :
-	Node(Patient* patient) {
-		previousNode = NULL;
-		nextNode = NULL;
-		this->patient = patient;
-	}
-
-	Node* getPreviousNode() {
-		return previousNode;
-	}
-
-	void setPreviousNode(Node* newPreviousNode) {
-		previousNode = newPreviousNode;
-	}
-
-	Node* getNextNode() {
-		return nextNode;
-	}
-
-	void setNextNode(Node* newNextNode) {
-		nextNode = newNextNode;
-	}
-
-
-	Patient* getPatient() {
-		return patient;
-	}
+	Node(Patient* patient);
+	Node* getPreviousNode();
+	void setPreviousNode(Node* newPreviousNode);
+	Node* getNextNode();
+	void setNextNode(Node* newNextNode);
+	Patient* getPatient();
 };

@@ -2,13 +2,14 @@
 //
 
 #include <iostream>
+#include <string>
 #include "LinkedList.h"
 #include "Node.h"
 #include "Patient.h"
 #include "PatientQueue.h"
 #include "Utility.h"
-#include "Doctor.h"
 #include "Nurse.h"
+#include "Doctor.h"
 
 
 int main() {
@@ -29,7 +30,7 @@ int main() {
 		std::cout << "\nEnter 1 to login as doctor, otherwise enter any key to login as nurse :";
 		std::cin >> loginAsDoctor;
 		std::cin.ignore(256, '\n');
-		loginStatus = Utility::login(username,password,loginAsDoctor);
+		loginStatus = Utility::login(username,password,loginAsDoctor,doctor,nurse);
 		system("cls");
 		if (loginStatus == -1) {
 			std::cout << "Login failed. Invalid credentials provided. Please try again." << std::endl;
