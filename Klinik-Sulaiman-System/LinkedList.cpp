@@ -135,6 +135,10 @@ Node* LinkedList::getHeadReference()
     return head;
 }
 
+Node* LinkedList::getTailReference() {
+    return tail;
+}
+
 int LinkedList::getSize() {
     return size;
 }

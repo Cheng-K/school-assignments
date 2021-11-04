@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Nurse.h"
+#include "Utility.h"
 #include "LinkedList.h"
 #include "PatientQueue.h"
 #include "Patient.h"
@@ -27,7 +28,9 @@ void Nurse::displayNurseMenu()
 		std::cout << "2. Add patient to the waiting list\n";
 		std::cout << "3. Call next patient for doctor visit\n";
 		std::cout << "4. Search patient from waiting list\n";
-		std::cout << "5. Logout\n\n";
+		std::cout << "5. View patient waiting list sorted by time\n";
+		std::cout << "6. View patient waiting list sorted by patient ID\n";
+		std::cout << "7. Logout\n\n";
 		std::cout << "Enter a number above: ";
 
 		std::cin >> choice;
@@ -61,8 +64,8 @@ void Nurse::displayNurseMenu()
 					Utility::viewPatient(patientQueue);
 			}
 			break;
-		case 2:
-			newPatient = createPatient();
+		case 2: {
+			Patient* newPatient = createPatient();
 			std::cout << "\n---Patient Details---\n";
 			std::cout << newPatient->toString();
 			std::cout << "\nConfirm adding patient into the waiting list? (yes/no): ";
@@ -81,6 +84,7 @@ void Nurse::displayNurseMenu()
 			{
 				addPatient(newPatient);
 			}
+		}
 			break;
 
 		case 3:
@@ -92,12 +96,30 @@ void Nurse::displayNurseMenu()
 			searchPatient();
 			break;
 
-		case 5:
+		case 5: {
+			LinkedList* visitTimeSorted = Utility::mergeSort(patientQueue, 3);
+			if (visitTimeSorted->getHeadReference() != NULL)
+				visitTimeSorted->displayList();
+			else
+				std::cout << "\nThere are 0 patients in the patient queue" << std::endl;
+		}
+			  break;
+
+		case 6: {
+			LinkedList* patientIDSorted = Utility::mergeSort(patientQueue, 0);
+			if (patientIDSorted->getHeadReference() != NULL)
+				patientIDSorted->displayList();
+			else
+				std::cout << "\nThere are 0 patients in the patient queue" << std::endl;
+		}
+			  break;
+
+
+		case 7:
 			return;
 
 		default:
 			std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu\n";
-			break;
 		}
 		std::cout << std::endl << std::endl;
 		system("pause");
@@ -133,7 +155,7 @@ Patient* Nurse::createPatient() {
 	std::string disabledStatus;
 	int age;
 	bool isDisabled;
-	std::string patientID = "PID" + std::to_string(patientQueue->getSize() + 1);
+	std::string patientID = "PID" + std::to_string(patientQueue->getSize() + historyList->getSize()+ 1);
 	system("cls");
 	std::cout << "-----Create patient menu-----\n\n";
 	std::cout << "Please enter the patient's first name: ";

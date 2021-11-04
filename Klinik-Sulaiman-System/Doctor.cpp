@@ -134,7 +134,7 @@ void Doctor::treatPatient() {
     LinkedList* treatPatient = allPatient->search("", 4);
     char confirmation = '1';
 
-    std::cout << "There are " << treatPatient->getSize() << " patients that need your attention to enter their medical information.";
+    std::cout << "There are " << treatPatient->getSize() << " patients that need your attention to enter their medical information." << std::endl;
     if (treatPatient->getHeadReference() != NULL) {
         Node* currentPatient = treatPatient->getHeadReference();
         while (currentPatient != NULL && confirmation == '1') {

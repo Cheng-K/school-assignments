@@ -5,14 +5,20 @@
 # include "Doctor.h"
 # include "Nurse.h"
 # include "Patient.h"
-# include "NurseDoctorCredentials.h"
 # include "LinkedList.h"
 # include "Node.h"
 
+// Global variable : Doctor username + password
+std::string doctorCredentials[2][2] = { {"Ong","qwe"},
+							 {"doctor2Name", "doctor2Password"} };
 
 
-LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
-	if (searchMode != 0 && searchMode != 1 && searchMode != 2 && searchMode != 3)
+// Global variable : Doctor username + password
+std::string nurseCredentials[2][2] = { {"nurse1Name","nurse1Password"},
+					 {"nurse2Name", "nurse2Password"} };
+
+LinkedList* Utility::mergeSort(LinkedList* linkedList, int filterMode) {
+	if (filterMode != 0 && filterMode != 1 && filterMode != 2 && filterMode != 3)
 		return NULL;
 
 	LinkedList* sortedList = linkedList;
@@ -20,7 +26,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 	while (true) {
 		Node* firstPart = sortedList->getHeadReference();
 		Node* secondPart = firstPart;
-		LinkedList* sortedList = new LinkedList();
+		sortedList = new LinkedList();
 		int totalMerges = 0;
 		int firstPartSize;
 		int secondPartSize;
@@ -35,19 +41,31 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 			}
 			// Compare
 			while (firstPartSize > 0 && (secondPartSize > 0 && secondPart != NULL)) {
-				if (searchMode == 0) { // Compare patient ID
-					if (firstPart->getPatient()->getPatientID() <= secondPart->getPatient()->getPatientID()) {
+				if (filterMode == 0) { // Compare patient ID
+					if (firstPart->getPatient()->getPatientID().length() < secondPart->getPatient()->getPatientID().length()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
 						firstPartSize--;
 					}
-					else {
+					else if (firstPart->getPatient()->getPatientID().length() > secondPart->getPatient()->getPatientID().length()) {
 						sortedList->append(secondPart->getPatient());
 						secondPart = secondPart->getNextNode();
 						secondPartSize--;
 					}
+					else {
+						if (firstPart->getPatient()->getPatientID() <= secondPart->getPatient()->getPatientID()) {
+							sortedList->append(firstPart->getPatient());
+							firstPart = firstPart->getNextNode();
+							firstPartSize--;
+						}
+						else {
+							sortedList->append(secondPart->getPatient());
+							secondPart = secondPart->getNextNode();
+							secondPartSize--;
+						}
+					}
 				}
-				else if (searchMode == 1) { // Compare patient first name
+				else if (filterMode == 1) { // Compare patient first name
 					if (firstPart->getPatient()->getFirstName() <= secondPart->getPatient()->getFirstName()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
@@ -59,7 +77,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 						secondPartSize--;
 					}
 				}
-				else if (searchMode == 2) { // Compare patient sickness description
+				else if (filterMode == 2) { // Compare patient sickness description
 					if (firstPart->getPatient()->getSicknessDescription() <= secondPart->getPatient()->getSicknessDescription()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
@@ -72,8 +90,28 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 					}
 				}
 
-				else if (searchMode == 3) { // Compare patient time
-					if (Utility::transformTime(firstPart->getPatient()->getVisitTime()) <= Utility::transformTime(secondPart->getPatient()->getVisitTime())) {
+				else if (filterMode == 3) { // Compare patient time
+					if (firstPart->getPatient()->getVisitHour() < secondPart->getPatient()->getVisitHour()) {
+						sortedList->append(firstPart->getPatient());
+						firstPart = firstPart->getNextNode();
+						firstPartSize--;
+					}
+					else if (firstPart->getPatient()->getVisitHour() > secondPart->getPatient()->getVisitHour()) {
+						sortedList->append(secondPart->getPatient());
+						secondPart = secondPart->getNextNode();
+						secondPartSize--;
+					}
+					else if (firstPart->getPatient()->getVisitMinute() < secondPart->getPatient()->getVisitMinute()) {
+						sortedList->append(firstPart->getPatient());
+						firstPart = firstPart->getNextNode();
+						firstPartSize--;
+					}
+					else if (firstPart->getPatient()->getVisitMinute() > secondPart->getPatient()->getVisitMinute()) {
+						sortedList->append(secondPart->getPatient());
+						secondPart = secondPart->getNextNode();
+						secondPartSize--;
+					}
+					else if (firstPart->getPatient()->getVisitSecond() <= secondPart->getPatient()->getVisitSecond()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
 						firstPartSize--;
@@ -84,7 +122,6 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 						secondPartSize--;
 					}
 				}
-
 			}
 
 			while (firstPartSize > 0) {
@@ -97,9 +134,10 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 				secondPart = secondPart->getNextNode();
 				secondPartSize--;
 			}
-			firstPart = secondPart;
-		}
 
+			firstPart = secondPart;
+
+		}
 		if (totalMerges <= 1) {
 			return sortedList;
 		}
@@ -320,13 +358,10 @@ int Utility::login(std::string userName, std::string password, char isDoctor,Doc
 		}
 	}
 
-	std::cout << "Sorry, but their is no mathcing records found\n";
+	std::cout << "Sorry, but their is no matching records found\n";
 	return -1;
 }
 
-int Utility::transformTime(tm* time1) {
-	return time1->tm_hour + time1->tm_min + time1->tm_sec;
-}
 
 
 

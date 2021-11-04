@@ -18,6 +18,5 @@ public :
 	static std::string getPassword(); 
 	static void viewPatient(LinkedList* linkedList);
 	static int login(std::string userName, std::string password, char isDoctor, Doctor* doctor, Nurse* nurse); 
-	static int transformTime(tm* time1);
 	
 };
