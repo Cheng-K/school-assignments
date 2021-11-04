@@ -17,8 +17,8 @@ std::string doctorCredentials[2][2] = { {"Ong","qwe"},
 std::string nurseCredentials[2][2] = { {"nurse1Name","nurse1Password"},
 					 {"nurse2Name", "nurse2Password"} };
 
-LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
-	if (searchMode != 0 && searchMode != 1 && searchMode != 2 && searchMode != 3)
+LinkedList* Utility::mergeSort(LinkedList* linkedList, int filterMode) {
+	if (filterMode != 0 && filterMode != 1 && filterMode != 2 && filterMode != 3)
 		return NULL;
 
 	LinkedList* sortedList = linkedList;
@@ -41,7 +41,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 			}
 			// Compare
 			while (firstPartSize > 0 && (secondPartSize > 0 && secondPart != NULL)) {
-				if (searchMode == 0) { // Compare patient ID
+				if (filterMode == 0) { // Compare patient ID
 					if (firstPart->getPatient()->getPatientID().length() < secondPart->getPatient()->getPatientID().length()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
@@ -65,7 +65,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 						}
 					}
 				}
-				else if (searchMode == 1) { // Compare patient first name
+				else if (filterMode == 1) { // Compare patient first name
 					if (firstPart->getPatient()->getFirstName() <= secondPart->getPatient()->getFirstName()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
@@ -77,7 +77,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 						secondPartSize--;
 					}
 				}
-				else if (searchMode == 2) { // Compare patient sickness description
+				else if (filterMode == 2) { // Compare patient sickness description
 					if (firstPart->getPatient()->getSicknessDescription() <= secondPart->getPatient()->getSicknessDescription()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();
@@ -90,7 +90,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int searchMode) {
 					}
 				}
 
-				else if (searchMode == 3) { // Compare patient time
+				else if (filterMode == 3) { // Compare patient time
 					if (firstPart->getPatient()->getVisitHour() < secondPart->getPatient()->getVisitHour()) {
 						sortedList->append(firstPart->getPatient());
 						firstPart = firstPart->getNextNode();

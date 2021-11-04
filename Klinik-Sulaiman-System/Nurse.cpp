@@ -64,8 +64,8 @@ void Nurse::displayNurseMenu()
 					Utility::viewPatient(patientQueue);
 			}
 			break;
-		case 2:
-			newPatient = createPatient();
+		case 2: {
+			Patient* newPatient = createPatient();
 			std::cout << "\n---Patient Details---\n";
 			std::cout << newPatient->toString();
 			std::cout << "\nConfirm adding patient into the waiting list? (yes/no): ";
@@ -84,6 +84,7 @@ void Nurse::displayNurseMenu()
 			{
 				addPatient(newPatient);
 			}
+		}
 			break;
 
 		case 3:

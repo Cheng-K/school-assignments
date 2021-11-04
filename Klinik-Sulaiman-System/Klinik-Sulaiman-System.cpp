@@ -52,7 +52,7 @@ int main() {
 	char loginAsDoctor;
 	int loginStatus = 1;
 	while (true) {
-		/*std::cout << "Login Page" << std::endl;
+		std::cout << "Login Page" << std::endl;
 		std::cout << "Username : ";
 		getline(std::cin, username);
 		std::cout << "Password : ";
@@ -60,7 +60,7 @@ int main() {
 		std::cout << "\nEnter 1 to login as doctor, otherwise enter any key to login as nurse :";
 		std::cin >> loginAsDoctor;
 		std::cin.ignore(256, '\n');
-		loginStatus = Utility::login(username,password,loginAsDoctor,doctor,nurse);*/
+		loginStatus = Utility::login(username,password,loginAsDoctor,doctor,nurse);
 		system("cls");
 		if (loginStatus == -1) {
 			std::cout << "Login failed. Invalid credentials provided. Please try again." << std::endl;
