@@ -5,7 +5,7 @@
 # include "Node.h"
 
 
-void PatientQueue::insertPatient(Patient* patient) { // Highly prone to bugs
+void PatientQueue::insertPatient(Patient* patient) { 
     if (patient == NULL) {
         return;
     }
