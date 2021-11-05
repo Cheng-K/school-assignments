@@ -93,7 +93,6 @@ LinkedList* LinkedList::search(std::string searchReference, int searchMode)
         }
     }
 
-    //The function or pointer receiving this "results" linked list will need to use getHeadReference() to start printing the Linked list
     return results;
 }
 

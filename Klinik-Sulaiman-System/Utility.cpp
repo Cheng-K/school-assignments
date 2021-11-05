@@ -163,7 +163,7 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int filterMode) {
 			password += lastChar;
 		}
 		else if (lastChar == '\b' && password.length() > 0) {
-			std::cout << "\b \b";
+			std::cout << "\b \b"; 
 			password.pop_back();
 		}
 	}
