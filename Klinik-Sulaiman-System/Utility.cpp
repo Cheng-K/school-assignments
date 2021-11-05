@@ -1,6 +1,7 @@
 # include <iostream>
 # include <string>
 # include <conio.h>
+#include <string.h>
 # include "Utility.h"
 # include "Doctor.h"
 # include "Nurse.h"
@@ -320,6 +321,8 @@ void Utility::viewPatient(LinkedList* linkedList)
 
 		}
 	}
+	else
+	std::cout << "\nThere are 0 patients in the waiting list.";
 }
 
 int Utility::login(std::string userName, std::string password, char isDoctor,Doctor* doctor, Nurse* nurse)
@@ -363,5 +366,12 @@ int Utility::login(std::string userName, std::string password, char isDoctor,Doc
 }
 
 
-
-
+bool Utility::stringNumber(std::string str)
+{
+	for (char &c : str)
+	{
+		if (std::isdigit(c) == 0)
+			return false;
+	}
+	return true;
+}

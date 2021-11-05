@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <algorithm>
+#include <cctype>
 #include <string>
 #include "Nurse.h"
 #include "Utility.h"
@@ -68,12 +70,16 @@ void Nurse::displayNurseMenu()
 			Patient* newPatient = createPatient();
 			std::cout << "\n---Patient Details---\n";
 			std::cout << newPatient->toString();
-			std::cout << "\nConfirm adding patient into the waiting list? (yes/no): ";
+			std::cout << "\nConfirm adding patient into the waiting list? (Yes/No): ";
 			getline(std::cin, confirm);
+			std::transform(confirm.begin(), confirm.end(), confirm.begin(), [](unsigned char c) 
+				{ return std::tolower(c); });
 			while (confirm != "yes" && confirm != "no")
 			{
-				std::cout << "\nInvalid input, please enter 'yes' or 'no' to confirm for adding patient: ";
+				std::cout << "\nInvalid input, please enter 'Yes' or 'No' to confirm for adding patient: ";
 				getline(std::cin, confirm);
+				std::transform(confirm.begin(), confirm.end(), confirm.begin(), [](unsigned char c)
+					{ return std::tolower(c); });
 			}
 			if (confirm == "no")
 			{
@@ -174,22 +180,30 @@ Patient* Nurse::createPatient() {
 	}
 	std::cout << "Please enter the patient's phone number: ";
 	getline(std::cin, phone);
+	while (!(Utility::stringNumber(phone)))
+	{
+		std::cout << "\nInvalid input, please enter numeric values for phone numbers only.\n";
+		std::cout << "Please enter the patient's phone number: ";
+		getline(std::cin, phone);
+	}
 	std::cout << "Please enter the patient's sickness description: ";
 	getline(std::cin, sicknessDescription);
 	std::cout << "Please enter the patient's address: ";
 	getline(std::cin, address);
-	std::cout << "Is the patient disabled? (yes/no): ";
+	std::cout << "Is the patient disabled? (Yes/No): ";
 	getline(std::cin, disabledStatus);
+	std::transform(disabledStatus.begin(), disabledStatus.end(), disabledStatus.begin(), [](unsigned char c)
+		{ return std::tolower(c); });
 	while (disabledStatus != "yes" && disabledStatus != "no")
 	{
-		// toupper / tolower pending
 		std::cout << "\nInvalid input, please try again.\n";
-		std::cout << "Is the patient disabled? (yes/no): ";
+		std::cout << "Is the patient disabled? (Yes/No): ";
 		getline(std::cin, disabledStatus);
+		std::transform(disabledStatus.begin(), disabledStatus.end(), disabledStatus.begin(), [](unsigned char c)
+			{ return std::tolower(c); });
 	}
 	if (disabledStatus == "yes")
 	{
-		// toupper / tolower pending
 		isDisabled = true;
 	}
 	else
