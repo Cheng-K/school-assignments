@@ -20,7 +20,7 @@ void Nurse::displayNurseMenu()
 	int choice = 0;
 	int viewChoice = 0;
 	std::string confirm;
-	while (choice != 5)
+	while (choice != 7)
 	{
 		system("cls");
 		std::cout << "=== Nurse Menu ===\n";
@@ -89,7 +89,6 @@ void Nurse::displayNurseMenu()
 
 		case 3:
 			callPatient();
-			// transition to history list
 			break;
 
 		case 4:
@@ -114,7 +113,6 @@ void Nurse::displayNurseMenu()
 		}
 			  break;
 
-
 		case 7:
 			return;
 
@@ -124,7 +122,6 @@ void Nurse::displayNurseMenu()
 		std::cout << std::endl << std::endl;
 		system("pause");
 	}
-
 	return;
 }
 
@@ -220,7 +217,7 @@ void Nurse::viewWaitingList() {
 }
 
 void Nurse::addPatient(Patient* newPatient) {
-	std::cout << "Inserting patient into the waiting list..." << std::endl << std::endl;
+	std::cout << "\nInserting patient into the waiting list..." << std::endl << std::endl;
 	patientQueue->insertPatient(newPatient);
 	std::cout << "Patient added successfully" << std::endl;
 

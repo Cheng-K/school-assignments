@@ -5,7 +5,7 @@
 # include "Node.h"
 
 
-void PatientQueue::insertPatient(Patient* patient) { // Highly prone to bugs
+void PatientQueue::insertPatient(Patient* patient) { 
     if (patient == NULL) {
         return;
     }
@@ -53,6 +53,7 @@ Patient* PatientQueue::getNextPatient()
     {
         head->setPreviousNode(NULL);
     }
+    size--;
     return current->getPatient();
 }
 
@@ -70,6 +71,7 @@ int PatientQueue::removePatient(std::string patientID)
             lastDisabledPatient = NULL;
         }
         delete current;
+        size--;
         return 1;
     }
     else
@@ -77,7 +79,7 @@ int PatientQueue::removePatient(std::string patientID)
         current = head->getNextNode();
         while (current != NULL)
         {
-            // Error when deleting the last node !!!
+            
             if (current->getPatient()->getPatientID() == patientID)
             {
                 current->getPreviousNode()->setNextNode(current->getNextNode());
@@ -88,6 +90,7 @@ int PatientQueue::removePatient(std::string patientID)
                     lastDisabledPatient = current->getPreviousNode();
                 }
                 delete current;
+                size--;
                 return 1;
             }
             else

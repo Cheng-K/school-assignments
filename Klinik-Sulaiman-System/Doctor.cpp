@@ -138,7 +138,7 @@ void Doctor::treatPatient() {
     if (treatPatient->getHeadReference() != NULL) {
         Node* currentPatient = treatPatient->getHeadReference();
         while (currentPatient != NULL && confirmation == '1') {
-            std::cout << "Would you like to enter continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
+            std::cout << "\nWould you like to enter continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
             std::cin >> confirmation;
             std::cin.ignore(256, '\n');
             if (confirmation == '1') {
@@ -185,14 +185,19 @@ void Doctor::searchPatient()
         {
             std::cout << "\nPlease enter the patient details to be searched with: ";
             getline(std::cin, searchReference);
-            LinkedList* patientList = patientQueue->search(searchReference, searchMode);
-            if (patientList->getHeadReference() != NULL)
-            {
-                patientList->displayList();
+            LinkedList* resultsFromPatientQueue = patientQueue->search(searchReference, searchMode);
+            LinkedList* resultsFromHistoryList = historyList->search(searchReference, searchMode);
+            if (resultsFromPatientQueue == NULL && resultsFromHistoryList == NULL) {
+                std::cout << "\nPatient(s) not found!\n";
             }
-            else
-            {
-                std::cout << "\nPatient not found!\n";
+            else {
+                if (resultsFromPatientQueue->getHeadReference() != NULL)
+                {
+                    resultsFromPatientQueue->displayList();
+                }
+                if (resultsFromHistoryList->getHeadReference() != NULL) {
+                    resultsFromHistoryList->displayList();
+                }
             }
         }
         std::cout << std::endl << std::endl;
