@@ -38,7 +38,7 @@ public class DepartureCoordinator implements Runnable{
                         continue;
                     }
                     airplaneToDepart.endTimer();
-                    airportTrafficController.setTotalTakeoffTime(airportTrafficController.getTotalTakeoffTime()+airplaneToDepart.getElapsedTime());
+                    airportTrafficController.addTakeoffTime(airplaneToDepart.getElapsedTime());
                     airplaneToDepart.startTimer();
                     System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToDepart.getName() + " have a safe trip.");
                     airportTrafficController.incrementDepartedAirplane();

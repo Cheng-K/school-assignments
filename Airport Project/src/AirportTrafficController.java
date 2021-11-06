@@ -1,5 +1,5 @@
+import java.sql.SQLOutput;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
@@ -21,10 +21,11 @@ public class AirportTrafficController extends Thread{
     private final Thread departureThread;
     private AtomicInteger totalAirplanesDeparted;
     private AtomicInteger totalAirplanesArrived;
-    private long totalLandingTime;
-    private long totalDockingTime;
-    private long totalUndockingTime;
-    private long totalTakeoffTime;
+    private long[] minTotalMaxLandingTime;
+    private long[] minTotalMaxDockingTime;
+    private long[] minTotalMaxUndockingTime;
+    private long[] minTotalMaxTakeoffTime;
+    private int totalPassengersArrived;
 
     public AirportTrafficController() {
         runway = new ReentrantLock();
@@ -46,10 +47,11 @@ public class AirportTrafficController extends Thread{
         totalAirplanesDeparted = new AtomicInteger(0);
         totalAirplanesArrived = new AtomicInteger(0);
 
-        totalLandingTime = 0;
-        totalDockingTime = 0;
-        totalUndockingTime = 0;
-        totalTakeoffTime = 0;
+        minTotalMaxLandingTime = new long[] {Long.MAX_VALUE,0, Long.MIN_VALUE};
+        minTotalMaxDockingTime = new long[]{Long.MAX_VALUE,0, Long.MIN_VALUE};
+        minTotalMaxUndockingTime = new long[]{Long.MAX_VALUE,0, Long.MIN_VALUE};
+        minTotalMaxTakeoffTime = new long[]{Long.MAX_VALUE,0, Long.MIN_VALUE};
+
     }
 
     @Override
@@ -122,10 +124,24 @@ public class AirportTrafficController extends Thread{
     }
 
     public void generateReport () {
-        System.out.println("Total time taken for airplane to wait and complete landing : " + totalLandingTime);
-        System.out.println("Total time taken for airplane to wait and complete docking : " + totalDockingTime);
-        System.out.println("Total time taken for airplane to wait and complete undocking : " + totalUndockingTime);
-        System.out.println("Total time taken for airplane to wait and complete takeoff : " + totalTakeoffTime);
+        System.out.println("Total number of airplanes : " + totalAirplanesArrived.get());
+        System.out.println("Total number of passengers arrived : " + totalPassengersArrived);
+        System.out.println("\n--------- Landing ---------");
+        System.out.println("Minimum time taken for airplane to wait and complete landing : " + minTotalMaxLandingTime[0]);
+        System.out.println("Average time taken for airplane to wait and complete landing : " + minTotalMaxLandingTime[1]/totalAirplanesArrived.get());
+        System.out.println("Maximum time taken for airplane to wait and complete landing : " + minTotalMaxLandingTime[2]);
+        System.out.println("\n--------- Docking ---------");
+        System.out.println("Minimum time taken for airplane to wait and complete docking : " + minTotalMaxDockingTime[0]);
+        System.out.println("Average time taken for airplane to wait and complete docking : " + minTotalMaxDockingTime[1]/totalAirplanesArrived.get());
+        System.out.println("Maximum time taken for airplane to wait and complete docking : " + minTotalMaxDockingTime[2]);
+        System.out.println("\n--------- Undocking ---------");
+        System.out.println("Minimum time taken for airplane to wait and complete undocking : " + minTotalMaxUndockingTime[0]);
+        System.out.println("Average time taken for airplane to wait and complete undocking : " + minTotalMaxUndockingTime[1]/totalAirplanesArrived.get());
+        System.out.println("Maximum time taken for airplane to wait and complete undocking : " + minTotalMaxUndockingTime[2]);
+        System.out.println("\n--------- Takeoff ---------");
+        System.out.println("Minimum time taken for airplane to wait and complete takeoff : " + minTotalMaxTakeoffTime[0]);
+        System.out.println("Average time taken for airplane to wait and complete takeoff : " + minTotalMaxTakeoffTime[1]/totalAirplanesArrived.get());
+        System.out.println("Maximum time taken for airplane to wait and complete takeoff : " + minTotalMaxTakeoffTime[2]);
     }
 
     /* Getters & Setters */
@@ -137,7 +153,6 @@ public class AirportTrafficController extends Thread{
     public BlockingDeque<Airplane> getDockingQueue() {
         return dockingQueue;
     }
-
     public BlockingQueue<Airplane> getUndockingQueue() {
         return undockingQueue;
     }
@@ -158,36 +173,40 @@ public class AirportTrafficController extends Thread{
         return totalAirplanesArrived.intValue() - totalAirplanesDeparted.intValue();
     }
 
-    public long getTotalLandingTime () {
-        return totalLandingTime;
+    public void addPassengersArrived(int arrivedPassengers){
+        totalPassengersArrived += arrivedPassengers;
     }
 
-    public void setTotalLandingTime(long totalLandingTime) {
-        this.totalLandingTime = totalLandingTime;
+    public void addLandingTime (long newLandingTime){
+        if (newLandingTime < minTotalMaxLandingTime[0])
+            minTotalMaxLandingTime[0] = newLandingTime;
+        if (newLandingTime > minTotalMaxLandingTime[2])
+            minTotalMaxLandingTime[2] = newLandingTime;
+        minTotalMaxLandingTime[1] += newLandingTime;
     }
 
-    public long getTotalDockingTime() {
-        return totalDockingTime;
+    public void addDockingTime (long newDockingTime){
+        if (newDockingTime < minTotalMaxDockingTime[0])
+            minTotalMaxDockingTime[0] = newDockingTime;
+        if (newDockingTime > minTotalMaxDockingTime[2])
+            minTotalMaxDockingTime[2] = newDockingTime;
+        minTotalMaxDockingTime[1] += newDockingTime;
     }
 
-    public void setTotalDockingTime(long totalDockingTime) {
-        this.totalDockingTime = totalDockingTime;
+    public void addUndockingTime (long newUndockingTime){
+        if (newUndockingTime < minTotalMaxUndockingTime[0])
+            minTotalMaxUndockingTime[0] = newUndockingTime;
+        if (newUndockingTime > minTotalMaxUndockingTime[2])
+            minTotalMaxUndockingTime[2] = newUndockingTime;
+        minTotalMaxUndockingTime[1] += newUndockingTime;
     }
 
-    public long getTotalUndockingTime() {
-        return totalUndockingTime;
-    }
-
-    public void setTotalUndockingTime(long totalUndockingTime) {
-        this.totalUndockingTime = totalUndockingTime;
-    }
-
-    public long getTotalTakeoffTime() {
-        return totalTakeoffTime;
-    }
-
-    public void setTotalTakeoffTime(long totalTakeoffTime) {
-        this.totalTakeoffTime = totalTakeoffTime;
+    public void addTakeoffTime (long newTakeoffTime){
+        if (newTakeoffTime < minTotalMaxTakeoffTime[0])
+            minTotalMaxTakeoffTime[0] = newTakeoffTime;
+        if (newTakeoffTime > minTotalMaxTakeoffTime[2])
+            minTotalMaxTakeoffTime[2] = newTakeoffTime;
+        minTotalMaxTakeoffTime[1] += newTakeoffTime;
     }
 
     public void incrementDepartedAirplane () {

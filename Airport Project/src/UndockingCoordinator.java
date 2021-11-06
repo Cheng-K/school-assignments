@@ -39,7 +39,7 @@ public class UndockingCoordinator implements Runnable{
                         System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() + " please proceed to join the departure queue beside the runway.");
                         airplaneToUndock.postUndockReply();
                         airplaneToUndock.endTimer();
-                        airportTrafficController.setTotalUndockingTime(airportTrafficController.getTotalUndockingTime()+airplaneToUndock.getElapsedTime());
+                        airportTrafficController.addUndockingTime(airplaneToUndock.getElapsedTime());
                         airplaneToUndock.startTimer();
                         airportTrafficController.getDepartureQueue().add(airplaneToUndock);
                     }

@@ -24,8 +24,8 @@ public class Main {
         } catch (InterruptedException e){
             System.out.println("Program crashed at main class. Check simulation program!!");
         }
-
-        System.out.println("\n Here are all the estimated time taken (seconds) for each event during this simulation program...");
+        System.out.println("\n ------------ REPORT ------------ ");
+        System.out.println("\nHere are all the estimated time taken (seconds) for each event during this simulation program...");
         airportTrafficController.generateReport();
     }
 }

@@ -36,7 +36,7 @@ public class DockingCoordinator implements Runnable{
                             continue;
                         }
                         airplaneToDock.endTimer();
-                        airportTrafficController.setTotalDockingTime(airportTrafficController.getTotalDockingTime()+airplaneToDock.getElapsedTime());
+                        airportTrafficController.addDockingTime(airplaneToDock.getElapsedTime());
                         airplaneToDock.startTimer();
                         System.out.println(Thread.currentThread().getName()+ " : Noted. Airplane " + airplaneToDock.getName() + " can start unload and refill supplies.");
                         airplaneToDock.performUnloadAndLoad.start();

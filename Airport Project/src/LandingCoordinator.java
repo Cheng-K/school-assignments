@@ -38,7 +38,7 @@ public class LandingCoordinator implements Runnable{
                         System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToLand.getName() + " please exit the runway and join the docking queue to wait for instructions to dock at specific gateway.");
                         airplaneToLand.postLandingReply();
                         airplaneToLand.endTimer();
-                        airportTrafficController.setTotalLandingTime(airportTrafficController.getTotalLandingTime()+airplaneToLand.getElapsedTime());
+                        airportTrafficController.addLandingTime(airplaneToLand.getElapsedTime());
                         airplaneToLand.startTimer();
                         if (airplaneToLand.requireEmergencyAttention())
                             airportTrafficController.getDockingQueue().addFirst(airplaneToLand);
@@ -51,7 +51,7 @@ public class LandingCoordinator implements Runnable{
                     }
                 }
                 else {
-                    System.out.println(Thread.currentThread().getName() + " : Unable to land an airplane due to docking queue is at full capacity.");
+                    System.out.println(Thread.currentThread().getName() + " : Unable to land any airplanes due to docking queue is at full capacity.");
                 }
                 // Wake DepartureCoordinator since runway is free
                 airportTrafficController.runway.notify();
