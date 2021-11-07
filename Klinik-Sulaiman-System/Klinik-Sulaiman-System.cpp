@@ -33,11 +33,11 @@ int INIT_HISTORYTIME[5][3] = {
 };
 
 int INIT_HISTORYDATE[5][3] = {
-	{9,01,01},
-	{9,30,59},
-	{10,05,0},
-	{13,00,00},
-	{16,55,0},
+	{9,9,121},
+	{10,9,121},
+	{11,9,121},
+	{13,9,121},
+	{16,9,121},
 };
 
 int main() {
@@ -50,6 +50,7 @@ int main() {
 	{
 		p->insertPatient(INIT_PATIENTQUEUE[i]);
 		INIT_HISTORYLIST[i]->setTime(INIT_HISTORYTIME[i][0], INIT_HISTORYTIME[i][1], INIT_HISTORYTIME[i][2]);
+		INIT_HISTORYLIST[i]->setVisitDay(INIT_HISTORYDATE[i][0], INIT_HISTORYDATE[i][1], INIT_HISTORYDATE[i][2]);
 		h->insertAtFront(INIT_HISTORYLIST[i]);
 	}
 	system("cls");

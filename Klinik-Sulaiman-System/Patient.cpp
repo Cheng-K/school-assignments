@@ -231,8 +231,8 @@ void Patient::setDoctorName(std::string doctorName) {
 
 void Patient::setVisitDay(int day, int month, int year) {
 	this->visitDay = day;
-	this->visitMonth = month;
-	this->visitYear = year;
+	this->visitMonth = 1+month;
+	this->visitYear = 1900+year;
 
 }
 
