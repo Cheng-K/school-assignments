@@ -13,17 +13,17 @@
 
 
 
-Patient* INIT_PATIENTQUEUE[5] = { new Patient("PID6", "Hui Lin", "Loe", "Fever", "", "Ong", false),
-	new Patient("PID7", "James", "Ethan", "Migraine", "", "Ong", true),
-	new Patient("PID8", "Chi En", "Chew", "Malnutrition", "", "Wong", false),
-	new Patient("PID9", "Bruh", "Kong", "", "Infection", "Ong", true),
-	new Patient("PID10", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false) };
+Patient* INIT_PATIENTQUEUE[5] = { new Patient("PID6", "Hui Lin", "Loe", "20", "female", "0132223194", "Fever", "", "Ong", false),
+	new Patient("PID7", "James", "Ethan", "30","male","0124428984","Migraine", "", "Ong", true),
+	new Patient("PID8", "Chi En", "Chew", "21","male","0193873275","Malnutrition", "", "Wong", false),
+	new Patient("PID9", "Bruh", "Kong", "25","others","0162985667", "Infection", "", "Ong", true),
+	new Patient("PID10", "Hua Iong", "Lee", "19","male","0193893758","Prostate disease", "", "Wong", false) };
 
-Patient* INIT_HISTORYLIST[5] = { new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false),
-	new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true),
-	new Patient("PID3", "Chi En", "Ooi", "Nauseous", "", "Wong", false),
-	new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true),
-	new Patient("PID5", "Hua Iong", "Lee", "Prostate disease", "Antibiotics", "Wong", false) };
+Patient* INIT_HISTORYLIST[5] = { new Patient("PID1", "Hui Yin", "18","female","0193875637","Loe", "Fever", "", "Ong", false),
+	new Patient("PID2", "Benson", "Junior", "17","others","0173846758","Migraine", "", "Ong", true),
+	new Patient("PID3", "Chi En", "Ooi", "24","female","0183758275","Nauseous", "", "Wong", false),
+	new Patient("PID4", "Kei Zhong", "Kong", "20","male","0162895784","Infection", "", "Ong", true),
+	new Patient("PID5", "Hua Long", "Lee","35","male","0163847182", "Prostate disease", "Antibiotics", "Wong", false) };
 
 int INIT_HISTORYTIME[5][3] = {
 	{9,01,01},
@@ -103,15 +103,17 @@ int test() {
 	Doctor* doctor = new Doctor(p, h);
 	Nurse* nurse = new Nurse(p, h);
 
-	Patient* patient1 = new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false);
-	Patient* patient2 = new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true);
-	Patient* patient3 = new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false);
-	Patient* patient4 = new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true);
-	Patient* patient5 = new Patient("PID4", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false);
-	Patient* patientArr[5] = { patient1,patient2,patient3,patient4,patient5 };
-	for (int i = 0;i < 5 ; i++)
-	{
-		nurse->addPatient(patientArr[i]);
-	}
+	//Patient* patient1 = new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false);
+	//Patient* patient2 = new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true);
+	//Patient* patient3 = new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false);
+	//Patient* patient4 = new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true);
+	//Patient* patient5 = new Patient("PID4", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false);
+	//Patient* patientArr[5] = { patient1,patient2,patient3,patient4,patient5 };
+	//for (int i = 0;i < 5 ; i++)
+	//{
+	//	nurse->addPatient(patientArr[i]);
+	//}
 	return 0;
 }
+
+

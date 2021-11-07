@@ -22,7 +22,7 @@ void Nurse::displayNurseMenu()
 	int choice = 0;
 	int viewChoice = 0;
 	std::string confirm;
-	while (choice != 7)
+	while (choice != 8)
 	{
 		system("cls");
 		std::cout << "=== Nurse Menu ===\n";
@@ -32,7 +32,8 @@ void Nurse::displayNurseMenu()
 		std::cout << "4. Search patient from waiting list\n";
 		std::cout << "5. View patient waiting list sorted by time\n";
 		std::cout << "6. View patient waiting list sorted by patient ID\n";
-		std::cout << "7. Logout\n\n";
+		std::cout << "7. Remove patient from waiting list\n";
+		std::cout << "8. Logout\n\n";
 		std::cout << "Enter a number above: ";
 
 		std::cin >> choice;
@@ -120,6 +121,9 @@ void Nurse::displayNurseMenu()
 			  break;
 
 		case 7:
+			deletePatient();
+			break;
+		case 8:
 			return;
 
 		default:
@@ -150,13 +154,12 @@ Patient* Nurse::createPatient() {
 	std::string lastName;
 	std::string gender;
 	std::string phone;
-	std::string address;
 	std::string sicknessDescription;
 	std::string patientInformation;
 	std::string doctorName;
 	std::string medicineInformation = "";
 	std::string disabledStatus;
-	int age;
+	std::string age;
 	bool isDisabled;
 	std::string patientID = "PID" + std::to_string(patientQueue->getSize() + historyList->getSize()+ 1);
 	system("cls");
@@ -166,17 +169,24 @@ Patient* Nurse::createPatient() {
 	std::cout << "Please enter the patient's last name: ";
 	getline(std::cin, lastName);
 	std::cout << "Please enter the patient's age: ";
-	std::cin >> age;
-	std::cin.clear();
-	std::cin.ignore(256, '\n');
-
-	while (age == 0)
+	getline(std::cin, age);
+	while (!(Utility::stringNumber(age)))
 	{
-		std::cout << "\nInvalid input, please try again.\n";
+		std::cout << "\nInvalid input, please enter numeric values only.\n";
 		std::cout << "Please enter the patient's age: ";
-		std::cin >> age;
-		std::cin.clear();
-		std::cin.ignore(256, '\n');
+		getline(std::cin, age);
+	}
+	std::cout << "Please enter the patient's gender (Male/Female/Others): ";
+	getline(std::cin, gender);
+	std::transform(gender.begin(), gender.end(), gender.begin(), [](unsigned char c)
+		{ return std::tolower(c); });
+	while (gender != "male" && gender != "female" && gender != "others")
+	{
+		std::cout << "\nInvalid input, please try again with options given.\n";
+		std::cout << "Please enter the patient's gender (Male/Female/Others): ";
+		getline(std::cin, gender);
+		std::transform(gender.begin(), gender.end(), gender.begin(), [](unsigned char c)
+			{ return std::tolower(c); });
 	}
 	std::cout << "Please enter the patient's phone number: ";
 	getline(std::cin, phone);
@@ -188,8 +198,6 @@ Patient* Nurse::createPatient() {
 	}
 	std::cout << "Please enter the patient's sickness description: ";
 	getline(std::cin, sicknessDescription);
-	std::cout << "Please enter the patient's address: ";
-	getline(std::cin, address);
 	std::cout << "Is the patient disabled? (Yes/No): ";
 	getline(std::cin, disabledStatus);
 	std::transform(disabledStatus.begin(), disabledStatus.end(), disabledStatus.begin(), [](unsigned char c)
@@ -210,9 +218,15 @@ Patient* Nurse::createPatient() {
 	{
 		isDisabled = false;
 	}
-	std::cout << "Please enter the patient's doctor name: ";
+	//std::string* availableDoctors = Utility::getDoctors();
+	//std::cout << "Available doctors:" << std::endl;
+	//for (int i = 0; i < sizeof(availableDoctors);i++)
+	//{
+	//	std::cout << availableDoctors[i];
+	//}
+	std::cout << "\nPlease enter the patient's doctor name from above: ";
 	getline(std::cin, doctorName);
-	Patient* newPatient = new Patient(patientID, firstName, lastName, sicknessDescription, medicineInformation, doctorName, isDisabled);
+	Patient* newPatient = new Patient(patientID, firstName, lastName, age, gender, phone, sicknessDescription, medicineInformation, doctorName, isDisabled);
 	return newPatient;
 }
 
@@ -239,13 +253,13 @@ void Nurse::addPatient(Patient* newPatient) {
 
 void Nurse::deletePatient() {
 	std::string patientIDDelete;
-	std::cout << "Enter ID of patient to be deleted : ";
+	std::cout << "\nEnter ID of patient to be deleted : ";
 	getline(std::cin, patientIDDelete);
 	int result = patientQueue->removePatient(patientIDDelete);
 	if (result == 1)
-		std::cout << "Patient successfully deleted. " << std::endl;
+		std::cout << "\nPatient with ID '"<<patientIDDelete<<"' successfully deleted. " << std::endl;
 	else
-		std::cout << "Invalid Patient ID or Patient with this ID does not exist..." << std::endl;
+		std::cout << "\nInvalid Patient ID or Patient with this ID does not exist..." << std::endl;
 }
 
 void Nurse::searchPatient()

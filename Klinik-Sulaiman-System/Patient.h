@@ -8,16 +8,19 @@ class Patient {
 	int visitHour;
 	int visitMinute;
 	int visitSecond;
+	std::string age;
 	std::string patientID;
 	std::string firstName;
 	std::string lastName;
+	std::string gender;
 	std::string sicknessDescription;
 	std::string medicineInformation;
 	std::string doctorName;
+	std::string phone;
 	bool disabled;
 
 public :
-	Patient (std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled); 
+	Patient (std::string patientID, std::string firstName, std::string lastName, std::string age, std::string gender, std::string phone, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled);
 
 	bool isDisabled(); 
 
