@@ -8,6 +8,8 @@ class Patient {
 	int visitHour;
 	int visitMinute;
 	int visitSecond;
+	int age;
+	std::string gender;
 	std::string patientID;
 	std::string firstName;
 	std::string lastName;
@@ -48,6 +50,12 @@ public :
 	void setMedicineInformation(std::string medicineInformation); 
 
 	void setDoctorName(std::string doctorName);
+
+	void Patient::setVisitDay(int Day);
+
+	void Patient::setVisitMonth(int Month);
+
+	void Patient::setVisitYear(int Year);
 
 };
 

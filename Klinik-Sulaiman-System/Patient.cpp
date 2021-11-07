@@ -4,7 +4,7 @@
 #include <time.h>
 #include "Patient.h"
  
-Patient::Patient(std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std::string doctorName, bool disabled) {
+Patient::Patient(std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std::string doctorName, bool disabled, std::string gender, int age) {
 	this->patientID = patientID;
 	this->firstName = firstName;
 	this->lastName = lastName;
@@ -12,6 +12,9 @@ Patient::Patient(std::string patientID, std::string firstName, std::string lastN
 	this->medicineInformation = medicineInformation;
 	this->doctorName = doctorName;
 	this->disabled = disabled;
+	this->age = age;
+	this->gender = gender;
+
 
 	time_t now;
 	struct tm* visitTime;
@@ -32,7 +35,7 @@ bool Patient::isDisabled() {
 
 std::string Patient::toString()
 {
-	std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Responsible Doctor: " + doctorName + "\n"
+	std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Age: " + age + "\n" + "Gender: " + gender + "\n" + "Responsible Doctor: " + doctorName + "\n"
 		+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\nVisiting Day(dd/mm/yy) : "+ std::to_string(visitDay) +"/" + std::to_string(visitMonth) +"/" + std::to_string(visitYear) 
 		+ "\nVisiting Time(hour / min / sec) : ";
 	if (visitHour <= 9)
@@ -104,6 +107,18 @@ void Patient::setMedicineInformation(std::string medicineInformation) {
 
 void Patient::setDoctorName(std::string doctorName) {
 	this->doctorName = doctorName;
+}
+
+void Patient::setVisitDay(int Day) {
+	this->visitDay = Day;
+}
+
+void Patient::setVisitMonth(int Month) {
+	this->visitMonth = Month;
+}
+
+void Patient::setVisitYear(int Year) {
+	this->setVisitYear = Year;
 }
 
 

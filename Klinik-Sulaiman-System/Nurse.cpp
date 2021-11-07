@@ -169,6 +169,8 @@ Patient* Nurse::createPatient() {
 	std::cin >> age;
 	std::cin.clear();
 	std::cin.ignore(256, '\n');
+	std::cout << "Please enter the patient's gender: ";
+	getline(std::cin, gender);
 
 	while (age == 0)
 	{
@@ -212,7 +214,7 @@ Patient* Nurse::createPatient() {
 	}
 	std::cout << "Please enter the patient's doctor name: ";
 	getline(std::cin, doctorName);
-	Patient* newPatient = new Patient(patientID, firstName, lastName, sicknessDescription, medicineInformation, doctorName, isDisabled);
+	Patient* newPatient = new Patient(patientID, firstName, lastName, sicknessDescription, medicineInformation, doctorName, isDisabled, age, gender);
 	return newPatient;
 }
 

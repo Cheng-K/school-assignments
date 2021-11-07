@@ -103,11 +103,11 @@ int test() {
 	Doctor* doctor = new Doctor(p, h);
 	Nurse* nurse = new Nurse(p, h);
 
-	Patient* patient1 = new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false);
-	Patient* patient2 = new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true);
-	Patient* patient3 = new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false);
-	Patient* patient4 = new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true);
-	Patient* patient5 = new Patient("PID4", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false);
+	Patient* patient1 = new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false, 20, "Female");
+	Patient* patient2 = new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true, 25, "Male");
+	Patient* patient3 = new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false, 20, "Male");
+	Patient* patient4 = new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true, 20, "Male");
+	Patient* patient5 = new Patient("PID4", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false, 19, "Male");
 	Patient* patientArr[5] = { patient1,patient2,patient3,patient4,patient5 };
 	for (int i = 0;i < 5 ; i++)
 	{
