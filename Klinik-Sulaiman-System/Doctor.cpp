@@ -107,8 +107,8 @@ void Doctor::modifyPatient(Patient* patient)
     std::string medicineInfo;
     char changeSicknessDescription;
 
-    std::cout << "Current Patient ID : " << patient->getPatientID() << std::endl;
-    std::cout << "Current Patient Name : " << patient->getFirstName() << std::endl;
+    std::cout << "----------------- Current Patient Details -----------------" << std::endl;
+    std::cout << patient->toString() << std::endl << std::endl;
     std::cout << "Enter the medicine information prescribed for this patient: ";
     getline(std::cin, medicineInfo);
 
@@ -121,7 +121,7 @@ void Doctor::modifyPatient(Patient* patient)
     if (changeSicknessDescription == '1')
     {
         std::string newSicknessDescription;
-        std::cout << "Enter the sickness description for this patient: ";
+        std::cout << "\nEnter the sickness description for this patient: ";
         getline(std::cin, newSicknessDescription);
         patient->setSicknessDescription(newSicknessDescription);
     }
@@ -187,7 +187,7 @@ void Doctor::searchPatient()
             getline(std::cin, searchReference);
             LinkedList* resultsFromPatientQueue = patientQueue->search(searchReference, searchMode);
             LinkedList* resultsFromHistoryList = historyList->search(searchReference, searchMode);
-            if (resultsFromPatientQueue == NULL && resultsFromHistoryList == NULL) {
+            if (resultsFromPatientQueue->getHeadReference() == NULL && resultsFromHistoryList->getHeadReference() == NULL) {
                 std::cout << "\nPatient(s) not found!\n";
             }
             else {

@@ -2,6 +2,9 @@
 
 
 class Patient {
+	int visitDay;
+	int visitMonth;
+	int visitYear;
 	int visitHour;
 	int visitMinute;
 	int visitSecond;
