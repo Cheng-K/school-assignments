@@ -15,9 +15,10 @@ public:
     Doctor(PatientQueue* waitingList, LinkedList* historyList);
     void displayDoctorMenu();
     void viewInfo();
-    void modifyPatient(Patient* patient);
+    void modifyMedicalInformation(Patient* patient);
     void treatPatient(); 
     void searchPatient();
+    void patientEditor(LinkedList* patientList);
     void setName(std::string name);
     std::string getName();
 

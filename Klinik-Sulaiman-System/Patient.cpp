@@ -1,8 +1,11 @@
 #pragma warning(disable : 4996)
 #include <iostream>
 #include <string>
+#include <algorithm>
+#include <cctype>
 #include <time.h>
 #include "Patient.h"
+#include "Utility.h"
  
 Patient::Patient(std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std::string doctorName, bool disabled) {
 	this->patientID = patientID;
@@ -38,6 +41,83 @@ void Patient::setTime(int hour, int minute, int second) {
 	visitHour = hour;
 	visitMinute = minute;
 	visitSecond = second;
+}
+
+void Patient::modifyRecord(char mode) {
+	if (mode == '0') {
+		std::cout << "Enter the patient's new first name : ";
+		getline(std::cin, firstName);
+	}
+	else if (mode == '1') {
+		std::cout << "Enter the patient's new last name : ";
+		getline(std::cin, );
+	}
+	else if (mode == '2') {
+		while (true) {
+			std::cout << "Enter the patient's new age : ";
+			std::cin;
+			if (std::cin.fail()) {
+				std::cin.clear();
+			}
+			else {
+				std::cin.ignore(256, '\n');
+				return;
+			}
+		}
+	}
+	else if (mode == '3') {
+		std::cout << "Enter the patient's gender : ";
+		getline(std::cin,)
+	}
+	else if (mode == '4') {
+		std::cout << "Enter the patient's new phone number : ";
+		getline(std::cin, );
+		while (!Utility::stringNumber()) {
+			std::cout << "\nInvalid input, please enter numeric values for phone numbers only.\n";
+			std::cout << "Please enter the patient's new phone number again: ";
+			getline(std::cin, phone);
+		}
+
+	}
+	else if (mode == '5') {
+		std::cout << "Enter the patient's new address : ";
+		getline(std::cin,)
+	}
+	else if (mode == '6') {
+		std::cout << "Enter the patient's new sickness description : ";
+		getline(std::cin, sicknessDescription);
+
+	}
+	else if (mode == '7') {
+		std::cout << "Is the patient disabled ? (Yes/No): ";
+		std::string disabledStatus;
+		getline(std::cin, disabledStatus);
+		std::transform(disabledStatus.begin(), disabledStatus.end(), disabledStatus.begin(), [](unsigned char c)
+			{ return std::tolower(c); });
+		while (disabledStatus != "yes" && disabledStatus != "no")
+		{
+			std::cout << "\nInvalid input, please try again.\n";
+			std::cout << "Is the patient disabled? (Yes/No): ";
+			getline(std::cin, disabledStatus);
+			std::transform(disabledStatus.begin(), disabledStatus.end(), disabledStatus.begin(), [](unsigned char c)
+				{ return std::tolower(c); });
+		}
+		if (disabledStatus == "yes")
+		{
+			disabled = true;
+		}
+		else
+		{
+			disabled = false;
+		}
+	}
+	else if (mode == '8') {
+		std::cout << "Enter the patient's new doctor name : ";
+	}
+	else if (mode == '9') {
+		std::cout << "Enter the patient's new medicine information : ";
+		getline(std::cin, medicineInformation);
+	}
 }
 
 //Getters

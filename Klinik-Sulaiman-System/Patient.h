@@ -21,7 +21,8 @@ public :
 	std::string toString();
 
 	void setTime(int hour, int minute, int second);
-	
+	void modifyRecord(char mode);
+
 	//Getters
 	std::string getPatientID(); 
 

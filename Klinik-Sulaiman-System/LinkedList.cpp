@@ -143,6 +143,23 @@ int LinkedList::getSize() {
 }
 
 
+LinkedList* LinkedList::concatLists(LinkedList* a, LinkedList* b) {
+    LinkedList* results = new LinkedList;
+    Node* nodeFromA = a->getHeadReference();
+    Node* nodeFromB = b->getHeadReference();
+    while (nodeFromA != NULL) {
+        results->append(nodeFromA->getPatient());
+        nodeFromA = nodeFromA->getNextNode();
+    }
+    while (nodeFromB != NULL) {
+        results->append(nodeFromB->getPatient());
+        nodeFromB = nodeFromB->getNextNode();
+    }
+    return results;
+
+}
+
+
 
 
 

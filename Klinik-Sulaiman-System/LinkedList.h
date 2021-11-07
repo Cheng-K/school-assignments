@@ -28,8 +28,11 @@ public :
 
     Node* getHeadReference();
     Node* getTailReference();
-    
+  
     int getSize();
+    static LinkedList* concatLists(LinkedList* a, LinkedList* b);
+
+    
 };
 
 
