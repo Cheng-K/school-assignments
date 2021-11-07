@@ -76,7 +76,6 @@ void Patient::modifyRecord(char mode) {
 		getline(std::cin, lastName);
 	}
 	else if (mode == '2') {
-		while (true) {
 			std::cout << "Enter the patient's new age : ";
 			getline(std::cin, age);
 			while (!(Utility::stringNumber(age)) || age == "")
@@ -85,7 +84,6 @@ void Patient::modifyRecord(char mode) {
 				std::cout << "Please enter the patient's new age: ";
 				getline(std::cin, age);
 			}
-		}
 	}
 	else if (mode == '3') {
 		std::cout << "Enter the patient's gender (Male/Female/Others) : ";
@@ -240,8 +238,8 @@ void Patient::setVisitMonth(int Month) {
 	this->visitMonth = Month;
 }
 
-void Patient::setVisitYear(int Year) {
-	this->setVisitYear = Year;
-}
+//void Patient::setVisitYear(int Year) {
+//	this->setVisitYear = Year;
+//}
 
 

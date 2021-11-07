@@ -64,7 +64,8 @@ void Doctor::viewInfo()
         std::cin >> choice;
         if (std::cin.fail())
         {
-            std::cout << choice;
+            std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu\n\n";
+            system("pause");
             std::cin.clear();
             std::cin.ignore(256, '\n');
             continue;
@@ -298,6 +299,7 @@ void Doctor::patientEditor(LinkedList* patientList) {
         }
         else {
             std::cout << "Invalid operation. Please try again.";
+            system("pause");
         }
 
     }
