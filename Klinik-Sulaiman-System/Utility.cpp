@@ -147,11 +147,6 @@ LinkedList* Utility::mergeSort(LinkedList* linkedList, int sortMode) {
 }
 
 
-/*
-	Method : getPassword
-	Parameter : None
-	Description : Prompts user to enter password and masks the password input with * and returns the password as string.
-*/
 
  std::string Utility::getPassword() {
 	std::string password;
