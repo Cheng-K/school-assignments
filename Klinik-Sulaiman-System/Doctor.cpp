@@ -45,16 +45,21 @@ void Doctor::viewInfo()
 {
     int choice = 0;
 
-    while (choice != 5)
+    while (choice != 9)
     {
         system("cls");
         std::cout << "=== Doctor Viewing Menu ===\n";
         std::cout << "1. View entire patient waiting list\n";
         std::cout << "2. View patient waiting list in page by page mode\n";
-        std::cout << "3. View entire patient visit history list\n";
+        std::cout << "3. View entire patient visit history list (Descending order)\n";
         std::cout << "4. View patient visit history list in page by page mode\n";
-        std::cout << "5. Go Back to previous menu\n\n";
-        std::cout << "Enter a number above: ";
+        std::cout << "5. View sorted history list based on patient first name\n";
+        std::cout << "6. View sorted waiting list based on patient first name\n";
+        std::cout << "7. View sorted history list based on sickeness description\n";
+        std::cout << "8. View sorted waiting list based on sickeness description\n";
+        std::cout << "9. Go Back to previous menu\n\n";
+        std::cout << " Enter a number above: ";
+
 
         std::cin >> choice;
         if (std::cin.fail())
@@ -94,7 +99,36 @@ void Doctor::viewInfo()
             else
                 std::cout << "There are 0 patients in the history list." << std::endl;
             break;
+
         case 5:
+            if (historyList->getHeadReference() != NULL)
+                Utility::mergeSort(historyList, 1)->displayList();
+            else
+                std::cout << "There are 0 patients in the history list." << std::endl;
+            break;
+
+        case 6:
+            if (patientQueue->getHeadReference() != NULL)
+                Utility::mergeSort(patientQueue, 1)->displayList();
+            else
+                std::cout << "There are 0 patients in the history list." << std::endl;
+            break;
+
+        case 7:
+            if (patientQueue->getHeadReference() != NULL)
+                Utility::mergeSort(historyList, 2)->displayList();
+            else
+                std::cout << "There are 0 patients in the history list." << std::endl;
+            break;
+
+        case 8:
+            if (patientQueue->getHeadReference() != NULL)
+                Utility::mergeSort(patientQueue, 2)->displayList();
+            else
+                std::cout << "There are 0 patients in the history list." << std::endl;
+            break;
+
+        case 9:
             break;
 
         default:

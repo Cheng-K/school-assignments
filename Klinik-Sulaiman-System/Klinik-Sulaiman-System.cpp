@@ -103,10 +103,7 @@ int test() {
 	//}
 	//p->displayinqueue();
 	//d->viewinfo();
-	PatientQueue* p = new PatientQueue();
-	LinkedList* h = new LinkedList();
-	Doctor* doctor = new Doctor(p, h);
-	Nurse* nurse = new Nurse(p, h);
+
 
 	//Patient* patient1 = new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false);
 	//Patient* patient2 = new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true);

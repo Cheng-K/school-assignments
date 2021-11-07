@@ -7,6 +7,7 @@
 #include "Patient.h"
 #include "Utility.h"
  
+
 Patient::Patient(std::string patientID, std::string firstName, std::string lastName, std::string age, std::string gender, std::string phone, std::string address, std::string sicknessDescription, std::string medicineInformation, std::string doctorName, bool disabled) {
 	this->patientID = patientID;
 	this->firstName = firstName;
@@ -19,6 +20,9 @@ Patient::Patient(std::string patientID, std::string firstName, std::string lastN
 	this->medicineInformation = medicineInformation;
 	this->doctorName = doctorName;
 	this->disabled = disabled;
+	this->age = age;
+	this->gender = gender;
+
 
 	time_t now;
 	struct tm* visitTime;
@@ -226,6 +230,18 @@ void Patient::setMedicineInformation(std::string medicineInformation) {
 
 void Patient::setDoctorName(std::string doctorName) {
 	this->doctorName = doctorName;
+}
+
+void Patient::setVisitDay(int Day) {
+	this->visitDay = Day;
+}
+
+void Patient::setVisitMonth(int Month) {
+	this->visitMonth = Month;
+}
+
+void Patient::setVisitYear(int Year) {
+	this->setVisitYear = Year;
 }
 
 
