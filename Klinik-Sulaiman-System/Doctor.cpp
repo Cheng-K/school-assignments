@@ -51,14 +51,14 @@ void Doctor::viewInfo()
         std::cout << "=== Doctor Viewing Menu ===\n";
         std::cout << "1. View entire patient waiting list\n";
         std::cout << "2. View patient waiting list in page by page mode\n";
-        std::cout << "3. View entire patient visit history list (Descending order)\n";
+        std::cout << "3. View entire patient visit history list (Descending order by visit time)\n";
         std::cout << "4. View patient visit history list in page by page mode\n";
         std::cout << "5. View sorted history list based on patient first name\n";
         std::cout << "6. View sorted waiting list based on patient first name\n";
         std::cout << "7. View sorted history list based on sickeness description\n";
         std::cout << "8. View sorted waiting list based on sickeness description\n";
         std::cout << "9. Go Back to previous menu\n\n";
-        std::cout << " Enter a number above: ";
+        std::cout << "Enter a number above: ";
 
 
         std::cin >> choice;
@@ -203,7 +203,7 @@ void Doctor::searchPatient()
         system("cls");
         std::cout << "=== Doctor Searching Menu ===\n";
         std::cout << "1. Search by Patient ID \n2. Search by Patient First Name \n3. Search by Sickness Description" <<
-            "\n4. Medicine Information \n5. Go back\n\nPlease select an option to search for the patients' profile: ";
+            "\n4. Search by Medicine Information \n5. Go back\n\nPlease select an option to search for the patients' profile: ";
         std::cin >> searchMode;
         if (searchMode < 1 || searchMode>5 || std::cin.fail())
         {
