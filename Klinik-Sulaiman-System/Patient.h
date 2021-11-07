@@ -52,6 +52,8 @@ public :
 
 	void setDoctorName(std::string doctorName);
 
+	void setVisitDay(int Day, int Month, int Year);
+
 };
 
 

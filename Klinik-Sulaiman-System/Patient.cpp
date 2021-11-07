@@ -109,4 +109,10 @@ void Patient::setDoctorName(std::string doctorName) {
 	this->doctorName = doctorName;
 }
 
+void Patient::setVisitDay(int Day, int Month, int Year) {
+	this->visitDay = Day;
+	this->visitMonth = Month;
+	this->setVisitYear = Year;
+}
+
 
