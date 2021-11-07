@@ -15,7 +15,7 @@ std::string doctorCredentials[2][2] = { {"Ong","qwe"},
 
 
 // Global variable : Doctor username + password
-std::string nurseCredentials[2][2] = { {"Marry","nurse1Password"},
+std::string nurseCredentials[2][2] = { {"Marry","1"},
 					 {"nurse2Name", "nurse2Password"} };
 
 LinkedList* Utility::mergeSort(LinkedList* linkedList, int sortMode) {
@@ -403,15 +403,14 @@ bool Utility::stringNumber(std::string str)
 	return true;
 }
 
-//std::string* Utility::getDoctors()
-//{
-//	std::cout << "bruh";
-//	int rowSize = sizeof doctorCredentials / sizeof doctorCredentials[0];
-//	std::string* doctorNames = new std::string[rowSize];
-//	for (int i = 0; i < rowSize; i++)
-//	{
-//		doctorNames[rowSize] = doctorCredentials[i][0];
-//	}
-//	std::cout << "bruh1";
-//	return doctorNames;
-//}
+std::string* Utility::getDoctors(int* numberofDoctors)
+{
+	int rowsize = sizeof doctorCredentials / sizeof doctorCredentials[0];
+	*numberofDoctors = rowsize;
+	std::string* doctornames = new std::string[rowsize];
+	for (int i = 0; i < rowsize; i++)
+	{
+		doctornames[i] = doctorCredentials[i][0];
+	}
+	return doctornames;
+}

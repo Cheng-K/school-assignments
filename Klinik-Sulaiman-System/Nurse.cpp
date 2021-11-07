@@ -161,6 +161,7 @@ Patient* Nurse::createPatient() {
 	std::string disabledStatus;
 	std::string age;
 	bool isDisabled;
+	bool validDoctor = false;
 	std::string patientID = "PID" + std::to_string(patientQueue->getSize() + historyList->getSize()+ 1);
 	system("cls");
 	std::cout << "-----Create patient menu-----\n\n";
@@ -170,7 +171,7 @@ Patient* Nurse::createPatient() {
 	getline(std::cin, lastName);
 	std::cout << "Please enter the patient's age: ";
 	getline(std::cin, age);
-	while (!(Utility::stringNumber(age)))
+	while (!(Utility::stringNumber(age))||age=="")
 	{
 		std::cout << "\nInvalid input, please enter numeric values only.\n";
 		std::cout << "Please enter the patient's age: ";
@@ -190,7 +191,7 @@ Patient* Nurse::createPatient() {
 	}
 	std::cout << "Please enter the patient's phone number: ";
 	getline(std::cin, phone);
-	while (!(Utility::stringNumber(phone)))
+	while (!(Utility::stringNumber(phone))||phone=="")
 	{
 		std::cout << "\nInvalid input, please enter numeric values for phone numbers only.\n";
 		std::cout << "Please enter the patient's phone number: ";
@@ -218,14 +219,33 @@ Patient* Nurse::createPatient() {
 	{
 		isDisabled = false;
 	}
-	//std::string* availableDoctors = Utility::getDoctors();
-	//std::cout << "Available doctors:" << std::endl;
-	//for (int i = 0; i < sizeof(availableDoctors);i++)
-	//{
-	//	std::cout << availableDoctors[i];
-	//}
+	int numberofDoctors=0;
+	std::string* availableDoctors = Utility::getDoctors(&numberofDoctors);
+	std::cout << "\nAvailable doctors:" << std::endl;
+	for (int i = 0; i < numberofDoctors;i++)
+	{
+		std::cout << " - " << availableDoctors[i] << std::endl;;
+	}
 	std::cout << "\nPlease enter the patient's doctor name from above: ";
 	getline(std::cin, doctorName);
+	while (validDoctor==false)
+	{
+		for (int i = 0; i < numberofDoctors;i++)
+		{
+			if (doctorName == availableDoctors[i])
+			{
+				validDoctor = true;
+				break;
+			}
+		}
+		if (validDoctor==false)
+		{
+			std::cout << "\nInvalid input, please select a doctor from the list above!";
+			std::cout << "\nPlease enter the patient's doctor name from above: ";
+			getline(std::cin, doctorName);
+		}
+	}
+
 	Patient* newPatient = new Patient(patientID, firstName, lastName, age, gender, phone, sicknessDescription, medicineInformation, doctorName, isDisabled);
 	return newPatient;
 }
