@@ -8,21 +8,19 @@
 #include "Utility.h"
  
 
+
 Patient::Patient(std::string patientID, std::string firstName, std::string lastName, std::string age, std::string gender, std::string phone, std::string address, std::string sicknessDescription, std::string medicineInformation, std::string doctorName, bool disabled) {
 	this->patientID = patientID;
 	this->firstName = firstName;
 	this->lastName = lastName;
 	this->age = age;
 	this->gender = gender;
-	this->address = address;
 	this->phone = phone;
+	this->address = address;
 	this->sicknessDescription = sicknessDescription;
 	this->medicineInformation = medicineInformation;
 	this->doctorName = doctorName;
 	this->disabled = disabled;
-	this->age = age;
-	this->gender = gender;
-
 
 	time_t now;
 	struct tm* visitTime;
@@ -43,6 +41,7 @@ bool Patient::isDisabled() {
 
 std::string Patient::toString()
 {
+
 	std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Patient Age: " + age + "\n" + "Patient Gender: " + gender + "\n" + "Patient Contact: " + phone + "\n" + 
 		+ "Address : " + address + "\n" + "Responsible Doctor: " + doctorName + "\n"
 		+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\nVisiting Day(dd/mm/yy) : "+ std::to_string(visitDay) +"/" + std::to_string(visitMonth) +"/" + std::to_string(visitYear) 
@@ -230,16 +229,13 @@ void Patient::setDoctorName(std::string doctorName) {
 	this->doctorName = doctorName;
 }
 
-void Patient::setVisitDay(int Day) {
-	this->visitDay = Day;
+void Patient::setVisitDay(int day, int month, int year) {
+	this->visitDay = day;
+	this->visitMonth = month;
+	this->visitYear = year;
+
 }
 
-void Patient::setVisitMonth(int Month) {
-	this->visitMonth = Month;
-}
 
-//void Patient::setVisitYear(int Year) {
-//	this->setVisitYear = Year;
-//}
 
 

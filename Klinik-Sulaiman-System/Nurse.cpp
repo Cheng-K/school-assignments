@@ -172,6 +172,7 @@ Patient* Nurse::createPatient() {
 	getline(std::cin, lastName);
 	std::cout << "Please enter the patient's age: ";
 	getline(std::cin, age);
+
 	while (!(Utility::stringNumber(age))||age=="")
 	{
 		std::cout << "\nInvalid input, please enter numeric values only.\n";
@@ -250,6 +251,7 @@ Patient* Nurse::createPatient() {
 	}
 
 	Patient* newPatient = new Patient(patientID, firstName, lastName, age, gender, phone, address, sicknessDescription, medicineInformation, doctorName, isDisabled);
+
 	return newPatient;
 }
 

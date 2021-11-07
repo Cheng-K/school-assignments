@@ -2,6 +2,7 @@
 
 
 class Patient {
+
 	std::string patientID;
 	std::string firstName;
 	std::string lastName;
@@ -21,7 +22,9 @@ class Patient {
 	int visitSecond;
 
 public :
-	Patient (std::string patientID, std::string firstName, std::string lastName, std::string age, std::string gender, std::string address, std::string phone, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled);
+
+	Patient (std::string patientID, std::string firstName, std::string lastName, std::string age, std::string gender, std::string phone, std::string address, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled);
+
 	bool isDisabled(); 
 	std::string toString();
 	void setTime(int hour, int minute, int second);
@@ -50,11 +53,7 @@ public :
 
 	void setDoctorName(std::string doctorName);
 
-	void setVisitDay(int Day);
-
-	void setVisitMonth(int Month);
-
-	void setVisitYear(int Year);
+	void setVisitDay(int Day, int Month, int Year);
 
 };
 
