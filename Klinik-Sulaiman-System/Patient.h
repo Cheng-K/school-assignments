@@ -2,19 +2,26 @@
 
 
 class Patient {
-	int visitHour;
-	int visitMinute;
-	int visitSecond;
 	std::string patientID;
 	std::string firstName;
 	std::string lastName;
+	std::string age;
+	std::string gender;
+	std::string address;
+	std::string phone;
 	std::string sicknessDescription;
 	std::string medicineInformation;
 	std::string doctorName;
 	bool disabled;
+	int visitDay;
+	int visitMonth;
+	int visitYear;
+	int visitHour;
+	int visitMinute;
+	int visitSecond;
 
 public :
-	Patient (std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled); 
+	Patient (std::string patientID, std::string firstName, std::string lastName, std::string age, std::string gender, std::string address, std::string phone, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled);
 
 	bool isDisabled(); 
 

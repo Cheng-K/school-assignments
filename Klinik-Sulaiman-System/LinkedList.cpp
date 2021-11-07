@@ -48,9 +48,7 @@ LinkedList* LinkedList::search(std::string searchReference, int searchMode)
     LinkedList* results = new LinkedList;
     Node* currentNode = head;
     std::string searchComparator;
-    if (head == NULL) {
-    }
-    else
+    if (head != NULL)
     {
         while (currentNode != NULL)
         {

@@ -33,8 +33,10 @@ void Doctor::displayDoctorMenu() {
             searchPatient();
         else if (choice == '4')
             break;
-        else
-            std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu\n";
+        else {
+            std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu\n\n";
+            system("pause");
+        }
         system("cls");
     }
 }
@@ -52,7 +54,7 @@ void Doctor::viewInfo()
         std::cout << "3. View entire patient visit history list\n";
         std::cout << "4. View patient visit history list in page by page mode\n";
         std::cout << "5. Go Back to previous menu\n\n";
-        std::cout << " Enter a number above: ";
+        std::cout << "Enter a number above: ";
 
         std::cin >> choice;
         if (std::cin.fail())
@@ -96,7 +98,7 @@ void Doctor::viewInfo()
             break;
 
         default:
-            std::cout << "\n\n WARNING: The input you have entered is not supported by the system, please select from the menu\n";
+            std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu\n";
         }
         std::cout << std::endl << std::endl;
         system("pause");
@@ -109,8 +111,8 @@ void Doctor::modifyMedicalInformation(Patient* patient)
     std::string medicineInfo;
     char changeSicknessDescription;
 
-    std::cout << "Current Patient ID : " << patient->getPatientID() << std::endl;
-    std::cout << "Current Patient Name : " << patient->getFirstName() << std::endl;
+    std::cout << "----------------- Current Patient Details -----------------" << std::endl;
+    std::cout << patient->toString() << std::endl << std::endl;
     std::cout << "Enter the medicine information prescribed for this patient: ";
     getline(std::cin, medicineInfo);
 
@@ -123,7 +125,7 @@ void Doctor::modifyMedicalInformation(Patient* patient)
     if (changeSicknessDescription == '1')
     {
         std::string newSicknessDescription;
-        std::cout << "Enter the sickness description for this patient: ";
+        std::cout << "\nEnter the sickness description for this patient: ";
         getline(std::cin, newSicknessDescription);
         patient->setSicknessDescription(newSicknessDescription);
     }
@@ -140,7 +142,7 @@ void Doctor::treatPatient() {
     if (treatPatient->getHeadReference() != NULL) {
         Node* currentPatient = treatPatient->getHeadReference();
         while (currentPatient != NULL && confirmation == '1') {
-            std::cout << "\nWould you like to enter continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
+            std::cout << "\nWould you like to continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
             std::cin >> confirmation;
             std::cin.ignore(256, '\n');
             if (confirmation == '1') {
@@ -152,13 +154,13 @@ void Doctor::treatPatient() {
                 continue;
         }
     }
-    std::cout << "Redirecting you back to main menu..." << std::endl << std::endl;
+    std::cout << "\nRedirecting you back to main menu..." << std::endl << std::endl;
     system("pause");
 }
 
 void Doctor::searchPatient()
 {
-    int searchMode=0;
+    int searchMode = 0;
     std::string cont;
     std::string searchReference;
     while (searchMode != 5)
@@ -172,14 +174,14 @@ void Doctor::searchPatient()
         {
             std::cin.clear();
             std::cin.ignore(256, '\n');
-            std::cout << "\n\n WARNING: The input you have entered is not supported by the system, please select from the menu.\n";
+            std::cout << "\n\nWARNING: The input you have entered is not supported by the system, please select from the menu.\n";
             std::cout << std::endl << std::endl;
             system("pause");
             continue;
         }
         std::cin.clear();
         std::cin.ignore(256, '\n');
-        if (searchMode==5)
+        if (searchMode == 5)
         {
             continue;
         }
@@ -196,20 +198,19 @@ void Doctor::searchPatient()
             else {
                 char modifyPatient = ' ';
                 finalResults->displayList();
-                std::cout << "\n Would you like to edit the information of any patient(s) displayed above ? " << std::endl;
+                std::cout << "\nWould you like to edit the information of any patient(s) displayed above ? " << std::endl;
                 std::cout << "Enter [1] for yes or any other key for no : ";
                 std::cin >> modifyPatient;
                 std::cin.ignore(256, '\n');
-                if (modifyPatient == '1'){
-                    
+                if (modifyPatient == '1') {
+                    patientEditor(finalResults);
                 }
-
             }
+            std::cout << std::endl << std::endl;
+            system("pause");
         }
-        std::cout << std::endl << std::endl;
-        system("pause");
+        return;
     }
-    return;
 }
 
 void Doctor::patientEditor(LinkedList* patientList) {
@@ -221,7 +222,7 @@ void Doctor::patientEditor(LinkedList* patientList) {
         std::cout << "----------- Patient Editor -----------" << std::endl << std::endl;
         std::cout << currentNode->getPatient()->toString() << std::endl;
         std::cout << "Would you like to modify this patient's record ? ";
-        std::cout << "Press : ";
+        std::cout << "Press : " << std::endl;
         if (currentNode->getPreviousNode() != NULL)
             std::cout << "[0] to move to the previous patient" << std::endl;
         if (currentNode->getNextNode() != NULL)
@@ -250,14 +251,12 @@ void Doctor::patientEditor(LinkedList* patientList) {
             std::cout << "[7] to change patient's disability option" << std::endl;
             std::cout << "[8] to change patient's doctor name" << std::endl;
             std::cout << "[9] to change patient's medicine information" << std::endl;
+            std::cout << "Any other key to go back" << std::endl;
 
             std::cin >> attribute;
             std::cin.ignore(256, '\n');
-            if (attribute != '0' && attribute != '1' && attribute != '2' && attribute != '3' && attribute != '4' && attribute != '5'
-                && attribute != '6' && attribute != '7' && attribute != '8' && attribute != '9') {
-                std::cout << "Invalid option selected. Please try again..." << std::endl;
-            }
-            else {
+            if (attribute == '0' || attribute == '1' || attribute == '2' || attribute == '3' || attribute == '4' || attribute == '5'
+                || attribute == '6' || attribute == '7' || attribute == '8' || attribute == '9') {
                 currentNode->getPatient()->modifyRecord(attribute);
                 std::cout << "All modifications are saved. Changes will be reflected on the next screen." << std::endl << std::endl;
             }
