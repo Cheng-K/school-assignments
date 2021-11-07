@@ -138,7 +138,7 @@ void Doctor::treatPatient() {
     if (treatPatient->getHeadReference() != NULL) {
         Node* currentPatient = treatPatient->getHeadReference();
         while (currentPatient != NULL && confirmation == '1') {
-            std::cout << "\nWould you like to enter continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
+            std::cout << "\nWould you like to continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
             std::cin >> confirmation;
             std::cin.ignore(256, '\n');
             if (confirmation == '1') {
