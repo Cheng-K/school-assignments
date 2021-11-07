@@ -188,8 +188,6 @@ void Utility::viewPatient(LinkedList* linkedList)
 
 			if (currentNode->getPreviousNode() == NULL && currentNode->getNextNode() == NULL)
 			{
-				if (!traverseNode)
-				{
 					std::cout << "\n[1] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
@@ -204,7 +202,6 @@ void Utility::viewPatient(LinkedList* linkedList)
 					{
 					case 1:
 						terminate = true;
-						traverseNode = true;
 						break;
 
 					default:
@@ -212,12 +209,9 @@ void Utility::viewPatient(LinkedList* linkedList)
 							system("pause");
 						break;
 					}
-				}
 			}
 			else if (currentNode->getPreviousNode() == NULL)
 			{
-				if (!traverseNode)
-				{
 					std::cout << "\nPlease enter [1] to view next page or [2] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
@@ -232,12 +226,10 @@ void Utility::viewPatient(LinkedList* linkedList)
 					{
 					case 1:
 						currentNode = currentNode->getNextNode();
-						traverseNode = true;
 						break;
 
 					case 2:
 						terminate = true;
-						traverseNode = true;
 						break;
 
 					default:
@@ -245,12 +237,10 @@ void Utility::viewPatient(LinkedList* linkedList)
 						system("pause");
 						break;
 					}
-				}
 			}
 			else if (currentNode->getNextNode() == NULL)
 			{
-				if (!traverseNode)
-				{
+
 					std::cout << "\nPlease enter [0] to view previous page or [2] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
@@ -265,12 +255,10 @@ void Utility::viewPatient(LinkedList* linkedList)
 					{
 					case 0:
 						currentNode = currentNode->getPreviousNode();
-						traverseNode = true;
 						break;
 
 					case 2:
 						terminate = true;
-						traverseNode = true;
 						break;
 
 					default:
@@ -278,12 +266,11 @@ void Utility::viewPatient(LinkedList* linkedList)
 						system("pause");
 						break;
 					}
-				}
 			}
 			else
 			{
-				if (!traverseNode)
-				{
+				//if (!traverseNode)
+				//{
 					std::cout << "\nPlease enter [0] to view previous page or [1] to view next page or [2] to exit viewing: ";
 					std::cin >> choice;
 					if (std::cin.fail())
@@ -316,7 +303,7 @@ void Utility::viewPatient(LinkedList* linkedList)
 						system("pause");
 						break;
 					}
-				}
+				//}
 			}
 
 		}
