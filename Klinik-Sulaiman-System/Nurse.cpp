@@ -282,6 +282,7 @@ void Nurse::searchPatient()
 			LinkedList* patientList = patientQueue->search(searchReference, searchMode);
 			if (patientList->getHeadReference() != NULL)
 			{
+				std::cout << std::endl;
 				patientList->displayList();
 			}
 			else

@@ -14,16 +14,16 @@
 
 
 Patient* INIT_PATIENTQUEUE[5] = { new Patient("PID6", "Hui Lin", "Loe", "Fever", "", "Ong", false),
-	new Patient("PID7", "Benson", "Junior", "Migraine", "", "Ong", true),
+	new Patient("PID7", "James", "Ethan", "Migraine", "", "Ong", true),
 	new Patient("PID8", "Chi En", "Chew", "Malnutrition", "", "Wong", false),
 	new Patient("PID9", "Bruh", "Kong", "", "Infection", "Ong", true),
 	new Patient("PID10", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false) };
 
 Patient* INIT_HISTORYLIST[5] = { new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false),
 	new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true),
-	new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false),
+	new Patient("PID3", "Chi En", "Ooi", "Nauseous", "", "Wong", false),
 	new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true),
-	new Patient("PID5", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false) };
+	new Patient("PID5", "Hua Iong", "Lee", "Prostate disease", "Antibiotics", "Wong", false) };
 
 int INIT_HISTORYTIME[5][3] = {
 	{9,01,01},
