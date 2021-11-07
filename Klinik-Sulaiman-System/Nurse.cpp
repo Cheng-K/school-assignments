@@ -214,7 +214,7 @@ Patient* Nurse::createPatient() {
 	}
 	std::cout << "Please enter the patient's doctor name: ";
 	getline(std::cin, doctorName);
-	Patient* newPatient = new Patient(patientID, firstName, lastName, sicknessDescription, medicineInformation, doctorName, isDisabled, age, gender);
+	Patient* newPatient = new Patient(patientID, firstName, lastName, sicknessDescription, medicineInformation, doctorName, isDisabled, gender, age);
 	return newPatient;
 }
 

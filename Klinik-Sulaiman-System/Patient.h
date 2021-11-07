@@ -19,7 +19,7 @@ class Patient {
 	bool disabled;
 
 public :
-	Patient (std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled); 
+	Patient (std::string patientID, std::string firstName, std::string lastName, std::string sicknessDescription, std::string medicineInformation, std:: string doctorName, bool disabled, std:: string gender, int age); 
 
 	bool isDisabled(); 
 
@@ -51,11 +51,11 @@ public :
 
 	void setDoctorName(std::string doctorName);
 
-	void Patient::setVisitDay(int Day);
+	void setVisitDay(int Day);
 
-	void Patient::setVisitMonth(int Month);
+	void setVisitMonth(int Month);
 
-	void Patient::setVisitYear(int Year);
+	void setVisitYear(int Year);
 
 };
 
