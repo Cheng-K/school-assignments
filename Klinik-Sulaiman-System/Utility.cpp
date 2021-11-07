@@ -11,7 +11,7 @@
 
 // Global variable : Doctor username + password
 std::string doctorCredentials[2][2] = { {"Ong","qwe"},
-							 {"doctor2Name", "doctor2Password"} };
+							 {"Wong", "doctor2Password"} };
 
 
 // Global variable : Doctor username + password
@@ -402,3 +402,16 @@ bool Utility::stringNumber(std::string str)
 	}
 	return true;
 }
+
+//std::string* Utility::getDoctors()
+//{
+//	std::cout << "bruh";
+//	int rowSize = sizeof doctorCredentials / sizeof doctorCredentials[0];
+//	std::string* doctorNames = new std::string[rowSize];
+//	for (int i = 0; i < rowSize; i++)
+//	{
+//		doctorNames[rowSize] = doctorCredentials[i][0];
+//	}
+//	std::cout << "bruh1";
+//	return doctorNames;
+//}

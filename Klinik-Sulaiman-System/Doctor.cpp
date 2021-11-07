@@ -224,6 +224,7 @@ void Doctor::searchPatient()
                 std::cout << "\nPatient(s) not found!\n";
             }
             else {
+                std::cout << std::endl << "Here are the profiles of patients found:\n\n";
                 if (resultsFromPatientQueue->getHeadReference() != NULL)
                 {
                     resultsFromPatientQueue->displayList();
