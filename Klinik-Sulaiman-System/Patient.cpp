@@ -44,7 +44,7 @@ std::string Patient::toString()
 
 	std::string patientProfile = "Patient ID: " + patientID + "\n" + "Patient first Name: " + firstName + "\n" + "Patient last Name: " + lastName + "\n" + "Patient Age: " + age + "\n" + "Patient Gender: " + gender + "\n" + "Patient Contact: " + phone + "\n" + 
 		+ "Address : " + address + "\n" + "Responsible Doctor: " + doctorName + "\n"
-		+ "Sickness Description: " + sicknessDescription + "\n" + "Medical Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\nVisiting Day(dd/mm/yy) : "+ std::to_string(visitDay) +"/" + std::to_string(visitMonth) +"/" + std::to_string(visitYear) 
+		+ "Sickness Description: " + sicknessDescription + "\n" + "Medicine Information: " + medicineInformation + "\n" + "Disabled : " + std::to_string(disabled) + "\nVisiting Day(dd/mm/yy) : "+ std::to_string(visitDay) +"/" + std::to_string(visitMonth) +"/" + std::to_string(visitYear) 
 		+ "\nVisiting Time(hour / min / sec) : ";
 	if (visitHour <= 9)
 		patientProfile += "0";

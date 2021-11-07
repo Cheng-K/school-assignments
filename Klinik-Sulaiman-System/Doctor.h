@@ -15,7 +15,7 @@ public:
     Doctor(PatientQueue* waitingList, LinkedList* historyList);
     void displayDoctorMenu();
     void viewInfo();
-    void modifyMedicalInformation(Patient* patient);
+    void modifyMedicineInformation(Patient* patient);
     void treatPatient(); 
     void searchPatient();
     void patientEditor(LinkedList* patientList);

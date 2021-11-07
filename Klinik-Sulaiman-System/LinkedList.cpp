@@ -154,7 +154,6 @@ LinkedList* LinkedList::concatLists(LinkedList* a, LinkedList* b) {
         nodeFromB = nodeFromB->getNextNode();
     }
     return results;
-
 }
 
 

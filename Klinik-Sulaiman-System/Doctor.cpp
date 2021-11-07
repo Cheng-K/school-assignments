@@ -141,7 +141,7 @@ void Doctor::viewInfo()
     return;
 }
 
-void Doctor::modifyMedicalInformation(Patient* patient)
+void Doctor::modifyMedicineInformation(Patient* patient)
 {
     std::string medicineInfo;
     char changeSicknessDescription;
@@ -173,16 +173,16 @@ void Doctor::treatPatient() {
     LinkedList* treatPatient = allPatient->search("", 4);
     char confirmation = '1';
 
-    std::cout << "There are " << treatPatient->getSize() << " patients that need your attention to enter their medical information." << std::endl;
+    std::cout << "There are " << treatPatient->getSize() << " patients that need your attention to enter their medicine information." << std::endl;
     if (treatPatient->getHeadReference() != NULL) {
         Node* currentPatient = treatPatient->getHeadReference();
         while (currentPatient != NULL && confirmation == '1') {
-            std::cout << "\nWould you like to continue to enter patient medical information now ? Enter [1] for yes or any other key for no :";
+            std::cout << "\nWould you like to continue to enter patient medicine information now ? Enter [1] for yes or any other key for no :";
             std::cin >> confirmation;
             std::cin.ignore(256, '\n');
             if (confirmation == '1') {
                 system("cls");
-                modifyMedicalInformation(currentPatient->getPatient());
+                modifyMedicineInformation(currentPatient->getPatient());
                 currentPatient = currentPatient->getNextNode();
             }
             else
