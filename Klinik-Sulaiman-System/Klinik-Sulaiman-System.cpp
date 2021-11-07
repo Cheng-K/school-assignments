@@ -12,7 +12,6 @@
 
 
 
-
 Patient* INIT_PATIENTQUEUE[5] = { new Patient("PID6", "Hui Lin", "Loe", "20", "female", "0132223194","21,Jalan APU, Taman TPM","Fever", "", "Ong", false),
 	new Patient("PID7", "James", "Ethan", "30","male","0124428984","21,Jalan APU, Taman TPM","Migraine", "", "Ong", true),
 	new Patient("PID8", "Chi En", "Chew", "21","male","0193873275","21,Jalan APU, Taman TPM","Malnutrition", "", "Wong", false),
@@ -33,6 +32,13 @@ int INIT_HISTORYTIME[5][3] = {
 	{16,55,0},
 };
 
+int INIT_HISTORYDATE[5][3] = {
+	{9,01,01},
+	{9,30,59},
+	{10,05,0},
+	{13,00,00},
+	{16,55,0},
+};
 
 int main() {
 	PatientQueue* p = new PatientQueue();
