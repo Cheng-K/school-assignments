@@ -12,6 +12,12 @@ public class DockingCoordinator implements Runnable{
     public DockingCoordinator(AirportTrafficController airportTrafficController){
         this.airportTrafficController = airportTrafficController;
     }
+    /*
+    Method name : run (Method to be called when thread is started)
+    Parameter   : Null
+    Description : Direct the airplane to dock at specific available gateway after acquiring the permission
+    Return      : Null
+    */
     @Override
     public void run() {
         synchronized (airportTrafficController.landTrafficController){

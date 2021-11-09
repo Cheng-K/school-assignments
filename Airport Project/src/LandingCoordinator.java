@@ -12,6 +12,12 @@ public class LandingCoordinator implements Runnable{
     public LandingCoordinator (AirportTrafficController airportTrafficController){
         this.airportTrafficController = airportTrafficController;
     }
+    /*
+    Method name : run (Method to be called when thread is started)
+    Parameter   : Null
+    Description : Direct the airplane to land at runway and record the time taken for the airplane to land
+    Return      : Null
+    */
     @Override
     public void run() {
         synchronized (airportTrafficController.runway){
@@ -46,8 +52,8 @@ public class LandingCoordinator implements Runnable{
                             airportTrafficController.getDockingQueue().addLast(airplaneToLand);
 
                     }
-                    catch (NoSuchElementException exception){
-                        // Catches exception where the landing queue is empty 
+                    catch (NoSuchElementException ignored){
+                        // No airplanes are waiting for landing, thread can go back to sleep after this.
                     }
                 }
                 else {

@@ -18,7 +18,8 @@ public class Airplane {
     public final Thread performDocking;
     public final Thread performUndocking;
     public final Thread performUnloadAndLoad;
-    private final int numberOfPassengers;
+    private final int numberOfPassengersDisembarked;
+    private final int numberOfPassengersBoarded;
     private long startTime;
     private long endTime;
 
@@ -71,13 +72,13 @@ public class Airplane {
         public void run() {
             System.out.println(Thread.currentThread().getName() + " is letting passengers to disembark and unloading cargo.");
             try {
-                Thread.sleep((long)(numberOfPassengers*0.1));
+                Thread.sleep((long)(numberOfPassengersDisembarked *0.1));
             } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread().getName() + " unloading operations interrupted.");
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + " : A total of " + numberOfPassengers + " disembark from the airplane, all cargo supplies successfully unloaded.");
-            controller.addPassengersArrived(numberOfPassengers);
+            System.out.println(Thread.currentThread().getName() + " : A total of " + numberOfPassengersDisembarked + " disembark from the airplane, all cargo supplies successfully unloaded.");
+            controller.addPassengersArrived(numberOfPassengersDisembarked);
             System.out.println(Thread.currentThread().getName() + " refilling supplies and letting passengers to board the airplane now.");
             try {
                 Thread.sleep(1500);
@@ -85,7 +86,8 @@ public class Airplane {
                 System.out.println(Thread.currentThread().getName() + " loading operations interrupted.");
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + " finished loading all necessary supplies.");
+            System.out.println(Thread.currentThread().getName() + " : A total of " + numberOfPassengersBoarded + " boarded the airplane, all cargo supplies successfully loaded.");
+            controller.addPassengersDeparted(numberOfPassengersBoarded);
             requestUndockAndTakeOff();
         }
     }
@@ -114,7 +116,8 @@ public class Airplane {
         performDocking = new Thread(new Dock(),name);
         performUndocking = new Thread(new Undock(),name);
         performUnloadAndLoad = new Thread(new UnloadAndLoad(),name);
-        numberOfPassengers = ThreadLocalRandom.current().nextInt(25,51);
+        numberOfPassengersDisembarked = ThreadLocalRandom.current().nextInt(25,51);
+        numberOfPassengersBoarded = ThreadLocalRandom.current().nextInt(25,51);
         requestLanding();
     }
 

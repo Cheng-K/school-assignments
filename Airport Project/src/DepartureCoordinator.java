@@ -13,7 +13,12 @@ public class DepartureCoordinator implements Runnable{
     public DepartureCoordinator(AirportTrafficController airportTrafficController) {
         this.airportTrafficController = airportTrafficController;
     }
-
+    /*
+    Method name : run (Method to be called when thread is started)
+    Parameter   : Null
+    Description : Direct the airplane to depart from runway and record the time taken for the airplane to depart
+    Return      : Null
+    */
     @Override
     public void run(){
         synchronized (airportTrafficController.runway){
@@ -43,8 +48,8 @@ public class DepartureCoordinator implements Runnable{
                     System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToDepart.getName() + " have a safe trip.");
                     airportTrafficController.incrementDepartedAirplane();
                 }
-                catch (NoSuchElementException e){
-                    // Catch exception when queue is empty
+                catch (NoSuchElementException ignored){
+                    // No airplane waiting to depart, thread can go back to sleep.
                 }
                 // Wake landing coordinator since runway is free
                 airportTrafficController.runway.notify();

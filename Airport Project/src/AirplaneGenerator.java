@@ -16,11 +16,17 @@ public class AirplaneGenerator extends Thread {
 		this.airportTrafficController = airportTrafficController;
 	}
 
+	/*
+    Method name : run (Method to be called when thread is started)
+    Parameter   : Null
+    Description : Instantiate airplanes with a random interval between 0-3 seconds. Once done, set the airport status to closed.
+    Return      : Null
+    */
 	@Override
 	public void run() {
 		for (int i = 0; i<airplaneToBeGenerated; i++){
 			try {
-				Thread.sleep(random.nextInt(2)*1000L);
+				Thread.sleep(random.nextInt(3)*1000L);
 			} catch (InterruptedException e){
 				System.out.println("Airplane Generator interrupted unexpectedly.");
 				e.printStackTrace();
