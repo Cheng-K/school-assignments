@@ -1,7 +1,7 @@
 # include <iostream>
 # include <string>
 # include <conio.h>
-#include <string.h>
+# include <string.h>
 # include "Utility.h"
 # include "Doctor.h"
 # include "Nurse.h"
@@ -10,12 +10,12 @@
 # include "Node.h"
 
 // Global variable : Doctor username + password
-std::string doctorCredentials[2][2] = { {"Ong","qwe"},
+std::string doctorCredentials[2][2] = { {"Ong","qwer"},
 							 {"Wong", "doctor2Password"} };
 
 
 // Global variable : Doctor username + password
-std::string nurseCredentials[2][2] = { {"Marry","1"},
+std::string nurseCredentials[2][2] = { {"Marry","12345"},
 					 {"nurse2Name", "nurse2Password"} };
 
 LinkedList* Utility::mergeSort(LinkedList* linkedList, int sortMode) {
@@ -177,8 +177,6 @@ void Utility::viewPatient(LinkedList* linkedList)
 		{
 			system("cls");
 			std::cout << currentNode->getPatient()->toString();
-
-			bool traverseNode = false;
 			int choice = 0;
 			std::cout << "Press : " << std::endl;
 			if (currentNode->getPreviousNode() != NULL)
@@ -224,127 +222,6 @@ void Utility::viewPatient(LinkedList* linkedList)
 				system("pause");
 
 			}
-			
-
-			//if (currentNode->getPreviousNode() == NULL && currentNode->getNextNode() == NULL)
-			//{
-			//		std::cout << "\n[1] to exit viewing: ";
-			//		std::cin >> choice;
-			//		if (std::cin.fail())
-			//		{
-			//			std::cin.clear();
-			//			std::cin.ignore(256, '\n');
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//			system("pause");
-			//			continue;
-			//		}
-			//		switch (choice)
-			//		{
-			//		case 1:
-			//			terminate = true;
-			//			break;
-
-			//		default:
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//				system("pause");
-			//			break;
-			//		}
-			//}
-			//else if (currentNode->getPreviousNode() == NULL)
-			//{
-			//		std::cout << "\nPlease enter [1] to view next page or [2] to exit viewing: ";
-			//		std::cin >> choice;
-			//		if (std::cin.fail())
-			//		{
-			//			std::cin.clear();
-			//			std::cin.ignore(256, '\n');
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//			system("pause");
-			//			continue;
-			//		}
-			//		switch (choice)
-			//		{
-			//		case 1:
-			//			currentNode = currentNode->getNextNode();
-			//			break;
-
-			//		case 2:
-			//			terminate = true;
-			//			break;
-
-			//		default:
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//			system("pause");
-			//			break;
-			//		}
-			//}
-			//else if (currentNode->getNextNode() == NULL)
-			//{
-
-			//		std::cout << "\nPlease enter [0] to view previous page or [2] to exit viewing: ";
-			//		std::cin >> choice;
-			//		if (std::cin.fail())
-			//		{
-			//			std::cin.clear();
-			//			std::cin.ignore(256, '\n');
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//			system("pause");
-			//			continue;
-			//		}
-			//		switch (choice)
-			//		{
-			//		case 0:
-			//			currentNode = currentNode->getPreviousNode();
-			//			break;
-
-			//		case 2:
-			//			terminate = true;
-			//			break;
-
-			//		default:
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//			system("pause");
-			//			break;
-			//		}
-			//}
-			//else
-			//{
-			//	//if (!traverseNode)
-			//	//{
-			//		std::cout << "\nPlease enter [0] to view previous page or [1] to view next page or [2] to exit viewing: ";
-			//		std::cin >> choice;
-			//		if (std::cin.fail())
-			//		{
-			//			std::cin.clear();
-			//			std::cin.ignore(256, '\n');
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//			system("pause");
-			//			continue;
-			//		}
-			//		switch (choice)
-			//		{
-			//		case 0:
-			//			currentNode = currentNode->getPreviousNode();
-			//			traverseNode = true;
-			//			break;
-
-			//		case 1:
-			//			currentNode = currentNode->getNextNode();
-			//			traverseNode = true;
-			//			break;
-
-			//		case 2:
-			//			terminate = true;
-			//			traverseNode = true;
-			//			break;
-
-			//		default:
-			//			std::cout << "\nSorry, but we do not support this input, please try again.\n\n";
-			//			system("pause");
-			//			break;
-			//		}
-			//	//}
-			//}
 
 		}
 	}

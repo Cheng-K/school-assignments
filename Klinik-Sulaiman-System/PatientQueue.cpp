@@ -83,7 +83,7 @@ int PatientQueue::removePatient(std::string patientID)
             if (current->getPatient()->getPatientID() == patientID)
             {
                 current->getPreviousNode()->setNextNode(current->getNextNode());
-                if (current->getNextNode() != NULL) // added 
+                if (current->getNextNode() != NULL) 
                     current->getNextNode()->setPreviousNode(current->getPreviousNode());
                 if (current == lastDisabledPatient)
                 {
