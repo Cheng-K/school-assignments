@@ -1,5 +1,7 @@
 // Klinik-Sulaiman-System.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
+// Author : Ong Cheng Kei TP055620
+//			Kong Kei Zhong TP055016
+//			Wong Jack Yih  TP055436
 
 #include <iostream>
 #include <string>
@@ -86,36 +88,5 @@ int main() {
 	return 0;
 }
 
-
-
-int test() {
-
-	//doctor* d = new doctor(p);
-	//nurse* n = new nurse(p);
-	//for (int i = 0; i < 3; i++) {
-	//	patient* a;
-	//	a = n->createpatient();
-	//	if (i % 2 == 0)*/
-	//	a = new patient("a" + std::to_string(i), "a", "a", "a", "a","a", true);*/
-	//	else
-	//		a = new patient("a" + std::to_string(i), "a", "a", "a", "a", false);
-	//	p->insertpatient(a);
-	//}
-	//p->displayinqueue();
-	//d->viewinfo();
-
-
-	//Patient* patient1 = new Patient("PID1", "Hui Lin", "Loe", "Fever", "", "Ong", false);
-	//Patient* patient2 = new Patient("PID2", "Benson", "Junior", "Migraine", "", "Ong", true);
-	//Patient* patient3 = new Patient("PID3", "Chi En", "Chew", "Malnutrition", "", "Wong", false);
-	//Patient* patient4 = new Patient("PID4", "Bruh", "Kong", "", "Infection", "Ong", true);
-	//Patient* patient5 = new Patient("PID4", "Hua Iong", "Lee", "", "Prostate disease", "Wong", false);
-	//Patient* patientArr[5] = { patient1,patient2,patient3,patient4,patient5 };
-	//for (int i = 0;i < 5 ; i++)
-	//{
-	//	nurse->addPatient(patientArr[i]);
-	//}
-	return 0;
-}
 
 
