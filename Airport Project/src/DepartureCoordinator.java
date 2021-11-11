@@ -7,12 +7,13 @@ import java.util.NoSuchElementException;
 */
 
 
-public class DepartureCoordinator implements Runnable{
+public class DepartureCoordinator implements Runnable {
     private AirportTrafficController airportTrafficController;
 
     public DepartureCoordinator(AirportTrafficController airportTrafficController) {
         this.airportTrafficController = airportTrafficController;
     }
+
     /*
     Method name : run (Method to be called when thread is started)
     Parameter   : Null
@@ -20,9 +21,9 @@ public class DepartureCoordinator implements Runnable{
     Return      : Null
     */
     @Override
-    public void run(){
-        synchronized (airportTrafficController.runway){
-            while (true){
+    public void run() {
+        synchronized (airportTrafficController.runway) {
+            while (true) {
                 try {
                     // start off by waiting (will be notified by Airport Traffic Controller shortly)
                     airportTrafficController.runway.wait();
@@ -32,12 +33,12 @@ public class DepartureCoordinator implements Runnable{
                 try {
                     // Throws exception when the queue is empty
                     Airplane airplaneToDepart = airportTrafficController.getDepartureQueue().remove();
-                    System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToDepart.getName() + " has the permission to take off now.");
+                    System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToDepart.getName() + " has the permission to take off now.");
                     // Let airplane to depart and wait for its operation to finish
                     airplaneToDepart.performTakeOff.start();
                     try {
                         airplaneToDepart.performTakeOff.join();
-                    } catch (InterruptedException e){
+                    } catch (InterruptedException e) {
                         System.out.println("Takeoff operation interrupted unexpectedly. Check simulation program!!");
                         e.printStackTrace();
                         continue;
@@ -45,10 +46,9 @@ public class DepartureCoordinator implements Runnable{
                     airplaneToDepart.endTimer();
                     airportTrafficController.addTakeoffTime(airplaneToDepart.getElapsedTime());
                     airplaneToDepart.startTimer();
-                    System.out.println(Thread.currentThread().getName()+ " : Airplane " + airplaneToDepart.getName() + " have a safe trip.");
+                    System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToDepart.getName() + " have a safe trip.");
                     airportTrafficController.incrementDepartedAirplane();
-                }
-                catch (NoSuchElementException ignored){
+                } catch (NoSuchElementException ignored) {
                     // No airplane waiting to depart, thread can go back to sleep.
                 }
                 // Wake landing coordinator since runway is free

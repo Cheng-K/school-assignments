@@ -5,7 +5,7 @@ import java.util.NoSuchElementException;
     Description : A thread that will coordinate between DockingCoordinator to make sure only one airplane is given permission to dock/undock.
 */
 
-public class UndockingCoordinator implements Runnable{
+public class UndockingCoordinator implements Runnable {
     private final AirportTrafficController airportTrafficController;
 
     public UndockingCoordinator(AirportTrafficController airportTrafficController) {
@@ -21,41 +21,41 @@ public class UndockingCoordinator implements Runnable{
 
     @Override
     public void run() {
-        synchronized (airportTrafficController.landTrafficController){
-            while (true){
+        synchronized (airportTrafficController.landTrafficController) {
+            while (true) {
                 try {
                     airportTrafficController.landTrafficController.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                if (airportTrafficController.getDepartureQueue().size() < 2){
+                if (airportTrafficController.getDepartureQueue().size() < 2) {
                     try {
                         // below throws an exception when the queue is empty
                         Airplane airplaneToUndock = airportTrafficController.getUndockingQueue().remove();
                         String gatewayToUndock = airplaneToUndock.getAssignedGateway();
-                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() + " has the permission to undock from gateway " + gatewayToUndock);
+                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() +
+                                " has the permission to undock from gateway " + gatewayToUndock);
                         airplaneToUndock.performUndocking.start();
                         try {
                             airplaneToUndock.performUndocking.join();
-                        } catch (InterruptedException e){
+                        } catch (InterruptedException e) {
                             System.out.println("Undocking operation interrupted unexpectedly.");
                             e.printStackTrace();
                             continue;
                         }
                         airportTrafficController.availableGateways.release();
                         airportTrafficController.gateways.offer(gatewayToUndock);
-                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() + " please proceed to join the departure queue beside the runway.");
+                        System.out.println(Thread.currentThread().getName() + " : Airplane " + airplaneToUndock.getName() +
+                                " please proceed to join the departure queue beside the runway.");
                         airplaneToUndock.postUndockReply();
                         airplaneToUndock.endTimer();
                         airportTrafficController.addUndockingTime(airplaneToUndock.getElapsedTime());
                         airplaneToUndock.startTimer();
                         airportTrafficController.getDepartureQueue().add(airplaneToUndock);
-                    }
-                    catch (NoSuchElementException ignored){
+                    } catch (NoSuchElementException ignored) {
                         // No airplanes waiting to undocked, thread can go back to sleep after this.
                     }
-                }
-                else {
+                } else {
                     System.out.println(Thread.currentThread().getName() + " : Unable to undock any airplane due to full capacity in departure queue.");
                 }
                 airportTrafficController.landTrafficController.notify();

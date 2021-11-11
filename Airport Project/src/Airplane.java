@@ -29,7 +29,7 @@ public class Airplane {
     private class Landing implements Runnable {
         @Override
         public void run() {
-            System.out.println(Thread.currentThread().getName() + " : Copy that. " +  Thread.currentThread().getName()+ " is preparing for landing.");
+            System.out.println(Thread.currentThread().getName() + " : Copy that. " + Thread.currentThread().getName() + " is preparing for landing.");
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -42,14 +42,16 @@ public class Airplane {
 
     private class Departure implements Runnable {
         @Override
-        public void run () {
-            System.out.println(Thread.currentThread().getName() + " : Airplane " + Thread.currentThread().getName() + " is preparing for takeoff.");
+        public void run() {
+            System.out.println(Thread.currentThread().getName() + " : Airplane " + Thread.currentThread().getName() +
+                    " is preparing for takeoff.");
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread().getName() + " departure process interrupted.");
             }
-            System.out.println(Thread.currentThread().getName() + " : Airplane " + Thread.currentThread().getName() + " departed successfully. Thanks.");
+            System.out.println(Thread.currentThread().getName() + " : Airplane " + Thread.currentThread().getName() +
+                    " departed successfully. Thanks.");
         }
     }
 
@@ -72,21 +74,23 @@ public class Airplane {
         public void run() {
             System.out.println(Thread.currentThread().getName() + " is letting passengers to disembark and unloading cargo.");
             try {
-                Thread.sleep((long)(numberOfPassengersDisembarked *0.1));
+                Thread.sleep((long) (numberOfPassengersDisembarked * 0.1));
             } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread().getName() + " unloading operations interrupted.");
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + " : A total of " + numberOfPassengersDisembarked + " disembark from the airplane, all cargo supplies successfully unloaded.");
+            System.out.println(Thread.currentThread().getName() + " : A total of " + numberOfPassengersDisembarked + " passengers disembark from " +
+                    "the airplane, all cargo supplies successfully unloaded.");
             controller.addPassengersArrived(numberOfPassengersDisembarked);
             System.out.println(Thread.currentThread().getName() + " refilling supplies and letting passengers to board the airplane now.");
             try {
-                Thread.sleep(1500);
+                Thread.sleep((long) (numberOfPassengersBoarded * 0.1));
             } catch (InterruptedException e) {
                 System.out.println(Thread.currentThread().getName() + " loading operations interrupted.");
                 e.printStackTrace();
             }
-            System.out.println(Thread.currentThread().getName() + " : A total of " + numberOfPassengersBoarded + " boarded the airplane, all cargo supplies successfully loaded.");
+            System.out.println(Thread.currentThread().getName() + " : A total of " + numberOfPassengersBoarded + " passengers boarded the airplane, " +
+                    "all cargo supplies successfully loaded.");
             controller.addPassengersDeparted(numberOfPassengersBoarded);
             requestUndockAndTakeOff();
         }
@@ -107,17 +111,17 @@ public class Airplane {
     }
 
 
-    public Airplane(String name,AirportTrafficController controller,boolean hasEmergencies){
+    public Airplane(String name, AirportTrafficController controller, boolean hasEmergencies) {
         this.name = name;
         this.controller = controller;
         this.hasEmergencies = hasEmergencies;
-        performLanding = new Thread(new Landing(),name);
-        performTakeOff = new Thread(new Departure(),name);
-        performDocking = new Thread(new Dock(),name);
-        performUndocking = new Thread(new Undock(),name);
-        performUnloadAndLoad = new Thread(new UnloadAndLoad(),name);
-        numberOfPassengersDisembarked = ThreadLocalRandom.current().nextInt(25,51);
-        numberOfPassengersBoarded = ThreadLocalRandom.current().nextInt(25,51);
+        performLanding = new Thread(new Landing(), name);
+        performTakeOff = new Thread(new Departure(), name);
+        performDocking = new Thread(new Dock(), name);
+        performUndocking = new Thread(new Undock(), name);
+        performUnloadAndLoad = new Thread(new UnloadAndLoad(), name);
+        numberOfPassengersDisembarked = ThreadLocalRandom.current().nextInt(25, 51);
+        numberOfPassengersBoarded = ThreadLocalRandom.current().nextInt(25, 51);
         requestLanding();
     }
 
@@ -126,20 +130,19 @@ public class Airplane {
         Parameter   : -
         Description : Notify the airport traffic controller to add this airplane to landing queue.
     */
-    public void requestLanding () {
+    public void requestLanding() {
         String requestString;
         if (hasEmergencies)
             requestString = " : 🔴 Mayday! Mayday! Mayday! Requesting for emergency landing at the airport if possible.";
         else
             requestString = " : Approaching airport in 20 minutes. Requesting permission to land on runway.";
-        Thread initialConnection = new Thread ( () -> {
+        Thread initialConnection = new Thread(() -> {
             System.out.println(Thread.currentThread().getName() + requestString);
             controller.addAirplaneToLandingQueue(this);
             System.out.println(Thread.currentThread().getName() + " : Copy that. Joining the landing queue now.");
-        },name);
+        }, name);
         initialConnection.start();
         startTimer();
-        // Maybe joining is necessary to really wait for airplane to get noticed by the airport. (Niche case : when the airport is closing the airplane might not get noticed)
     }
 
     /*
@@ -148,14 +151,14 @@ public class Airplane {
         Description : Notify the airport traffic controller that this airplane successfully landed.
     */
 
-    public void postLandingReply () {
-        Thread replyThread = new Thread (() -> {
+    public void postLandingReply() {
+        Thread replyThread = new Thread(() -> {
             System.out.println(Thread.currentThread().getName() + " : Copy that. Exiting the runway and joining the docking queue now.");
-        },name);
+        }, name);
         replyThread.start();
         try {
             replyThread.join();
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("Unexpected Interruption occurred.");
             e.printStackTrace();
         }
@@ -166,9 +169,8 @@ public class Airplane {
         Parameter   : -
         Description : Notify the airport traffic controller to add this airplane to undock queue. This is called after airplane finish loading supplies.
     */
-    private void requestUndockAndTakeOff () {
+    private void requestUndockAndTakeOff() {
         System.out.println(Thread.currentThread().getName() + " : Requesting permission to undock and take off from airport.");
-        // Plug airport api here
         controller.addAirplaneToUndockQueue(this);
         System.out.println(Thread.currentThread().getName() + " : Copy that. Will wait for further instructions.");
 
@@ -179,30 +181,30 @@ public class Airplane {
         Description : Notify the airport traffic controller that this airplane successfully undock.
     */
 
-    public void postUndockReply(){
-         Thread replyThread = new Thread (() -> {
+    public void postUndockReply() {
+        Thread replyThread = new Thread(() -> {
             System.out.println(Thread.currentThread().getName() + " : Copy that. Joining the departure queue now.");
-        },name);
+        }, name);
         replyThread.start();
         try {
             replyThread.join();
-        } catch (InterruptedException e){
+        } catch (InterruptedException e) {
             System.out.println("Unexpected Interruption occurred.");
             e.printStackTrace();
-        }       
+        }
     }
 
     /* Getters & Setters */
-    
-    public void setAssignedGateway (String assignedGateway){
+
+    public void setAssignedGateway(String assignedGateway) {
         this.assignedGateway = assignedGateway;
     }
 
-    public String getAssignedGateway (){
+    public String getAssignedGateway() {
         return assignedGateway;
     }
 
-    public boolean requireEmergencyAttention () {
+    public boolean requireEmergencyAttention() {
         return hasEmergencies;
     }
 
@@ -219,7 +221,7 @@ public class Airplane {
     }
 
     public long getElapsedTime() {
-        return (endTime-startTime)/1000;
+        return (endTime - startTime) / 1000;
     }
 
 

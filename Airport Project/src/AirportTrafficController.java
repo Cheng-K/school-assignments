@@ -66,7 +66,7 @@ public class AirportTrafficController extends Thread {
     */
     @Override
     public void run() {
-        System.out.println("Starting airports");
+        System.out.println("Starting airport");
         landingThread.start();
         dockThread.start();
         undockThread.start();
@@ -99,9 +99,11 @@ public class AirportTrafficController extends Thread {
     public void addAirplaneToLandingQueue(Airplane airplane) {
         String replyString;
         if (airplane.requireEmergencyAttention())
-            replyString = " : Airplane " + airplane.getName() + " has the highest priority to land. Please join the landing queue and fly in circles. Will allow you to land as soon as possible once the runway is clear.";
+            replyString = " : Airplane " + airplane.getName() + " has the highest priority to land. Please join the landing queue and fly in circles. " +
+                    "Will allow you to land as soon as possible once the runway is clear.";
         else
-            replyString = " : Airplane " + airplane.getName() + " please join the landing queue and fly in circles. Will come back to you when the runway is clear for you.";
+            replyString = " : Airplane " + airplane.getName() + " please join the landing queue and fly in circles. " +
+                    "Will come back to you when the runway is clear for you.";
 
         Thread replyThread = new Thread(() -> {
             System.out.println(Thread.currentThread().getName() + replyString);
@@ -210,7 +212,7 @@ public class AirportTrafficController extends Thread {
         totalPassengersArrived += arrivedPassengers;
     }
 
-    public void addPassengersDeparted(int departedPassengers){
+    public void addPassengersDeparted(int departedPassengers) {
         totalPassengersDeparted += departedPassengers;
     }
 
