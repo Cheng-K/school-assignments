@@ -1,3 +1,7 @@
 public class Passport {
-    private String data;
+    private byte[] data;
+
+    public Passport (String name) {
+
+    }
 }
