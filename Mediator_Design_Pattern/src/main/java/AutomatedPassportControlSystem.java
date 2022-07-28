@@ -1,7 +1,7 @@
 import java.util.concurrent.*;
 
-//TODO : Memory buffer across all scanners
-//TODO : Figure out way to store passport data and facial data
+//TODO : Implement all the tasks for all components and scanners
+//TODO : Coordinate all tasks with scheduleWithFixedDelay (so that there will be no abundant of threads if one operation delayed)
 
 public class AutomatedPassportControlSystem implements Runnable {
     private final TransferQueue<Runnable> instructionsToGateControl;
@@ -22,7 +22,7 @@ public class AutomatedPassportControlSystem implements Runnable {
     @Override
     public void run() {
         // Schedule all relevant threads to run
-        threadPool.scheduleAtFixedRate(gateControlThread, 0, 10, TimeUnit.MILLISECONDS);
+        threadPool.scheduleWithFixedDelay(gateControlThread, 0, 10, TimeUnit.MILLISECONDS);
 
         // Testing
         Response r = null;
@@ -128,25 +128,52 @@ class DataProcessing implements Runnable {
 class PassportScanner implements Runnable {
     private final TransferQueue<Runnable> instructionsQueue;
     private final TransferQueue<Response> resultOutput;
-    private String memoryBuffer; // used to store passport data
+    private byte[] memoryBuffer;
     public PassportScanner (TransferQueue<Runnable> instructionsQueue, TransferQueue<Response> resultOutput) {
         this.instructionsQueue = instructionsQueue;
         this.resultOutput = resultOutput;
     }
     @Override
     public void run() {
-
+        Runnable instructions;
+        Response response;
+        try {
+            instructions = instructionsQueue.take();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            instructions.run();
+            response = Utility.createOkResponse(memoryBuffer);
+        } catch (Exception e) {
+            response = Utility.createFailedResponse(e);
+        }
+        try {
+            resultOutput.transfer(response);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void getPassportData (Passport passport) {
         System.out.println("Scanning your passport... Please do not remove your passport from the scanner.");
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         // processing to get passport data
+        memoryBuffer = passport.getData();
         System.out.println("Done. You can remove your passport from the scanner");
+    }
+
+    public void getPassportIssuer (Passport passport) {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        memoryBuffer = passport.getIssuer();
     }
 }
 

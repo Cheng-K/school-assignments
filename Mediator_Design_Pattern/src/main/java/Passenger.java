@@ -11,6 +11,10 @@ public abstract class Passenger {
         return passport;
     }
 
+    public void setPassport(Passport passport) {
+        this.passport = passport;
+    }
+
     public String getName() {
         return name;
     }
@@ -38,8 +42,13 @@ public abstract class Passenger {
 }
 
 class NormalPassenger extends Passenger {
-
-
+    public NormalPassenger(String name) {
+        super();
+        setFacialData(name);
+        setName(name);
+        setThumbprintData(name);
+        setPassport(new Passport(name));
+    }
 }
 
 class FakePassportPassenger extends Passenger {
