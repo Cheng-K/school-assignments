@@ -4,7 +4,6 @@ public abstract class Passenger {
     private String facialData;
     private String thumbprintData;
 
-    enum TYPE {NORMAL, FAKE_PASSPORT, FAIL_VERIFICATION, REQUIRE_THUMBPRINT}
 
     // Getters and Setters
     public Passport getPassport() {
@@ -39,6 +38,22 @@ public abstract class Passenger {
         this.thumbprintData = thumbprintData;
     }
 
+    public void enterPlatform () {
+        System.out.println(name + " : Entered the passport control system platform.");
+    }
+
+    public void exitPlatform () {
+        System.out.println(name + " : Exited the passport control system platform.");
+    }
+
+    public void scanPassport () {
+        System.out.println(name + " : Placed passport for scanning.");
+    }
+    public void scanThumb () {
+        System.out.println(name + " : Placed thumb for scanning.");
+    }
+
+
 
 }
 
@@ -52,17 +67,18 @@ class NormalPassenger extends Passenger {
     }
 }
 
-class FakePassportPassenger extends Passenger {
-
-}
-
 class FailVerificationPassenger extends Passenger {
+    public FailVerificationPassenger (String name) {
+        super();
+        setName(name);
+        setFacialData(name);
+        setThumbprintData(name);
+        setPassport(new Passport(name+name));
+    }
 
 }
 
-class RequireThumbprintPassenger extends Passenger {
 
-}
 
 
 

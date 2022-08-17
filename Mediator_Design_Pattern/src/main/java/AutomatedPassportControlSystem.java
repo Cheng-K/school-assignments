@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class AutomatedPassportControlSystem implements Runnable {
     public final AtomicBoolean isRunning = new AtomicBoolean(true);
+    // -------- Communication Channels to subcomponents -------------------------
     private final TransferQueue<Callable<Response>> instructionsToGateControl;
     private final TransferQueue<Response> outputFromGateControl;
     private final TransferQueue<Callable<Response>> instructionsToPassportScanner;
@@ -25,7 +26,6 @@ public class AutomatedPassportControlSystem implements Runnable {
     private final TransferQueue<Response> outputFromPersonDetection;
 
     private final ScheduledExecutorService threadPool;
-
     // Sub components
     GateControl gateControlThread;
     PassportScanner passportScannerThread;
@@ -35,7 +35,7 @@ public class AutomatedPassportControlSystem implements Runnable {
     FacialScanner facialScannerThread;
 
     // Passenger Queue
-    private BlockingQueue<Passenger> passengerQueue = new LinkedBlockingQueue<>();
+    private final BlockingQueue<Passenger> passengerQueue = new LinkedBlockingQueue<>();
 
 
     public AutomatedPassportControlSystem() {
@@ -57,8 +57,8 @@ public class AutomatedPassportControlSystem implements Runnable {
         passportScannerThread = new PassportScanner(instructionsToPassportScanner, outputFromPassportScanner);
         thumbprintScannerThread = new ThumbprintScanner(instructionsToThumbprintScanner, outputFromThumbprintScanner);
         dataProcessingThread = new DataProcessing(instructionsToDataProcessing, outputFromDataProcessing);
-        personDetectionThread = new PersonDetection(instructionsToPersonDetection,outputFromPersonDetection);
-        facialScannerThread = new FacialScanner(instructionsToFacialScanner,outputFromFacialScanner);
+        personDetectionThread = new PersonDetection(instructionsToPersonDetection, outputFromPersonDetection);
+        facialScannerThread = new FacialScanner(instructionsToFacialScanner, outputFromFacialScanner);
 
     }
 
@@ -66,91 +66,144 @@ public class AutomatedPassportControlSystem implements Runnable {
     public void run() {
         // Schedule all relevant threads to run
         threadPool.scheduleWithFixedDelay(gateControlThread, 0, 10, TimeUnit.MILLISECONDS);
+        threadPool.scheduleWithFixedDelay(personDetectionThread, 0, 10, TimeUnit.MILLISECONDS);
+        threadPool.scheduleWithFixedDelay(facialScannerThread, 0, 10, TimeUnit.MILLISECONDS);
+        threadPool.scheduleWithFixedDelay(thumbprintScannerThread, 0, 10, TimeUnit.MILLISECONDS);
+        threadPool.scheduleWithFixedDelay(dataProcessingThread, 0, 10, TimeUnit.MILLISECONDS);
         threadPool.scheduleWithFixedDelay(passportScannerThread, 0, 10, TimeUnit.MILLISECONDS);
 
-        // Testing
+
         while (isRunning.get() || passengerQueue.size() > 0) {
-            Passenger currentPassenger;
-            Response res = null;
+            final Passenger currentPassenger;
+            Passenger copyPassenger = null;
+            Response res;
 
             try {
                 currentPassenger = passengerQueue.take();
+                copyPassenger = currentPassenger;
+                currentPassenger.scanPassport();
+                // Validating the passport before letting passenger into the platform
+                System.out.println("APCS : Scanning your passport... Please do not remove your passport from the scanner.");
                 instructionsToPassportScanner.transfer(() -> passportScannerThread.getPassportIssuer(currentPassenger.getPassport()));
                 res = outputFromPassportScanner.take();
-                if (res.getStatus() != Response.STATUS.OK){
-                    // reject the current passenger
-                    System.out.println("Passport incompatible to be used on this control system... Please proceed to the correct channels for your passport");
+                if (res.getStatus() != Response.STATUS.OK) {
+                    System.out.println("APCS : Failed to scan passport data. Please find help with official personnel.");
                     continue;
                 }
+                System.out.println("APCS : Done. You can remove your passport from the scanner. Validating your passport...");
+
+                byte[] passportIssuer = res.getData();
+                instructionsToDataProcessing.transfer(() -> dataProcessingThread.validatePassport(passportIssuer));
+                res = outputFromDataProcessing.take();
+                if (res.getStatus() != Response.STATUS.OK) {
+                    // reject the current passenger
+                    System.out.println("APCS : Passport incompatible to be used on this control system... Please proceed to the correct channels for your passport");
+                    continue;
+                }
+                System.out.println("APCS : Validated. Please step inside the platform after the gate opened");
+                // Passenger walks into the platform
                 instructionsToGateControl.transfer(() -> gateControlThread.openEntry());
                 res = outputFromGateControl.take();
-                if (res.getStatus() != Response.STATUS.OK) {
+                if (res.getStatus() != Response.STATUS.OK)
                     throw new InterruptedException("Unable to open entry gate");
-                }
+                currentPassenger.enterPlatform();
                 personDetectionThread.setTotalPerson(1);
                 instructionsToPersonDetection.transfer(() -> personDetectionThread.verifyOnlyOnePerson());
                 res = outputFromPersonDetection.take();
-                if (res.getStatus() != Response.STATUS.OK) {
+                if (res.getStatus() != Response.STATUS.OK)
                     throw new InterruptedException("More than one people detected");
-                }
                 instructionsToGateControl.transfer(() -> gateControlThread.closeEntry());
-                if (res.getStatus() != Response.STATUS.OK) {
+                if (res.getStatus() != Response.STATUS.OK)
                     throw new InterruptedException("Unable to close entry gate");
-                }
+                System.out.println("APCS : Entry gate closed.");
+
+                // Getting passenger and passport data
+                System.out.println("APCS : Please place your passport onto the scanner while your thumb on thumbprint scanner and look into the camera in front of you.");
+                currentPassenger.scanPassport();
+                currentPassenger.scanThumb();
+                System.out.println("APCS : Scanning your face... Please look into the camera in front of you.");
+                System.out.println("APCS : Scanning your thumbprint... Please do not remove your thumb from the scanner.");
+
                 instructionsToPassportScanner.transfer(() -> passportScannerThread.getPassportData(currentPassenger.getPassport()));
                 instructionsToFacialScanner.transfer(() -> facialScannerThread.getFacialData(currentPassenger));
                 instructionsToThumbprintScanner.transfer(() -> thumbprintScannerThread.getThumbprintData(currentPassenger));
-                byte[] passportData = outputFromPassportScanner.take().getData();
-                byte[] facialData = outputFromFacialScanner.take().getData();
-                byte[] thumbprintData = outputFromThumbprintScanner.take().getData();
-                instructionsToDataProcessing.transfer(() -> dataProcessingThread.verifyPassportWithFacial(passportData,facialData));
-                instructionsToDataProcessing.transfer(() -> dataProcessingThread.verifyPassportWithThumbprint(passportData,thumbprintData));
-                res = outputFromDataProcessing.take();
+                Response fromPassportScanner = outputFromPassportScanner.take();
+                Response fromFacialScanner = outputFromFacialScanner.take();
+                Response fromThumbprintScanner = outputFromThumbprintScanner.take();
 
-                if (res.getStatus() != Response.STATUS.OK && outputFromDataProcessing.take().getStatus() != Response.STATUS.OK) {
+                if (fromPassportScanner.getStatus() != Response.STATUS.OK || fromFacialScanner.getStatus() != Response.STATUS.OK || fromThumbprintScanner.getStatus() != Response.STATUS.OK)
+                    throw new InterruptedException("Unable to get passport or passenger data");
+
+                System.out.println("APCS : Done. You can remove your passport and thumb from the scanners.");
+                byte[] passportData = fromPassportScanner.getData();
+                byte[] facialData = fromFacialScanner.getData();
+                byte[] thumbprintData = fromThumbprintScanner.getData();
+
+                // Verification of passport, facial, and thumbprint data
+                System.out.println("APCS : Verifying your credentials... ");
+                instructionsToDataProcessing.transfer(() -> dataProcessingThread.verifyPassportWithFacial(passportData, facialData));
+                instructionsToDataProcessing.transfer(() -> dataProcessingThread.verifyPassportWithThumbprint(passportData, thumbprintData));
+                Response facialVerification = outputFromDataProcessing.take();
+                Response thumbprintVerification = outputFromDataProcessing.take();
+
+                if (facialVerification.getStatus() != Response.STATUS.OK && thumbprintVerification.getStatus() != Response.STATUS.OK) {
                     // reject passenger
-                    System.out.println("Passport cannot be verified... Please find help from official personnel nearby");
+                    System.out.println("APCS : Passport cannot be verified... Please find help from official personnel nearby");
                     instructionsToGateControl.transfer(() -> gateControlThread.openEntry());
-                    if (res.getStatus() != Response.STATUS.OK) {
+                    if (res.getStatus() != Response.STATUS.OK)
                         throw new InterruptedException("Unable to open entry gate");
-                    }
+                    currentPassenger.exitPlatform();
                     personDetectionThread.setTotalPerson(0);
                     instructionsToPersonDetection.transfer(() -> personDetectionThread.verifyNoPerson());
                     res = outputFromPersonDetection.take();
-                    if (res.getStatus() != Response.STATUS.OK) {
+                    if (res.getStatus() != Response.STATUS.OK)
                         throw new InterruptedException("Person refused to leave");
-                    }
                     instructionsToGateControl.transfer(() -> gateControlThread.closeEntry());
-                    if (res.getStatus() != Response.STATUS.OK) {
+                    if (res.getStatus() != Response.STATUS.OK)
                         throw new InterruptedException("Unable to close entry gate");
-                    }
+                    System.out.println("APCS : Entry gate closed.");
                     continue;
                 }
+                // Uploading and allow passenger to exit the platform
+                System.out.println("APCS : Credentials successfully verified... Please exit once the exit gate opened.");
                 instructionsToDataProcessing.transfer(() -> dataProcessingThread.uploadData(currentPassenger.getPassport()));
+                res = outputFromDataProcessing.take();
+                if (res.getStatus() != Response.STATUS.OK)
+                    throw new InterruptedException("Unable to upload data to cloud server");
                 instructionsToGateControl.transfer(() -> gateControlThread.openExit());
+                res = outputFromGateControl.take();
+                if (res.getStatus() != Response.STATUS.OK)
+                    throw new InterruptedException("Unable to open exit gate");
+                currentPassenger.exitPlatform();
                 personDetectionThread.setTotalPerson(0);
                 instructionsToPersonDetection.transfer(() -> personDetectionThread.verifyNoPerson());
                 res = outputFromPersonDetection.take();
-                if (res.getStatus() != Response.STATUS.OK) {
+                if (res.getStatus() != Response.STATUS.OK)
                     throw new InterruptedException("Person refused to leave");
-                }
                 instructionsToGateControl.transfer(() -> gateControlThread.closeExit());
-                res = outputFromDataProcessing.take();
-                if (res.getStatus() != Response.STATUS.OK) {
-                    throw new InterruptedException("Data processing unable to upload data");
-                }
-
+                res = outputFromGateControl.take();
+                if (res.getStatus() != Response.STATUS.OK)
+                    throw new InterruptedException("Unable to close exit gate");
+                System.out.println("APCS : Exit gate closed.");
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                // System will initiate a total reset
+                System.out.println("APCS : Error encountered... Initiating a soft system reboot and reset... Passengers please exit from the entry gate..");
+                System.out.println("APCS : Entry gate opened");
+                if (copyPassenger != null) {
+                    copyPassenger.exitPlatform();
+                    this.addPassenger(copyPassenger);
+                }
+                System.out.println("APCS : Entry gate closed");
             }
         }
-        threadPool.shutdown();
+        threadPool.shutdownNow();
     }
 
-    public void addPassenger (Passenger passenger) {
+    public void addPassenger(Passenger passenger) {
         passengerQueue.add(passenger);
     }
-    public void closeTerminal () {
+
+    public void closeTerminal() {
         isRunning.set(false);
     }
 }
@@ -194,7 +247,6 @@ class GateControl implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Entry gate opened.");
         return Utility.createOkResponse();
     }
 
@@ -204,7 +256,6 @@ class GateControl implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Entry gate closed.");
         return Utility.createOkResponse();
     }
 
@@ -214,7 +265,6 @@ class GateControl implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Exit gate opened.");
         return Utility.createOkResponse();
     }
 
@@ -224,7 +274,6 @@ class GateControl implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Exit gate closed.");
         return Utility.createOkResponse();
     }
 }
@@ -344,7 +393,6 @@ class PassportScanner implements Runnable {
     }
 
     public Response getPassportData(Passport passport) {
-        System.out.println("Scanning your passport... Please do not remove your passport from the scanner.");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -352,7 +400,6 @@ class PassportScanner implements Runnable {
         }
         // processing to get passport data
         memoryBuffer = passport.getData();
-        System.out.println("Done. You can remove your passport from the scanner");
         return Utility.createOkResponse(memoryBuffer);
     }
 
@@ -400,14 +447,12 @@ class ThumbprintScanner implements Runnable {
     }
 
     public Response getThumbprintData(Passenger passenger) {
-        System.out.println("Scanning your thumbprint... Please do not remove your thumb from the scanner.");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         memoryBuffer = passenger.getThumbprintData().getBytes(StandardCharsets.UTF_8);
-        System.out.println("Done. You can remove your thumb from the scanner.");
         return Utility.createOkResponse(memoryBuffer);
     }
 }
@@ -444,14 +489,12 @@ class FacialScanner implements Runnable {
     }
 
     public Response getFacialData(Passenger passenger) {
-        System.out.println("Scanning your face... Please look into the camera in front of you.");
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
         memoryBuffer = passenger.getFacialData().getBytes(StandardCharsets.UTF_8);
-        System.out.println("Done.");
         return Utility.createOkResponse(memoryBuffer);
     }
 }

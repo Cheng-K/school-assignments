@@ -1,19 +1,17 @@
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import java.nio.charset.StandardCharsets;
-import java.security.SignatureException;
-import java.util.Arrays;
-import java.util.concurrent.Executors;
-
 public class Main {
     public static void main(String[] args)  {
-        Thread automatedPassportControlSystem = new Thread(new AutomatedPassportControlSystem());
+        AutomatedPassportControlSystem apcs = new AutomatedPassportControlSystem();
+        Thread automatedPassportControlSystem = new Thread(apcs);
+        Thread passengerGenerator = new Thread(new PassengerFactory(apcs,1));
+        automatedPassportControlSystem.start();
+        passengerGenerator.start();
         try {
+            passengerGenerator.join();
             automatedPassportControlSystem.join();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        System.out.println("Simulation Program Terminated");
+        System.out.println("\n\n ------------------- Simulation Program Terminated ---------------------------- ");
 
         // Testing encryption and decryption
 //        String toEncrypt = "Halalled21rq";
