@@ -7,9 +7,15 @@ import java.util.concurrent.Executors;
 
 public class Main {
     public static void main(String[] args)  {
-//        Executors.newCachedThreadPool().submit(new AutomatedPassportControlSystem());
+        Thread automatedPassportControlSystem = new Thread(new AutomatedPassportControlSystem());
+        try {
+            automatedPassportControlSystem.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Simulation Program Terminated");
 
-    // Testing encryption and decryption
+        // Testing encryption and decryption
 //        String toEncrypt = "Halalled21rq";
 //        byte[] encrypted = Utility.encryptData(toEncrypt.getBytes(StandardCharsets.UTF_8));
 //        String decrypted = new String(Utility.decryptData(encrypted));

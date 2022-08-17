@@ -39,6 +39,7 @@ public abstract class Passenger {
         this.thumbprintData = thumbprintData;
     }
 
+
 }
 
 class NormalPassenger extends Passenger {
