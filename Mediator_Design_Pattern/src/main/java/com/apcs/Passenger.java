@@ -1,3 +1,5 @@
+package com.apcs;
+
 public abstract class Passenger {
     private Passport passport;
     private String name;

@@ -1,3 +1,5 @@
+package com.apcs;
+
 import com.github.javafaker.Faker;
 
 public class PassengerFactory implements Runnable {

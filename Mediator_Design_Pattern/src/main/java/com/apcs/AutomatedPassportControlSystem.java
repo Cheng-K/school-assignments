@@ -1,3 +1,5 @@
+package com.apcs;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import java.nio.charset.StandardCharsets;
@@ -123,6 +125,7 @@ public class AutomatedPassportControlSystem implements Runnable {
                 currentPassenger.scanThumb();
                 System.out.println("APCS : Scanning your face... Please look into the camera in front of you.");
                 System.out.println("APCS : Scanning your thumbprint... Please do not remove your thumb from the scanner.");
+                System.out.println("APCS : Scanning your passport... Please do not remove your passport from the scanner.");
 
                 instructionsToPassportScanner.transfer(() -> passportScannerThread.getPassportData(currentPassenger.getPassport()));
                 instructionsToFacialScanner.transfer(() -> facialScannerThread.getFacialData(currentPassenger));
@@ -188,6 +191,7 @@ public class AutomatedPassportControlSystem implements Runnable {
             } catch (InterruptedException e) {
                 // System will initiate a total reset
                 System.out.println("APCS : Error encountered... Initiating a soft system reboot and reset... Passengers please exit from the entry gate..");
+                // add open and close entry
                 System.out.println("APCS : Entry gate opened");
                 if (copyPassenger != null) {
                     copyPassenger.exitPlatform();
