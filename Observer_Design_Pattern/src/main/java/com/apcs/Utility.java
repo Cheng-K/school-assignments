@@ -8,16 +8,16 @@ import java.security.spec.InvalidKeySpecException;
 
 
 public class Utility {
-    public static Response createOkResponse(String content){
-        return new Response(content,Response.STATUS.OK, new byte[]{});
+    public static Response createOkResponse(String content) {
+        return new Response(content, Response.STATUS.OK, new byte[]{});
     }
 
-    public static Response createOkResponse(String content,byte[] data) {
-        return new Response(content,Response.STATUS.OK, data);
+    public static Response createOkResponse(String content, byte[] data) {
+        return new Response(content, Response.STATUS.OK, data);
     }
 
-    public static Response createFailedResponse(String content,Exception e) {
-        return new Response(content,Response.STATUS.FAILED, e);
+    public static Response createFailedResponse(String content, Exception e) {
+        return new Response(content, Response.STATUS.FAILED, e);
     }
 
     public static byte[] encryptData(byte[] string) throws IllegalBlockSizeException, BadPaddingException {
@@ -43,8 +43,6 @@ class Response {
         OK, FAILED
     }
 
-    private String sender;
-    private String receiver;
     private String content;
 
     private Passenger currentPassenger;
@@ -54,8 +52,6 @@ class Response {
 
     public Response(String content, Response.STATUS value, Exception obj) {
         this.content = content;
-        this.sender = null;
-        this.receiver = null;
         status = value;
         errorObj = obj;
         data = null;
@@ -63,48 +59,34 @@ class Response {
 
     public Response(String content, Response.STATUS value, byte[] data) {
         this.content = content;
-        this.sender = null;
-        this.receiver = null;
         status = value;
         errorObj = null;
         this.data = data;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
-    public void setReceiver (String receiver){
-        this.receiver = receiver;
-    }
-
     public byte[] getData() {
         return data;
     }
+
     public STATUS getStatus() {
         return status;
     }
+
     public Exception getErrorObj() {
         return errorObj;
-    }
-    public String getSender() {
-        return sender;
-    }
-
-    public String getReceiver() {
-        return receiver;
     }
 
     public String getContent() {
         return content;
     }
 
-    public void setCurrentPassenger (Passenger p) {
+    public void setCurrentPassenger(Passenger p) {
         if (currentPassenger != null)
             throw new RuntimeException(this + " response already has an assigned passenger. Modification is not allowed");
         currentPassenger = p;
     }
-    public Passenger getCurrentPassenger () {
+
+    public Passenger getCurrentPassenger() {
         return currentPassenger;
     }
 

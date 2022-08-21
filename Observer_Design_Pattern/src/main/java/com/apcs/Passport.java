@@ -10,7 +10,7 @@ public class Passport {
     private final byte[] data;
     private final byte[] issuer;
 
-    public Passport (String name) {
+    public Passport(String name) {
         // Encrypt
         try {
             data = Utility.encryptData(name.getBytes(StandardCharsets.UTF_8));
@@ -24,6 +24,7 @@ public class Passport {
             throw new RuntimeException(e);
         }
     }
+
     public byte[] getData() {
         return data;
     }

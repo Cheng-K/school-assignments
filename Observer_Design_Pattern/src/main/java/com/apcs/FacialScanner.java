@@ -21,12 +21,12 @@ class FacialScanner implements Runnable, Observable, Observer {
 
     public FacialScanner() {
         subscribers = new HashMap<>();
-        subscribers.put(FacialScanner.getFacial,new ArrayList<>());
+        subscribers.put(FacialScanner.getFacial, new ArrayList<>());
         eventsReceived = new LinkedTransferQueue<>();
         eventsResponses = new HashMap<>();
         // Initialize the events Responses
         // Event 1 : Close entry gate -> start scanning
-        eventsResponses.put(GateControl.closedEntry,() -> {
+        eventsResponses.put(GateControl.closedEntry, () -> {
             return (res) -> {
                 System.out.println("APCS : Scanning your face... Please look into the camera in front of you.");
                 Passenger currentPassenger = res.getCurrentPassenger();
@@ -34,7 +34,7 @@ class FacialScanner implements Runnable, Observable, Observer {
                 if (result.getStatus() != Response.STATUS.OK)
                     throw new RuntimeException("Unable to get passenger's facial data");
                 result.setCurrentPassenger(res.getCurrentPassenger());
-                for (Observer subscriber : subscribers.get(FacialScanner.getFacial)){
+                for (Observer subscriber : subscribers.get(FacialScanner.getFacial)) {
                     subscriber.sendEvent(result);
                 }
             };
@@ -51,8 +51,11 @@ class FacialScanner implements Runnable, Observable, Observer {
             if (responseToEvent == null)
                 throw new RuntimeException(this + " received an event that does not know how to handle..");
             responseToEvent.call().accept(receivedEvent);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            System.err.println("WARNING : " + this + " has been interrupted and terminated.");
+        } catch (Throwable e) {
+            System.err.println("ERROR : ");
+            e.printStackTrace();
         }
     }
 
@@ -63,12 +66,12 @@ class FacialScanner implements Runnable, Observable, Observer {
             throw new RuntimeException(e);
         }
 
-        return Utility.createOkResponse(FacialScanner.getFacial,passenger.getFacialData().getBytes(StandardCharsets.UTF_8));
+        return Utility.createOkResponse(FacialScanner.getFacial, passenger.getFacialData().getBytes(StandardCharsets.UTF_8));
     }
 
     @Override
     public void addObserver(String event, Observer observer) {
-        if (! subscribers.containsKey(event))
+        if (!subscribers.containsKey(event))
             throw new IllegalArgumentException(observer + " trying to subscribe to an unknown event of " + this);
         subscribers.get(event).add(observer);
     }
@@ -85,7 +88,7 @@ class FacialScanner implements Runnable, Observable, Observer {
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         return "FacialScanner";
     }
 }

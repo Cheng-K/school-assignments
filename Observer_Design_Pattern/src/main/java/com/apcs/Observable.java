@@ -5,5 +5,5 @@ public interface Observable {
 }
 
 interface Observer {
-    public void sendEvent (Response res);
+    public void sendEvent(Response res);
 }

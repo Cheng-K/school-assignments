@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TransferQueue;
 import java.util.function.Consumer;
 
-public class PersonDetection implements Runnable,Observable, Observer {
+public class PersonDetection implements Runnable, Observable, Observer {
     private final HashMap<String, List<Observer>> subscribers;
     private final HashMap<String, Callable<Consumer<Response>>> eventsResponses;
     private final TransferQueue<Response> eventsReceived;
@@ -22,13 +22,13 @@ public class PersonDetection implements Runnable,Observable, Observer {
 
     public PersonDetection() {
         subscribers = new HashMap<>();
-        subscribers.put(PersonDetection.nonePersonDetected,new ArrayList<>());
-        subscribers.put(PersonDetection.onePersonDetected,new ArrayList<>());
+        subscribers.put(PersonDetection.nonePersonDetected, new ArrayList<>());
+        subscribers.put(PersonDetection.onePersonDetected, new ArrayList<>());
         eventsReceived = new LinkedTransferQueue<>();
         eventsResponses = new HashMap<>();
         // Initialize the events Responses
         // Event 1 : Open entry -> Validate one person came in
-        eventsResponses.put(GateControl.openedEntry,() -> {
+        eventsResponses.put(GateControl.openedEntry, () -> {
             return (res) -> {
                 Passenger currentPassenger = res.getCurrentPassenger();
                 currentPassenger.enterPlatform();
@@ -37,14 +37,14 @@ public class PersonDetection implements Runnable,Observable, Observer {
                 if (result.getStatus() != Response.STATUS.OK)
                     throw new RuntimeException("Unable to verify only one person in platform");
                 result.setCurrentPassenger(res.getCurrentPassenger());
-                for (Observer subscriber : subscribers.get(PersonDetection.onePersonDetected)){
+                for (Observer subscriber : subscribers.get(PersonDetection.onePersonDetected)) {
                     subscriber.sendEvent(result);
                 }
             };
         });
 
         // Event 2 : Open exit -> Validate no person left
-        eventsResponses.put(GateControl.openedExit,() -> {
+        eventsResponses.put(GateControl.openedExit, () -> {
             return (res) -> {
                 Passenger currentPassenger = res.getCurrentPassenger();
                 currentPassenger.exitPlatform();
@@ -53,7 +53,7 @@ public class PersonDetection implements Runnable,Observable, Observer {
                 if (result.getStatus() != Response.STATUS.OK)
                     throw new RuntimeException("Unable to verify no person left in platform");
                 result.setCurrentPassenger(res.getCurrentPassenger());
-                for (Observer subscriber : subscribers.get(PersonDetection.nonePersonDetected)){
+                for (Observer subscriber : subscribers.get(PersonDetection.nonePersonDetected)) {
                     subscriber.sendEvent(result);
                 }
             };
@@ -70,17 +70,20 @@ public class PersonDetection implements Runnable,Observable, Observer {
             if (responseToEvent == null)
                 throw new RuntimeException(this + " received an event that does not know how to handle..");
             responseToEvent.call().accept(receivedEvent);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            System.err.println("WARNING : " + this + " has been interrupted and terminated.");
+        } catch (Throwable e) {
+            System.err.println("ERROR: ");
+            e.printStackTrace();
         }
     }
 
     public Response verifyOnlyOnePerson() {
-        return totalPerson == 1 ? Utility.createOkResponse(toString()) : Utility.createFailedResponse(toString(), new Exception("No person / Too many person detected."));
+        return totalPerson == 1 ? Utility.createOkResponse(PersonDetection.onePersonDetected) : Utility.createFailedResponse(PersonDetection.onePersonDetected, new Exception("No person / Too many person detected."));
     }
 
     public Response verifyNoPerson() {
-        return totalPerson == 0 ? Utility.createOkResponse(toString()) : Utility.createFailedResponse(toString(), new Exception("Person detected."));
+        return totalPerson == 0 ? Utility.createOkResponse(PersonDetection.nonePersonDetected) : Utility.createFailedResponse(PersonDetection.nonePersonDetected, new Exception("Person detected."));
     }
 
     public void setTotalPerson(int person) {
@@ -89,7 +92,7 @@ public class PersonDetection implements Runnable,Observable, Observer {
 
     @Override
     public void addObserver(String event, Observer observer) {
-        if (! subscribers.containsKey(event))
+        if (!subscribers.containsKey(event))
             throw new IllegalArgumentException(observer + " trying to subscribe to an unknown event of " + this);
         subscribers.get(event).add(observer);
     }

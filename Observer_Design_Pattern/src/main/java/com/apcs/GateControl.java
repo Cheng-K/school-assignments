@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TransferQueue;
 import java.util.function.Consumer;
 
-public class GateControl implements Runnable,Observable, Observer {
+public class GateControl implements Runnable, Observable, Observer {
 
     private final HashMap<String, List<Observer>> subscribers;
     private final HashMap<String, Callable<Consumer<Response>>> eventsResponses;
@@ -24,29 +24,29 @@ public class GateControl implements Runnable,Observable, Observer {
 
     public GateControl() {
         subscribers = new HashMap<>();
-        subscribers.put(GateControl.openedEntry,new ArrayList<>());
-        subscribers.put(GateControl.openedExit,new ArrayList<>());
-        subscribers.put(GateControl.closedEntry,new ArrayList<>());
-        subscribers.put(GateControl.closedExit,new ArrayList<>());
+        subscribers.put(GateControl.openedEntry, new ArrayList<>());
+        subscribers.put(GateControl.openedExit, new ArrayList<>());
+        subscribers.put(GateControl.closedEntry, new ArrayList<>());
+        subscribers.put(GateControl.closedExit, new ArrayList<>());
         eventsReceived = new LinkedTransferQueue<>();
         eventsResponses = new HashMap<>();
 
         // Initialize the events responses
         // Event 1 : Validated issuer -> Open entry gate
-        eventsResponses.put(DataProcessing.validatedPassport,() -> {
+        eventsResponses.put(DataProcessing.validatedPassport, () -> {
             return (res) -> {
                 Response result = openEntry();
                 if (result.getStatus() != Response.STATUS.OK)
                     throw new RuntimeException("Unable to open entry gate");
                 result.setCurrentPassenger(res.getCurrentPassenger());
-                for (Observer subscriber : subscribers.get(GateControl.openedEntry)){
+                for (Observer subscriber : subscribers.get(GateControl.openedEntry)) {
                     subscriber.sendEvent(result);
                 }
             };
         });
 
         // Event 2 : Verified one person -> Close entry gate
-        eventsResponses.put(PersonDetection.onePersonDetected,() -> {
+        eventsResponses.put(PersonDetection.onePersonDetected, () -> {
             return (res) -> {
                 Response result = closeEntry();
                 if (result.getStatus() != Response.STATUS.OK)
@@ -54,7 +54,7 @@ public class GateControl implements Runnable,Observable, Observer {
                 result.setCurrentPassenger(res.getCurrentPassenger());
                 System.out.println("APCS : Entry gate closed.");
                 System.out.println("APCS : Please place your passport onto the scanner while your thumb on thumbprint scanner and look into the camera in front of you.");
-                for (Observer subscriber : subscribers.get(GateControl.closedEntry)){
+                for (Observer subscriber : subscribers.get(GateControl.closedEntry)) {
                     subscriber.sendEvent(result);
                 }
 
@@ -62,28 +62,28 @@ public class GateControl implements Runnable,Observable, Observer {
         });
 
         // Event 3 : Verified passenger -> Open exit gate
-        eventsResponses.put(DataProcessing.verifiedPassenger,() -> {
+        eventsResponses.put(DataProcessing.verifiedPassenger, () -> {
             return (res) -> {
                 Response result = openExit();
                 if (result.getStatus() != Response.STATUS.OK)
                     throw new RuntimeException("Unable to open exit gate");
                 result.setCurrentPassenger(res.getCurrentPassenger());
                 System.out.println("APCS : Exit gate opened.");
-                for (Observer subscriber : subscribers.get(GateControl.openedExit)){
+                for (Observer subscriber : subscribers.get(GateControl.openedExit)) {
                     subscriber.sendEvent(result);
                 }
             };
         });
 
         // Event 4 : No person left -> Close exit gate
-        eventsResponses.put(PersonDetection.nonePersonDetected,() -> {
+        eventsResponses.put(PersonDetection.nonePersonDetected, () -> {
             return (res) -> {
                 Response result = closeExit();
                 if (result.getStatus() != Response.STATUS.OK)
                     throw new RuntimeException("Unable to close exit gate");
                 result.setCurrentPassenger(res.getCurrentPassenger());
                 System.out.println("APCS : Exit gate closed.");
-                for (Observer subscriber : subscribers.get(GateControl.closedExit)){
+                for (Observer subscriber : subscribers.get(GateControl.closedExit)) {
                     subscriber.sendEvent(result);
                 }
             };
@@ -100,8 +100,11 @@ public class GateControl implements Runnable,Observable, Observer {
             if (responseToEvent == null)
                 throw new RuntimeException(this + " received an event that does not know how to handle..");
             responseToEvent.call().accept(receivedEvent);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            System.err.println("WARNING : " + this + " has been interrupted and terminated.");
+        } catch (Throwable e) {
+            System.err.print("ERROR :");
+            e.printStackTrace();
         }
     }
 
@@ -143,10 +146,11 @@ public class GateControl implements Runnable,Observable, Observer {
 
     @Override
     public void addObserver(String event, Observer observer) {
-        if (! subscribers.containsKey(event))
+        if (!subscribers.containsKey(event))
             throw new IllegalArgumentException(observer + " trying to subscribe to an unknown event of " + this);
         subscribers.get(event).add(observer);
     }
+
     @Override
     public void sendEvent(Response res) {
         try {
@@ -159,7 +163,7 @@ public class GateControl implements Runnable,Observable, Observer {
     }
 
     @Override
-    public String toString () {
+    public String toString() {
         return "GateControl";
     }
 }

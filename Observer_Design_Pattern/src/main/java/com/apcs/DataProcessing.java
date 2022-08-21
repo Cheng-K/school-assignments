@@ -56,7 +56,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
                 if (facialDataBuffer != null && thumbprintDataBuffer != null) {
                     System.out.println("APCS : Verifying your credentials... ");
                     Response result1 = verifyPassportWithFacial(passportDataBuffer, facialDataBuffer);
-                    Response result2 = verifyPassportWithFacial(passportDataBuffer, thumbprintDataBuffer);
+                    Response result2 = verifyPassportWithThumbprint(passportDataBuffer, thumbprintDataBuffer);
                     if (result1.getStatus() == Response.STATUS.OK || result2.getStatus() == Response.STATUS.OK) {
                         System.out.println("APCS : Credentials successfully verified... Please wait for the system to upload your data.");
                         Response result3 = uploadData(res.getCurrentPassenger().getPassport());
@@ -67,7 +67,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
                         facialDataBuffer = null;
                         passportDataBuffer = null;
                         thumbprintDataBuffer = null;
-                        for (Observer subscriber : subscribers.get(DataProcessing.verifiedPassenger)){
+                        for (Observer subscriber : subscribers.get(DataProcessing.verifiedPassenger)) {
                             subscriber.sendEvent(result3);
                         }
                     } else {
@@ -84,7 +84,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
                 if (passportDataBuffer != null && thumbprintDataBuffer != null) {
                     System.out.println("APCS : Verifying your credentials... ");
                     Response result1 = verifyPassportWithFacial(passportDataBuffer, facialDataBuffer);
-                    Response result2 = verifyPassportWithFacial(passportDataBuffer, thumbprintDataBuffer);
+                    Response result2 = verifyPassportWithThumbprint(passportDataBuffer, thumbprintDataBuffer);
                     if (result1.getStatus() == Response.STATUS.OK || result2.getStatus() == Response.STATUS.OK) {
                         System.out.println("APCS : Credentials successfully verified... Please wait for the system to upload your data.");
                         Response result3 = uploadData(res.getCurrentPassenger().getPassport());
@@ -95,7 +95,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
                         facialDataBuffer = null;
                         passportDataBuffer = null;
                         thumbprintDataBuffer = null;
-                        for (Observer subscriber : subscribers.get(DataProcessing.verifiedPassenger)){
+                        for (Observer subscriber : subscribers.get(DataProcessing.verifiedPassenger)) {
                             subscriber.sendEvent(result3);
                         }
                     } else {
@@ -111,7 +111,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
                 if (passportDataBuffer != null && facialDataBuffer != null) {
                     System.out.println("APCS : Verifying your credentials... ");
                     Response result1 = verifyPassportWithFacial(passportDataBuffer, facialDataBuffer);
-                    Response result2 = verifyPassportWithFacial(passportDataBuffer, thumbprintDataBuffer);
+                    Response result2 = verifyPassportWithThumbprint(passportDataBuffer, thumbprintDataBuffer);
                     if (result1.getStatus() == Response.STATUS.OK || result2.getStatus() == Response.STATUS.OK) {
                         System.out.println("APCS : Credentials successfully verified... Please wait for the system to upload your data.");
                         Response result3 = uploadData(res.getCurrentPassenger().getPassport());
@@ -122,7 +122,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
                         facialDataBuffer = null;
                         passportDataBuffer = null;
                         thumbprintDataBuffer = null;
-                        for (Observer subscriber : subscribers.get(DataProcessing.verifiedPassenger)){
+                        for (Observer subscriber : subscribers.get(DataProcessing.verifiedPassenger)) {
                             subscriber.sendEvent(result3);
                         }
                     } else {
@@ -142,15 +142,17 @@ public class DataProcessing implements Runnable, Observable, Observer {
         Response receivedEvent;
         try {
             receivedEvent = eventsReceived.take();
-            System.out.println(receivedEvent.getContent());
             Callable<Consumer<Response>> responseToEvent = eventsResponses.get(receivedEvent.getContent());
             if (responseToEvent == null) {
                 System.err.println("ERROR : " + this + " received an event that does not know how to handle..");
                 throw new RuntimeException(this + " received an event that does not know how to handle..");
             }
             responseToEvent.call().accept(receivedEvent);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            System.err.println("WARNING : " + this + " has been interrupted and terminated.");
+        } catch (Throwable e) {
+            System.err.println("Error message ");
+            e.printStackTrace();
         }
     }
 
@@ -166,7 +168,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return Utility.createOkResponse(toString());
+        return Utility.createOkResponse(DataProcessing.validatedPassport);
 
     }
 
@@ -180,7 +182,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
         } catch (IllegalBlockSizeException | BadPaddingException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return Utility.createOkResponse(toString());
+        return Utility.createOkResponse(DataProcessing.verifiedPassenger);
     }
 
     public Response verifyPassportWithThumbprint(byte[] passport, byte[] thumbprintData) {
@@ -193,7 +195,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
         } catch (IllegalBlockSizeException | BadPaddingException | InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return Utility.createOkResponse(toString());
+        return Utility.createOkResponse(DataProcessing.verifiedPassenger);
     }
 
     public Response uploadData(Passport passport) {
@@ -202,7 +204,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return Utility.createOkResponse(toString());
+        return Utility.createOkResponse(DataProcessing.verifiedPassenger);
     }
 
     @Override

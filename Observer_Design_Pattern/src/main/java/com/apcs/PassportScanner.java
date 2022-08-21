@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TransferQueue;
 import java.util.function.Consumer;
 
-public class PassportScanner implements Runnable,Observable, Observer {
+public class PassportScanner implements Runnable, Observable, Observer {
     private final HashMap<String, List<Observer>> subscribers;
     private final HashMap<String, Callable<Consumer<Response>>> eventsResponses;
     private final TransferQueue<Response> eventsReceived;
@@ -21,8 +21,8 @@ public class PassportScanner implements Runnable,Observable, Observer {
 
     public PassportScanner() {
         subscribers = new HashMap<>();
-        subscribers.put(PassportScanner.getData,new ArrayList<>());
-        subscribers.put(PassportScanner.getIssuer,new ArrayList<>());
+        subscribers.put(PassportScanner.getData, new ArrayList<>());
+        subscribers.put(PassportScanner.getIssuer, new ArrayList<>());
         eventsReceived = new LinkedTransferQueue<>();
         eventsResponses = new HashMap<>();
 
@@ -38,15 +38,14 @@ public class PassportScanner implements Runnable,Observable, Observer {
                     throw new RuntimeException("Passport data issuer cannot be collected.");
                 result.setCurrentPassenger(currentPassenger);
                 System.out.println("APCS : Done. You can remove your passport from the scanner. Validating your passport...");
-                for (Observer subscriber : subscribers.get(PassportScanner.getIssuer)){
-                    System.out.println("print " + subscriber);
+                for (Observer subscriber : subscribers.get(PassportScanner.getIssuer)) {
                     subscriber.sendEvent(result);
                 }
             };
         });
 
         // Event 2 : Close entry gate -> start scanning
-        eventsResponses.put(GateControl.closedEntry,() -> {
+        eventsResponses.put(GateControl.closedEntry, () -> {
             return (res) -> {
                 Passenger currentPassenger = res.getCurrentPassenger();
                 currentPassenger.scanPassport();
@@ -55,7 +54,7 @@ public class PassportScanner implements Runnable,Observable, Observer {
                 if (result.getStatus() != Response.STATUS.OK)
                     throw new RuntimeException("Unable to get passenger's passport data");
                 result.setCurrentPassenger(res.getCurrentPassenger());
-                for (Observer subscriber : subscribers.get(PassportScanner.getData)){
+                for (Observer subscriber : subscribers.get(PassportScanner.getData)) {
                     subscriber.sendEvent(result);
                 }
             };
@@ -74,8 +73,11 @@ public class PassportScanner implements Runnable,Observable, Observer {
             if (responseToEvent == null)
                 throw new RuntimeException(this + " received an event that does not know how to handle..");
             responseToEvent.call().accept(receivedEvent);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            System.err.println("WARNING : " + this + " has been interrupted and terminated.");
+        } catch (Throwable e) {
+            System.err.println("ERROR : ");
+            e.printStackTrace();
         }
     }
 
@@ -86,7 +88,7 @@ public class PassportScanner implements Runnable,Observable, Observer {
             throw new RuntimeException(e);
         }
 
-        return Utility.createOkResponse(PassportScanner.getData,passport.getData());
+        return Utility.createOkResponse(PassportScanner.getData, passport.getData());
     }
 
     public Response getPassportIssuer(Passport passport) {
@@ -95,12 +97,12 @@ public class PassportScanner implements Runnable,Observable, Observer {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        return Utility.createOkResponse(toString(),passport.getIssuer());
+        return Utility.createOkResponse(PassportScanner.getIssuer, passport.getIssuer());
     }
 
     @Override
     public void addObserver(String event, Observer observer) {
-        if (! subscribers.containsKey(event))
+        if (!subscribers.containsKey(event))
             throw new IllegalArgumentException(observer + " trying to subscribe to an unknown event of " + this);
         subscribers.get(event).add(observer);
     }
