@@ -40,21 +40,21 @@ public abstract class Passenger {
         this.thumbprintData = thumbprintData;
     }
 
-    public void enterPlatform () {
+    public void enterPlatform() {
         System.out.println(name + " : Entered the passport control system platform.");
     }
 
-    public void exitPlatform () {
+    public void exitPlatform() {
         System.out.println(name + " : Exited the passport control system platform.");
     }
 
-    public void scanPassport () {
+    public void scanPassport() {
         System.out.println(name + " : Placed passport for scanning.");
     }
-    public void scanThumb () {
+
+    public void scanThumb() {
         System.out.println(name + " : Placed thumb for scanning.");
     }
-
 
 
 }
@@ -67,17 +67,6 @@ class NormalPassenger extends Passenger {
         setThumbprintData(name);
         setPassport(new Passport(name));
     }
-}
-
-class FailVerificationPassenger extends Passenger {
-    public FailVerificationPassenger (String name) {
-        super();
-        setName(name);
-        setFacialData(name);
-        setThumbprintData(name);
-        setPassport(new Passport(name+name));
-    }
-
 }
 
 
