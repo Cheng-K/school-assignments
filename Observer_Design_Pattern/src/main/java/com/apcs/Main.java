@@ -16,7 +16,7 @@ public class Main {
     @Measurement(iterations = 5)
     public void startAPCS() {
         AutomatedPassportControlSystem apcs = new AutomatedPassportControlSystem();
-        Thread passengerGenerator = new Thread(new PassengerFactory(apcs, 10));
+        Thread passengerGenerator = new Thread(new PassengerFactory(apcs, 3));
         passengerGenerator.start();
         try {
             apcs.start();

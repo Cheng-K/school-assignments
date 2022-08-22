@@ -80,8 +80,8 @@ public class ThumbprintScanner implements Runnable, Observable, Observer {
     @Override
     public void sendEvent(Response res) {
         try {
-            if (!eventsReceived.tryTransfer(res, 1, TimeUnit.SECONDS)) {
-                throw new RuntimeException("Message is not acknowledged by " + eventsReceived + " after waiting for 1 second");
+            if (!eventsReceived.tryTransfer(res, 60, TimeUnit.SECONDS)) {
+                throw new RuntimeException("Message is not acknowledged by " + this + " after waiting for 1 second");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
