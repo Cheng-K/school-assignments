@@ -31,7 +31,7 @@ public class ThumbprintScanner implements Runnable {
 
     public Response getThumbprintData(Passenger passenger) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

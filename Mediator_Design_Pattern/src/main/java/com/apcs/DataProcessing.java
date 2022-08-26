@@ -30,7 +30,6 @@ public class DataProcessing implements Runnable {
             System.err.println("ERROR : ");
             e.printStackTrace();
         }
-
     }
 
     public Response validatePassport(byte[] issuerString) {
@@ -77,7 +76,7 @@ public class DataProcessing implements Runnable {
 
     public Response uploadData(Passport passport) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

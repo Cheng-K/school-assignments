@@ -21,12 +21,12 @@ public class AutomatedPassportControlSystem implements Runnable {
 
     private final ScheduledExecutorService threadPool;
     // Sub components
-    GateControl gateControlThread;
-    PassportScanner passportScannerThread;
-    ThumbprintScanner thumbprintScannerThread;
-    DataProcessing dataProcessingThread;
-    PersonDetection personDetectionThread;
-    FacialScanner facialScannerThread;
+    private final GateControl gateControlThread;
+    private final PassportScanner passportScannerThread;
+    private final ThumbprintScanner thumbprintScannerThread;
+    private final DataProcessing dataProcessingThread;
+    private final PersonDetection personDetectionThread;
+    private final FacialScanner facialScannerThread;
 
     // Passenger Queue
     private final BlockingQueue<Passenger> passengerQueue = new LinkedBlockingQueue<>();
