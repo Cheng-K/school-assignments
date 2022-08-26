@@ -83,7 +83,7 @@ public class PassportScanner implements Runnable, Observable, Observer {
 
     public Response getPassportData(Passport passport) {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -93,7 +93,7 @@ public class PassportScanner implements Runnable, Observable, Observer {
 
     public Response getPassportIssuer(Passport passport) {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(1500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }

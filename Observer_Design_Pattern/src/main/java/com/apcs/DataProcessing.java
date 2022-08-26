@@ -54,6 +54,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
             return (res) -> {
                 passportDataBuffer = res.getData();
                 if (facialDataBuffer != null && thumbprintDataBuffer != null) {
+                    System.out.println("APCS : Done. You can remove your passport and thumb from the scanners.");
                     System.out.println("APCS : Verifying your credentials... ");
                     Response result1 = verifyPassportWithFacial(passportDataBuffer, facialDataBuffer);
                     Response result2 = verifyPassportWithThumbprint(passportDataBuffer, thumbprintDataBuffer);
@@ -82,6 +83,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
             return (res) -> {
                 facialDataBuffer = res.getData();
                 if (passportDataBuffer != null && thumbprintDataBuffer != null) {
+                    System.out.println("APCS : Done. You can remove your passport and thumb from the scanners.");
                     System.out.println("APCS : Verifying your credentials... ");
                     Response result1 = verifyPassportWithFacial(passportDataBuffer, facialDataBuffer);
                     Response result2 = verifyPassportWithThumbprint(passportDataBuffer, thumbprintDataBuffer);
@@ -109,6 +111,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
             return (res) -> {
                 thumbprintDataBuffer = res.getData();
                 if (passportDataBuffer != null && facialDataBuffer != null) {
+                    System.out.println("APCS : Done. You can remove your passport and thumb from the scanners.");
                     System.out.println("APCS : Verifying your credentials... ");
                     Response result1 = verifyPassportWithFacial(passportDataBuffer, facialDataBuffer);
                     Response result2 = verifyPassportWithThumbprint(passportDataBuffer, thumbprintDataBuffer);
@@ -200,7 +203,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
 
     public Response uploadData(Passport passport) {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(3000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
