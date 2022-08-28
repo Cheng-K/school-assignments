@@ -1,4 +1,5 @@
 package com.apcs;
+
 // This library is used for generating realistic fake names for simulated passengers
 
 import com.github.javafaker.Faker;

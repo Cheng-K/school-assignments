@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TransferQueue;
 import java.util.function.Consumer;
 
-/*Description : PassportScanner is one of the subcomponents of the simulated system. It is a thread that performs
+/*Description : ThumbprintScanner is one of the subcomponents of the simulated system. It is a thread that performs
  * thumb scanning operations. All operations are represented as a method in this class.
  * */
 public class ThumbprintScanner implements Runnable, Observable, Observer {

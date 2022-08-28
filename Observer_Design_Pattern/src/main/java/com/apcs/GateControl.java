@@ -9,8 +9,8 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TransferQueue;
 import java.util.function.Consumer;
 
-/* Description : This class is one of the subcomponents of the simulated system. It is a thread that performs facial
- * scanning of passengers. All operations are represented as a method in this class. */
+/* Description : This class is one of the subcomponents of the simulated system. It is a thread that controls the
+ * entry and exit gate of the platform. All operations are represented as a method in this class. */
 
 public class GateControl implements Runnable, Observable, Observer {
 
