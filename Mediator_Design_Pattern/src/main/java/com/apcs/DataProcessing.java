@@ -7,6 +7,10 @@ import java.util.Arrays;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TransferQueue;
 
+/* Description : This class is one of the subcomponents of the simulated system. It is a thread that performs data
+ *  processing such as passport validation, verification, and data uploading. All operations are represented as a
+ *  method in this class. */
+
 public class DataProcessing implements Runnable {
     private final TransferQueue<Callable<Response>> instructionsQueue;
     private final TransferQueue<Response> resultOutput;
@@ -16,6 +20,9 @@ public class DataProcessing implements Runnable {
         this.resultOutput = resultOutput;
     }
 
+    /* Description : This run method will retrieve and execute the instructions received.
+     *  Instructions are in the form of callable and the output from the instructions will be inserted into the
+     *  resultOutput queue which will be acknowledged by the mediator thread. */
     @Override
     public void run() {
         try {
@@ -32,6 +39,7 @@ public class DataProcessing implements Runnable {
         }
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response validatePassport(byte[] issuerString) {
         try {
             Thread.sleep(1000);
@@ -48,6 +56,7 @@ public class DataProcessing implements Runnable {
 
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response verifyPassportWithFacial(byte[] passport, byte[] facialData) {
         try {
             Thread.sleep(1000);
@@ -61,6 +70,7 @@ public class DataProcessing implements Runnable {
         return Utility.createOkResponse();
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response verifyPassportWithThumbprint(byte[] passport, byte[] thumbprintData) {
         try {
             Thread.sleep(1000);
@@ -74,6 +84,7 @@ public class DataProcessing implements Runnable {
         return Utility.createOkResponse();
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response uploadData(Passport passport) {
         try {
             Thread.sleep(3000);

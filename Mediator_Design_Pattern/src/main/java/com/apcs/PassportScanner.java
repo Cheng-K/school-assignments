@@ -3,6 +3,9 @@ package com.apcs;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TransferQueue;
 
+/*Description : PassportScanner is one of the subcomponents of the simulated system. It is a thread that performs
+ * passport scanning operations. All operations are represented as a method in this class.
+ * */
 public class PassportScanner implements Runnable {
     private final TransferQueue<Callable<Response>> instructionsQueue;
     private final TransferQueue<Response> resultOutput;
@@ -12,6 +15,9 @@ public class PassportScanner implements Runnable {
         this.resultOutput = resultOutput;
     }
 
+    /* Description : This run method will retrieve and execute the instructions received .
+     *  Instructions are in the form of callable and the output from the instructions will be inserted into the
+     *  resultOutput queue which will be acknowledged by the mediator thread */
     @Override
     public void run() {
         try {
@@ -28,6 +34,7 @@ public class PassportScanner implements Runnable {
         }
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response getPassportData(Passport passport) {
         try {
             Thread.sleep(1500);
@@ -38,6 +45,7 @@ public class PassportScanner implements Runnable {
         return Utility.createOkResponse(passport.getData());
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response getPassportIssuer(Passport passport) {
         try {
             Thread.sleep(1500);

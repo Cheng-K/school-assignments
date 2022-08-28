@@ -3,6 +3,9 @@ package com.apcs;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TransferQueue;
 
+/* Description : This class is one of the subcomponents of the simulated system. It is a thread that performs controls
+ * the entry and exit gate of the platform. All operations are represented as a method in this class. */
+
 public class GateControl implements Runnable {
     private final TransferQueue<Callable<Response>> instructionsQueue;
     private final TransferQueue<Response> resultOutput;
@@ -12,6 +15,9 @@ public class GateControl implements Runnable {
         this.resultOutput = resultOutput;
     }
 
+    /* Description : This run method will retrieve and execute the instructions received .
+     *  Instructions are in the form of callable and the output from the instructions will be inserted into the
+     *  resultOutput queue which will be acknowledged by the mediator thread. */
     @Override
     public void run() {
         try {
@@ -28,6 +34,7 @@ public class GateControl implements Runnable {
         }
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response openEntry() {
         try {
             Thread.sleep(1000);
@@ -37,6 +44,7 @@ public class GateControl implements Runnable {
         return Utility.createOkResponse();
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response closeEntry() {
         try {
             Thread.sleep(1000);
@@ -46,6 +54,7 @@ public class GateControl implements Runnable {
         return Utility.createOkResponse();
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response openExit() {
         try {
             Thread.sleep(1000);
@@ -55,6 +64,7 @@ public class GateControl implements Runnable {
         return Utility.createOkResponse();
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response closeExit() {
         try {
             Thread.sleep(1000);

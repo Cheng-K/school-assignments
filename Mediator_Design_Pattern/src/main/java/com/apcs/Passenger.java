@@ -1,5 +1,9 @@
 package com.apcs;
 
+/*Description : The Passenger class is an abstract class that contains all necessary methods that will be needed by
+ * the simulated system. Concrete implementations will be needed. It is made as an abstract class to allow flexibility
+ * and variations in the actual passengers implemented.
+ * */
 public abstract class Passenger {
     private Passport passport;
     private String name;
@@ -59,6 +63,9 @@ public abstract class Passenger {
 
 }
 
+/* Description: A simple implementation of the abstract passenger class. This passenger behaves normally as expected for
+ * the entire simulation.
+ * */
 class NormalPassenger extends Passenger {
     public NormalPassenger(String name) {
         super();

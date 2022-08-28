@@ -3,6 +3,11 @@ package com.apcs;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/* Description : This class is the entry point of the simulated automated passport control system and should be
+ *  instantiated to run this simulation. In the simulation, this class is a mediator thread that manage all the
+ *  communications between threads and send instructions to the threads for them to execute. Instructions are sent as
+ *  callable. This thread is also the entry point for a passenger first use the simulated system. */
+
 public class AutomatedPassportControlSystem implements Runnable {
     public final AtomicBoolean isRunning = new AtomicBoolean(true);
     // -------- Communication Channels to subcomponents -------------------------
@@ -56,6 +61,11 @@ public class AutomatedPassportControlSystem implements Runnable {
 
     }
 
+    /* Description : This run method will first schedule all the sub threads to run at a fixed delay so that all the
+     *  sub threads are ready for next operation after completing an operation. Since it is a mediator thread, it will
+     *  manage the overall process of the handling a passenger by sending instructions to all the sub threads and
+     *  process their responses. The thread dies when the simulated system is not running
+     *  (no more new passengers generated) and the passenger queue is empty. */
     @Override
     public void run() {
         // Schedule all relevant threads to run
@@ -66,11 +76,11 @@ public class AutomatedPassportControlSystem implements Runnable {
         threadPool.scheduleWithFixedDelay(dataProcessingThread, 0, 10, TimeUnit.MILLISECONDS);
         threadPool.scheduleWithFixedDelay(passportScannerThread, 0, 10, TimeUnit.MILLISECONDS);
 
-
+        // Keep running if the system is still running or the passenger queue size is not empty
         while (isRunning.get() || passengerQueue.size() > 0) {
             final Passenger currentPassenger;
             Response res;
-
+            // Below is the entire flow of a passenger using the system.
             try {
                 currentPassenger = passengerQueue.take();
                 currentPassenger.scanPassport();
@@ -162,6 +172,7 @@ public class AutomatedPassportControlSystem implements Runnable {
                 e.printStackTrace();
             }
         }
+        // shutdown all threads, the system simulated is closed.
         threadPool.shutdownNow();
 
     }

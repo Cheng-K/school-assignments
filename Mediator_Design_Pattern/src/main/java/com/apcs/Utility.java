@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 
-
+/* Description : The Utility class contains utility methods that provide abstraction to the underlying logic */
 public class Utility {
     public static Response createOkResponse() {
         return new Response(Response.STATUS.OK, new byte[]{});
@@ -38,6 +38,13 @@ public class Utility {
     }
 }
 
+/* Description : Response instances are used in conjunction with operations performed by each thread. It is used to
+ * transmit the details of the operations to the receiver. This includes :
+ * status -- to indicate whether the operation is successful or failed
+ * data -- some operation might produce data that is necessary for receiver
+ * errorObj -- operation that failed might attach an errorObj so that receiver can determine the source of error
+ * currentPassenger -- to indicate the passenger processed
+ * */
 class Response {
     enum STATUS {
         OK, FAILED
@@ -72,6 +79,9 @@ class Response {
     }
 }
 
+/* Description : This class contains all the logic in creating a signature engine that can sign and verify signature of
+ *  signed objects. This class also contains all the logic in creating ciphers that can decrypt and encrypt data.
+ * */
 class Security {
     private static Cipher encryptionCipher;
     private static Cipher decryptionCipher;
@@ -82,6 +92,7 @@ class Security {
 
     private static Signature signatureEngine;
 
+    // Initialization block for encryption and decryption algorithms and a secret key for the cipher
     static {
         encryptDecryptAlg = "DES";
         String secretKey = "RTS-Assignment-2205-055620";
@@ -98,6 +109,7 @@ class Security {
         }
     }
 
+    // Initialization block for the signature algorithm and keys for signing and verification.
     static {
         String signatureAlg = "DSA";
         KeyPairGenerator keyPairGenerator;
