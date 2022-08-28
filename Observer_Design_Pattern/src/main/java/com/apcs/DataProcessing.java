@@ -13,6 +13,10 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TransferQueue;
 import java.util.function.Consumer;
 
+/* Description : This class is one of the subcomponents of the simulated system. It is a thread that performs data
+ *  processing such as passport validation, verification, and data uploading. All operations are represented as a
+ *  method in this class. */
+
 public class DataProcessing implements Runnable, Observable, Observer {
     private final HashMap<String, List<Observer>> subscribers;
     private final HashMap<String, Callable<Consumer<Response>>> eventsResponses;
@@ -139,6 +143,8 @@ public class DataProcessing implements Runnable, Observable, Observer {
 
     }
 
+    /* Description : This run method will retrieve the responses received and fetch and execute the correct event
+     *  response to the event. Event responses are stored in a consumer function wrapped in a callable. */
     @Override
     public void run() {
         // wait for events
@@ -159,6 +165,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
         }
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response validatePassport(byte[] issuerString) {
         try {
             Thread.sleep(1000);
@@ -175,6 +182,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
 
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response verifyPassportWithFacial(byte[] passport, byte[] facialData) {
         try {
             Thread.sleep(1000);
@@ -188,6 +196,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
         return Utility.createOkResponse(DataProcessing.verifiedPassenger);
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response verifyPassportWithThumbprint(byte[] passport, byte[] thumbprintData) {
         try {
             Thread.sleep(1000);
@@ -201,6 +210,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
         return Utility.createOkResponse(DataProcessing.verifiedPassenger);
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response uploadData(Passport passport) {
         try {
             Thread.sleep(3000);
@@ -221,7 +231,7 @@ public class DataProcessing implements Runnable, Observable, Observer {
     public void sendEvent(Response res) {
         try {
             if (!eventsReceived.tryTransfer(res, 60, TimeUnit.SECONDS)) {
-                throw new RuntimeException("Message is not acknowledged by " + this + " after waiting for 1 second");
+                throw new RuntimeException("Message is not acknowledged by " + this + " after waiting for 60 second");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

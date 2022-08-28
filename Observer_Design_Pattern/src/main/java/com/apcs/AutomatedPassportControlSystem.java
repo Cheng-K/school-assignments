@@ -7,6 +7,10 @@ import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
+/* Description : This class is the entry point of the simulated automated passport control system and should be
+ *  instantiated to run this simulation. In the simulation, this class has a thread that emits an event to other threads
+ *  whenever a passenger first use the system.*/
+
 public class AutomatedPassportControlSystem implements Runnable, Observable, Observer {
     public final AtomicBoolean isRunning;
     public final ScheduledExecutorService threadPool;
@@ -53,6 +57,7 @@ public class AutomatedPassportControlSystem implements Runnable, Observable, Obs
                         subscriber.sendEvent(result);
                     }
                 } else {
+                    // shutdown all threads, the system simulated is closed.
                     threadPool.shutdownNow();
                 }
             };
@@ -65,7 +70,7 @@ public class AutomatedPassportControlSystem implements Runnable, Observable, Obs
         personDetectionThread = new PersonDetection();
         facialScannerThread = new FacialScanner();
 
-        // Event flow
+        // Registering all the observers for each thread for the simulation
         this.addObserver(AutomatedPassportControlSystem.addedNewPassenger, passportScannerThread);
         passportScannerThread.addObserver(PassportScanner.getIssuer, dataProcessingThread);
         dataProcessingThread.addObserver(DataProcessing.validatedPassport, gateControlThread);
@@ -84,6 +89,8 @@ public class AutomatedPassportControlSystem implements Runnable, Observable, Obs
 
     }
 
+    /* Description : This run method will retrieve the responses received and fetch and execute the correct event
+     *  response to the event. Event responses are stored in a consumer function wrapped in a callable. */
     @Override
     public void run() {
         try {
@@ -100,6 +107,7 @@ public class AutomatedPassportControlSystem implements Runnable, Observable, Obs
         }
     }
 
+    /* Description : This function is called to officially start the system and simulation */
     public void start() throws InterruptedException {
         // Schedule all relevant threads to run
         threadPool.scheduleWithFixedDelay(this, 0, 10, TimeUnit.MILLISECONDS);
@@ -110,7 +118,7 @@ public class AutomatedPassportControlSystem implements Runnable, Observable, Obs
         threadPool.scheduleWithFixedDelay(facialScannerThread, 0, 10, TimeUnit.MILLISECONDS);
         threadPool.scheduleWithFixedDelay(thumbprintScannerThread, 0, 10, TimeUnit.MILLISECONDS);
 
-        // bootstrap for first events
+        // bootstrap for first passenger
         Response res = Utility.createOkResponse(AutomatedPassportControlSystem.addedNewPassenger);
         res.setCurrentPassenger(passengerQueue.poll(1, TimeUnit.MINUTES));
 
@@ -138,7 +146,7 @@ public class AutomatedPassportControlSystem implements Runnable, Observable, Obs
     public void sendEvent(Response res) {
         try {
             if (!eventsReceived.tryTransfer(res, 60, TimeUnit.SECONDS)) {
-                throw new RuntimeException("Message is not acknowledged by " + this + " after waiting for 1 second");
+                throw new RuntimeException("Message is not acknowledged by " + this + " after waiting for 60 second");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

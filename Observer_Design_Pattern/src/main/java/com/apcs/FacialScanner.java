@@ -10,6 +10,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TransferQueue;
 import java.util.function.Consumer;
 
+/* Description : This class is one of the subcomponents of the simulated system. It is a thread that performs facial
+ * scanning of passengers. All operations are represented as a method in this class. */
+
 class FacialScanner implements Runnable, Observable, Observer {
 
     private final HashMap<String, List<Observer>> subscribers;
@@ -41,6 +44,8 @@ class FacialScanner implements Runnable, Observable, Observer {
         });
     }
 
+    /* Description : This run method will retrieve the responses received and fetch and execute the correct event
+     *  response to the event. Event responses are stored in a consumer function wrapped in a callable. */
     @Override
     public void run() {
         // wait for events
@@ -59,6 +64,7 @@ class FacialScanner implements Runnable, Observable, Observer {
         }
     }
 
+    /* Description : One of the simulated operation by this thread. All operations return a custom Response object */
     public Response getFacialData(Passenger passenger) {
         try {
             Thread.sleep(1500);
@@ -80,7 +86,7 @@ class FacialScanner implements Runnable, Observable, Observer {
     public void sendEvent(Response res) {
         try {
             if (!eventsReceived.tryTransfer(res, 60, TimeUnit.SECONDS)) {
-                throw new RuntimeException("Message is not acknowledged by " + this + " after waiting for 1 second");
+                throw new RuntimeException("Message is not acknowledged by " + this + " after waiting for 60 second");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);

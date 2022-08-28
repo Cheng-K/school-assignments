@@ -2,8 +2,16 @@ package com.apcs;
 
 import java.util.concurrent.TimeUnit;
 
-public class VisualVMProfiler {
-    public static void startAPCSObserverProfiling () {
+/* Author : Ong Cheng Kei TP055620
+ *  Intake : UC3F2205CS(DA)
+ *  Module : CT087-3-3-RTS-Real Time Systems
+ *  Description : This file contains the main method that starts the simulation. The awaitTermination is necessary
+ *  to pause the main method while the underlying threads of APCS execute. Feel free to change the timeout according
+ *  to the number of passengers simulated.
+ * */
+
+public class Main {
+    public static void startAPCSProfiling() {
         AutomatedPassportControlSystem apcs = new AutomatedPassportControlSystem();
         Thread passengerGenerator = new Thread(new PassengerFactory(apcs, 50));
         passengerGenerator.start();
@@ -18,7 +26,7 @@ public class VisualVMProfiler {
     }
 
     public static void main(String[] args) {
-        startAPCSObserverProfiling();
+        startAPCSProfiling();
     }
 
 }

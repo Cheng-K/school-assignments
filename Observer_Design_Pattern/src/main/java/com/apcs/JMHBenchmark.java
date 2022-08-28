@@ -8,6 +8,8 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+/* Description : This class contains main method that starts micro-benchmarking the simulations with JMH.*/
+
 public class JMHBenchmark {
     @Benchmark
     @Fork(1)
