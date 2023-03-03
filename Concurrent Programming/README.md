@@ -7,7 +7,7 @@
 - [Overview](#overview)
 - [Problem Statement](#problem-statement)
 - [Scenario Modelling](#scenario-modelling)
-- [Documentation & Screenshots](#documentation--screenshots-of-program)
+- [Documentation & Report](#documentation--report)
 
 
 ## Overview
